@@ -1,1 +1,1 @@
-export { humanFileSize } from './humanfilesize'
+export { formatFileSize } from './humanfilesize'

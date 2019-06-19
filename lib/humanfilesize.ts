@@ -5,7 +5,7 @@ declare var OC: OC16to17;
 
 const humanList = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-export function humanFileSize(size: number, skipSmallSizes: boolean = false) {
+export function formatFileSize(size: number, skipSmallSizes: boolean = false): string {
 
 	// Calculate Log with base 1024: size = 1024 ** order
 	let order = size > 0 ? Math.floor(Math.log(size) / Math.log(1024)) : 0;
