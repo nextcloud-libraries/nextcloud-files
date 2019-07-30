@@ -25,7 +25,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "browserslist-config-nextcloud": "0.0.1",
-    "nextcloud-typings": "0.0.6",
+    "nextcloud-typings": "0.0.8",
     "typescript": "^3.5.2"
   },
   "browserslist": [
