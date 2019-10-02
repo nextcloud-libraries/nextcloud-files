@@ -1,5 +1,5 @@
 {
-  "name": "nextcloud-files",
+  "name": "@nextcloud/files",
   "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
@@ -16,17 +16,17 @@
   "author": "Christoph Wurst",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "core-js": "^3.1.4"
+    "core-js": "3.1.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/preset-typescript": "7.3.3",
+    "@nextcloud/typings": "0.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
     "browserslist-config-nextcloud": "0.0.1",
-    "nextcloud-typings": "0.0.10",
-    "typescript": "^3.5.2"
+    "typescript": "3.5.2"
   },
   "browserslist": [
     "extends browserslist-config-nextcloud"
