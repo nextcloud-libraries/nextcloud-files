@@ -16,7 +16,7 @@
   "author": "Christoph Wurst",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "core-js": "3.3.1"
+    "core-js": "3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "7.6.4",
