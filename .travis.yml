@@ -6,7 +6,6 @@ branches:
   - /^v\d++(\.\d+)?+(\.\d+)?+(\.\d+)?$/
 script:
   - npm run build
-  - npm run test
   - npm run build:doc
 deploy:
   provider: pages
