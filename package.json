@@ -28,7 +28,7 @@
     "@nextcloud/typings": "0.1.4",
     "babel-plugin-transform-class-properties": "6.24.1",
     "typedoc": "^0.15.5",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
