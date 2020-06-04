@@ -1,6 +1,4 @@
-/// <reference types="@nextcloud/typings" />
-
-declare var OC: Nextcloud.v16.OC | Nextcloud.v17.OC;
+import { getCanonicalLocale } from '@nextcloud/l10n'
 
 const humanList = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -24,7 +22,7 @@ export function formatFileSize(size: number, skipSmallSizes: boolean = false): s
 	} else if (relativeSize.substr(relativeSize.length - 2, 2) === '.0') {
 		relativeSize = relativeSize.substr(0, relativeSize.length - 2);
 	} else {
-		relativeSize = parseFloat(relativeSize).toLocaleString(OC.getCanonicalLocale());
+		relativeSize = parseFloat(relativeSize).toLocaleString(getCanonicalLocale());
 	}
 	return relativeSize + ' ' + readableFormat;
 }
