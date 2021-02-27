@@ -26,7 +26,7 @@
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-typescript": "^7.8.3",
-    "@nextcloud/browserslist-config": "^1.0.0",
+    "@nextcloud/browserslist-config": "^2.0.0",
     "babel-jest": "^26.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "jest": "^26.0.1",
