@@ -1,4 +1,4 @@
-import { getCanonicalLocale } from '@nextcloud/l10n'
+import { getLanguage } from '@nextcloud/l10n'
 
 const humanList = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -22,7 +22,7 @@ export function formatFileSize(size: number, skipSmallSizes: boolean = false): s
 	} else if (relativeSize.substr(relativeSize.length - 2, 2) === '.0') {
 		relativeSize = relativeSize.substr(0, relativeSize.length - 2);
 	} else {
-		relativeSize = parseFloat(relativeSize).toLocaleString(getCanonicalLocale());
+		relativeSize = parseFloat(relativeSize).toLocaleString(getLanguage());
 	}
 	return relativeSize + ' ' + readableFormat;
 }
