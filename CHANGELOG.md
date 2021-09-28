@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.0 – 2021-09-28
+### Changed
+- Dependency updates
+
 ## 2.0.0 – 2021-04-07
 ### Changed
 - Browserslist config updated, which means some older browsers are not supported anymore
