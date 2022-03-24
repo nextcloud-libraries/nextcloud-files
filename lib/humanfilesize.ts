@@ -19,8 +19,8 @@ export function formatFileSize(size: number, skipSmallSizes: boolean = false): s
 	}
 	if (order < 2) {
 		relativeSize = parseFloat(relativeSize).toFixed(0);
-	} else if (relativeSize.substr(relativeSize.length - 2, 2) === '.0') {
-		relativeSize = relativeSize.substr(0, relativeSize.length - 2);
+	} else if (relativeSize.slice(-2) === '.0') {
+		relativeSize = relativeSize.slice(0, -2);
 	} else {
 		relativeSize = parseFloat(relativeSize).toLocaleString(getCanonicalLocale());
 	}
