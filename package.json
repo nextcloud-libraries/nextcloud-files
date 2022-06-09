@@ -1,39 +1,71 @@
 {
   "name": "@nextcloud/files",
-  "version": "2.1.0",
-  "description": "",
+  "version": "3.0.0",
+  "description": "Nextcloud files utils",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "babel ./lib --out-dir dist --extensions '.ts,.tsx' --source-maps && tsc --emitDeclarationOnly",
-    "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
-    "check-types": "tsc",
-    "dev": "babel ./lib --out-dir dist --extensions '.ts,.tsx' --watch",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    }
   },
-  "keywords": [
-    "nextcloud"
+  "files": [
+    "dist"
   ],
-  "author": "Christoph Wurst",
-  "license": "GPL-3.0-or-later",
-  "dependencies": {
-    "@nextcloud/l10n": "^1.3.0",
-    "core-js": "^3.6.4"
+  "author": "Christoph Wurst <christoph@winzerhof-wurst.at>",
+  "contributors": [
+    "John Molakvoæ <skjnldsv@protonmail.com>"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "nextcloud",
+    "files",
+    "library"
+  ],
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
+    "dev": "echo 'No dev build available, production only' && npm run build",
+    "watch": "rollup --config rollup.config.js --watch",
+    "test": "jest",
+    "test:watch": "jest --watchAll --verbose true",
+    "test:coverage": "jest --coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextcloud/nextcloud-files.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nextcloud/nextcloud-files/issues"
+  },
+  "engines": {
+    "node": "^14.0.0",
+    "npm": "^7.0.0"
+  },
+  "homepage": "https://github.com/nextcloud/nextcloud-files",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-typescript": "^7.8.3",
-    "@nextcloud/browserslist-config": "^2.0.0",
-    "babel-jest": "^27.0.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "jest": "^27.0.4",
-    "typedoc": "^0.22.4",
-    "typescript": "^4.0"
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
+    "@rollup-extras/plugin-clean": "^1.2.3",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
+    "rollup": "^2.75.6",
+    "ts-jest": "^28.0.4",
+    "tslib": "^2.4.0",
+    "typedoc": "^0.22.17",
+    "typescript": "^4.7.3"
   },
-  "browserslist": [
-    "extends @nextcloud/browserslist-config"
-  ]
+  "dependencies": {
+    "@nextcloud/auth": "^1.3.0",
+    "@nextcloud/l10n": "^1.6.0",
+    "@nextcloud/logger": "^2.1.0"
+  }
 }

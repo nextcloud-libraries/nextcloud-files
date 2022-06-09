@@ -2,7 +2,6 @@
  * @copyright 2019 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
  * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author John Molakvoæ <skjnldsv@protonmail.com>
  *
  * @license AGPL-3.0-or-later
  *
@@ -21,28 +20,19 @@
  *
  */
 
-export { formatFileSize } from './humanfilesize'
-export { FileType } from './newFileMenu'
-import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
+import { getCurrentUser } from '@nextcloud/auth'
+import { getLoggerBuilder } from '@nextcloud/logger'
 
-declare global {
-	interface Window {
-		OC: any;
-		_nc_newfilemenu: NewFileMenu;
+const getLogger = user => {
+	if (user === null) {
+		return getLoggerBuilder()
+			.setApp('files')
+			.build()
 	}
+	return getLoggerBuilder()
+		.setApp('files')
+		.setUid(user.uid)
+		.build()
 }
 
-export const addNewFileMenuEntry = function(entry: Entry) {
-	const newFileMenu = getNewFileMenu()
-	return newFileMenu.registerEntry(entry)
-}
-
-export const removeNewFileMenuEntry = function(entry: Entry | string) {
-	const newFileMenu = getNewFileMenu()
-	return newFileMenu.unregisterEntry(entry)
-}
-
-export const getNewFileMenuEntries = function() {
-	const newFileMenu = getNewFileMenu()
-	return newFileMenu.getEntries()
-}
+export default getLogger(getCurrentUser())
