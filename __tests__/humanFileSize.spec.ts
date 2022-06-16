@@ -1,23 +1,16 @@
 import { formatFileSize } from '../lib/humanfilesize'
 
+declare global {
+	interface Window {
+		OC: any;
+	}
+}
+
+jest.mock
+
 describe('humanFileSize', () => {
-
     describe('formatFileSize', () => {
-
-        let locale
-
-        beforeEach(() => {
-            locale = 'en'
-            window.OC = {
-                getLocale: () => locale,
-            }
-        })
-
-        afterEach(() => {
-            delete window.OC
-        })
-
-        it('renders file sizes with the correct unit', function () {
+        it('renders file sizes with the correct unit', function() {
             const data = [
                 [0, '0 B'],
                 ["0", '0 B'],
@@ -29,10 +22,11 @@ describe('humanFileSize', () => {
                 [128000000000000, '116.4 TB']
             ]
             for (var i = 0; i < data.length; i++) {
-                expect(formatFileSize(data[i][0])).toEqual(data[i][1]);
+                expect(formatFileSize(data[i][0])).toEqual(data[i][1])
             }
-        });
-        it('renders file sizes with the correct unit for small sizes', function () {
+        })
+
+        it('renders file sizes with the correct unit for small sizes', function() {
             var data = [
                 [0, '0 KB'],
                 [125, '< 1 KB'],
@@ -42,11 +36,12 @@ describe('humanFileSize', () => {
                 [128000000000000, '116.4 TB']
             ]
             for (var i = 0; i < data.length; i++) {
-                expect(formatFileSize(data[i][0], true)).toEqual(data[i][1]);
+                expect(formatFileSize(data[i][0], true)).toEqual(data[i][1])
             }
-        });
-        it('renders file sizes with the correct locale', function () {
-            locale = 'de'
+        })
+
+        it('renders file sizes with the correct locale', function() {
+            document.documentElement.dataset.locale = 'de'
             const data = [
                 [0, '0 B'],
                 ["0", '0 B'],
@@ -58,7 +53,7 @@ describe('humanFileSize', () => {
                 [128000000000000, '116,4 TB']
             ]
             for (var i = 0; i < data.length; i++) {
-                expect(formatFileSize(data[i][0])).toEqual(data[i][1]);
+                expect(formatFileSize(data[i][0])).toEqual(data[i][1])
             }
         })
     })
