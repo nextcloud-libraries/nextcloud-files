@@ -25,6 +25,12 @@ import { getCanonicalLocale } from '@nextcloud/l10n'
 
 const humanList = ['B', 'KB', 'MB', 'GB', 'TB'];
 
+/**
+ * Format a file size in a human-like format. e.g. 42GB
+ *
+ * @param size in bytes
+ * @param skipSmallSizes avoid rendering tiny sizes and return '< 1 KB' instead
+ */
 export function formatFileSize(size: number|string, skipSmallSizes: boolean = false): string {
 
 	if (typeof size === 'string') {

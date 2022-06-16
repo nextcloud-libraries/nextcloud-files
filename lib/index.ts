@@ -22,7 +22,7 @@
  */
 
 export { formatFileSize } from './humanfilesize'
-export { FileType } from './newFileMenu'
+export { FileType, type Entry } from './newFileMenu'
 import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 
 declare global {
@@ -32,16 +32,25 @@ declare global {
 	}
 }
 
+/**
+ * Add a new menu entry to the upload manager menu
+ */
 export const addNewFileMenuEntry = function(entry: Entry) {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.registerEntry(entry)
 }
 
+/**
+ * Remove a previously registered entry from the upload menu
+ */
 export const removeNewFileMenuEntry = function(entry: Entry | string) {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.unregisterEntry(entry)
 }
 
+/**
+ * Get the list of registered entries from the upload menu
+ */
 export const getNewFileMenuEntries = function() {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.getEntries()

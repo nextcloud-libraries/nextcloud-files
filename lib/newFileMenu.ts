@@ -28,13 +28,22 @@ export enum FileType {
 }
 
 export interface Entry {
+	/** Unique ID */
 	id: string
+	/** Translatable string displayed in the menu */
 	displayName: string
+	// Default new file name
 	templateName: string
+	/**
+	 * Either iconSvgInline or iconClass must be defined
+	 * Svg as inline string. <svg><path fill="..." /></svg>
+	 */
 	iconSvgInline?: string
+	/** Existing icon css class */
 	iconClass?: string
 	fileType: FileType
-	handler: Function
+	/** Function to be run after creation */
+	handler?: Function
 }
 
 export class NewFileMenu {
