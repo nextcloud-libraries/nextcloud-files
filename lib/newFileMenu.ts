@@ -22,11 +22,6 @@
 
 import logger from "./utils/logger"
 
-export enum FileType {
-	FILE = 'file',
-	FOLDER = 'folder',
-}
-
 export interface Entry {
 	/** Unique ID */
 	id: string
@@ -34,6 +29,8 @@ export interface Entry {
 	displayName: string
 	// Default new file name
 	templateName: string
+	// Condition wether this entry is shown or not
+	if?: (context: Object) => Boolean
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
@@ -41,7 +38,6 @@ export interface Entry {
 	iconSvgInline?: string
 	/** Existing icon css class */
 	iconClass?: string
-	fileType: FileType
 	/** Function to be run after creation */
 	handler?: Function
 }
@@ -67,7 +63,16 @@ export class NewFileMenu {
 		this._entries.splice(entryIndex, 1)
 	}
 	
-	public getEntries(): Array<Entry> {
+	/**
+	 * Get the list of registered entries
+	 * 
+	 * @param {FileInfo} context the creation context. Usually the current folder FileInfo
+	 */
+	public getEntries(context?: Object): Array<Entry> {
+		if (context) {
+			return this._entries
+				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
+		}
 		return this._entries
 	}
 
@@ -76,7 +81,7 @@ export class NewFileMenu {
 	}
 
 	private validateEntry(entry: Entry) {
-		if (!entry.id || !entry.displayName || !entry.templateName || !(entry.iconSvgInline || entry.iconClass) || !entry.fileType || !entry.handler) {
+		if (!entry.id || !entry.displayName || !entry.templateName || !(entry.iconSvgInline || entry.iconClass) ||!entry.handler) {
 			throw new Error('Invalid entry')
 		}
 
@@ -88,9 +93,8 @@ export class NewFileMenu {
 			throw new Error('Invalid entry')
 		}
 
-		if (typeof entry.fileType !== 'string'
-			|| !(entry.fileType === FileType.FILE || entry.fileType === FileType.FOLDER)) {
-			throw new Error('Invalid entry fileType')
+		if (entry.if !== undefined && typeof entry.if !== 'function') {
+			throw new Error('Invalid entry, if must be a valid function')
 		}
 
 		if (typeof entry.handler !== 'function') {
