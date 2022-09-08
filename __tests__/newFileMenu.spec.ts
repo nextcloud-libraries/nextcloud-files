@@ -1,4 +1,4 @@
-import { NewFileMenu, getNewFileMenu, FileType, type Entry } from '../lib/newFileMenu'
+import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger';
 
 declare global {
@@ -34,7 +34,6 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry)
@@ -51,7 +50,6 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry1)
@@ -64,7 +62,6 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create new image',
 			templateName: 'New drawing.png',
 			iconClass: 'icon-filetype-image',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry2)
@@ -77,7 +74,6 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'New folder',
 			templateName: 'New folder',
 			iconClass: 'icon-folder',
-			fileType: 'folder' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry3)
@@ -93,7 +89,6 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry)
@@ -122,7 +117,6 @@ describe('NewFileMenu addEntry', () => {
 				displayName: 123456,
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				fileType: 'file' as FileType,
 				handler: () => {}
 			} as unknown as Entry)
 		}).toThrowError('Invalid entry')
@@ -133,10 +127,10 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				fileType: 'image' as FileType,
+				if: false,
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry fileType')
+		}).toThrowError('Invalid entry, if must be a valid function')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -144,7 +138,6 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				fileType: 'folder' as FileType,
 				handler: 'handler'
 			} as unknown as Entry)
 		}).toThrowError('Invalid entry handler')
@@ -159,7 +152,6 @@ describe('NewFileMenu removeEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry)
@@ -179,7 +171,6 @@ describe('NewFileMenu removeEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			fileType: 'file' as FileType,
 			handler: () => {}
 		}
 		newFileMenu.registerEntry(entry)
@@ -199,5 +190,138 @@ describe('NewFileMenu removeEntry', () => {
 
 		expect(newFileMenu.getEntries()).toHaveLength(0)
 		expect(logger.warn).toHaveBeenCalled()
+	})
+})
+
+describe('NewFileMenu getEntries filter', () => {
+	test('Filter no entries', () => {
+		const newFileMenu = new NewFileMenu()
+		const entry1 = {
+			id: 'empty-file',
+			displayName: 'Create empty file',
+			templateName: 'New file',
+			iconClass: 'icon-file',
+			if: fileInfo => fileInfo.permissions.includes('CK'),
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry1)
+
+		const entry2 = {
+			id: 'empty-text-md',
+			displayName: 'Create new markdown file',
+			templateName: 'New text.md',
+			iconClass: 'icon-filetype-text',
+			if: fileInfo => fileInfo.permissions.includes('CK'),
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry2)
+
+		const context = {
+			basename:  'Folder',
+			etag: '63071eedd82fe',
+			fileid: '56',
+			filename: '/Folder',
+			hasPreview: false,
+			lastmod: 1661410576,
+			mime: 'httpd/unix-directory',
+			month: '197001',
+			permissions: 'CKGWDR',
+			showShared: false,
+			size: 2610077102,
+			timestamp: 1661410,
+			type: 'dir',
+		}
+
+		const entries = newFileMenu.getEntries(context)
+		expect(entries).toHaveLength(2)
+		expect(entries[0]).toBe(entry1)
+		expect(entries[1]).toBe(entry2)
+	})
+
+	test('Filter all entries', () => {
+		const newFileMenu = new NewFileMenu()
+		const entry1 = {
+			id: 'empty-file',
+			displayName: 'Create empty file',
+			templateName: 'New file',
+			iconClass: 'icon-file',
+			if: fileInfo => fileInfo.permissions.includes('CK'),
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry1)
+
+		const entry2 = {
+			id: 'empty-text-md',
+			displayName: 'Create new markdown file',
+			templateName: 'New text.md',
+			iconClass: 'icon-filetype-text',
+			if: fileInfo => fileInfo.permissions.includes('CK'),
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry2)
+
+		const context = {
+			basename:  'Shared folder',
+			etag: '63071eedd82fe',
+			fileid: '56',
+			filename: '/Shared folder',
+			hasPreview: false,
+			lastmod: 1661410576,
+			mime: 'httpd/unix-directory',
+			month: '197001',
+			// Only read and share
+			permissions: 'GR',
+			showShared: false,
+			size: 2610077102,
+			timestamp: 1661410,
+			type: 'dir',
+		}
+
+		const entries = newFileMenu.getEntries(context)
+		expect(entries).toHaveLength(0)
+	})
+
+	test('Filter some entries', () => {
+		const newFileMenu = new NewFileMenu()
+		const entry1 = {
+			id: 'empty-file',
+			displayName: 'Create template',
+			templateName: 'New file',
+			iconClass: 'icon-file',
+			// No conditions
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry1)
+
+		const entry2 = {
+			id: 'empty-text-md',
+			displayName: 'Create new markdown file',
+			templateName: 'New text.md',
+			iconClass: 'icon-filetype-text',
+			if: fileInfo => fileInfo.permissions.includes('CK'),
+			handler: () => {}
+		}
+		newFileMenu.registerEntry(entry2)
+
+		const context = {
+			basename:  'Shared folder',
+			etag: '63071eedd82fe',
+			fileid: '56',
+			filename: '/Shared folder',
+			hasPreview: false,
+			lastmod: 1661410576,
+			mime: 'httpd/unix-directory',
+			month: '197001',
+			// Only read and share
+			permissions: 'GR',
+			showShared: false,
+			size: 2610077102,
+			timestamp: 1661410,
+			type: 'dir',
+		}
+
+		const entries = newFileMenu.getEntries(context)
+		expect(entries).toHaveLength(1)
+		expect(entries[0]).toBe(entry1)
 	})
 })

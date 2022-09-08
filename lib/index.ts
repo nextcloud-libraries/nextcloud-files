@@ -22,7 +22,7 @@
  */
 
 export { formatFileSize } from './humanfilesize'
-export { FileType, type Entry } from './newFileMenu'
+export { type Entry } from './newFileMenu'
 import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 
 declare global {
