@@ -50,8 +50,10 @@ export const removeNewFileMenuEntry = function(entry: Entry | string) {
 
 /**
  * Get the list of registered entries from the upload menu
+ *
+ * @param {FileInfo} context the creation context. Usually the current folder FileInfo
  */
-export const getNewFileMenuEntries = function() {
+export const getNewFileMenuEntries = function(context?: Object) {
 	const newFileMenu = getNewFileMenu()
-	return newFileMenu.getEntries()
+	return newFileMenu.getEntries(context)
 }
