@@ -90,7 +90,7 @@ export class NewFileMenu {
 			|| typeof entry.templateName !== 'string'
 			|| (entry.iconClass && typeof entry.iconClass !== 'string')
 			|| (entry.iconSvgInline && typeof entry.iconSvgInline !== 'string')) {
-			throw new Error('Invalid entry')
+			throw new Error('Invalid entry property')
 		}
 
 		if (entry.if !== undefined && typeof entry.if !== 'function') {

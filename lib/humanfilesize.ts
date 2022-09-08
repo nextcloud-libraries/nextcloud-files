@@ -43,19 +43,20 @@ export function formatFileSize(size: number|string, skipSmallSizes: boolean = fa
 	order = Math.min(humanList.length - 1, order);
 	const readableFormat = humanList[order];
 	let relativeSize = (size / Math.pow(1024, order)).toFixed(1);
+
 	if (skipSmallSizes === true && order === 0) {
-		if (relativeSize !== "0.0") {
+		if (relativeSize !== '0.0') {
 			return '< 1 KB';
 		} else {
 			return '0 KB';
 		}
 	}
+
 	if (order < 2) {
 		relativeSize = parseFloat(relativeSize).toFixed(0);
-	} else if (relativeSize.slice(-2) === '.0') {
-		relativeSize = relativeSize.slice(0, -2);
 	} else {
 		relativeSize = parseFloat(relativeSize).toLocaleString(getCanonicalLocale());
 	}
+
 	return relativeSize + ' ' + readableFormat;
 }
