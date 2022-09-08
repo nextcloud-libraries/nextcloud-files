@@ -19,7 +19,8 @@ describe('humanFileSize', () => {
                 [128000, '125 KB'],
                 [128000000, '122.1 MB'],
                 [128000000000, '119.2 GB'],
-                [128000000000000, '116.4 TB']
+                [128000000000000, '116.4 TB'],
+                [128000000000000.0, '116.4 TB'],
             ]
             for (var i = 0; i < data.length; i++) {
                 expect(formatFileSize(data[i][0])).toEqual(data[i][1])
@@ -33,7 +34,8 @@ describe('humanFileSize', () => {
                 [128000, '125 KB'],
                 [128000000, '122.1 MB'],
                 [128000000000, '119.2 GB'],
-                [128000000000000, '116.4 TB']
+                [128000000000000, '116.4 TB'],
+                [128000000000000.0, '116.4 TB'],
             ]
             for (var i = 0; i < data.length; i++) {
                 expect(formatFileSize(data[i][0], true)).toEqual(data[i][1])
@@ -50,7 +52,8 @@ describe('humanFileSize', () => {
                 [128000, '125 KB'],
                 [128000000, '122,1 MB'],
                 [128000000000, '119,2 GB'],
-                [128000000000000, '116,4 TB']
+                [128000000000000, '116,4 TB'],
+                [128000000000000.0, '116,4 TB'],
             ]
             for (var i = 0; i < data.length; i++) {
                 expect(formatFileSize(data[i][0])).toEqual(data[i][1])
