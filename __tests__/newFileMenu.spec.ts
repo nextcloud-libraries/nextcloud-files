@@ -119,7 +119,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry property')
+		}).toThrowError('Invalid id or displayName property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -129,7 +129,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry property')
+		}).toThrowError('Invalid id or displayName property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -139,7 +139,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry property')
+		}).toThrowError('Invalid templateName property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -149,7 +149,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 123456,
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry property')
+		}).toThrowError('Invalid icon provided')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -159,7 +159,7 @@ describe('NewFileMenu addEntry', () => {
 				iconSvgInline: 123456,
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry property')
+		}).toThrowError('Invalid icon provided')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -170,7 +170,7 @@ describe('NewFileMenu addEntry', () => {
 				if: true,
 				handler: () => {}
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry, if must be a valid function')
+		}).toThrowError('Invalid if property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -180,7 +180,15 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				handler: 'handler'
 			} as unknown as Entry)
-		}).toThrowError('Invalid entry handler')
+		}).toThrowError('Invalid handler property')
+
+		expect(() => {
+			newFileMenu.registerEntry({
+				id: 'empty-file',
+				displayName: '123456',
+				iconClass: 'icon-filetype-text',
+			} as unknown as Entry)
+		}).toThrowError('At least a templateName or a handler must be provided')
 	})
 })
 

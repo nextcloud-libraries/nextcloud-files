@@ -28,7 +28,7 @@ export interface Entry {
 	/** Translatable string displayed in the menu */
 	displayName: string
 	// Default new file name
-	templateName: string
+	templateName?: string
 	// Condition wether this entry is shown or not
 	if?: (context: Object) => Boolean
 	/**
@@ -81,24 +81,34 @@ export class NewFileMenu {
 	}
 
 	private validateEntry(entry: Entry) {
-		if (!entry.id || !entry.displayName || !entry.templateName || !(entry.iconSvgInline || entry.iconClass) ||!entry.handler) {
+		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass)) {
 			throw new Error('Invalid entry')
 		}
 
 		if (typeof entry.id !== 'string'
-			|| typeof entry.displayName !== 'string'
-			|| typeof entry.templateName !== 'string'
-			|| (entry.iconClass && typeof entry.iconClass !== 'string')
+			|| typeof entry.displayName !== 'string') {
+			throw new Error('Invalid id or displayName property')
+		}
+
+		if ((entry.iconClass && typeof entry.iconClass !== 'string')
 			|| (entry.iconSvgInline && typeof entry.iconSvgInline !== 'string')) {
-			throw new Error('Invalid entry property')
+			throw new Error('Invalid icon provided')
 		}
 
 		if (entry.if !== undefined && typeof entry.if !== 'function') {
-			throw new Error('Invalid entry, if must be a valid function')
+			throw new Error('Invalid if property')
 		}
 
-		if (typeof entry.handler !== 'function') {
-			throw new Error('Invalid entry handler')
+		if (entry.templateName && typeof entry.templateName !== 'string') {
+			throw new Error('Invalid templateName property')
+		}
+
+		if (entry.handler && typeof entry.handler !== 'function') {
+			throw new Error('Invalid handler property')
+		}
+
+		if (!entry.templateName && !entry.handler) {
+			throw new Error('At least a templateName or a handler must be provided')
 		}
 
 		if (this.getEntryIndex(entry.id) !== -1) {
