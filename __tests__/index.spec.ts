@@ -3,7 +3,17 @@ import {
 	addNewFileMenuEntry,
 	removeNewFileMenuEntry,
 	getNewFileMenuEntries,
+	FileType,
+	File,
+	Folder,
+	Permission,
 } from '../lib/index'
+
+import { File as FileSource } from '../lib/files/file'
+import { Folder as FolderSource } from '../lib/files/folder'
+import { Permission as PermissionSource } from '../lib/permissions'
+import { FileType as FileTypeSource } from '../lib/files/fileType'
+
 import { Entry, NewFileMenu } from '../lib/newFileMenu';
 
 declare global {
@@ -32,6 +42,26 @@ describe('Exports checks', () => {
 	test('getNewFileMenuEntries', () => {
 		expect(getNewFileMenuEntries).toBeTruthy()
 		expect(typeof getNewFileMenuEntries).toBe('function')
+	})
+
+	test('FileType', () => {
+		expect(FileType).toBeTruthy()
+		expect(typeof FileType).toBe('object')
+	})
+
+	test('Permission', () => {
+		expect(Permission).toBeTruthy()
+		expect(typeof Permission).toBe('object')
+	})
+
+	test('File', () => {
+		expect(File).toBeTruthy()
+		expect(typeof File).toBe('function')
+	})
+
+	test('Folder', () => {
+		expect(Folder).toBeTruthy()
+		expect(typeof Folder).toBe('function')
 	})
 })
 

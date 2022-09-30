@@ -25,6 +25,11 @@ export { formatFileSize } from './humanfilesize'
 export { type Entry } from './newFileMenu'
 import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 
+export { FileType } from './files/fileType'
+export { File } from './files/file'
+export { Folder } from './files/folder'
+export { Permission } from './permissions'
+
 declare global {
 	interface Window {
 		OC: any;
