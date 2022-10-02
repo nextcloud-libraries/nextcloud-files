@@ -6,8 +6,6 @@ declare global {
 	}
 }
 
-jest.mock
-
 describe('humanFileSize', () => {
     describe('formatFileSize', () => {
         it('renders file sizes with the correct unit', function() {
