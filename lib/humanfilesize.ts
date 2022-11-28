@@ -23,7 +23,7 @@
 
 import { getCanonicalLocale } from '@nextcloud/l10n'
 
-const humanList = ['B', 'KB', 'MB', 'GB', 'TB'];
+const humanList = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
 
 /**
  * Format a file size in a human-like format. e.g. 42GB
