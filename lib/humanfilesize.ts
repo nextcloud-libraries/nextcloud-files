@@ -46,9 +46,9 @@ export function formatFileSize(size: number|string, skipSmallSizes: boolean = fa
 
 	if (skipSmallSizes === true && order === 0) {
 		if (relativeSize !== '0.0') {
-			return '< 1 KB';
+			return '< 1 ' + humanList[1];
 		} else {
-			return '0 KB';
+			return '0 ' + humanList[1];
 		}
 	}
 
