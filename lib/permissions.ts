@@ -30,3 +30,31 @@ export enum Permission {
 	SHARE = 16,
 	ALL = 31,
 }
+
+/**
+ * Parse the webdav permission string to a permission enum
+ * @see https://github.com/nextcloud/server/blob/71f698649f578db19a22457cb9d420fb62c10382/lib/public/Files/DavUtil.php#L58-L88
+ */
+export const parseWebdavPermissions = function(permString: string = ''): number {
+	let permissions = Permission.NONE
+
+	if (!permString)
+		return permissions
+
+	if (permString.includes('C') || permString.includes('K'))
+		permissions |= Permission.CREATE
+
+	if (permString.includes('G'))
+		permissions |= Permission.READ
+
+	if (permString.includes('W') || permString.includes('N') || permString.includes('V'))
+		permissions |= Permission.UPDATE
+
+	if (permString.includes('D'))
+		permissions |= Permission.DELETE
+
+	if (permString.includes('R'))
+		permissions |= Permission.SHARE
+
+	return permissions
+}

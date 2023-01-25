@@ -7,6 +7,7 @@ import {
 	File,
 	Folder,
 	Permission,
+	parseWebdavPermissions,
 } from '../lib/index'
 
 import { File as FileSource } from '../lib/files/file'
@@ -52,6 +53,11 @@ describe('Exports checks', () => {
 	test('Permission', () => {
 		expect(Permission).toBeTruthy()
 		expect(typeof Permission).toBe('object')
+	})
+
+	test('parseWebdavPermissions', () => {
+		expect(parseWebdavPermissions).toBeTruthy()
+		expect(typeof parseWebdavPermissions).toBe('function')
 	})
 
 	test('File', () => {
