@@ -1,6 +1,21 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+# Changelog
+
+## 3.0.0-beta.6 - 2023-01-25
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v2.1.0...v3.0.0-beta.6)
+
+### Enhancements
+- feat\(permissions\): add webdav permissions parser [\#565](https://github.com/nextcloud/nextcloud-files/pull/565) ([skjnldsv](https://github.com/skjnldsv))
+- Add File and Folder API [\#501](https://github.com/nextcloud/nextcloud-files/pull/501) ([skjnldsv](https://github.com/skjnldsv))
+- Add context to getEntries [\#484](https://github.com/nextcloud/nextcloud-files/pull/484) ([skjnldsv](https://github.com/skjnldsv))
+- Add newFileMenu and refactor library with rollup [\#420](https://github.com/nextcloud/nextcloud-files/pull/420) ([skjnldsv](https://github.com/skjnldsv))
+- Replace deprecated String.prototype.substr\(\) [\#390](https://github.com/nextcloud/nextcloud-files/pull/390) ([CommanderRoot](https://github.com/CommanderRoot))
+
+### Fixed
+- Also use context from exposed method [\#486](https://github.com/nextcloud/nextcloud-files/pull/486) ([skjnldsv](https://github.com/skjnldsv))
 
 ## 2.1.0 – 2021-09-28
 ### Changed
