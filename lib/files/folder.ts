@@ -20,7 +20,7 @@
  *
  */
 import { FileType } from './fileType'
-import Node from './node'
+import { Node } from './node'
 import NodeData from './nodeData'
 
 export class Folder extends Node {

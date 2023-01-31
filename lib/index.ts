@@ -28,6 +28,7 @@ import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 export { FileType } from './files/fileType'
 export { File } from './files/file'
 export { Folder } from './files/folder'
+export { Node } from './files/node'
 export { Permission, parseWebdavPermissions } from './permissions'
 
 declare global {

@@ -24,7 +24,7 @@ import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import NodeData, { Attribute, validateData } from './nodeData'
 
-export default abstract class Node {
+export abstract class Node {
 	private _data: NodeData
 	private _attributes: Attribute[]
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i

@@ -20,7 +20,7 @@
  *
  */
 import { FileType } from './fileType'
-import Node from './node'
+import { Node } from './node'
 
 export class File extends Node {
 	get type(): FileType {
