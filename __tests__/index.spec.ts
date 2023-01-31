@@ -6,6 +6,7 @@ import {
 	FileType,
 	File,
 	Folder,
+	Node,
 	Permission,
 	parseWebdavPermissions,
 } from '../lib/index'
@@ -68,6 +69,11 @@ describe('Exports checks', () => {
 	test('Folder', () => {
 		expect(Folder).toBeTruthy()
 		expect(typeof Folder).toBe('function')
+	})
+
+	test('Node', () => {
+		expect(Node).toBeTruthy()
+		expect(typeof Node).toBe('function')
 	})
 })
 
