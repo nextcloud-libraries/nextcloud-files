@@ -2,7 +2,7 @@ import { Folder } from '../../lib/files/folder'
 import { FileType } from '../../lib/files/fileType'
 import { Permission } from '../../lib/permissions'
 
-describe('File creation', () => {
+describe('Folder creation', () => {
 	test('Valid dav folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
@@ -70,7 +70,7 @@ describe('File creation', () => {
 		// path checks
 		expect(folder.basename).toBe('Photos')
 		expect(folder.extension).toBeNull()
-		expect(folder.dirname).toBe('https://domain.com')
+		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBeNull()
 		expect(folder.isDavRessource).toBe(false)
 		expect(folder.permissions).toBe(Permission.READ)

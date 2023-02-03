@@ -22,7 +22,7 @@
 import { basename, extname, dirname } from 'path'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
-import NodeData, { Attribute, validateData } from './nodeData'
+import NodeData, { Attribute, isDavRessource, validateData } from './nodeData'
 
  
 export abstract class Node {
@@ -32,7 +32,7 @@ export abstract class Node {
 
 	constructor(data: NodeData, davService?: RegExp) {
 		// Validate data
-		validateData(data)
+		validateData(data, davService || this._knownDavService)
 
 		this._data = data
 	
@@ -88,8 +88,17 @@ export abstract class Node {
 	 */
 	get dirname(): string {
 		if (this.root) {
-			return dirname(this.source.split(this.root).pop() || '/')
+			// Using replace would remove all part matching root
+			const firstMatch = this.source.indexOf(this.root)
+			return dirname(this.source.slice(firstMatch + this.root.length) || '/')
 		}
+
+		// Try to parse the URL
+		try {
+			const url = new URL(this.source)
+			return dirname(url.pathname)
+		} catch (e) {}
+
 		return dirname(this.source)
 	}
 
@@ -160,7 +169,7 @@ export abstract class Node {
 	 * Is this a dav-related ressource ?
 	 */
 	get isDavRessource(): boolean {
-		return this.source.match(this._knownDavService) !== null
+		return isDavRessource(this.source, this._knownDavService)
 	}
 
 	/**
@@ -184,7 +193,12 @@ export abstract class Node {
 	/**
 	 * Get the absolute path of this object relative to the root
 	 */
-	get path(): string|null {
+	get path(): string {
+		if (this.root) {
+			// Using replace would remove all part matching root
+			const firstMatch = this.source.indexOf(this.root)
+			return this.source.slice(firstMatch + this.root.length) || '/'
+		}
 		return (this.dirname + '/' + this.basename).replace(/\/\//g, '/')
 	}
 

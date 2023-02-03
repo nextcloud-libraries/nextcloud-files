@@ -81,7 +81,7 @@ describe('File creation', () => {
 		// path checks
 		expect(file.basename).toBe('picture.jpg')
 		expect(file.extension).toBe('.jpg')
-		expect(file.dirname).toBe('https://domain.com/Photos')
+		expect(file.dirname).toBe('/Photos')
 		expect(file.root).toBeNull()
 		expect(file.isDavRessource).toBe(false)
 		expect(file.permissions).toBe(Permission.READ)
