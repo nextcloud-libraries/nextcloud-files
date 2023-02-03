@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 # Changelog
 
+## 3.0.0-beta.7 - 2023-02-03
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v3.0.0-beta.6...v3.0.0-beta.7)
+
+### Enhancements
+- feat\(node\): allow and recommend to provide a specific root [\#574](https://github.com/nextcloud/nextcloud-files/pull/574) ([skjnldsv](https://github.com/skjnldsv))
+
+### Fixed
+- fix: also export Node [\#573](https://github.com/nextcloud/nextcloud-files/pull/573) ([skjnldsv](https://github.com/skjnldsv))
+
 ## 3.0.0-beta.6 - 2023-01-25
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v2.1.0...v3.0.0-beta.6)
