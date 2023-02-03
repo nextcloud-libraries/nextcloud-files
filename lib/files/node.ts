@@ -66,8 +66,12 @@ export abstract class Node {
 
 	/**
 	 * Get the directory path leading to this object
+	 * Will use the relative path to root if available
 	 */
 	get dirname(): string {
+		if (this.root) {
+			return dirname(this.source.split(this.root).pop() || '/')
+		}
 		return dirname(this.source)
 	}
 
@@ -131,10 +135,25 @@ export abstract class Node {
 	 * Get the dav root of this object
 	 */
 	get root(): string|null {
-		if (this.isDavRessource) {
-			return this.dirname.split(this._knownDavService).pop() || null
+		// If provided (recommended), use the root and strip away the ending slash
+		if (this._data.root) {
+			return this._data.root.replace(/^(.+)\/$/, '$1')
 		}
+
+		// Use the source to get the root from the dav service
+		if (this.isDavRessource) {
+			const root = dirname(this.source)
+			return root.split(this._knownDavService).pop() || null
+		}
+
 		return null
+	}
+
+	/**
+	 * Get the absolute path of this object relative to the root
+	 */
+	get path(): string|null {
+		return (this.dirname + '/' + this.basename).replace(/\/\//g, '/')
 	}
 
 	/**
@@ -155,6 +174,6 @@ export abstract class Node {
 		if (basename.includes('/')) {
 			throw new Error('Invalid basename')
 		}
-		this.move(this.dirname + '/' + basename)
+		this.move(dirname(this.source) + '/' + basename)
 	}
 }

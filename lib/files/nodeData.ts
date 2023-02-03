@@ -28,7 +28,8 @@ export default interface NodeData {
 	/** Unique ID */
 	id?: number
 
-	/** URL to the ressource
+	/**
+	 * URL to the ressource.
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 * or https://domain.com/Photos/picture.jpg
 	 */
@@ -53,6 +54,13 @@ export default interface NodeData {
 	owner: string|null
 
 	attributes?: Attribute
+
+	/**
+	 * The absolute root of the home relative to the service.
+	 * It is highly recommended to provide that information.
+	 * e.g. /files/emma
+	 */
+	root?: string
 }
  
 /**
@@ -104,5 +112,13 @@ export const validateData = (data: NodeData) => {
 
 	if ('attributes' in data && typeof data.attributes !== 'object') {
 		throw new Error('Invalid attributes format')
+	}
+
+	if ('root' in data && typeof data.root !== 'string') {
+		throw new Error('Invalid root format')
+	}
+
+	if (data.root && !data.root.startsWith('/')) {
+		throw new Error('Root must start with a leading slash')
 	}
 }

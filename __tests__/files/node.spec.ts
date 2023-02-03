@@ -122,6 +122,21 @@ describe('Sanity checks', () => {
 			owner: true as unknown as string,
 		})).toThrowError('Invalid owner')
 	})
+
+	test('Invalid root', () => {
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: true as unknown as string,
+		})).toThrowError('Invalid root format')
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: 'https://cloud.domain.com/remote.php/dav/',
+		})).toThrowError('Root must start with a leading slash')
+	})
 })
 
 describe('Dav service detection', () => {
@@ -169,5 +184,49 @@ describe('Dav service detection', () => {
 			owner: 'emma',
 		}, /test\.php\/dav/)
 		expect(file2.isDavRessource).toBe(false)
+	})
+})
+
+
+describe('Root and paths detection', () => {
+	test('Unknown root', () => {
+		const file1 = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file1.root).toBe('/files/emma/Photos')
+		expect(file1.dirname).toBe('/')
+	})
+
+	test('Provided root dav service', () => {
+		const file1 = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+		expect(file1.root).toBe('/files/emma')
+		expect(file1.dirname).toBe('/Photos')
+	})
+
+	test('Root with ending slash is removed', () => {
+		const file1 = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/files/emma/',
+		})
+		expect(file1.root).toBe('/files/emma')
+	})
+
+	test('Root and source are the same', () => {
+		const file1 = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+		expect(file1.dirname).toBe('/')
 	})
 })
