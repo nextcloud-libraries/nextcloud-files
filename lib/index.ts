@@ -23,6 +23,7 @@
 
 export { formatFileSize } from './humanfilesize'
 export { type Entry } from './newFileMenu'
+import { FileAction } from './fileAction'
 import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 
 export { FileType } from './files/fileType'
@@ -30,11 +31,13 @@ export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node } from './files/node'
 export { Permission, parseWebdavPermissions } from './permissions'
+export { FileAction, registerFileAction, getFileActions } from './fileAction'
 
 declare global {
 	interface Window {
 		OC: any;
-		_nc_newfilemenu: NewFileMenu;
+		_nc_newfilemenu: NewFileMenu | undefined;
+		_nc_fileactions: FileAction[] | undefined;
 	}
 }
 

@@ -15,13 +15,13 @@ import { File as FileSource } from '../lib/files/file'
 import { Folder as FolderSource } from '../lib/files/folder'
 import { Permission as PermissionSource } from '../lib/permissions'
 import { FileType as FileTypeSource } from '../lib/files/fileType'
-
 import { Entry, NewFileMenu } from '../lib/newFileMenu';
+import { FileAction, registerFileAction, getFileActions } from '../lib/fileAction'
 
 declare global {
 	interface Window {
 		OC: any;
-		_nc_newfilemenu: NewFileMenu;
+		_nc_newfilemenu: NewFileMenu | undefined;
 	}
 }
 
@@ -73,6 +73,21 @@ describe('Exports checks', () => {
 
 	test('Node', () => {
 		expect(Node).toBeTruthy()
+		expect(typeof Node).toBe('function')
+	})
+
+	test('FileAction', () => {
+		expect(FileAction).toBeTruthy()
+		expect(typeof FileAction).toBe('function')
+	})
+
+	test('registerFileAction', () => {
+		expect(registerFileAction).toBeTruthy()
+		expect(typeof Node).toBe('function')
+	})
+
+	test('getFileActions', () => {
+		expect(getFileActions).toBeTruthy()
 		expect(typeof Node).toBe('function')
 	})
 })
