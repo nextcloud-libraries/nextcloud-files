@@ -157,6 +157,13 @@ export abstract class Node {
 	}
 
 	/**
+	 * Get the file id if defined in attributes
+	 */
+	get fileid(): number|undefined {
+		return this.attributes?.fileid
+	}
+
+	/**
 	 * Move the node to a new destination
 	 *
 	 * @param {string} destination the new source.

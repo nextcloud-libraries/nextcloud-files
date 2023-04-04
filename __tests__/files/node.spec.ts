@@ -29,6 +29,29 @@ describe('Node testing', () => {
 	})
 })
 
+describe('FileId attribute', () => {
+	test('FileId null fallback', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma'
+		})
+		expect(file.fileid).toBeUndefined()
+	})
+
+	test('FileId source ending slash', () => {
+		const file = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				fileid: 1234
+			}
+		})
+		expect(file.fileid).toBe(1234)
+	})
+})
+
 describe('Sanity checks', () => {
 	test('Invalid id', () => {
 		expect(() => new File({

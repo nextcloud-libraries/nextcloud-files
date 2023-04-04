@@ -4,7 +4,7 @@ import logger from '../lib/utils/logger';
 declare global {
 	interface Window {
 		OC: any;
-		_nc_newfilemenu: NewFileMenu;
+		_nc_newfilemenu: NewFileMenu | undefined;
 	}
 }
 
