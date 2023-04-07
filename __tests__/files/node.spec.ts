@@ -125,7 +125,7 @@ describe('Sanity checks', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			permissions: 324,
+			permissions: 324 as unknown as number,
 		})).toThrowError('Invalid permissions')
 	})
 
