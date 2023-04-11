@@ -24,9 +24,10 @@ import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import NodeData, { Attribute, validateData } from './nodeData'
 
+ 
 export abstract class Node {
 	private _data: NodeData
-	private _attributes: Attribute[]
+	private _attributes: Attribute
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
 	constructor(data: NodeData, davService?: RegExp) {
@@ -34,7 +35,24 @@ export abstract class Node {
 		validateData(data)
 
 		this._data = data
-		this._attributes = data.attributes || {} as any
+	
+		const handler = {
+			set: (target: Attribute, prop: string, value: any): any => {
+				// Edit modification time
+				this._data['mtime'] = new Date()
+				// Apply original changes
+				return Reflect.set(target, prop, value)
+			},
+			deleteProperty: (target: Attribute, prop: string) => {
+				// Edit modification time
+				this._data['mtime'] = new Date()
+				// Apply original changes
+				return Reflect.deleteProperty(target, prop)
+			},
+		} as ProxyHandler<any>
+
+		// Proxy the attributes to update the mtime on change
+		this._attributes = new Proxy(data.attributes || {} as any, handler)
 		delete this._data.attributes
 
 		if (davService) {
@@ -85,6 +103,20 @@ export abstract class Node {
 	 */
 	get mime(): string|undefined {
 		return this._data.mime
+	}
+
+	/**
+	 * Get the file modification time
+	 */
+	get mtime(): Date|undefined {
+		return this._data.mtime
+	}
+
+	/**
+	 * Get the file creation time
+	 */
+	get crtime(): Date|undefined {
+		return this._data.crtime
 	}
 
 	/**
@@ -171,6 +203,7 @@ export abstract class Node {
 	 */
 	move(destination: string) {
 		this._data.source = destination
+		this._data.mtime = new Date()
 	}
 
 	/**
