@@ -137,6 +137,18 @@ describe('File data change', () => {
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 	})
 
+	test('Moving a file to an invalid destination throws', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
+		})
+		expect(() => {
+			file.move('ftp://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
+		}).toThrowError('Invalid source format, only http(s) is supported')
+	})
+
 	test('Moving a file to a different folder with root', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',

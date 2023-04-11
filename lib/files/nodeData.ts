@@ -80,8 +80,14 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Missing mandatory source')
 	}
 
+	try {
+		new URL(data.source)
+	} catch (e) {
+		throw new Error('Invalid source format, source must be a valid URL')
+	}
+
 	if (!data.source.startsWith('http')) {
-		throw new Error('Invalid source format')
+		throw new Error('Invalid source format, only http(s) is supported')
 	}
 
 	if ('mtime' in data && !(data.mtime instanceof Date)) {

@@ -80,8 +80,12 @@ describe('Sanity checks', () => {
 			source: '/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma'
-		})).toThrowError('Invalid source')
-
+		})).toThrowError('Invalid source format, source must be a valid URL')
+		expect(() => new File({
+			source: 'ftp://remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma'
+		})).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
 	test('Invalid mtime', () => {

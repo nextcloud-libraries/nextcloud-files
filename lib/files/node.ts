@@ -93,13 +93,10 @@ export abstract class Node {
 			return dirname(this.source.slice(firstMatch + this.root.length) || '/')
 		}
 
-		// Try to parse the URL
-		try {
-			const url = new URL(this.source)
-			return dirname(url.pathname)
-		} catch (e) {}
-
-		return dirname(this.source)
+		// This should always be a valid URL
+		// as this is tested in the constructor
+		const url = new URL(this.source)
+		return dirname(url.pathname)
 	}
 
 	/**
@@ -216,6 +213,7 @@ export abstract class Node {
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 */
 	move(destination: string) {
+		validateData({ ...this._data, source: destination }, this._knownDavService)
 		this._data.source = destination
 		this._data.mtime = new Date()
 	}
