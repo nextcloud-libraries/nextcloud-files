@@ -20,6 +20,7 @@
  *
  */
 
+import { join } from "path"
 import { Permission } from "../permissions"
 
 export interface Attribute { [key: string]: any }
@@ -62,11 +63,15 @@ export default interface NodeData {
 	 */
 	root?: string
 }
+
+export const isDavRessource = function(source: string, davService: RegExp): boolean {
+	return source.match(davService) !== null
+}
  
 /**
  * Validate Node construct data
  */
-export const validateData = (data: NodeData) => {
+export const validateData = (data: NodeData, davService: RegExp) => {
 	if ('id' in data && (typeof data.id !== 'number' || data.id < 0)) {
 		throw new Error('Invalid id type of value')
 	}
@@ -75,8 +80,14 @@ export const validateData = (data: NodeData) => {
 		throw new Error('Missing mandatory source')
 	}
 
+	try {
+		new URL(data.source)
+	} catch (e) {
+		throw new Error('Invalid source format, source must be a valid URL')
+	}
+
 	if (!data.source.startsWith('http')) {
-		throw new Error('Invalid source format')
+		throw new Error('Invalid source format, only http(s) is supported')
 	}
 
 	if ('mtime' in data && !(data.mtime instanceof Date)) {
@@ -120,5 +131,16 @@ export const validateData = (data: NodeData) => {
 
 	if (data.root && !data.root.startsWith('/')) {
 		throw new Error('Root must start with a leading slash')
+	}
+
+	if (data.root && !data.source.includes(data.root)) {
+		throw new Error('Root must be part of the source')
+	}
+
+	if (data.root && isDavRessource(data.source, davService)) {
+		const service = data.source.match(davService)![0]
+		if (!data.source.includes(join(service, data.root))) {
+			throw new Error('The root must be relative to the service. e.g /files/emma')
+		}
 	}
 }

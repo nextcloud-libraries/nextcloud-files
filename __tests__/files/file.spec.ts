@@ -81,7 +81,7 @@ describe('File creation', () => {
 		// path checks
 		expect(file.basename).toBe('picture.jpg')
 		expect(file.extension).toBe('.jpg')
-		expect(file.dirname).toBe('https://domain.com/Photos')
+		expect(file.dirname).toBe('/Photos')
 		expect(file.root).toBeNull()
 		expect(file.isDavRessource).toBe(false)
 		expect(file.permissions).toBe(Permission.READ)
@@ -135,6 +135,18 @@ describe('File data change', () => {
 
 		// Check that mtime has been updated
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+	})
+
+	test('Moving a file to an invalid destination throws', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
+		})
+		expect(() => {
+			file.move('ftp://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
+		}).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
 	test('Moving a file to a different folder with root', () => {

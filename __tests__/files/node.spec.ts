@@ -80,8 +80,12 @@ describe('Sanity checks', () => {
 			source: '/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma'
-		})).toThrowError('Invalid source')
-
+		})).toThrowError('Invalid source format, source must be a valid URL')
+		expect(() => new File({
+			source: 'ftp://remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma'
+		})).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
 	test('Invalid mtime', () => {
@@ -153,12 +157,27 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			root: true as unknown as string,
 		})).toThrowError('Invalid root format')
+
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: 'https://cloud.domain.com/remote.php/dav/',
 		})).toThrowError('Root must start with a leading slash')
+
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/files/john',
+		})).toThrowError('Root must be part of the source')
+
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/remote.php/dav/files/emma',
+		})).toThrowError('The root must be relative to the service. e.g /files/emma')
 	})
 })
 
@@ -213,43 +232,79 @@ describe('Dav service detection', () => {
 
 describe('Root and paths detection', () => {
 	test('Unknown root', () => {
-		const file1 = new File({
+		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file1.root).toBe('/files/emma/Photos')
-		expect(file1.dirname).toBe('/')
+		expect(file.root).toBe('/files/emma/Photos')
+		expect(file.dirname).toBe('/')
 	})
 
 	test('Provided root dav service', () => {
-		const file1 = new File({
+		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma',
 		})
-		expect(file1.root).toBe('/files/emma')
-		expect(file1.dirname).toBe('/Photos')
+		expect(file.root).toBe('/files/emma')
+		expect(file.dirname).toBe('/Photos')
 	})
 
 	test('Root with ending slash is removed', () => {
-		const file1 = new File({
+		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma/',
 		})
-		expect(file1.root).toBe('/files/emma')
+		expect(file.root).toBe('/files/emma')
+		expect(file.dirname).toBe('/Photos')
+		expect(file.path).toBe('/Photos/picture.jpg')
 	})
 
 	test('Root and source are the same', () => {
-		const file1 = new File({
+		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+		expect(folder.root).toBe('/files/emma')
+		expect(folder.dirname).toBe('/')
+		expect(folder.path).toBe('/')
+	})
+
+	test('Source contains a similar root path', () => {
+		const folder = new Folder({
+			source: 'https://domain.com/remote.php/dav/files/emma/files/emma',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+		expect(folder.root).toBe('/files/emma')
+		expect(folder.dirname).toBe('/files')
+		expect(folder.path).toBe('/files/emma')
+
+		const file = new File({
+			source: 'https://domain.com/remote.php/dav/files/emma/files/emma.jpeg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma',
 		})
-		expect(file1.dirname).toBe('/')
+		expect(file.root).toBe('/files/emma')
+		expect(file.dirname).toBe('/files')
+		expect(file.path).toBe('/files/emma.jpeg')
+	})
+
+	test('Non dav ressource with undefined root', () => {
+		const file = new File({
+			source: 'https://domain.com/files/images/emma.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.isDavRessource).toBe(false)
+		expect(file.root).toBe(null)
+		expect(file.dirname).toBe('/files/images')
+		expect(file.path).toBe('/files/images/emma.jpeg')
 	})
 })
