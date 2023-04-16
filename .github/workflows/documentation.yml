@@ -1,6 +1,11 @@
 name: Docs
 
 on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - stable*
   push:
     branches:
       - main
@@ -39,6 +44,7 @@ jobs:
           npm run build:doc --if-present
 
       - name: Deploy
+        if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
