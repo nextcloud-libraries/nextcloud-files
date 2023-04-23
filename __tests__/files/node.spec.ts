@@ -1,6 +1,7 @@
 import { File } from '../../lib/files/file'
 import { Folder } from '../../lib/files/folder'
 import NodeData, { Attribute } from '../../lib/files/nodeData'
+import { Permission } from '../../lib/permissions'
 
 describe('Node testing', () => {
 	test('Root null fallback', () => {
@@ -229,6 +230,26 @@ describe('Dav service detection', () => {
 	})
 })
 
+describe('Permissions handling', () => {
+	test('Default permissions', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.permissions).toBe(0)
+	})
+
+	test('Custom permissions', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			permissions: Permission.READ | Permission.UPDATE | Permission.CREATE | Permission.DELETE | Permission.SHARE,
+		})
+		expect(file.permissions).toBe(31)
+	})
+})
 
 describe('Root and paths detection', () => {
 	test('Unknown root', () => {
