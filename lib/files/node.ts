@@ -148,7 +148,10 @@ export abstract class Node {
 			return Permission.READ
 		}
 
-		return this._data.permissions || Permission.READ
+		// If the permissions are not defined, we have none
+		return this._data.permissions !== undefined
+			? this._data.permissions
+			: Permission.NONE
 	}
 
 	/**

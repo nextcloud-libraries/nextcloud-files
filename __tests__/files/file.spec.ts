@@ -32,7 +32,7 @@ describe('File creation', () => {
 		expect(file.root).toBe('/files/emma/Photos')
 		expect(file.path).toBe('/picture.jpg')
 		expect(file.isDavRessource).toBe(true)
-		expect(file.permissions).toBe(Permission.READ)
+		expect(file.permissions).toBe(Permission.NONE)
 	})
 
 	test('Valid dav file with root', () => {
@@ -59,7 +59,7 @@ describe('File creation', () => {
 		expect(file.root).toBe('/files/emma')
 		expect(file.path).toBe('/Photos/picture.jpg')
 		expect(file.isDavRessource).toBe(true)
-		expect(file.permissions).toBe(Permission.READ)
+		expect(file.permissions).toBe(Permission.NONE)
 	})
 
 	test('Valid remote file', () => {

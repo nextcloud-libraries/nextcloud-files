@@ -24,7 +24,7 @@ describe('Folder creation', () => {
 		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBe('/files/emma')
 		expect(folder.isDavRessource).toBe(true)
-		expect(folder.permissions).toBe(Permission.READ)
+		expect(folder.permissions).toBe(Permission.NONE)
 	})
 
 	test('Valid dav folder with root', () => {
@@ -49,7 +49,7 @@ describe('Folder creation', () => {
 		expect(folder.dirname).toBe('/Photos')
 		expect(folder.root).toBe('/files/emma')
 		expect(folder.isDavRessource).toBe(true)
-		expect(folder.permissions).toBe(Permission.READ)
+		expect(folder.permissions).toBe(Permission.NONE)
 	})
 
 	test('Valid remote folder', () => {
