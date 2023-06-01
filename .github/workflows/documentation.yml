@@ -1,37 +1,33 @@
-name: Docs
+name: Documentation
 
 on:
   pull_request:
-    branches:
-      - main
-      - master
-      - stable*
-  push:
-    branches:
-      - main
-      - master
-      - stable*
-
-permissions: 
-  contents: write
+  release:
+    types: [published]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    name: Build and deploy
     steps:
+      - name: Check actor permission level
+        uses: skjnldsv/check-actor-permission@e591dbfe838300c007028e1219ca82cc26e8d7c5 # v2
+        with:
+          require: admin
+
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - name: Read package.json node and npm engines version
-        uses: skjnldsv/read-package-engines-version-actions@v1.2
+        uses: skjnldsv/read-package-engines-version-actions@0ce2ed60f6df073a62a77c0a4958dd0fc68e32e7 # v2.1
         id: versions
         with:
-          fallbackNode: '^12'
-          fallbackNpm: '^6'
+          fallbackNode: '^16'
+          fallbackNpm: '^8'
 
       - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: ${{ steps.versions.outputs.nodeVersion }}
 
@@ -41,11 +37,13 @@ jobs:
       - name: Install dependencies & build
         run: |
           npm ci
+          npm run build --if-present
           npm run build:doc --if-present
 
       - name: Deploy
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4
+        # Only deploy on release
+        if: github.event.release
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
         with:
-          branch: gh-pages
-          folder: dist/doc
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/doc
