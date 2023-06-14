@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 # Changelog
 
+## 3.0.0-beta.10 - 2023-06-14
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v3.0.0-beta.9...v3.0.0-beta.10)
+
+### Fixed
+- fix: Do not export the declaration of window.OC [\#667](https://github.com/nextcloud/nextcloud-files/pull/667) ([skjnldsv](https://github.com/skjnldsv))
+
 ## 3.0.0-beta.7 - 2023-02-03
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v3.0.0-beta.6...v3.0.0-beta.7)
