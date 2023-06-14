@@ -1,13 +1,6 @@
 import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger';
 
-declare global {
-	interface Window {
-		OC: any;
-		_nc_newfilemenu: NewFileMenu | undefined;
-	}
-}
-
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
 		logger.debug = jest.fn()

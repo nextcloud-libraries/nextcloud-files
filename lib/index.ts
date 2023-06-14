@@ -33,14 +33,6 @@ export { Node } from './files/node'
 export { Permission, parseWebdavPermissions } from './permissions'
 export { FileAction, registerFileAction, getFileActions } from './fileAction'
 
-declare global {
-	interface Window {
-		OC: any;
-		_nc_newfilemenu: NewFileMenu | undefined;
-		_nc_fileactions: FileAction[] | undefined;
-	}
-}
-
 /**
  * Add a new menu entry to the upload manager menu
  */

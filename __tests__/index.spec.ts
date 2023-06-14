@@ -18,13 +18,6 @@ import { FileType as FileTypeSource } from '../lib/files/fileType'
 import { Entry, NewFileMenu } from '../lib/newFileMenu';
 import { FileAction, registerFileAction, getFileActions } from '../lib/fileAction'
 
-declare global {
-	interface Window {
-		OC: any;
-		_nc_newfilemenu: NewFileMenu | undefined;
-	}
-}
-
 describe('Exports checks', () => {
 	test('formatFileSize', () => {
 		expect(formatFileSize).toBeTruthy()
