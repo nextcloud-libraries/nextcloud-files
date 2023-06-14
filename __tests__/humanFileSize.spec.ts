@@ -1,11 +1,5 @@
 import { formatFileSize } from '../lib/humanfilesize'
 
-declare global {
-	interface Window {
-		OC: any;
-	}
-}
-
 describe('humanFileSize', () => {
     describe('formatFileSize', () => {
         it('renders file sizes with the correct unit', function() {

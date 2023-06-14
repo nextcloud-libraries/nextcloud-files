@@ -1,13 +1,6 @@
 import { getFileActions, registerFileAction, FileAction } from '../lib/fileAction'
 import logger from '../lib/utils/logger';
 
-declare global {
-	interface Window {
-		OC: any;
-		_nc_fileactions: FileAction[] | undefined;
-	}
-}
-
 describe('FileActions init', () => {
 
 	beforeEach(() => {

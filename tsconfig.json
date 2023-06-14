@@ -1,5 +1,5 @@
 {
-  "include": ["./lib/**/*.ts", "./lib/**/*.ts"],
+  "include": ["./lib/**/*.ts", "./*.d.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
