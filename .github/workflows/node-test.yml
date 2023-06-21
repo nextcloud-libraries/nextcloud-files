@@ -50,7 +50,6 @@ jobs:
         run: npm run test --if-present
 
       - name: Test and process coverage
-        if: matrix.coverage
         run: npm run test:coverage
   
       - name: Collect coverage
