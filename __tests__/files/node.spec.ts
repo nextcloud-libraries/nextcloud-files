@@ -8,7 +8,7 @@ describe('Node testing', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.root).toBeNull()
 	})
@@ -16,7 +16,7 @@ describe('Node testing', () => {
 	test('Remove source ending slash', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Photos')
 	})
@@ -24,7 +24,7 @@ describe('Node testing', () => {
 	test('Invalid rename', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(() => file.rename('new/folder')).toThrowError('Invalid basename')
 	})
@@ -35,19 +35,29 @@ describe('FileId attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.fileid).toBeUndefined()
 	})
 
-	test('FileId source ending slash', () => {
+	test('FileId null fallback', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			id: 1234,
+		})
+		expect(file.fileid).toBe(1234)
+	})
+
+	test('FileId attributes fallback', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
-				fileid: 1234
-			}
+				fileid: 1234,
+			},
 		})
 		expect(file.fileid).toBe(1234)
 	})

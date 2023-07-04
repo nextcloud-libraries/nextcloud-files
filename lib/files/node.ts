@@ -203,10 +203,11 @@ export abstract class Node {
 	}
 
 	/**
-	 * Get the file id if defined in attributes
+	 * Get the node id if defined.
+	 * Will look for the fileid in attributes if undefined.
 	 */
 	get fileid(): number|undefined {
-		return this.attributes?.fileid
+		return this._data?.id || this.attributes?.fileid
 	}
 
 	/**
