@@ -20,7 +20,7 @@
  *
  */
 
-import logger from "./utils/logger"
+import logger from './utils/logger'
 
 export interface Entry {
 	/** Unique ID */
@@ -30,7 +30,7 @@ export interface Entry {
 	// Default new file name
 	templateName?: string
 	// Condition wether this entry is shown or not
-	if?: (context: Object) => Boolean
+	if?: (context: object) => boolean
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
@@ -39,12 +39,13 @@ export interface Entry {
 	/** Existing icon css class */
 	iconClass?: string
 	/** Function to be run after creation */
-	handler?: Function
+	handler?: () => void
 }
 
 export class NewFileMenu {
+
 	private _entries: Array<Entry> = []
-	
+
 	public registerEntry(entry: Entry) {
 		this.validateEntry(entry)
 		this._entries.push(entry)
@@ -54,21 +55,21 @@ export class NewFileMenu {
 		const entryIndex = typeof entry === 'string'
 			? this.getEntryIndex(entry)
 			: this.getEntryIndex(entry.id)
-		
+
 		if (entryIndex === -1) {
-			logger.warn('Entry not found, nothing removed', { entry , entries: this.getEntries() })
+			logger.warn('Entry not found, nothing removed', { entry, entries: this.getEntries() })
 			return
 		}
 
 		this._entries.splice(entryIndex, 1)
 	}
-	
+
 	/**
 	 * Get the list of registered entries
-	 * 
+	 *
 	 * @param {FileInfo} context the creation context. Usually the current folder FileInfo
 	 */
-	public getEntries(context?: Object): Array<Entry> {
+	public getEntries(context?: object): Array<Entry> {
 		if (context) {
 			return this._entries
 				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
@@ -115,6 +116,7 @@ export class NewFileMenu {
 			throw new Error('Duplicate entry')
 		}
 	}
+
 }
 
 export const getNewFileMenu = function(): NewFileMenu {

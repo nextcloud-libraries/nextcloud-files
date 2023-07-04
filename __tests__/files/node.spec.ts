@@ -8,7 +8,7 @@ describe('Node testing', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.root).toBeNull()
 	})
@@ -16,7 +16,7 @@ describe('Node testing', () => {
 	test('Remove source ending slash', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Photos')
 	})
@@ -24,7 +24,7 @@ describe('Node testing', () => {
 	test('Invalid rename', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(() => file.rename('new/folder')).toThrowError('Invalid basename')
 	})
@@ -35,7 +35,7 @@ describe('FileId attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})
 		expect(file.fileid).toBeUndefined()
 	})
@@ -46,8 +46,8 @@ describe('FileId attribute', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
-				fileid: 1234
-			}
+				fileid: 1234,
+			},
 		})
 		expect(file.fileid).toBe(1234)
 	})
@@ -75,17 +75,17 @@ describe('Sanity checks', () => {
 		expect(() => new File({
 			source: 'cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source')
 		expect(() => new File({
 			source: '/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source format, source must be a valid URL')
 		expect(() => new File({
 			source: 'ftp://remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
@@ -94,17 +94,16 @@ describe('Sanity checks', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image',
 			owner: 'emma',
-			mtime: 'invalid' as unknown as Date
+			mtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid mtime type')
 	})
-
 
 	test('Invalid crtime', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image',
 			owner: 'emma',
-			crtime: 'invalid' as unknown as Date
+			crtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid crtime type')
 	})
 
@@ -112,7 +111,7 @@ describe('Sanity checks', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Missing or invalid mandatory mime')
 	})
 

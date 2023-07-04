@@ -24,11 +24,12 @@ import { Node } from './node'
 import NodeData from './nodeData'
 
 export class Folder extends Node {
+
 	constructor(data: NodeData) {
 		// enforcing mimes
 		super({
 			...data,
-			mime: 'httpd/unix-directory'
+			mime: 'httpd/unix-directory',
 		})
 	}
 
@@ -43,4 +44,5 @@ export class Folder extends Node {
 	get mime(): string {
 		return 'httpd/unix-directory'
 	}
+
 }

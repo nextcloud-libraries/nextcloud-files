@@ -11,11 +11,7 @@ import {
 	parseWebdavPermissions,
 } from '../lib/index'
 
-import { File as FileSource } from '../lib/files/file'
-import { Folder as FolderSource } from '../lib/files/folder'
-import { Permission as PermissionSource } from '../lib/permissions'
-import { FileType as FileTypeSource } from '../lib/files/fileType'
-import { Entry, NewFileMenu } from '../lib/newFileMenu';
+import { Entry, NewFileMenu } from '../lib/newFileMenu'
 import { FileAction, registerFileAction, getFileActions } from '../lib/fileAction'
 
 describe('Exports checks', () => {
@@ -85,14 +81,13 @@ describe('Exports checks', () => {
 	})
 })
 
-
 describe('NewFileMenu methods', () => {
 	const entry = {
 		id: 'empty-file',
 		displayName: 'Create empty file',
 		templateName: 'New file.txt',
 		iconClass: 'icon-filetype-text',
-		handler: () => {}
+		handler: () => {},
 	} as Entry
 
 	test('Init NewFileMenu', () => {

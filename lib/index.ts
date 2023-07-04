@@ -21,10 +21,9 @@
  *
  */
 
+import { type Entry, getNewFileMenu } from './newFileMenu'
 export { formatFileSize } from './humanfilesize'
 export { type Entry } from './newFileMenu'
-import { FileAction } from './fileAction'
-import { type Entry, getNewFileMenu, NewFileMenu } from './newFileMenu'
 
 export { FileType } from './files/fileType'
 export { File } from './files/file'
@@ -54,7 +53,7 @@ export const removeNewFileMenuEntry = function(entry: Entry | string) {
  *
  * @param {FileInfo} context the creation context. Usually the current folder FileInfo
  */
-export const getNewFileMenuEntries = function(context?: Object) {
+export const getNewFileMenuEntries = function(context?: object) {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.getEntries(context)
 }

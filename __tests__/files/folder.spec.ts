@@ -6,7 +6,7 @@ describe('Folder creation', () => {
 	test('Valid dav folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 
 		expect(folder).toBeInstanceOf(Folder)
@@ -31,7 +31,7 @@ describe('Folder creation', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/Berlin',
 			owner: 'emma',
-			root: '/files/emma'
+			root: '/files/emma',
 		})
 
 		expect(folder).toBeInstanceOf(Folder)
@@ -55,7 +55,7 @@ describe('Folder creation', () => {
 	test('Valid remote folder', () => {
 		const folder = new Folder({
 			source: 'https://domain.com/Photos/',
-			owner: null
+			owner: null,
 		})
 
 		expect(folder).toBeInstanceOf(Folder)
@@ -81,7 +81,7 @@ describe('Folder data change', () => {
 	test('Rename a folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos',
-			owner: 'emma'
+			owner: 'emma',
 		})
 
 		expect(folder.basename).toBe('Photos')
@@ -99,7 +99,7 @@ describe('Folder data change', () => {
 	test('Moving a folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
-			owner: 'emma'
+			owner: 'emma',
 		})
 
 		expect(folder.basename).toBe('Photos')
@@ -118,7 +118,7 @@ describe('Folder data change', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
 			owner: 'emma',
-			root: '/files/emma'
+			root: '/files/emma',
 		})
 
 		expect(folder.basename).toBe('Photos')

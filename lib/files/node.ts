@@ -24,8 +24,8 @@ import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import NodeData, { Attribute, isDavRessource, validateData } from './nodeData'
 
- 
 export abstract class Node {
+
 	private _data: NodeData
 	private _attributes: Attribute
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
@@ -35,23 +35,26 @@ export abstract class Node {
 		validateData(data, davService || this._knownDavService)
 
 		this._data = data
-	
+
 		const handler = {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			set: (target: Attribute, prop: string, value: any): any => {
 				// Edit modification time
-				this._data['mtime'] = new Date()
+				this._data.mtime = new Date()
 				// Apply original changes
 				return Reflect.set(target, prop, value)
 			},
 			deleteProperty: (target: Attribute, prop: string) => {
 				// Edit modification time
-				this._data['mtime'] = new Date()
+				this._data.mtime = new Date()
 				// Apply original changes
 				return Reflect.deleteProperty(target, prop)
 			},
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} as ProxyHandler<any>
 
 		// Proxy the attributes to update the mtime on change
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this._attributes = new Proxy(data.attributes || {} as any, handler)
 		delete this._data.attributes
 
@@ -224,6 +227,7 @@ export abstract class Node {
 	/**
 	 * Rename the node
 	 * This aliases the move method for easier usage
+	 * @param basename
 	 */
 	rename(basename) {
 		if (basename.includes('/')) {
@@ -231,4 +235,5 @@ export abstract class Node {
 		}
 		this.move(dirname(this.source) + '/' + basename)
 	}
+
 }
