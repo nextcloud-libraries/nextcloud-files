@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 # Changelog
 
+## 3.0.0-beta.11 - 2023-07-04
+
+[Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v3.0.0-beta.10...v3.0.0-beta.11)
+
+### Fixed
+- fix: fileid definition and fallback by @skjnldsv in https://github.com/nextcloud/nextcloud-files/pull/681
+
 ## 3.0.0-beta.10 - 2023-06-14
 
 [Full Changelog](https://github.com/nextcloud/nextcloud-files/compare/v3.0.0-beta.9...v3.0.0-beta.10)
