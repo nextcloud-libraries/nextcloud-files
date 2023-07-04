@@ -85,17 +85,17 @@ describe('Sanity checks', () => {
 		expect(() => new File({
 			source: 'cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source')
 		expect(() => new File({
 			source: '/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source format, source must be a valid URL')
 		expect(() => new File({
 			source: 'ftp://remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
@@ -104,17 +104,16 @@ describe('Sanity checks', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image',
 			owner: 'emma',
-			mtime: 'invalid' as unknown as Date
+			mtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid mtime type')
 	})
-
 
 	test('Invalid crtime', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/Photos',
 			mime: 'image',
 			owner: 'emma',
-			crtime: 'invalid' as unknown as Date
+			crtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid crtime type')
 	})
 
@@ -122,7 +121,7 @@ describe('Sanity checks', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image',
-			owner: 'emma'
+			owner: 'emma',
 		})).toThrowError('Missing or invalid mandatory mime')
 	})
 

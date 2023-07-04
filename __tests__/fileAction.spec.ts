@@ -1,5 +1,8 @@
+/* eslint-disable no-new */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { getFileActions, registerFileAction, FileAction } from '../lib/fileAction'
-import logger from '../lib/utils/logger';
+import logger from '../lib/utils/logger'
 
 describe('FileActions init', () => {
 
@@ -165,7 +168,7 @@ describe('Invalid FileAction creation', () => {
 				iconSvgInline: () => '<svg></svg>',
 				exec: async () => true,
 				inline: () => true,
-				renderInline: false
+				renderInline: false,
 			} as any as FileAction)
 		}).toThrowError('Invalid renderInline function')
 	})

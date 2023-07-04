@@ -1,5 +1,5 @@
 import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
-import logger from '../lib/utils/logger';
+import logger from '../lib/utils/logger'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
@@ -12,7 +12,7 @@ describe('NewFileMenu init', () => {
 
 	test('Getting existing NewFileMenu', () => {
 		const newFileMenu = new NewFileMenu()
-		Object.assign(window, {_nc_newfilemenu: newFileMenu})
+		Object.assign(window, { _nc_newfilemenu: newFileMenu })
 
 		expect(window._nc_newfilemenu).toBe(newFileMenu)
 		expect(getNewFileMenu()).toBe(newFileMenu)
@@ -27,7 +27,7 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
 
@@ -43,7 +43,7 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
 
@@ -55,7 +55,7 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create new image',
 			templateName: 'New drawing.png',
 			iconClass: 'icon-filetype-image',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
@@ -67,7 +67,7 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'New folder',
 			templateName: 'New folder',
 			iconClass: 'icon-folder',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry3)
 
@@ -82,7 +82,7 @@ describe('NewFileMenu addEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
 
@@ -110,7 +110,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid id or displayName property')
 
@@ -120,7 +120,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: 123456,
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid id or displayName property')
 
@@ -130,7 +130,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 123465,
 				iconClass: 'icon-filetype-text',
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid templateName property')
 
@@ -140,7 +140,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 123456,
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid icon provided')
 
@@ -150,7 +150,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconSvgInline: 123456,
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid icon provided')
 
@@ -161,7 +161,7 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
 				if: true,
-				handler: () => {}
+				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid if property')
 
@@ -171,7 +171,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				handler: 'handler'
+				handler: 'handler',
 			} as unknown as Entry)
 		}).toThrowError('Invalid handler property')
 
@@ -193,7 +193,7 @@ describe('NewFileMenu removeEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
 
@@ -212,7 +212,7 @@ describe('NewFileMenu removeEntry', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
 			iconClass: 'icon-filetype-text',
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
 
@@ -243,7 +243,7 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New file',
 			iconClass: 'icon-file',
 			if: fileInfo => fileInfo.permissions.includes('CK'),
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
 
@@ -253,12 +253,12 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
 			if: fileInfo => fileInfo.permissions.includes('CK'),
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
 		const context = {
-			basename:  'Folder',
+			basename: 'Folder',
 			etag: '63071eedd82fe',
 			fileid: '56',
 			filename: '/Folder',
@@ -287,7 +287,7 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New file',
 			iconClass: 'icon-file',
 			if: fileInfo => fileInfo.permissions.includes('CK'),
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
 
@@ -297,12 +297,12 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
 			if: fileInfo => fileInfo.permissions.includes('CK'),
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
 		const context = {
-			basename:  'Shared folder',
+			basename: 'Shared folder',
 			etag: '63071eedd82fe',
 			fileid: '56',
 			filename: '/Shared folder',
@@ -330,7 +330,7 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New file',
 			iconClass: 'icon-file',
 			// No conditions
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
 
@@ -340,12 +340,12 @@ describe('NewFileMenu getEntries filter', () => {
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
 			if: fileInfo => fileInfo.permissions.includes('CK'),
-			handler: () => {}
+			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
 		const context = {
-			basename:  'Shared folder',
+			basename: 'Shared folder',
 			etag: '63071eedd82fe',
 			fileid: '56',
 			filename: '/Shared folder',

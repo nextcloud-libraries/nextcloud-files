@@ -1,9 +1,9 @@
 /// <reference types="@nextcloud/typings" />
 
-import { FileAction } from "./lib/fileAction";
-import { NewFileMenu } from "./lib/newFileMenu";
+import { FileAction } from './lib/fileAction'
+import { NewFileMenu } from './lib/newFileMenu'
 
-export {};
+export {}
 
 declare global {
     interface Window {

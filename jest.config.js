@@ -10,6 +10,6 @@ module.exports = {
 	transform: {
 		'^.+\\.tsx?$': ['ts-jest', {
 			tsconfig: '__tests__/tsconfig.json',
-		}]
+		}],
 	},
 }

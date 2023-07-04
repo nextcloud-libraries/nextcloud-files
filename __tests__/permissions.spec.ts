@@ -22,7 +22,8 @@ const dataSet = [
 describe('parseWebdavPermissions', () => {
 	dataSet.forEach(({ input, permissions }) => {
 		it(`expect ${input} to be ${permissions}`, () => {
-			expect(parseWebdavPermissions(input)).toBe(permissions)
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			expect(parseWebdavPermissions(input as any as string)).toBe(permissions)
 		})
 	})
 })

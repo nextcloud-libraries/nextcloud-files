@@ -40,7 +40,7 @@ describe('File creation', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			root: '/files/emma'
+			root: '/files/emma',
 		})
 
 		expect(file).toBeInstanceOf(File)
@@ -66,7 +66,7 @@ describe('File creation', () => {
 		const file = new File({
 			source: 'https://domain.com/Photos/picture.jpg',
 			mime: 'image/jpeg',
-			owner: null
+			owner: null,
 		})
 
 		expect(file).toBeInstanceOf(File)
@@ -154,7 +154,7 @@ describe('File data change', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			root: '/files/emma'
+			root: '/files/emma',
 		})
 
 		expect(file.basename).toBe('picture.jpg')
@@ -170,7 +170,6 @@ describe('File data change', () => {
 	})
 })
 
-
 describe('Altering attributes updates mtime', () => {
 	test('mtime is updated on existing attribute', () => {
 		const file = new File({
@@ -179,12 +178,12 @@ describe('Altering attributes updates mtime', () => {
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
 			attributes: {
-				test: true
+				test: true,
 			},
 		})
 		expect(file.attributes.test).toBe(true)
 		file.attributes.test = false
-	
+
 		// Check that mtime has been updated
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 		expect(file.attributes.test).toBe(false)
@@ -199,7 +198,7 @@ describe('Altering attributes updates mtime', () => {
 		})
 		expect(file.attributes.test).toBeFalsy()
 		file.attributes.test = true
-	
+
 		// Check that mtime has been updated
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 		expect(file.attributes.test).toBe(true)
@@ -212,12 +211,12 @@ describe('Altering attributes updates mtime', () => {
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
 			attributes: {
-				test: true
+				test: true,
 			},
 		})
 		expect(file.attributes.test).toBe(true)
 		delete file.attributes.test
-	
+
 		// Check that mtime has been updated
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 		expect(file.attributes.test).toBeUndefined()

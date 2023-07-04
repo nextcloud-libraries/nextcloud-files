@@ -1,4 +1,3 @@
-
 /**
  * @copyright Copyright (c) 2022 John Molakvoæ <skjnldsv@protonmail.com>
  *
@@ -35,26 +34,20 @@ export enum Permission {
  * Parse the webdav permission string to a permission enum
  * @see https://github.com/nextcloud/server/blob/71f698649f578db19a22457cb9d420fb62c10382/lib/public/Files/DavUtil.php#L58-L88
  */
-export const parseWebdavPermissions = function(permString: string = ''): number {
+export const parseWebdavPermissions = function(permString = ''): number {
 	let permissions = Permission.NONE
 
-	if (!permString)
-		return permissions
+	if (!permString) { return permissions }
 
-	if (permString.includes('C') || permString.includes('K'))
-		permissions |= Permission.CREATE
+	if (permString.includes('C') || permString.includes('K')) { permissions |= Permission.CREATE }
 
-	if (permString.includes('G'))
-		permissions |= Permission.READ
+	if (permString.includes('G')) { permissions |= Permission.READ }
 
-	if (permString.includes('W') || permString.includes('N') || permString.includes('V'))
-		permissions |= Permission.UPDATE
+	if (permString.includes('W') || permString.includes('N') || permString.includes('V')) { permissions |= Permission.UPDATE }
 
-	if (permString.includes('D'))
-		permissions |= Permission.DELETE
+	if (permString.includes('D')) { permissions |= Permission.DELETE }
 
-	if (permString.includes('R'))
-		permissions |= Permission.SHARE
+	if (permString.includes('R')) { permissions |= Permission.SHARE }
 
 	return permissions
 }

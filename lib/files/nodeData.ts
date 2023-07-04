@@ -20,8 +20,8 @@
  *
  */
 
-import { join } from "path"
-import { Permission } from "../permissions"
+import { join } from 'path'
+import { Permission } from '../permissions'
 
 export interface Attribute { [key: string]: any }
 
@@ -67,7 +67,7 @@ export default interface NodeData {
 export const isDavRessource = function(source: string, davService: RegExp): boolean {
 	return source.match(davService) !== null
 }
- 
+
 /**
  * Validate Node construct data
  */
@@ -81,6 +81,7 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 	}
 
 	try {
+		// eslint-disable-next-line no-new
 		new URL(data.source)
 	} catch (e) {
 		throw new Error('Invalid source format, source must be a valid URL')
@@ -108,10 +109,10 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 	}
 
 	if ('permissions' in data && !(
-			typeof data.permissions === 'number'
+		typeof data.permissions === 'number'
 			&& data.permissions >= Permission.NONE
 			&& data.permissions <= Permission.ALL
-		)) {
+	)) {
 		throw new Error('Invalid permissions')
 	}
 
