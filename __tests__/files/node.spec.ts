@@ -131,7 +131,7 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: 'test' as unknown as Attribute,
-		})).toThrowError('Invalid attributes format')
+		})).toThrowError('Invalid attributes type')
 	})
 
 	test('Invalid permissions', () => {
@@ -166,7 +166,7 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: true as unknown as string,
-		})).toThrowError('Invalid root format')
+		})).toThrowError('Invalid root type')
 
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
@@ -336,5 +336,38 @@ describe('Root and paths detection', () => {
 		expect(file.root).toBe(null)
 		expect(file.dirname).toBe('/files/images')
 		expect(file.path).toBe('/files/images/emma.jpeg')
+	})
+})
+
+describe('Undefined properties are allowed', () => {
+	test('File', () => {
+		expect(() => new File({
+			source: 'https://domain.com/files/images/emma.jpeg',
+			owner: 'emma',
+			id: undefined,
+			mtime: undefined,
+			crtime: undefined,
+			// Mime is optional for folders only
+			mime: 'image/jpeg',
+			size: undefined,
+			permissions: undefined,
+			attributes: undefined,
+			root: undefined,
+		})).not.toThrow()
+	})
+
+	test('Folder', () => {
+		expect(() => new Folder({
+			source: 'https://domain.com/files/images/',
+			owner: 'emma',
+			id: undefined,
+			mtime: undefined,
+			crtime: undefined,
+			mime: undefined,
+			size: undefined,
+			permissions: undefined,
+			attributes: undefined,
+			root: undefined,
+		})).not.toThrow()
 	})
 })
