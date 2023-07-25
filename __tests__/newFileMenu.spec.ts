@@ -1,9 +1,11 @@
+import { describe, expect, test, vi } from 'vitest'
+
 import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
-		logger.debug = jest.fn()
+		logger.debug = vi.fn()
 		const newFileMenu = getNewFileMenu()
 		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
 		expect(window._nc_newfilemenu).toBe(newFileMenu)
@@ -224,7 +226,7 @@ describe('NewFileMenu removeEntry', () => {
 	})
 
 	test('Removing a non-existing entry', () => {
-		logger.warn = jest.fn()
+		logger.warn = vi.fn()
 		const newFileMenu = new NewFileMenu()
 
 		newFileMenu.unregisterEntry('unknown-entry')

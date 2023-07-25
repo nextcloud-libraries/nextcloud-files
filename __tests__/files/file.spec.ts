@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import { File } from '../../lib/files/file'
 import { FileType } from '../../lib/files/fileType'
 import { Permission } from '../../lib/permissions'

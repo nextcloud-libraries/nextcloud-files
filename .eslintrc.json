@@ -1,12 +1,5 @@
 {
 	"extends": [
 		"@nextcloud/eslint-config/typescript"
-	],
-	"parserOptions": {
-		"babelOptions": {
-			"plugins": [
-				"@babel/plugin-syntax-import-assertions"
-			]
-		}
-	}
+	]
 }
