@@ -10,7 +10,7 @@ import {
 	Folder,
 	Node,
 	Permission,
-	parseWebdavPermissions,
+	davParsePermissions,
 } from '../lib/index'
 
 import { Entry, NewFileMenu } from '../lib/newFileMenu'
@@ -47,9 +47,9 @@ describe('Exports checks', () => {
 		expect(typeof Permission).toBe('object')
 	})
 
-	test('parseWebdavPermissions', () => {
-		expect(parseWebdavPermissions).toBeTruthy()
-		expect(typeof parseWebdavPermissions).toBe('function')
+	test('davParsePermissions', () => {
+		expect(davParsePermissions).toBeTruthy()
+		expect(typeof davParsePermissions).toBe('function')
 	})
 
 	test('File', () => {

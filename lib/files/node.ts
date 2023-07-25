@@ -22,7 +22,7 @@
 import { basename, extname, dirname } from 'path'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
-import NodeData, { Attribute, isDavRessource, validateData } from './nodeData'
+import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
 
 export abstract class Node {
 
@@ -228,9 +228,10 @@ export abstract class Node {
 	/**
 	 * Rename the node
 	 * This aliases the move method for easier usage
-	 * @param basename
+	 *
+	 * @param basename The new name of the node
 	 */
-	rename(basename) {
+	rename(basename: string) {
 		if (basename.includes('/')) {
 			throw new Error('Invalid basename')
 		}

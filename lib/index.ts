@@ -22,18 +22,27 @@
  */
 
 import { type Entry, getNewFileMenu } from './newFileMenu'
+
 export { formatFileSize } from './humanfilesize'
+export { FileAction, registerFileAction, getFileActions } from './fileAction'
 export { type Entry } from './newFileMenu'
+export { Permission } from './permissions'
+
+export * from './dav/davProperties'
+export * from './dav/davPermissions'
+export * from './dav/dav'
 
 export { FileType } from './files/fileType'
 export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node } from './files/node'
-export { Permission, parseWebdavPermissions } from './permissions'
-export { FileAction, registerFileAction, getFileActions } from './fileAction'
+
+// TODO: Add FileInfo type!
 
 /**
  * Add a new menu entry to the upload manager menu
+ *
+ * @param entry The new file menu entry
  */
 export const addNewFileMenuEntry = function(entry: Entry) {
 	const newFileMenu = getNewFileMenu()
@@ -42,6 +51,8 @@ export const addNewFileMenuEntry = function(entry: Entry) {
 
 /**
  * Remove a previously registered entry from the upload menu
+ *
+ * @param entry Entry to remove (or name of entry)
  */
 export const removeNewFileMenuEntry = function(entry: Entry | string) {
 	const newFileMenu = getNewFileMenu()

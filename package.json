@@ -60,7 +60,7 @@
     "@susnux/nextcloud-vite-config": "^1.0.0-beta.16",
     "@types/node": "^20.4.5",
     "@vitest/coverage-istanbul": "^0.33.0",
-    "jest-environment-jsdom": "^29.6.1",
+    "fast-xml-parser": "^4.2.6",
     "rollup": "^3.26.3",
     "tslib": "^2.6.1",
     "typedoc": "^0.24.8",
@@ -71,6 +71,8 @@
   "dependencies": {
     "@nextcloud/auth": "^2.1.0",
     "@nextcloud/l10n": "^2.2.0",
-    "@nextcloud/logger": "^2.5.0"
+    "@nextcloud/logger": "^2.5.0",
+    "@nextcloud/router": "^2.1.2",
+    "webdav": "^5.2.3"
   }
 }

@@ -25,7 +25,7 @@ import { Permission } from '../permissions'
 
 export interface Attribute { [key: string]: any }
 
-export default interface NodeData {
+export interface NodeData {
 	/** Unique ID */
 	id?: number
 
@@ -64,12 +64,21 @@ export default interface NodeData {
 	root?: string
 }
 
+/**
+ * Check if a node source is from a specific DAV service
+ *
+ * @param source The source to check
+ * @param davService Pattern to check if source is DAV ressource
+ */
 export const isDavRessource = function(source: string, davService: RegExp): boolean {
 	return source.match(davService) !== null
 }
 
 /**
  * Validate Node construct data
+ *
+ * @param data The node data
+ * @param davService Pattern to check if source is DAV ressource
  */
 export const validateData = (data: NodeData, davService: RegExp) => {
 	if (data.id && (typeof data.id !== 'number' || data.id < 0)) {

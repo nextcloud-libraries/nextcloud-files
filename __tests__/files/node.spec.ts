@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 
 import { File } from '../../lib/files/file'
 import { Folder } from '../../lib/files/folder'
-import NodeData, { Attribute } from '../../lib/files/nodeData'
+import { Attribute, NodeData } from '../../lib/files/nodeData'
 import { Permission } from '../../lib/permissions'
 
 describe('Node testing', () => {

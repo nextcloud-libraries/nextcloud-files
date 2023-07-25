@@ -5,3 +5,7 @@ export const getCurrentUser = function() {
 		isAdmin: false,
 	}
 }
+
+export const getRequestToken = function() {
+	return 'some-token-string'
+}

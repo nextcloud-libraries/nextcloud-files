@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
-import { parseWebdavPermissions, Permission } from '../lib/permissions'
+import { davParsePermissions } from '../../lib/dav/davPermissions'
+import { Permission } from '../../lib/permissions'
 
 const dataSet = [
 	{ input: undefined, permissions: Permission.NONE },
@@ -21,11 +22,11 @@ const dataSet = [
 	{ input: 'RGDNVCK', permissions: Permission.UPDATE | Permission.READ | Permission.DELETE | Permission.CREATE | Permission.SHARE },
 ]
 
-describe('parseWebdavPermissions', () => {
+describe('davParsePermissions', () => {
 	dataSet.forEach(({ input, permissions }) => {
 		it(`expect ${input} to be ${permissions}`, () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			expect(parseWebdavPermissions(input as any as string)).toBe(permissions)
+			expect(davParsePermissions(input as any as string)).toBe(permissions)
 		})
 	})
 })
