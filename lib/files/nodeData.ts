@@ -42,7 +42,7 @@ export default interface NodeData {
 	/** Creation time */
 	crtime?: Date
 
-	/** The mime type */
+	/** The mime type Optional for folders only */
 	mime?: string
 
 	/** The node size type */
@@ -72,7 +72,7 @@ export const isDavRessource = function(source: string, davService: RegExp): bool
  * Validate Node construct data
  */
 export const validateData = (data: NodeData, davService: RegExp) => {
-	if ('id' in data && (typeof data.id !== 'number' || data.id < 0)) {
+	if (data.id && (typeof data.id !== 'number' || data.id < 0)) {
 		throw new Error('Invalid id type of value')
 	}
 
@@ -91,11 +91,11 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Invalid source format, only http(s) is supported')
 	}
 
-	if ('mtime' in data && !(data.mtime instanceof Date)) {
+	if (data.mtime && !(data.mtime instanceof Date)) {
 		throw new Error('Invalid mtime type')
 	}
 
-	if ('crtime' in data && !(data.crtime instanceof Date)) {
+	if (data.crtime && !(data.crtime instanceof Date)) {
 		throw new Error('Invalid crtime type')
 	}
 
@@ -104,30 +104,33 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Missing or invalid mandatory mime')
 	}
 
-	if ('size' in data && typeof data.size !== 'number') {
+	// Allow size to be 0
+	if ('size' in data && typeof data.size !== 'number' && data.size !== undefined) {
 		throw new Error('Invalid size type')
 	}
 
-	if ('permissions' in data && !(
-		typeof data.permissions === 'number'
+	// Allow permissions to be 0
+	if ('permissions' in data
+		&& data.permissions !== undefined
+		&& !(typeof data.permissions === 'number'
 			&& data.permissions >= Permission.NONE
 			&& data.permissions <= Permission.ALL
-	)) {
+		)) {
 		throw new Error('Invalid permissions')
 	}
 
-	if ('owner' in data
+	if (data.owner
 		&& data.owner !== null
 		&& typeof data.owner !== 'string') {
 		throw new Error('Invalid owner type')
 	}
 
-	if ('attributes' in data && typeof data.attributes !== 'object') {
-		throw new Error('Invalid attributes format')
+	if (data.attributes && typeof data.attributes !== 'object') {
+		throw new Error('Invalid attributes type')
 	}
 
-	if ('root' in data && typeof data.root !== 'string') {
-		throw new Error('Invalid root format')
+	if (data.root && typeof data.root !== 'string') {
+		throw new Error('Invalid root type')
 	}
 
 	if (data.root && !data.root.startsWith('/')) {
