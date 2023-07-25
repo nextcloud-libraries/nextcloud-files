@@ -3,11 +3,10 @@ import clean from '@rollup-extras/plugin-clean'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
 
-const external = [
-	'@nextcloud/auth',
-	'@nextcloud/l10n',
-	'@nextcloud/logger',
-]
+import packageJson from './package.json' assert { type: 'json' }
+
+// Map package dependencies to regex matching modules that should be externalized
+const external = Object.keys(packageJson.dependencies).map(dep => new RegExp(`^${dep}`))
 
 const config = output => ({
 	input: './lib/index.ts',
@@ -28,12 +27,12 @@ const config = output => ({
 export default [
 	{
 		dir: 'dist',
-		format: 'cjs',
+		format: 'es',
 		sourcemap: true,
 	},
 	{
-		file: 'dist/index.esm.js',
-		format: 'esm',
+		file: 'dist/index.cjs',
+		format: 'cjs',
 		sourcemap: true,
 	},
 ].map(config)

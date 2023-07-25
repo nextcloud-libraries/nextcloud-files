@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	clearMocks: true,
 	collectCoverageFrom: ['lib/**/*.ts'],
 	coveragePathIgnorePatterns: ['lib/utils/logger.ts'],
