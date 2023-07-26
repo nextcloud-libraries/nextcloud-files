@@ -6,6 +6,7 @@ export default async (env) => {
 		environment: 'jsdom',
 		coverage: {
 			include: ['lib/**'],
+			exclude: ['lib/utils/logger.ts'],
 			provider: 'istanbul',
 			reporter: ['lcov', 'text'],
 		},
