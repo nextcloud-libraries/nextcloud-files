@@ -58,7 +58,7 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.2",
     "@susnux/nextcloud-vite-config": "^1.0.0-beta.16",
-    "@types/node": "^20.4.4",
+    "@types/node": "^20.4.5",
     "@vitest/coverage-istanbul": "^0.33.0",
     "jest-environment-jsdom": "^29.6.1",
     "rollup": "^3.26.3",
