@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest'
+
 import { parseWebdavPermissions, Permission } from '../lib/permissions'
 
 const dataSet = [

@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import { File } from '../../lib/files/file'
 import { Folder } from '../../lib/files/folder'
 import NodeData, { Attribute } from '../../lib/files/nodeData'

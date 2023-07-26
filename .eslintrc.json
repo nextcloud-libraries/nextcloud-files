@@ -1,0 +1,5 @@
+{
+	"extends": [
+		"@nextcloud/eslint-config/typescript"
+	]
+}

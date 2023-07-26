@@ -1,5 +1,6 @@
 /* eslint-disable no-new */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { getFileActions, registerFileAction, FileAction } from '../lib/fileAction'
 import logger from '../lib/utils/logger'
@@ -11,7 +12,7 @@ describe('FileActions init', () => {
 	})
 
 	test('Getting empty uninitialized FileActions', () => {
-		logger.debug = jest.fn()
+		logger.debug = vi.fn()
 		const fileActions = getFileActions()
 		expect(window._nc_fileactions).toBeUndefined()
 		expect(fileActions).toHaveLength(0)
@@ -19,7 +20,7 @@ describe('FileActions init', () => {
 	})
 
 	test('Initializing FileActions', () => {
-		logger.debug = jest.fn()
+		logger.debug = vi.fn()
 		const action = new FileAction({
 			id: 'test',
 			displayName: () => 'Test',
@@ -40,7 +41,7 @@ describe('FileActions init', () => {
 	})
 
 	test('Duplicate FileAction gets rejected', () => {
-		logger.error = jest.fn()
+		logger.error = vi.fn()
 		const action = new FileAction({
 			id: 'test',
 			displayName: () => 'Test',
@@ -176,7 +177,7 @@ describe('Invalid FileAction creation', () => {
 
 describe('FileActions creation', () => {
 	test('create valid FileAction', async () => {
-		logger.debug = jest.fn()
+		logger.debug = vi.fn()
 		const action = new FileAction({
 			id: 'test',
 			displayName: () => 'Test',
