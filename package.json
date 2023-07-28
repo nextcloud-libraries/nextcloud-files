@@ -40,16 +40,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nextcloud/nextcloud-files.git"
+    "url": "https://github.com/nextcloud-libraries/nextcloud-files.git"
   },
   "bugs": {
-    "url": "https://github.com/nextcloud/nextcloud-files/issues"
+    "url": "https://github.com/nextcloud-libraries/nextcloud-files/issues"
   },
   "engines": {
     "node": "^20.0.0",
     "npm": "^9.0.0"
   },
-  "homepage": "https://github.com/nextcloud/nextcloud-files",
+  "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
   "devDependencies": {
     "@nextcloud/eslint-config": "^8.3.0-beta.2",
     "@nextcloud/typings": "^1.7.0",
