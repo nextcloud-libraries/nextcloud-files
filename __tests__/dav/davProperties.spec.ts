@@ -9,6 +9,7 @@ import {
 	registerDavProperty,
 	defaultDavNamespaces,
 	defaultDavProperties,
+	davGetRecentSearch,
 } from '../../lib/dav/davProperties'
 
 import logger from '../../lib/utils/logger'
@@ -42,6 +43,11 @@ describe('DAV Properties', () => {
 	test('davGetFavoritesReport', () => {
 		expect(typeof davGetFavoritesReport()).toBe('string')
 		expect(XMLValidator.validate(davGetFavoritesReport())).toBe(true)
+	})
+
+	test('davGetFavoritesReport', () => {
+		expect(typeof davGetRecentSearch(1337)).toBe('string')
+		expect(XMLValidator.validate(davGetRecentSearch(1337))).toBe(true)
 	})
 
 	test('registerDavProperty registers successfully', () => {

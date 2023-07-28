@@ -20,6 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
+import { getCurrentUser } from '@nextcloud/auth'
 import logger from '../utils/logger'
 
 export type DavProperty = { [key: string]: string }
@@ -70,7 +71,7 @@ export const registerDavProperty = function(prop: string, namespace: DavProperty
 	const namespaces = { ...window._nc_dav_namespaces, ...namespace }
 
 	// Check duplicates
-	if (window._nc_dav_properties.find(search => search === prop)) {
+	if (window._nc_dav_properties.find((search) => search === prop)) {
 		logger.error(`${prop} already registered`, { prop })
 		return false
 	}
@@ -99,7 +100,7 @@ export const getDavProperties = function(): string {
 		window._nc_dav_properties = [...defaultDavProperties]
 	}
 
-	return window._nc_dav_properties.map(prop => `<${prop} />`).join(' ')
+	return window._nc_dav_properties.map((prop) => `<${prop} />`).join(' ')
 }
 
 /**
@@ -110,7 +111,9 @@ export const getDavNameSpaces = function(): string {
 		window._nc_dav_namespaces = { ...defaultDavNamespaces }
 	}
 
-	return Object.keys(window._nc_dav_namespaces).map(ns => `xmlns:${ns}="${window._nc_dav_namespaces?.[ns]}"`).join(' ')
+	return Object.keys(window._nc_dav_namespaces)
+		.map((ns) => `xmlns:${ns}="${window._nc_dav_namespaces?.[ns]}"`)
+		.join(' ')
 }
 
 /**
@@ -138,4 +141,83 @@ export const davGetFavoritesReport = function(): string {
 				<oc:favorite>1</oc:favorite>
 			</oc:filter-rules>
 		</oc:filter-files>`
+}
+
+/**
+ * Get the SEARCH body to search for recently modified files
+ *
+ * @param lastModified Oldest timestamp to include (Unix timestamp)
+ * @example
+ * ```ts
+ * // SEARCH for recent files need a different DAV endpoint
+ * const client = davGetClient(generateRemoteUrl('dav'))
+ * // Timestamp of last week
+ * const lastWeek = Math.round(Date.now() / 1000) - (60 * 60 * 24 * 7)
+ * const contentsResponse = await client.getDirectoryContents(path, {
+ *     details: true,
+ *     data: davGetRecentSearch(lastWeek),
+ *     headers: {
+ *         method: 'SEARCH',
+ *         'Content-Type': 'application/xml; charset=utf-8',
+ *     },
+ *     deep: true,
+ * }) as ResponseDataDetailed<FileStat[]>
+ * ```
+ */
+export const davGetRecentSearch = function(lastModified: number): string {
+	return `<?xml version="1.0" encoding="UTF-8"?>
+<d:searchrequest ${getDavNameSpaces()}
+	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
+	<d:basicsearch>
+		<d:select>
+			<d:prop>
+				${getDavProperties()}
+			</d:prop>
+		</d:select>
+		<d:from>
+			<d:scope>
+				<d:href>/files/${getCurrentUser()?.uid}/</d:href>
+				<d:depth>infinity</d:depth>
+			</d:scope>
+		</d:from>
+		<d:where>
+			<d:and>
+				<d:or>
+					<d:not>
+						<d:eq>
+							<d:prop>
+								<d:getcontenttype/>
+							</d:prop>
+							<d:literal>httpd/unix-directory</d:literal>
+						</d:eq>
+					</d:not>
+					<d:eq>
+						<d:prop>
+							<oc:size/>
+						</d:prop>
+						<d:literal>0</d:literal>
+					</d:eq>
+				</d:or>
+				<d:gt>
+					<d:prop>
+						<d:getlastmodified/>
+					</d:prop>
+					<d:literal>${lastModified}</d:literal>
+				</d:gt>
+			</d:and>
+		</d:where>
+		<d:orderby>
+			<d:order>
+				<d:prop>
+					<d:getlastmodified/>
+				</d:prop>
+				<d:descending/>
+			</d:order>
+		</d:orderby>
+		<d:limit>
+			<d:nresults>100</d:nresults>
+			<ns:firstresult>0</ns:firstresult>
+		</d:limit>
+	</d:basicsearch>
+</d:searchrequest>`
 }
