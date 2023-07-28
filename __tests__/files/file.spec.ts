@@ -223,4 +223,21 @@ describe('Altering attributes updates mtime', () => {
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 		expect(file.attributes.test).toBeUndefined()
 	})
+
+	test('mtime is NOT updated if not initially defined', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				test: true,
+			},
+		})
+		expect(file.attributes.test).toBe(true)
+		delete file.attributes.test
+
+		// Check that mtime has been updated
+		expect(file.mtime).toBeUndefined()
+		expect(file.attributes.test).toBeUndefined()
+	})
 })

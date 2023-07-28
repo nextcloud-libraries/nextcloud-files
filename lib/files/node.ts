@@ -40,13 +40,13 @@ export abstract class Node {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			set: (target: Attribute, prop: string, value: any): any => {
 				// Edit modification time
-				this._data.mtime = new Date()
+				this.updateMtime()
 				// Apply original changes
 				return Reflect.set(target, prop, value)
 			},
 			deleteProperty: (target: Attribute, prop: string) => {
 				// Edit modification time
-				this._data.mtime = new Date()
+				this.updateMtime()
 				// Apply original changes
 				return Reflect.deleteProperty(target, prop)
 			},
@@ -222,7 +222,7 @@ export abstract class Node {
 	move(destination: string) {
 		validateData({ ...this._data, source: destination }, this._knownDavService)
 		this._data.source = destination
-		this._data.mtime = new Date()
+		this.updateMtime()
 	}
 
 	/**
@@ -236,6 +236,15 @@ export abstract class Node {
 			throw new Error('Invalid basename')
 		}
 		this.move(dirname(this.source) + '/' + basename)
+	}
+
+	/**
+	 * Update the mtime if exists.
+	 */
+	private updateMtime() {
+		if (this._data.mtime) {
+			this._data.mtime = new Date()
+		}
 	}
 
 }
