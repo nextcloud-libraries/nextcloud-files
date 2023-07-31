@@ -4,5 +4,4 @@ export default createLibConfig({
 	index: 'lib/index.ts',
 }, {
 	libraryFormats: ['es', 'cjs'],
-	DTSPluginOptions: false,
 })
