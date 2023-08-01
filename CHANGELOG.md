@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 # Changelog
 
+## 3.0.0-beta.12 - 2023-08-01
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.11...v3.0.0-beta.12)
+
+### Enhancements
+* feat(dav): Add "recent files" SEARCH payload as an export by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/710
+
+### Fixed
+* fix: allow undefined properties in File and Folder by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/683
+* fix: Bring back Typescript definitions by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/712
+* fix: do not update mtime if not already defined by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/709
+
+### Changed
+* Add DAV functions for fetching nodes from Nextcloud by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/706
+* chore: Cleanup package and make it a native ESM package by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/704
+* chore: Drop babel dependency - not used anyways by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/703
+* chore: Fix URLs after package got transfered by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/713
+* docs: Add badge for documentation containing a link to it by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/708
+* Use vite and vitest for bundling and testing the package by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/705
+
 ## 3.0.0-beta.11 - 2023-07-04
 
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.10...v3.0.0-beta.11)
