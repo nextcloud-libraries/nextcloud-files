@@ -1,4 +1,4 @@
-import { createLibConfig } from '@susnux/nextcloud-vite-config'
+import { createLibConfig } from '@nextcloud/vite-config'
 
 export default createLibConfig({
 	index: 'lib/index.ts',

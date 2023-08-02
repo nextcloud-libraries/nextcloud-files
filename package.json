@@ -53,11 +53,11 @@
   "devDependencies": {
     "@nextcloud/eslint-config": "^8.3.0-beta.2",
     "@nextcloud/typings": "^1.7.0",
+    "@nextcloud/vite-config": "^1.0.0-beta.18",
     "@rollup-extras/plugin-clean": "^1.3.6",
     "@rollup/plugin-commonjs": "^25.0.3",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.2",
-    "@susnux/nextcloud-vite-config": "^1.0.0-beta.16",
     "@types/node": "^20.4.5",
     "@vitest/coverage-istanbul": "^0.33.0",
     "fast-xml-parser": "^4.2.6",
