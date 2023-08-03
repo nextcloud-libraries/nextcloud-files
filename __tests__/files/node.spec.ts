@@ -52,6 +52,17 @@ describe('FileId attribute', () => {
 		expect(file.fileid).toBe(1234)
 	})
 
+	// Mostly used when a node is unavailable
+	test('FileId negative fallback', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			id: -1234,
+		})
+		expect(file.fileid).toBe(-1234)
+	})
+
 	test('FileId attributes fallback', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
@@ -72,13 +83,6 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 			id: '1234' as unknown as number,
-		})).toThrowError('Invalid id type of value')
-
-		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-			id: -1234,
 		})).toThrowError('Invalid id type of value')
 	})
 

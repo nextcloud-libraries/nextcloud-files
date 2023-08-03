@@ -81,7 +81,7 @@ export const isDavRessource = function(source: string, davService: RegExp): bool
  * @param davService Pattern to check if source is DAV ressource
  */
 export const validateData = (data: NodeData, davService: RegExp) => {
-	if (data.id && (typeof data.id !== 'number' || data.id < 0)) {
+	if (data.id && typeof data.id !== 'number') {
 		throw new Error('Invalid id type of value')
 	}
 
