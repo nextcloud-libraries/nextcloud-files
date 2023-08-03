@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 # Changelog
 
+## 3.0.0-beta.13 - 2023-08-03
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.12...v3.0.0-beta.13)
+
+### Fixed
+* fix(node): allow negative file ids by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/716
+
+### Changed
+* fix: Move to `@nextcloud/vite-config` after package was transfered by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/715
+
 ## 3.0.0-beta.12 - 2023-08-01
 
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.11...v3.0.0-beta.12)
