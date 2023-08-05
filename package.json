@@ -58,7 +58,7 @@
     "@rollup/plugin-commonjs": "^25.0.3",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.2",
-    "@types/node": "^20.4.5",
+    "@types/node": "^20.4.7",
     "@vitest/coverage-istanbul": "^0.33.0",
     "fast-xml-parser": "^4.2.6",
     "rollup": "^3.27.0",
