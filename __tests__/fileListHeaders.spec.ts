@@ -1,4 +1,7 @@
+/* eslint-disable no-new */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, test, beforeEach, vi } from 'vitest'
+
 import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders'
 import logger from '../lib/utils/logger'
 import { Folder } from '../lib/files/folder'
@@ -63,5 +66,101 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.error).toHaveBeenCalledWith('Header test already registered', { header: header2 })
+	})
+})
+
+describe('FileListHeader validate', () => {
+	test('Missing required props', () => {
+		expect(() => {
+			new Header({
+				id: null,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+
+		expect(() => {
+			new Header({
+				id: '123',
+				render: null,
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+
+		expect(() => {
+			new Header({
+				id: '123',
+				render: () => {},
+				updated: null,
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+	})
+	test('Invalid id', () => {
+		expect(() => {
+			new Header({
+				id: true,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid id property')
+	})
+	test('Invalid enabled', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: true,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid enabled property')
+	})
+	test('Invalid render', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: () => {},
+				render: true,
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid render property')
+	})
+	test('Invalid updated', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: () => {},
+				render: () => {},
+				updated: true,
+			} as any as Header)
+		}).toThrowError('Invalid updated property')
+	})
+})
+
+describe('FileListHeader exec', () => {
+
+	test('Initializing FileListHeader', () => {
+		const enabled = vi.fn()
+		const render = vi.fn()
+		const updated = vi.fn()
+
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled,
+			render,
+			updated,
+		})
+
+		expect(header.enabled).toBe(enabled)
+		expect(header.render).toBe(render)
+		expect(header.updated).toBe(updated)
+
+		header.enabled!({} as Folder, {})
+		header.render(null as any as HTMLElement, {} as Folder, {})
+		header.updated({} as Folder, {})
+
+		expect(enabled).toHaveBeenCalled()
+		expect(render).toHaveBeenCalled()
+		expect(updated).toHaveBeenCalled()
 	})
 })
