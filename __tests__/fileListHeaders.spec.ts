@@ -1,10 +1,11 @@
-/* eslint-disable no-new */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-new */
 import { describe, expect, test, beforeEach, vi } from 'vitest'
 
+import { Folder } from '../lib/files/folder'
 import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders'
 import logger from '../lib/utils/logger'
-import { Folder } from '../lib/files/folder'
 
 describe('FileListHeader init', () => {
 
@@ -40,6 +41,28 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.debug).toHaveBeenCalled()
+	})
+
+	test('getFileListHeaders() returned array is reactive', () => {
+		logger.debug = vi.fn()
+
+		const headers = getFileListHeaders()
+		// is empty for now
+		expect(headers).toHaveLength(0)
+
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled: () => true,
+			render: () => {},
+			updated: () => {},
+		})
+
+		registerFileListHeaders(header)
+
+		// Now the array changed as it should be reactive
+		expect(headers).toHaveLength(1)
+		expect(headers[0]).toStrictEqual(header)
 	})
 
 	test('Duplicate Header gets rejected', () => {
