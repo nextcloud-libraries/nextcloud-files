@@ -1,7 +1,7 @@
 import { afterAll, describe, expect, test, vi } from 'vitest'
-import { readFile } from 'fs/promises'
+import { readFile } from 'node:fs/promises'
 
-import { File, Folder, davDefaultRootUrl, davGetDefaultPropfind, davGetFavoritesReport, davRootPath, getFavoriteNodes } from '../../lib'
+import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes } from '../../lib'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
@@ -15,8 +15,8 @@ describe('DAV functions', () => {
 		expect(davRootPath).toBe('/files/test')
 	})
 
-	test('root url is correct', () => {
-		expect(davDefaultRootUrl).toBe('https://localhost/dav/files/test')
+	test('remote url is correct', () => {
+		expect(davRemoteURL).toBe('https://localhost/dav')
 	})
 })
 
@@ -39,7 +39,7 @@ describe('DAV requests', () => {
 		const nodes = await getFavoriteNodes(client as never)
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
-		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe('/')
+		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe(`${davRootPath}/`)
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.data).toBe(davGetFavoritesReport())
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.headers?.method).toBe('REPORT')
 		// Check for correct output
@@ -68,9 +68,9 @@ describe('DAV requests', () => {
 		const nodes = await getFavoriteNodes(client as never, '/Neuer Ordner')
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
-		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe('/Neuer Ordner')
-		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.data).toBe(davGetDefaultPropfind())
-		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.headers?.method).toBe('PROPFIND')
+		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe(`${davRootPath}/Neuer Ordner`)
+		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.data).toBe(davGetFavoritesReport())
+		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.headers?.method).toBe('REPORT')
 		// There are no inner nodes
 		expect(nodes.length).toBe(0)
 	})

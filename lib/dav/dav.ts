@@ -27,7 +27,7 @@ import { File } from '../files/file'
 import { Folder } from '../files/folder'
 import { NodeData } from '../files/nodeData'
 import { davParsePermissions } from './davPermissions'
-import { davGetDefaultPropfind, davGetFavoritesReport } from './davProperties'
+import { davGetFavoritesReport } from './davProperties'
 
 import { getCurrentUser, getRequestToken } from '@nextcloud/auth'
 import { generateRemoteUrl } from '@nextcloud/router'
@@ -43,15 +43,22 @@ interface ResponseProps extends DAVResultResponseProps {
 	size: number
 }
 
+/**
+ * The DAV root path for the current user
+ */
 export const davRootPath = `/files/${getCurrentUser()?.uid}`
-export const davDefaultRootUrl = generateRemoteUrl('dav' + davRootPath)
+
+/**
+ * The DAV remote URL used as base URL for the WebDAV client
+ */
+export const davRemoteURL = generateRemoteUrl('dav')
 
 /**
  * Get a WebDAV client configured to include the Nextcloud request token
  *
- * @param davURL The DAV root URL
+ * @param davURL The DAV remote URL
  */
-export const davGetClient = function(davURL = davDefaultRootUrl) {
+export const davGetClient = function(davURL = davRemoteURL) {
 	const client = createClient(davURL, {
 		headers: {
 			requesttoken: getRequestToken() || '',
@@ -82,20 +89,32 @@ export const davGetClient = function(davURL = davDefaultRootUrl) {
  *
  * @param davClient The WebDAV client to use for performing the request
  * @param path Base path for the favorites, if unset all favorites are queried
+ * @param davRoot The root path for the DAV user (defaults to `davRootPath`)
+ * @example
+ * ```js
+ * import { davGetClient, davRootPath, getFavoriteNodes } from '@nextcloud/files'
+ *
+ * const client = davGetClient()
+ * // query favorites for the root
+ * const favorites = await getFavoriteNodes(client)
+ * // which is the same as writing:
+ * const favorites = await getFavoriteNodes(client, '/', davRootPath)
+ * ```
  */
-export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/') => {
-	const contentsResponse = await davClient.getDirectoryContents(path, {
+export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davRoot = davRootPath) => {
+	const contentsResponse = await davClient.getDirectoryContents(`${davRoot}${path}`, {
 		details: true,
-		// Only filter favorites if we're at the root
-		data: path === '/' ? davGetFavoritesReport() : davGetDefaultPropfind(),
+		data: davGetFavoritesReport(),
 		headers: {
-			// Patched in WebdavClient.ts
-			method: path === '/' ? 'REPORT' : 'PROPFIND',
+			// see davGetClient for patched webdav client
+			method: 'REPORT',
 		},
 		includeSelf: true,
 	}) as ResponseDataDetailed<FileStat[]>
 
-	return contentsResponse.data.filter(node => node.filename !== path).map((result) => davResultToNode(result))
+	return contentsResponse.data
+		.filter(node => node.filename !== path) // exclude current dir
+		.map((result) => davResultToNode(result, davRoot))
 }
 
 /**
@@ -114,7 +133,7 @@ export const davResultToNode = function(node: FileStat, davRoot = davRootPath): 
 		source: generateRemoteUrl(`dav${davRoot}${node.filename}`),
 		mtime: new Date(Date.parse(node.lastmod)),
 		mime: node.mime as string,
-		size: (props?.size as number) || 0,
+		size: props?.size || Number.parseInt(props.getcontentlength || '0'),
 		permissions,
 		owner,
 		root: davRoot,
