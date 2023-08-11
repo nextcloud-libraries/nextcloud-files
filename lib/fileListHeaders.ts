@@ -92,7 +92,7 @@ export class Header {
 export const registerFileListHeaders = function(header: Header): void {
 	if (typeof window._nc_filelistheader === 'undefined') {
 		window._nc_filelistheader = []
-		logger.debug('FileActions initialized')
+		logger.debug('FileListHeaders initialized')
 	}
 
 	// Check duplicates
@@ -105,5 +105,10 @@ export const registerFileListHeaders = function(header: Header): void {
 }
 
 export const getFileListHeaders = function(): Header[] {
-	return window._nc_filelistheader || []
+	if (typeof window._nc_filelistheader === 'undefined') {
+		window._nc_filelistheader = []
+		logger.debug('FileListHeaders initialized')
+	}
+
+	return window._nc_filelistheader
 }

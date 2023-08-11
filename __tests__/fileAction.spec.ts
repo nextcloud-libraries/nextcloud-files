@@ -14,9 +14,9 @@ describe('FileActions init', () => {
 	test('Getting empty uninitialized FileActions', () => {
 		logger.debug = vi.fn()
 		const fileActions = getFileActions()
-		expect(window._nc_fileactions).toBeUndefined()
+		expect(window._nc_fileactions).toBeDefined()
 		expect(fileActions).toHaveLength(0)
-		expect(logger.debug).toHaveBeenCalledTimes(0)
+		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
 	test('Initializing FileActions', () => {

@@ -12,9 +12,9 @@ describe('FileListHeader init', () => {
 	test('Getting empty uninitialized FileListHeader', () => {
 		logger.debug = vi.fn()
 		const headers = getFileListHeaders()
-		expect(window._nc_filelistheader).toBeUndefined()
+		expect(window._nc_filelistheader).toBeDefined()
 		expect(headers).toHaveLength(0)
-		expect(logger.debug).toHaveBeenCalledTimes(0)
+		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
 	test('Initializing FileListHeader', () => {
