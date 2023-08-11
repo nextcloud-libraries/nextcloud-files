@@ -1,5 +1,6 @@
-/* eslint-disable no-new */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-new */
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { getFileActions, registerFileAction, FileAction } from '../lib/fileAction'
@@ -14,9 +15,9 @@ describe('FileActions init', () => {
 	test('Getting empty uninitialized FileActions', () => {
 		logger.debug = vi.fn()
 		const fileActions = getFileActions()
-		expect(window._nc_fileactions).toBeUndefined()
+		expect(window._nc_fileactions).toBeDefined()
 		expect(fileActions).toHaveLength(0)
-		expect(logger.debug).toHaveBeenCalledTimes(0)
+		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
 	test('Initializing FileActions', () => {
@@ -38,6 +39,27 @@ describe('FileActions init', () => {
 		expect(getFileActions()).toHaveLength(1)
 		expect(getFileActions()[0]).toStrictEqual(action)
 		expect(logger.debug).toHaveBeenCalled()
+	})
+
+	test('getFileActions() returned array is reactive', () => {
+		logger.debug = vi.fn()
+
+		const actions = getFileActions()
+		// is empty for now
+		expect(actions).toHaveLength(0)
+
+		const action = new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+		})
+
+		registerFileAction(action)
+
+		// Now the array changed as it should be reactive
+		expect(actions).toHaveLength(1)
+		expect(actions[0]).toStrictEqual(action)
 	})
 
 	test('Duplicate FileAction gets rejected', () => {

@@ -171,5 +171,10 @@ export const registerFileAction = function(action: FileAction): void {
 }
 
 export const getFileActions = function(): FileAction[] {
-	return window._nc_fileactions || []
+	if (typeof window._nc_fileactions === 'undefined') {
+		window._nc_fileactions = []
+		logger.debug('FileActions initialized')
+	}
+
+	return window._nc_fileactions
 }

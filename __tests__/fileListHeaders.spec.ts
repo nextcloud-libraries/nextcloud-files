@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-new */
 import { describe, expect, test, beforeEach, vi } from 'vitest'
+
+import { Folder } from '../lib/files/folder'
 import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders'
 import logger from '../lib/utils/logger'
-import { Folder } from '../lib/files/folder'
 
 describe('FileListHeader init', () => {
 
@@ -12,9 +16,9 @@ describe('FileListHeader init', () => {
 	test('Getting empty uninitialized FileListHeader', () => {
 		logger.debug = vi.fn()
 		const headers = getFileListHeaders()
-		expect(window._nc_filelistheader).toBeUndefined()
+		expect(window._nc_filelistheader).toBeDefined()
 		expect(headers).toHaveLength(0)
-		expect(logger.debug).toHaveBeenCalledTimes(0)
+		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
 	test('Initializing FileListHeader', () => {
@@ -37,6 +41,28 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.debug).toHaveBeenCalled()
+	})
+
+	test('getFileListHeaders() returned array is reactive', () => {
+		logger.debug = vi.fn()
+
+		const headers = getFileListHeaders()
+		// is empty for now
+		expect(headers).toHaveLength(0)
+
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled: () => true,
+			render: () => {},
+			updated: () => {},
+		})
+
+		registerFileListHeaders(header)
+
+		// Now the array changed as it should be reactive
+		expect(headers).toHaveLength(1)
+		expect(headers[0]).toStrictEqual(header)
 	})
 
 	test('Duplicate Header gets rejected', () => {
@@ -63,5 +89,101 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.error).toHaveBeenCalledWith('Header test already registered', { header: header2 })
+	})
+})
+
+describe('FileListHeader validate', () => {
+	test('Missing required props', () => {
+		expect(() => {
+			new Header({
+				id: null,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+
+		expect(() => {
+			new Header({
+				id: '123',
+				render: null,
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+
+		expect(() => {
+			new Header({
+				id: '123',
+				render: () => {},
+				updated: null,
+			} as any as Header)
+		}).toThrowError('Invalid header: id, render and updated are required')
+	})
+	test('Invalid id', () => {
+		expect(() => {
+			new Header({
+				id: true,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid id property')
+	})
+	test('Invalid enabled', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: true,
+				render: () => {},
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid enabled property')
+	})
+	test('Invalid render', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: () => {},
+				render: true,
+				updated: () => {},
+			} as any as Header)
+		}).toThrowError('Invalid render property')
+	})
+	test('Invalid updated', () => {
+		expect(() => {
+			new Header({
+				id: 'test',
+				enabled: () => {},
+				render: () => {},
+				updated: true,
+			} as any as Header)
+		}).toThrowError('Invalid updated property')
+	})
+})
+
+describe('FileListHeader exec', () => {
+
+	test('Initializing FileListHeader', () => {
+		const enabled = vi.fn()
+		const render = vi.fn()
+		const updated = vi.fn()
+
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled,
+			render,
+			updated,
+		})
+
+		expect(header.enabled).toBe(enabled)
+		expect(header.render).toBe(render)
+		expect(header.updated).toBe(updated)
+
+		header.enabled!({} as Folder, {})
+		header.render(null as any as HTMLElement, {} as Folder, {})
+		header.updated({} as Folder, {})
+
+		expect(enabled).toHaveBeenCalled()
+		expect(render).toHaveBeenCalled()
+		expect(updated).toHaveBeenCalled()
 	})
 })
