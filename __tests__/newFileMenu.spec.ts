@@ -2,6 +2,7 @@ import { describe, expect, test, vi } from 'vitest'
 
 import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger'
+import { Folder, Permission } from '../lib'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
@@ -244,7 +245,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconClass: 'icon-file',
-			if: fileInfo => fileInfo.permissions.includes('CK'),
+			if: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -254,26 +255,18 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: fileInfo => fileInfo.permissions.includes('CK'),
+			if: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
-		const context = {
-			basename: 'Folder',
-			etag: '63071eedd82fe',
-			fileid: '56',
-			filename: '/Folder',
-			hasPreview: false,
-			lastmod: 1661410576,
-			mime: 'httpd/unix-directory',
-			month: '197001',
-			permissions: 'CKGWDR',
-			showShared: false,
+		const context = new Folder({
+			id: 56,
+			owner: 'admin',
 			size: 2610077102,
-			timestamp: 1661410,
-			type: 'dir',
-		}
+			source: 'https://example.com/remote.php/dav/files/admin/Folder',
+			permissions: Permission.ALL,
+		})
 
 		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(2)
@@ -288,7 +281,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconClass: 'icon-file',
-			if: fileInfo => fileInfo.permissions.includes('CK'),
+			if: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -298,27 +291,18 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: fileInfo => fileInfo.permissions.includes('CK'),
+			if: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
-		const context = {
-			basename: 'Shared folder',
-			etag: '63071eedd82fe',
-			fileid: '56',
-			filename: '/Shared folder',
-			hasPreview: false,
-			lastmod: 1661410576,
-			mime: 'httpd/unix-directory',
-			month: '197001',
-			// Only read and share
-			permissions: 'GR',
-			showShared: false,
+		const context = new Folder({
+			id: 56,
+			owner: 'admin',
 			size: 2610077102,
-			timestamp: 1661410,
-			type: 'dir',
-		}
+			source: 'https://example.com/remote.php/dav/files/admin/Folder',
+			permissions: Permission.READ,
+		})
 
 		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(0)
@@ -331,7 +315,6 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create template',
 			templateName: 'New file',
 			iconClass: 'icon-file',
-			// No conditions
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -341,27 +324,19 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: fileInfo => fileInfo.permissions.includes('CK'),
+			if: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
 
-		const context = {
-			basename: 'Shared folder',
-			etag: '63071eedd82fe',
-			fileid: '56',
-			filename: '/Shared folder',
-			hasPreview: false,
-			lastmod: 1661410576,
-			mime: 'httpd/unix-directory',
-			month: '197001',
-			// Only read and share
-			permissions: 'GR',
-			showShared: false,
+		const context = new Folder({
+			id: 56,
+			owner: 'admin',
 			size: 2610077102,
-			timestamp: 1661410,
-			type: 'dir',
-		}
+			source: 'https://example.com/remote.php/dav/files/admin/Foo/Bar',
+			permissions: Permission.NONE,
+			root: '/files/admin',
+		})
 
 		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(1)

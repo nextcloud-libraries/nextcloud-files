@@ -22,6 +22,7 @@
  */
 
 import { type Entry, getNewFileMenu } from './newFileMenu'
+import { Folder } from './files/folder'
 
 export { formatFileSize } from './humanfilesize'
 export { FileAction, getFileActions, registerFileAction } from './fileAction'
@@ -63,9 +64,9 @@ export const removeNewFileMenuEntry = function(entry: Entry | string) {
 /**
  * Get the list of registered entries from the upload menu
  *
- * @param {FileInfo} context the creation context. Usually the current folder FileInfo
+ * @param {Folder} context the creation context. Usually the current folder FileInfo
  */
-export const getNewFileMenuEntries = function(context?: object) {
+export const getNewFileMenuEntries = function(context?: Folder) {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.getEntries(context)
 }
