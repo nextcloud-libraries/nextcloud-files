@@ -1,7 +1,25 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
-# Changelog
+
+## 3.0.0-beta.15 - 2023-08-18
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.14...v3.0.0-beta.15)
+
+### Fixed
+* fix: headers and actions empty variable init by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/724
+
+### Enhancements
+* feat: use Folder as filemenu context by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/731
+* Various dependencies
+
+## 3.0.0-beta.14 - 2023-08-09
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.13...v3.0.0-beta.14)
+
+### Changed
+* feat: add FileListHeader by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/717
+* Various dependencies
 
 ## 3.0.0-beta.13 - 2023-08-03
 
@@ -9,8 +27,6 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 * fix(node): allow negative file ids by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/716
-
-### Changed
 * fix: Move to `@nextcloud/vite-config` after package was transfered by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/715
 
 ## 3.0.0-beta.12 - 2023-08-01
