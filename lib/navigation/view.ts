@@ -126,12 +126,24 @@ export class View implements ViewData {
 		return this._view.icon
 	}
 
+	set icon(icon) {
+		this._view.icon = icon
+	}
+
 	get order() {
 		return this._view.order
 	}
 
+	set order(order) {
+		this._view.order = order
+	}
+
 	get params() {
 		return this._view.params
+	}
+
+	set params(params) {
+		this._view.params = params
 	}
 
 	get columns() {
@@ -152,6 +164,10 @@ export class View implements ViewData {
 
 	get expanded() {
 		return this._view.expanded
+	}
+
+	set expanded(expanded: boolean | undefined) {
+		this._view.expanded = expanded
 	}
 
 	get defaultSortKey() {
