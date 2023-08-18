@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2021 John Molakvoæ <skjnldsv@protonmail.com>
+ * @copyright Copyright (c) 2023 John Molakvoæ <skjnldsv@protonmail.com>
  *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
  *
@@ -21,44 +21,59 @@
  */
 
 import { Node } from './files/node'
+import { View } from './navigation/view'
 import logger from './utils/logger'
+
+export enum DefaultType {
+	DEFAULT = 'default',
+	HIDDEN = 'hidden',
+}
 
 interface FileActionData {
 	/** Unique ID */
 	id: string
 	/** Translatable string displayed in the menu */
-	displayName: (files: Node[], view) => string
+	displayName: (files: Node[], view: View) => string
 	/** Svg as inline string. <svg><path fill="..." /></svg> */
-	iconSvgInline: (files: Node[], view) => string
+	iconSvgInline: (files: Node[], view: View) => string
 	/** Condition wether this action is shown or not */
-	enabled?: (files: Node[], view) => boolean
+	enabled?: (files: Node[], view: View) => boolean
 	/**
 	 * Function executed on single file action
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	exec: (file: Node, view, dir: string) => Promise<boolean|null>,
+	exec: (file: Node, view: View, dir: string) => Promise<boolean|null>,
 	/**
 	 * Function executed on multiple files action
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	execBatch?: (files: Node[], view, dir: string) => Promise<(boolean|null)[]>
+	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
 	/** This action order in the list */
 	order?: number,
-	/** Make this action the default */
-	default?: boolean,
+
+	/**
+	 * Make this action the default.
+	 * If multiple actions are default, the first one
+	 * will be used. The other ones will be put as first
+	 * entries in the actions menu iff DefaultType.Hidden is not used.
+	 * A DefaultType.Hidden action will never be shown
+	 * in the actions menu even if another action takes
+	 * its place as default.
+	 */
+	default?: DefaultType,
 	/**
 	 * If true, the renderInline function will be called
 	 */
-	inline?: (file: Node, view) => boolean,
+	inline?: (file: Node, view: View) => boolean,
 	/**
 	 * If defined, the returned html element will be
 	 * appended before the actions menu.
 	 */
-	renderInline?: (file: Node, view) => HTMLElement,
+	renderInline?: (file: Node, view: View) => Promise<HTMLElement | null>,
 }
 
 export class FileAction {
@@ -140,7 +155,7 @@ export class FileAction {
 			throw new Error('Invalid order')
 		}
 
-		if ('default' in action && typeof action.default !== 'boolean') {
+		if (action.default && !Object.values(DefaultType).includes(action.default)) {
 			throw new Error('Invalid default')
 		}
 

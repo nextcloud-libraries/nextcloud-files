@@ -9,5 +9,6 @@
     "strict": true,
     "noImplicitAny": false,
     "outDir": "./dist",
+    "rootDir": "./lib",
   }
 }

@@ -25,7 +25,7 @@ import { type Entry, getNewFileMenu } from './newFileMenu'
 import { Folder } from './files/folder'
 
 export { formatFileSize } from './humanfilesize'
-export { FileAction, getFileActions, registerFileAction } from './fileAction'
+export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
 export { Header, getFileListHeaders, registerFileListHeaders } from './fileListHeaders'
 export { type Entry } from './newFileMenu'
 export { Permission } from './permissions'
@@ -39,7 +39,9 @@ export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node } from './files/node'
 
-// TODO: Add FileInfo type!
+export * from './navigation/navigation'
+export * from './navigation/column'
+export * from './navigation/view'
 
 /**
  * Add a new menu entry to the upload manager menu

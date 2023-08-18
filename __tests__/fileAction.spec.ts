@@ -3,7 +3,7 @@
 /* eslint-disable no-new */
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { getFileActions, registerFileAction, FileAction } from '../lib/fileAction'
+import { getFileActions, registerFileAction, FileAction, DefaultType } from '../lib/fileAction'
 import logger from '../lib/utils/logger'
 
 describe('FileActions init', () => {
@@ -208,9 +208,9 @@ describe('FileActions creation', () => {
 			execBatch: async () => [true],
 			enabled: () => true,
 			order: 100,
-			default: true,
+			default: DefaultType.DEFAULT,
 			inline: () => true,
-			renderInline() {
+			renderInline: async () => {
 				const span = document.createElement('span')
 				span.textContent = 'test'
 				return span
@@ -218,14 +218,14 @@ describe('FileActions creation', () => {
 		})
 
 		expect(action.id).toBe('test')
-		expect(action.displayName([], {})).toBe('Test')
-		expect(action.iconSvgInline([], {})).toBe('<svg></svg>')
-		await expect(action.exec({} as any, {}, '/')).resolves.toBe(true)
-		await expect(action.execBatch?.([], {}, '/')).resolves.toStrictEqual([true])
-		expect(action.enabled?.({} as any, {})).toBe(true)
+		expect(action.displayName([], {} as any)).toBe('Test')
+		expect(action.iconSvgInline([], {} as any)).toBe('<svg></svg>')
+		await expect(action.exec({} as any, {} as any, '/')).resolves.toBe(true)
+		await expect(action.execBatch?.([], {} as any, '/')).resolves.toStrictEqual([true])
+		expect(action.enabled?.({} as any, {} as any)).toBe(true)
 		expect(action.order).toBe(100)
-		expect(action.default).toBe(true)
-		expect(action.inline?.({} as any, {})).toBe(true)
-		expect(action.renderInline?.({} as any, {}).outerHTML).toBe('<span>test</span>')
+		expect(action.default).toBe(DefaultType.DEFAULT)
+		expect(action.inline?.({} as any, {} as any)).toBe(true)
+		expect((await action.renderInline?.({} as any, {} as any))?.outerHTML).toBe('<span>test</span>')
 	})
 })

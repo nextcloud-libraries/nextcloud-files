@@ -20,7 +20,8 @@
  *
  */
 
-import { Folder } from '.'
+import { Folder } from './files/folder'
+import { View } from './navigation/view'
 import logger from './utils/logger'
 
 export interface Entry {
@@ -34,7 +35,7 @@ export interface Entry {
 	 * Condition wether this entry is shown or not
 	 * @param {Folder} context the creation context. Usually the current folder
 	 */
-	if?: (context: Folder) => boolean
+	if?: (context: Folder, view: View) => boolean
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
@@ -43,7 +44,7 @@ export interface Entry {
 	/** Existing icon css class */
 	iconClass?: string
 	/** Function to be run after creation */
-	handler?: () => void
+	handler?: (context: Folder, view: View) => void
 }
 
 export class NewFileMenu {
@@ -71,12 +72,13 @@ export class NewFileMenu {
 	/**
 	 * Get the list of registered entries
 	 *
-	 * @param {Folder} context the creation context. Usually the current folder FileInfo
+	 * @param {Folder} context the creation context. Usually the current folder
+	 * @param {View} view the current view
 	 */
-	public getEntries(context?: Folder): Array<Entry> {
-		if (context) {
+	public getEntries(context?: Folder, view?: View): Array<Entry> {
+		if (context && view) {
 			return this._entries
-				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
+				.filter(entry => typeof entry.if === 'function' ? entry.if(context, view) : true)
 		}
 		return this._entries
 	}
