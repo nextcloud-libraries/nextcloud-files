@@ -21,31 +21,32 @@
  */
 
 import { Node } from './files/node'
+import { View } from './navigation/view'
 import logger from './utils/logger'
 
 interface FileActionData {
 	/** Unique ID */
 	id: string
 	/** Translatable string displayed in the menu */
-	displayName: (files: Node[], view) => string
+	displayName: (files: Node[], view: View) => string
 	/** Svg as inline string. <svg><path fill="..." /></svg> */
-	iconSvgInline: (files: Node[], view) => string
+	iconSvgInline: (files: Node[], view: View) => string
 	/** Condition wether this action is shown or not */
-	enabled?: (files: Node[], view) => boolean
+	enabled?: (files: Node[], view: View) => boolean
 	/**
 	 * Function executed on single file action
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	exec: (file: Node, view, dir: string) => Promise<boolean|null>,
+	exec: (file: Node, view: View, dir: string) => Promise<boolean|null>,
 	/**
 	 * Function executed on multiple files action
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	execBatch?: (files: Node[], view, dir: string) => Promise<(boolean|null)[]>
+	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
 	/** This action order in the list */
 	order?: number,
 	/** Make this action the default */
@@ -53,12 +54,12 @@ interface FileActionData {
 	/**
 	 * If true, the renderInline function will be called
 	 */
-	inline?: (file: Node, view) => boolean,
+	inline?: (file: Node, view: View) => boolean,
 	/**
 	 * If defined, the returned html element will be
 	 * appended before the actions menu.
 	 */
-	renderInline?: (file: Node, view) => HTMLElement,
+	renderInline?: (file: Node, view: View) => HTMLElement,
 }
 
 export class FileAction {

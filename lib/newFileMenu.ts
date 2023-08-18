@@ -20,7 +20,8 @@
  *
  */
 
-import { Folder } from '.'
+import { Folder } from './files/folder'
+import { View } from './navigation/view'
 import logger from './utils/logger'
 
 export interface Entry {
@@ -34,7 +35,7 @@ export interface Entry {
 	 * Condition wether this entry is shown or not
 	 * @param {Folder} context the creation context. Usually the current folder
 	 */
-	if?: (context: Folder) => boolean
+	if?: (context: Folder, view: View) => boolean
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
@@ -43,7 +44,7 @@ export interface Entry {
 	/** Existing icon css class */
 	iconClass?: string
 	/** Function to be run after creation */
-	handler?: () => void
+	handler?: (context: Folder, view: View) => void
 }
 
 export class NewFileMenu {

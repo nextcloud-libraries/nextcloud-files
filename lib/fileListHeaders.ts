@@ -21,6 +21,7 @@
  */
 
 import { Folder } from './files/folder'
+import { View } from './navigation/view'
 import logger from './utils/logger'
 
 export interface HeaderData {
@@ -29,11 +30,11 @@ export interface HeaderData {
 	/** Order */
 	order: number
 	/** Condition wether this header is shown or not */
-	enabled?: (folder: Folder, view) => boolean
+	enabled?: (folder: Folder, view: View) => boolean
 	/** Executed when file list is initialized */
-	render: (el: HTMLElement, folder: Folder, view) => void
+	render: (el: HTMLElement, folder: Folder, view: View) => void
 	/** Executed when root folder changed */
-	updated(folder: Folder, view)
+	updated(folder: Folder, view: View)
 }
 
 export class Header {

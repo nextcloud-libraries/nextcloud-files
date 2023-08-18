@@ -39,7 +39,9 @@ export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node } from './files/node'
 
-// TODO: Add FileInfo type!
+export * from './navigation/navigation'
+export * from './navigation/column'
+export * from './navigation/view'
 
 /**
  * Add a new menu entry to the upload manager menu
