@@ -25,7 +25,7 @@ import { type Entry, getNewFileMenu } from './newFileMenu'
 import { Folder } from './files/folder'
 
 export { formatFileSize } from './humanfilesize'
-export { FileAction, getFileActions, registerFileAction } from './fileAction'
+export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
 export { Header, getFileListHeaders, registerFileListHeaders } from './fileListHeaders'
 export { type Entry } from './newFileMenu'
 export { Permission } from './permissions'

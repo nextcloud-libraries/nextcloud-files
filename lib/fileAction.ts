@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2021 John Molakvoæ <skjnldsv@protonmail.com>
+ * @copyright Copyright (c) 2023 John Molakvoæ <skjnldsv@protonmail.com>
  *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
  *
@@ -23,6 +23,11 @@
 import { Node } from './files/node'
 import { View } from './navigation/view'
 import logger from './utils/logger'
+
+export enum DefaultType {
+	DEFAULT = 'default',
+	HIDDEN = 'hidden',
+}
 
 interface FileActionData {
 	/** Unique ID */
@@ -50,7 +55,7 @@ interface FileActionData {
 	/** This action order in the list */
 	order?: number,
 	/** Make this action the default */
-	default?: boolean,
+	default?: DefaultType,
 	/**
 	 * If true, the renderInline function will be called
 	 */
@@ -59,7 +64,7 @@ interface FileActionData {
 	 * If defined, the returned html element will be
 	 * appended before the actions menu.
 	 */
-	renderInline?: (file: Node, view: View) => HTMLElement,
+	renderInline?: (file: Node, view: View) => Promise<HTMLElement | null>,
 }
 
 export class FileAction {
@@ -141,7 +146,7 @@ export class FileAction {
 			throw new Error('Invalid order')
 		}
 
-		if ('default' in action && typeof action.default !== 'boolean') {
+		if (action.default && !Object.values(DefaultType).includes(action.default)) {
 			throw new Error('Invalid default')
 		}
 
