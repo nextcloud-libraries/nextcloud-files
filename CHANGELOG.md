@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0-beta.16 - 2023-08-18
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.14...v3.0.0-beta.15)
+
+### Enhancements
+* feat: migrate Navigation and update FileAction from server by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/732
+### Fixed
+* fix(dav): Fix DAV functions to make work with them easier by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/725
+
 ## 3.0.0-beta.15 - 2023-08-18
 
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.14...v3.0.0-beta.15)
