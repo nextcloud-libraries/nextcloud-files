@@ -72,12 +72,13 @@ export class NewFileMenu {
 	/**
 	 * Get the list of registered entries
 	 *
-	 * @param {Folder} context the creation context. Usually the current folder FileInfo
+	 * @param {Folder} context the creation context. Usually the current folder
+	 * @param {View} view the current view
 	 */
-	public getEntries(context?: Folder): Array<Entry> {
-		if (context) {
+	public getEntries(context?: Folder, view?: View): Array<Entry> {
+		if (context && view) {
 			return this._entries
-				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
+				.filter(entry => typeof entry.if === 'function' ? entry.if(context, view) : true)
 		}
 		return this._entries
 	}
