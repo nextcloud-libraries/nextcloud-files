@@ -54,7 +54,16 @@ interface FileActionData {
 	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
 	/** This action order in the list */
 	order?: number,
-	/** Make this action the default */
+
+	/**
+	 * Make this action the default.
+	 * If multiple actions are default, the first one
+	 * will be used. The other ones will be put as first
+	 * entries in the actions menu iff DefaultType.Hidden is not used.
+	 * A DefaultType.Hidden action will never be shown
+	 * in the actions menu even if another action takes
+	 * its place as default.
+	 */
 	default?: DefaultType,
 	/**
 	 * If true, the renderInline function will be called
