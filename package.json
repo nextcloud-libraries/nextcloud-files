@@ -59,7 +59,7 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.2",
     "@types/node": "^20.4.10",
-    "@vitest/coverage-istanbul": "^0.34.1",
+    "@vitest/coverage-istanbul": "^0.34.2",
     "fast-xml-parser": "^4.2.7",
     "rollup": "^3.28.0",
     "tslib": "^2.6.1",
