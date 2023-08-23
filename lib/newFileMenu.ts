@@ -21,7 +21,6 @@
  */
 
 import { Folder } from './files/folder'
-import { View } from './navigation/view'
 import logger from './utils/logger'
 
 export interface Entry {
@@ -35,16 +34,22 @@ export interface Entry {
 	 * Condition wether this entry is shown or not
 	 * @param {Folder} context the creation context. Usually the current folder
 	 */
-	if?: (context: Folder, view: View) => boolean
+	if?: (context: Folder) => boolean
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
 	 */
 	iconSvgInline?: string
-	/** Existing icon css class */
+	/**
+	 * Existing icon css class
+	 * @deprecated use iconSvgInline instead
+	 */
 	iconClass?: string
-	/** Function to be run after creation */
-	handler?: (context: Folder, view: View) => void
+	/**
+	 * Function to be run after creation
+	 * @param {Folder} context the creation context. Usually the current folder
+	 */
+	handler: (context: Folder) => void
 }
 
 export class NewFileMenu {
@@ -73,12 +78,11 @@ export class NewFileMenu {
 	 * Get the list of registered entries
 	 *
 	 * @param {Folder} context the creation context. Usually the current folder
-	 * @param {View} view the current view
 	 */
-	public getEntries(context?: Folder, view?: View): Array<Entry> {
-		if (context && view) {
+	public getEntries(context?: Folder): Array<Entry> {
+		if (context) {
 			return this._entries
-				.filter(entry => typeof entry.if === 'function' ? entry.if(context, view) : true)
+				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
 		}
 		return this._entries
 	}
@@ -88,7 +92,7 @@ export class NewFileMenu {
 	}
 
 	private validateEntry(entry: Entry) {
-		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass)) {
+		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass || entry.handler)) {
 			throw new Error('Invalid entry')
 		}
 
