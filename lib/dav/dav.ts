@@ -56,10 +56,10 @@ export const davRemoteURL = generateRemoteUrl('dav')
 /**
  * Get a WebDAV client configured to include the Nextcloud request token
  *
- * @param davURL The DAV remote URL
+ * @param remoteURL The DAV server remote URL
  */
-export const davGetClient = function(davURL = davRemoteURL) {
-	const client = createClient(davURL, {
+export const davGetClient = function(remoteURL = davRemoteURL) {
+	const client = createClient(remoteURL, {
 		headers: {
 			requesttoken: getRequestToken() || '',
 		},
@@ -121,22 +121,23 @@ export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davR
  * Covert DAV result `FileStat` to `Node`
  *
  * @param node The DAV result
- * @param davRoot The DAV root path
+ * @param filesRoot The DAV files root path
+ * @param remoteURL The DAV server remote URL (same as on `davGetClient`)
  */
-export const davResultToNode = function(node: FileStat, davRoot = davRootPath): Node {
+export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
 	const owner = getCurrentUser()?.uid as string
 
 	const nodeData: NodeData = {
 		id: (props?.fileid as number) || 0,
-		source: generateRemoteUrl(`dav${davRoot}${node.filename}`),
+		source: `${remoteURL}${node.filename}`,
 		mtime: new Date(Date.parse(node.lastmod)),
 		mime: node.mime as string,
 		size: props?.size || Number.parseInt(props.getcontentlength || '0'),
 		permissions,
 		owner,
-		root: davRoot,
+		root: filesRoot,
 		attributes: {
 			...node,
 			...props,
