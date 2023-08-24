@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0-beta.19 - 2023-08-24
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.18...v3.0.0-beta.19)
+
+### Fixed
+* fix(dav): Fix resultToNode by adding some documenation how to use [\#741](https://github.com/nextcloud-libraries/nextcloud-files/pull/741) \([\@susnux](https://github.com/susnux)\)
+* fix(newfilemenu): fix handler requirement, deprecate iconClass and fix context [\#742](https://github.com/nextcloud-libraries/nextcloud-files/pull/742) \([\@skjnldsv](https://github.com/skjnldsv)\)
+
+## 3.0.0-beta.18 - 2023-08-23
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.17...v3.0.0-beta.18)
+
+### Fixed
+* fix: force bundle is-svg [\#740](https://github.com/nextcloud-libraries/nextcloud-files/pull/740) \([\@skjnldsv](https://github.com/skjnldsv)\)
+
+## 3.0.0-beta.17 - 2023-08-23
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.16...v3.0.0-beta.17)
+
+### Fixed
+* fix: getNewFileMenuEntries usage [\#734](https://github.com/nextcloud-libraries/nextcloud-files/pull/734) \([\@skjnldsv](https://github.com/skjnldsv)\)
+
 ## 3.0.0-beta.16 - 2023-08-18
 
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.15...v3.0.0-beta.16)
