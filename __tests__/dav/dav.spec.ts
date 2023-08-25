@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises'
 
 import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode } from '../../lib'
 import { FileStat } from 'webdav'
+// required as default URL will be the DOM URL class which will use the window.location
+import { URL as FileURL } from 'node:url'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
@@ -80,7 +82,7 @@ describe('davResultToNode', () => {
 
 describe('DAV requests', () => {
 	test('request all favorite files', async () => {
-		const favoritesResponseJSON = JSON.parse((await readFile(new URL('../fixtures/favorites-response.json', import.meta.url))).toString())
+		const favoritesResponseJSON = JSON.parse((await readFile(new FileURL('../fixtures/favorites-response.json', import.meta.url))).toString())
 
 		// Mock the WebDAV client
 		const client = {
@@ -109,7 +111,7 @@ describe('DAV requests', () => {
 	})
 
 	test('request inner favorites', async () => {
-		const favoritesResponseJSON = JSON.parse((await readFile(new URL('../fixtures/favorites-inner-response.json', import.meta.url))).toString())
+		const favoritesResponseJSON = JSON.parse((await readFile(new FileURL('../fixtures/favorites-inner-response.json', import.meta.url))).toString())
 
 		// Mock the WebDAV client
 		const client = {
