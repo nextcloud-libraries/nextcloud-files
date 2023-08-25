@@ -22,6 +22,7 @@
 
 import { join } from 'path'
 import { Permission } from '../permissions'
+import { NodeStatus } from './node'
 
 export interface Attribute { [key: string]: any }
 
@@ -54,6 +55,7 @@ export interface NodeData {
 	/** The owner  UID of this node */
 	owner: string|null
 
+	/** The node attributes */
 	attributes?: Attribute
 
 	/**
@@ -62,6 +64,9 @@ export interface NodeData {
 	 * e.g. /files/emma
 	 */
 	root?: string
+
+	/** The node status */
+	status?: NodeStatus
 }
 
 /**
@@ -155,5 +160,9 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		if (!data.source.includes(join(service, data.root))) {
 			throw new Error('The root must be relative to the service. e.g /files/emma')
 		}
+	}
+
+	if (data.status && !Object.values(NodeStatus).includes(data.status)) {
+		throw new Error('Status must be a valid NodeStatus')
 	}
 }

@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { File } from '../../lib/files/file'
 import { FileType } from '../../lib/files/fileType'
 import { Permission } from '../../lib/permissions'
+import { NodeStatus } from '../../lib/files/node'
 
 describe('File creation', () => {
 	test('Valid dav file', () => {
@@ -12,6 +13,7 @@ describe('File creation', () => {
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
 			crtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
+			status: NodeStatus.NEW,
 		})
 
 		expect(file).toBeInstanceOf(File)
@@ -35,6 +37,7 @@ describe('File creation', () => {
 		expect(file.path).toBe('/picture.jpg')
 		expect(file.isDavRessource).toBe(true)
 		expect(file.permissions).toBe(Permission.NONE)
+		expect(file.status).toBe(NodeStatus.NEW)
 	})
 
 	test('Valid dav file with root', () => {
@@ -169,6 +172,19 @@ describe('File data change', () => {
 		expect(file.dirname).toBe('/Pictures/Old')
 		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/Old/picture-old.jpg')
 		expect(file.root).toBe('/files/emma')
+	})
+
+	test('Changing status', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+
+		expect(file.status).toBeUndefined()
+		file.status = NodeStatus.NEW
+		expect(file.status).toBe(NodeStatus.NEW)
 	})
 })
 

@@ -24,6 +24,17 @@ import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
 
+export enum NodeStatus {
+	/** This is a new node and it doesn't exists on the filesystem yet */
+	NEW = 'new',
+	/** This node has failed and is unavailable  */
+	FAILED = 'failed',
+	/** This node is currently loading or have an operation in progress */
+	LOADING = 'loading',
+	/** This node is locked and cannot be modified */
+	LOCKED = 'locked',
+}
+
 export abstract class Node {
 
 	private _data: NodeData
@@ -211,6 +222,20 @@ export abstract class Node {
 	 */
 	get fileid(): number|undefined {
 		return this._data?.id || this.attributes?.fileid
+	}
+
+	/**
+	 * Get the node status.
+	 */
+	get status(): NodeStatus|undefined {
+		return this._data?.status
+	}
+
+	/**
+	 * Set the node status.
+	 */
+	set status(status: NodeStatus|undefined) {
+		this._data.status = status
 	}
 
 	/**
