@@ -4,6 +4,7 @@ import { File } from '../../lib/files/file'
 import { Folder } from '../../lib/files/folder'
 import { Attribute, NodeData } from '../../lib/files/nodeData'
 import { Permission } from '../../lib/permissions'
+import { NodeStatus } from '../../lib/files/node'
 
 describe('Node testing', () => {
 	test('Root null fallback', () => {
@@ -194,6 +195,15 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			root: '/remote.php/dav/files/emma',
 		})).toThrowError('The root must be relative to the service. e.g /files/emma')
+	})
+
+	test('Invalid status', () => {
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			status: 'invalid' as unknown as NodeStatus,
+		})).toThrowError('Status must be a valid NodeStatus')
 	})
 })
 

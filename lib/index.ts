@@ -23,7 +23,6 @@
 
 import { type Entry, getNewFileMenu } from './newFileMenu'
 import { type Folder } from './files/folder'
-import { type View } from './navigation/view'
 
 export { formatFileSize } from './humanfilesize'
 export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
@@ -38,7 +37,7 @@ export * from './dav/dav'
 export { FileType } from './files/fileType'
 export { File } from './files/file'
 export { Folder } from './files/folder'
-export { Node } from './files/node'
+export { Node, NodeStatus } from './files/node'
 
 export * from './navigation/navigation'
 export * from './navigation/column'
