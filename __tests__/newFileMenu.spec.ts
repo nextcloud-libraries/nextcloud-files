@@ -4,14 +4,6 @@ import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger'
 import { Folder, Permission, View } from '../lib'
 
-const view = new View({
-	id: 'files',
-	name: 'Files',
-	icon: '<svg></svg>',
-	getContents: async () => ({ folder: {}, contents: [] }),
-	order: 1,
-})
-
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
 		logger.debug = vi.fn()
@@ -276,7 +268,7 @@ describe('NewFileMenu getEntries filter', () => {
 			permissions: Permission.ALL,
 		})
 
-		const entries = newFileMenu.getEntries(context, view)
+		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(2)
 		expect(entries[0]).toBe(entry1)
 		expect(entries[1]).toBe(entry2)
@@ -312,7 +304,7 @@ describe('NewFileMenu getEntries filter', () => {
 			permissions: Permission.READ,
 		})
 
-		const entries = newFileMenu.getEntries(context, view)
+		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(0)
 	})
 
@@ -346,7 +338,7 @@ describe('NewFileMenu getEntries filter', () => {
 			root: '/files/admin',
 		})
 
-		const entries = newFileMenu.getEntries(context, view)
+		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(1)
 		expect(entries[0]).toBe(entry1)
 	})
