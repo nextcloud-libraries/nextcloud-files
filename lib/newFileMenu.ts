@@ -48,9 +48,9 @@ export interface Entry {
 	/**
 	 * Function to be run after creation
 	 * @param {Folder} context the creation context. Usually the current folder
-	 * @param {string[]} fileList list of file names present in the destination folder
+	 * @param {Node[]} content list of file/folders present in the context folder
 	 */
-	handler: (context: Folder, fileList: string[]) => void
+	handler: (context: Folder, content: Node[]) => void
 }
 
 export class NewFileMenu {
