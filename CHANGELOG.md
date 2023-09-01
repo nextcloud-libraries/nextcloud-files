@@ -1,9 +1,15 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## 3.0.0-beta.21 - 2023-09-01
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.20...v3.0.0-beta.21)
+
+### Fixed
+* fix: use Node and not string for the new file menu handler arg by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/753
 
 ## 3.0.0-beta.20 - 2023-08-29
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.19...v3.0.0-beta.20)
+
 ### Enhancements
 * feat(files): add node status by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/744
 * feat: provide fileList names as newFileMenu handler argument by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/752
