@@ -20,7 +20,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">Entry</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L26">newFileMenu.ts:26</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L26">newFileMenu.ts:26</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -45,16 +45,16 @@
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L30">newFileMenu.ts:30</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L30">newFileMenu.ts:30</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="handler" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>handler</span><a href="#handler" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">handler</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">context</span>, <span class="tsd-kind-parameter">fileList</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">handler</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">context</span>, <span class="tsd-kind-parameter">content</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures">
-<li class="tsd-signature" id="handler.__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">context</span>, <span class="tsd-kind-parameter">fileList</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+<li class="tsd-signature" id="handler.__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">context</span>, <span class="tsd-kind-parameter">content</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Function to be run after creation</p>
 </div>
@@ -66,13 +66,13 @@
 <div class="tsd-comment tsd-typography"><p>the creation context. Usually the current folder</p>
 </div></li>
 <li>
-<h5><span class="tsd-kind-parameter">fileList</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-<div class="tsd-comment tsd-typography"><p>list of file names present in the destination folder</p>
+<h5><span class="tsd-kind-parameter">content</span>: <span class="tsd-signature-type ">Node</span><span class="tsd-signature-symbol">[]</span></h5>
+<div class="tsd-comment tsd-typography"><p>list of file/folders present in the context folder</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L53">newFileMenu.ts:53</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L53">newFileMenu.ts:53</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="iconClass" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span class="deprecated">icon<wbr/>Class</span><a href="#iconClass" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">icon<wbr/>Class</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -82,7 +82,7 @@
 <h4>Deprecated</h4><p>use iconSvgInline instead</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L47">newFileMenu.ts:47</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L47">newFileMenu.ts:47</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="iconSvgInline" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>icon<wbr/>Svg<wbr/>Inline</span><a href="#iconSvgInline" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">icon<wbr/>Svg<wbr/>Inline</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -91,7 +91,7 @@ Svg as inline string. <svg><path fill="..." /></svg></p>
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L42">newFileMenu.ts:42</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L42">newFileMenu.ts:42</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="id" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -99,7 +99,7 @@ Svg as inline string. <svg><path fill="..." /></svg></p>
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L28">newFileMenu.ts:28</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L28">newFileMenu.ts:28</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="if" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>if</span><a href="#if" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">if</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">context</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span></div>
@@ -122,7 +122,7 @@ Svg as inline string. <svg><path fill="..." /></svg></p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L37">newFileMenu.ts:37</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L37">newFileMenu.ts:37</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="templateName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>template<wbr/>Name</span><a href="#templateName" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">template<wbr/>Name</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -130,7 +130,7 @@ Svg as inline string. <svg><path fill="..." /></svg></p>
 </div>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/7a543c2/lib/newFileMenu.ts#L32">newFileMenu.ts:32</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/c16e30e/lib/newFileMenu.ts#L32">newFileMenu.ts:32</a></li></ul></aside></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
