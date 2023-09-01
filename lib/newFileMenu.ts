@@ -20,7 +20,7 @@
  *
  */
 
-import { Folder } from './files/folder'
+import type { Folder, Node } from './index'
 import logger from './utils/logger'
 
 export interface Entry {
