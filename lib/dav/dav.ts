@@ -59,7 +59,10 @@ export const davRemoteURL = generateRemoteUrl('dav')
  * @param remoteURL The DAV server remote URL
  */
 export const davGetClient = function(remoteURL = davRemoteURL) {
-	const client = createClient(remoteURL, {
+	// Encode valid user id characters
+	const encodedUrl = encodeURI(remoteURL)
+		.replaceAll('\'', '%27')
+	const client = createClient(encodedUrl, {
 		headers: {
 			requesttoken: getRequestToken() || '',
 		},
