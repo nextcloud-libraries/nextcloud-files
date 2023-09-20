@@ -109,6 +109,17 @@ describe('Invalid FileAction creation', () => {
 			} as any as FileAction)
 		}).toThrowError('Invalid displayName function')
 	})
+	test('Invalid title', () => {
+		expect(() => {
+			new FileAction({
+				id: 'test',
+				displayName: () => 'Test',
+				title: 'Test',
+				iconSvgInline: () => '<svg></svg>',
+				exec: async () => true,
+			} as any as FileAction)
+		}).toThrowError('Invalid title function')
+	})
 	test('Invalid iconSvgInline', () => {
 		expect(() => {
 			new FileAction({
@@ -203,6 +214,7 @@ describe('FileActions creation', () => {
 		const action = new FileAction({
 			id: 'test',
 			displayName: () => 'Test',
+			title: () => 'Test title',
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			execBatch: async () => [true],
@@ -219,6 +231,7 @@ describe('FileActions creation', () => {
 
 		expect(action.id).toBe('test')
 		expect(action.displayName([], {} as any)).toBe('Test')
+		expect(action.title?.([], {} as any)).toBe('Test title')
 		expect(action.iconSvgInline([], {} as any)).toBe('<svg></svg>')
 		await expect(action.exec({} as any, {} as any, '/')).resolves.toBe(true)
 		await expect(action.execBatch?.([], {} as any, '/')).resolves.toStrictEqual([true])
