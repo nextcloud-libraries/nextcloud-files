@@ -34,6 +34,8 @@ interface FileActionData {
 	id: string
 	/** Translatable string displayed in the menu */
 	displayName: (files: Node[], view: View) => string
+	/** Translatable title for of the action */
+	title?: (files: Node[], view: View) => string
 	/** Svg as inline string. <svg><path fill="..." /></svg> */
 	iconSvgInline: (files: Node[], view: View) => string
 	/** Condition wether this action is shown or not */
@@ -93,6 +95,10 @@ export class FileAction {
 		return this._action.displayName
 	}
 
+	get title() {
+		return this._action.title
+	}
+
 	get iconSvgInline() {
 		return this._action.iconSvgInline
 	}
@@ -132,6 +138,10 @@ export class FileAction {
 
 		if (!action.displayName || typeof action.displayName !== 'function') {
 			throw new Error('Invalid displayName function')
+		}
+
+		if ('title' in action && typeof action.title !== 'function') {
+			throw new Error('Invalid title function')
 		}
 
 		if (!action.iconSvgInline || typeof action.iconSvgInline !== 'function') {
