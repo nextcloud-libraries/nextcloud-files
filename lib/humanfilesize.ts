@@ -64,3 +64,40 @@ export function formatFileSize(size: number|string, skipSmallSizes = false, bina
 
 	return relativeSize + ' ' + readableFormat
 }
+
+/**
+ * Returns a file size in bytes from a humanly readable string
+ * Note: `b` and `B` are both parsed as bytes and not as bit or byte.
+ *
+ * @param  {string} value file size in human-readable format
+ * @param  {boolean} forceBinary for backwards compatibility this allows values to be base 2 (so 2KB means 2048 bytes instead of 2000 bytes)
+ * @return {number} or null if string could not be parsed
+ */
+export function parseFileSize(value: string, forceBinary = false) {
+	try {
+		value = `${value}`.toLocaleLowerCase().replaceAll(/\s+/g, '').replaceAll(',', '.')
+	} catch (e) {
+		return null
+	}
+
+	const match = value.match(/^([0-9]*(\.[0-9]*)?)([kmgtp]?)(i?)b?$/)
+	// ignore not found, missing pre- and decimal, empty number
+	if (match === null || match[1] === '.' || match[1] === '') {
+		return null
+	}
+
+	const bytesArray = {
+		'': 0,
+		k: 1,
+		m: 2,
+		g: 3,
+		t: 4,
+		p: 5,
+		e: 6,
+	}
+
+	const decimalString = `${match[1]}`
+	const base = (match[4] === 'i' || forceBinary) ? 1024 : 1000
+
+	return Math.round(Number.parseFloat(decimalString) * (base ** bytesArray[match[3]]))
+}
