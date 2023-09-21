@@ -31,9 +31,9 @@ const humanListBinary = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
  *
  * @param size in bytes
  * @param skipSmallSizes avoid rendering tiny sizes and return '< 1 KB' instead
- * @param binaryPrefixes True if binary prefixes like `KiB` should be used (size base 2)
+ * @param binaryPrefixes True if size base 2 (and binary prefixes like `KiB`) should be used
  */
-export function formatFileSize(size: number|string, skipSmallSizes = false, binaryPrefixes = false): string {
+export function formatFileSize(size: number|string, skipSmallSizes = false, binaryPrefixes = true): string {
 
 	if (typeof size === 'string') {
 		size = Number(size)
