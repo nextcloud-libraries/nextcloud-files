@@ -4,6 +4,10 @@ import { formatFileSize } from '../lib/humanfilesize'
 
 describe('humanFileSize', () => {
 	describe('formatFileSize', () => {
+		it('renders binary sizes by default', () => {
+			expect(formatFileSize(2048)).toBe('2 KiB')
+		})
+
 		it('renders file sizes with the correct unit', function() {
 			const dataDecimal = [
 				[0, '0 B'],
@@ -30,7 +34,7 @@ describe('humanFileSize', () => {
 				[128000000000000000.0, '113.7 PiB'],
 			]
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0])).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], false, false)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], false, true)).toEqual(dataBinary[i][1])
@@ -59,7 +63,7 @@ describe('humanFileSize', () => {
 				[128000000000000000.0, '113.7 PiB'],
 			]
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0], true)).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], true, false)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], true, true)).toEqual(dataBinary[i][1])
@@ -93,7 +97,7 @@ describe('humanFileSize', () => {
 				[128000000000000000.0, '113,7 PiB'],
 			]
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0])).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], false, false)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], false, true)).toEqual(dataBinary[i][1])
