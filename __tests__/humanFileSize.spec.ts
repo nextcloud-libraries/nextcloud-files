@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatFileSize } from '../lib/humanfilesize'
+import { formatFileSize, parseFileSize } from '../lib/humanfilesize'
 
 describe('humanFileSize', () => {
 	describe('formatFileSize', () => {
@@ -103,5 +103,99 @@ describe('humanFileSize', () => {
 				expect(formatFileSize(dataBinary[i][0], false, true)).toEqual(dataBinary[i][1])
 			}
 		})
+	})
+})
+
+describe('parseFileSize', () => {
+	it('should return null on error', () => {
+		const invalid = [
+			'',
+			'a',
+			'.',
+			'kb',
+			'1.1.2',
+			'10ob',
+			'1z',
+		]
+
+		for (const line of invalid) {
+			expect(parseFileSize(line)).toBeNull()
+		}
+	})
+
+	it('can parse base 2', () => {
+		const values = {
+			'2kib': 2048,
+			'2mib': 2 * (1024 ** 2),
+			'2gib': 2 * (1024 ** 3),
+			'2tib': 2 * (1024 ** 4),
+			'2pib': 2 * (1024 ** 5),
+		}
+
+		for (const [text, value] of Object.entries(values)) {
+			expect(parseFileSize(text)).toBe(value)
+		}
+	})
+
+	it('can parse base 10', () => {
+		const values = {
+			'2kb': 2000,
+			'2mb': 2 * (1000 ** 2),
+			'2gb': 2 * (1000 ** 3),
+			'2tb': 2 * (1000 ** 4),
+			'2pb': 2 * (1000 ** 5),
+		}
+
+		for (const [text, value] of Object.entries(values)) {
+			expect(parseFileSize(text)).toBe(value)
+		}
+	})
+
+	it('parses missing binary prefixes if force is set true', () => {
+		const values = {
+			'2kb': 2048,
+			'2mb': 2 * (1024 ** 2),
+			'2gb': 2 * (1024 ** 3),
+			'2tb': 2 * (1024 ** 4),
+			'2pb': 2 * (1024 ** 5),
+		}
+
+		for (const [text, value] of Object.entries(values)) {
+			expect(parseFileSize(text, true)).toBe(value)
+		}
+	})
+
+	it('can parse with spaces', () => {
+		const values = {
+			'2kb': 2000,
+			'2 kb': 2000,
+			' 2kb': 2000,
+			'2kb ': 2000,
+			' 2 k b ': 2000,
+			'2kib': 2048,
+			'2 kIb': 2048,
+			' 2kib': 2048,
+			'2Kib ': 2048,
+			' 2 k i b ': 2048,
+		}
+
+		for (const [text, value] of Object.entries(values)) {
+			expect(parseFileSize(text)).toBe(value)
+		}
+	})
+
+	it('can parse decimals', () => {
+		const values = {
+			'2kb': 2000,
+			'2.2kb': 2200,
+			'2.kb': 2000,
+			'.2kb ': 200,
+			',2kb': 200,
+			'2,2kb': 2200,
+		}
+
+		for (const [text, value] of Object.entries(values)) {
+			expect(parseFileSize(text)).toBe(value)
+		}
 	})
 })
