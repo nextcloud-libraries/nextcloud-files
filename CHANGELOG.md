@@ -1,6 +1,23 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
+## 3.0.0-beta.23 - 2023-09-25
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.22...v3.0.0-beta.23)
+
+### Enhancements
+* feat(parseFileSize): Added parseFileSize function to parse a human readable file size to number of bytes [\#769](https://github.com/nextcloud-libraries/nextcloud-files/pull/769) \([\@susnux](https://github.com/susnux)\)
+
+### Fixed
+* fix(formatFileSize): Fix default value for binaryPrefixes [\#770](https://github.com/nextcloud-libraries/nextcloud-files/pull/770) \([\@susnux](https://github.com/susnux)\)
+* fix: Node import type [\#754](https://github.com/nextcloud-libraries/nextcloud-files/pull/754) \([\@skjnldsv](https://github.com/skjnldsv)\)
+
+## 3.0.0-beta.22 - 2023-09-20
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.21...v3.0.0-beta.22)
+
+### Enhancements
+* feat: add action title [\#767](https://github.com/nextcloud-libraries/nextcloud-files/pull/767) \([\@skjnldsv](https://github.com/skjnldsv)\)
+
 ## 3.0.0-beta.21 - 2023-09-01
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.20...v3.0.0-beta.21)
 
@@ -104,6 +121,29 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - fix: Do not export the declaration of window.OC [\#667](https://github.com/nextcloud-libraries/nextcloud-files/pull/667) ([skjnldsv](https://github.com/skjnldsv))
+
+## 3.0.0-beta.9 - 2023-04-24
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.8...v3.0.0-beta.9)
+
+### Enhancement
+- feat(files): update mtime on attributes tampering [\#602](https://github.com/nextcloud-libraries/nextcloud-files/pull/602) ([skjnldsv](https://github.com/skjnldsv))
+- feat(actions): also test doc build on pull requests [\#621](https://github.com/nextcloud-libraries/nextcloud-files/pull/621) ([skjnldsv](https://github.com/skjnldsv))
+
+### Fixed
+- fix: prevent invalid roots to be defined [\#577](https://github.com/nextcloud-libraries/nextcloud-files/pull/577) ([skjnldsv](https://github.com/skjnldsv))
+- fix(fileActions): improve typing and add silent actions [\#625](https://github.com/nextcloud-libraries/nextcloud-files/pull/625) ([skjnldsv](https://github.com/skjnldsv))
+- fix(node): default permissions should be NONE and fix undefined return [\#630](https://github.com/nextcloud-libraries/nextcloud-files/pull/630) ([skjnldsv](https://github.com/skjnldsv))
+
+## 3.0.0-beta.8 - 2023-04-07
+
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.7...v3.0.0-beta.8)
+
+### Enhancement
+- feat(FileAction): add file action support [\#608](https://github.com/nextcloud-libraries/nextcloud-files/pull/608) ([skjnldsv](https://github.com/skjnldsv))
+
+### Changed
+- Dependency updates
 
 ## 3.0.0-beta.7 - 2023-02-03
 
