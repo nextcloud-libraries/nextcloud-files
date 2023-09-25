@@ -33,6 +33,7 @@ import { getCurrentUser, getRequestToken } from '@nextcloud/auth'
 import { generateRemoteUrl } from '@nextcloud/router'
 import { createClient, getPatcher, RequestOptions } from 'webdav'
 import { request } from 'webdav/dist/node/request.js'
+import { encodePath } from 'webdav/dist/node/tools/path.js'
 
 /**
  * Nextcloud DAV result response
@@ -132,6 +133,7 @@ export const davResultToNode = function(node: FileStat, filesRoot = davRootPath,
 	const nodeData: NodeData = {
 		id: (props?.fileid as number) || 0,
 		source: `${remoteURL}${node.filename}`,
+		encodedSource: `${remoteURL}${encodePath(node.filename)}`,
 		mtime: new Date(Date.parse(node.lastmod)),
 		mime: node.mime as string,
 		size: props?.size || Number.parseInt(props.getcontentlength || '0'),

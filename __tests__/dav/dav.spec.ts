@@ -50,6 +50,7 @@ describe('davResultToNode', () => {
 		expect(node.basename).toBe(result.basename)
 		expect(node.extension).toBe('.md')
 		expect(node.source).toBe('https://localhost/dav/files/test/New folder/Neue Textdatei.md')
+		expect(node.encodedSource).toBe('https://localhost/dav/files/test/New%20folder/Neue%20Textdatei.md')
 		expect(node.root).toBe(davRootPath)
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
@@ -65,6 +66,7 @@ describe('davResultToNode', () => {
 		expect(node.extension).toBe('.md')
 		expect(node.root).toBe('/root')
 		expect(node.source).toBe('https://localhost/dav/root/New folder/Neue Textdatei.md')
+		expect(node.encodedSource).toBe('https://localhost/dav/root/New%20folder/Neue%20Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
 	})
@@ -75,8 +77,20 @@ describe('davResultToNode', () => {
 		expect(node.basename).toBe(remoteResult.basename)
 		expect(node.extension).toBe('.md')
 		expect(node.source).toBe('http://example.com/dav/root/New folder/Neue Textdatei.md')
+		expect(node.encodedSource).toBe('http://example.com/dav/root/New%20folder/Neue%20Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
+	})
+
+	test('encode special characters', () => {
+		const remoteResult = { ...result, basename: 'realy #1\'s.md', filename: '/root/~⛰️ shot of a $[big} mountain/realy #1\'s.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/dav')
+		expect(node.basename).toBe(remoteResult.basename)
+		expect(node.extension).toBe('.md')
+		expect(node.source).toBe('http://example.com/dav/root/~⛰️ shot of a $[big} mountain/realy #1\'s.md')
+		expect(node.encodedSource).toBe('http://example.com/dav/root/~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/realy%20%231\'s.md')
+		expect(node.path).toBe('/~⛰️ shot of a $[big} mountain/realy #1\'s.md')
+		expect(node.dirname).toBe('/~⛰️ shot of a $[big} mountain')
 	})
 })
 

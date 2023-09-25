@@ -9,6 +9,7 @@ describe('File creation', () => {
 	test('Valid dav file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -43,6 +44,7 @@ describe('File creation', () => {
 	test('Valid dav file with root', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma',
@@ -70,6 +72,7 @@ describe('File creation', () => {
 	test('Valid remote file', () => {
 		const file = new File({
 			source: 'https://domain.com/Photos/picture.jpg',
+			encodedSource: 'https://domain.com/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: null,
 		})
@@ -97,6 +100,7 @@ describe('File data change', () => {
 	test('Rename a file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -121,6 +125,7 @@ describe('File data change', () => {
 	test('Moving a file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -145,6 +150,7 @@ describe('File data change', () => {
 	test('Moving a file to an invalid destination throws', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -157,6 +163,7 @@ describe('File data change', () => {
 	test('Moving a file to a different folder with root', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma',
@@ -177,6 +184,7 @@ describe('File data change', () => {
 	test('Changing status', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/files/emma',
@@ -192,6 +200,7 @@ describe('Altering attributes updates mtime', () => {
 	test('mtime is updated on existing attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -210,6 +219,7 @@ describe('Altering attributes updates mtime', () => {
 	test('mtime is updated on new attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -225,6 +235,7 @@ describe('Altering attributes updates mtime', () => {
 	test('mtime is updated on deleted attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -243,6 +254,7 @@ describe('Altering attributes updates mtime', () => {
 	test('mtime is NOT updated if not initially defined', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
