@@ -1,8 +1,8 @@
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test, vi, afterEach } from 'vitest'
 
 import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger'
-import { Folder, Permission, View } from '../lib'
+import { Folder, Permission, addNewFileMenuEntry, getNewFileMenuEntries } from '../lib'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
@@ -112,6 +112,23 @@ describe('NewFileMenu addEntry', () => {
 				id: 123456,
 				displayName: '123456',
 				templateName: 'New file.txt',
+				handler: () => {},
+			} as unknown as Entry)
+		}).toThrowError('Invalid entry')
+
+		expect(() => {
+			newFileMenu.registerEntry({
+				id: 123456,
+				displayName: '123456',
+				iconSvgInline: '<svg></svg>',
+			} as unknown as Entry)
+		}).toThrowError('Invalid entry')
+
+		expect(() => {
+			newFileMenu.registerEntry({
+				id: 123456,
+				displayName: '123456',
+				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
 				handler: () => {},
 			} as unknown as Entry)
@@ -126,16 +143,6 @@ describe('NewFileMenu addEntry', () => {
 				handler: () => {},
 			} as unknown as Entry)
 		}).toThrowError('Invalid id or displayName property')
-
-		expect(() => {
-			newFileMenu.registerEntry({
-				id: 'empty-file',
-				displayName: '123456',
-				templateName: 123465,
-				iconClass: 'icon-filetype-text',
-				handler: () => {},
-			} as unknown as Entry)
-		}).toThrowError('Invalid templateName property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -163,10 +170,21 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
-				if: true,
+				enabled: true,
 				handler: () => {},
 			} as unknown as Entry)
-		}).toThrowError('Invalid if property')
+		}).toThrowError('Invalid enabled property')
+
+		expect(() => {
+			newFileMenu.registerEntry({
+				id: 'empty-file',
+				displayName: '123456',
+				templateName: 'New file.txt',
+				iconClass: 'icon-filetype-text',
+				order: true,
+				handler: () => {},
+			} as unknown as Entry)
+		}).toThrowError('Invalid order property')
 
 		expect(() => {
 			newFileMenu.registerEntry({
@@ -177,14 +195,6 @@ describe('NewFileMenu addEntry', () => {
 				handler: 'handler',
 			} as unknown as Entry)
 		}).toThrowError('Invalid handler property')
-
-		expect(() => {
-			newFileMenu.registerEntry({
-				id: 'empty-file',
-				displayName: '123456',
-				iconClass: 'icon-filetype-text',
-			} as unknown as Entry)
-		}).toThrowError('At least a templateName or a handler must be provided')
 	})
 })
 
@@ -245,7 +255,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconClass: 'icon-file',
-			if: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -255,7 +265,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -281,7 +291,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconClass: 'icon-file',
-			if: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -291,7 +301,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -324,7 +334,7 @@ describe('NewFileMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconClass: 'icon-filetype-text',
-			if: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -341,5 +351,88 @@ describe('NewFileMenu getEntries filter', () => {
 		const entries = newFileMenu.getEntries(context)
 		expect(entries).toHaveLength(1)
 		expect(entries[0]).toBe(entry1)
+	})
+})
+
+describe('NewFileMenu sort test', () => {
+	afterEach(() => {
+		delete window._nc_newfilemenu
+	})
+
+	test('Specified NewFileMenu order', () => {
+		const entry1 = {
+			id: 'empty-file',
+			displayName: 'Create empty file',
+			templateName: 'New file.txt',
+			iconClass: 'icon-filetype-text',
+			order: 3,
+			handler: () => {},
+		}
+
+		const entry2 = {
+			id: 'image',
+			displayName: 'Create new image',
+			templateName: 'New drawing.png',
+			iconClass: 'icon-filetype-image',
+			order: 2,
+			handler: () => {},
+		}
+
+		const entry3 = {
+			id: 'folder',
+			displayName: 'New folder',
+			templateName: 'New folder',
+			iconClass: 'icon-folder',
+			order: 1,
+			handler: () => {},
+		}
+
+		addNewFileMenuEntry(entry1)
+		addNewFileMenuEntry(entry2)
+		addNewFileMenuEntry(entry3)
+
+		const entries = getNewFileMenuEntries()
+		expect(entries).toHaveLength(3)
+		expect(entries[0]).toBe(entry3)
+		expect(entries[1]).toBe(entry2)
+		expect(entries[2]).toBe(entry1)
+	})
+
+	test('Fallback to displayName', () => {
+		const entry1 = {
+			id: 'empty-file',
+			displayName: 'Create empty file',
+			templateName: 'New file.txt',
+			iconClass: 'icon-filetype-text',
+			handler: () => {},
+		}
+
+		const entry2 = {
+			id: 'image',
+			displayName: 'Create new image',
+			templateName: 'New drawing.png',
+			iconClass: 'icon-filetype-image',
+			order: 1,
+			handler: () => {},
+		}
+
+		const entry3 = {
+			id: 'folder',
+			displayName: 'New folder',
+			templateName: 'New folder',
+			iconClass: 'icon-folder',
+			order: 0,
+			handler: () => {},
+		}
+
+		addNewFileMenuEntry(entry1)
+		addNewFileMenuEntry(entry2)
+		addNewFileMenuEntry(entry3)
+
+		const entries = getNewFileMenuEntries()
+		expect(entries).toHaveLength(3)
+		expect(entries[0]).toBe(entry1)
+		expect(entries[1]).toBe(entry3)
+		expect(entries[2]).toBe(entry2)
 	})
 })
