@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0-beta.25 - 2023-10-03
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.24...v3.0.0-beta.25)
+
+### Enhancements
+* feat(files): add encodedSource by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/794
+
+## 3.0.0-beta.24 - 2023-09-25
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.23...v3.0.0-beta.24)
+
+### Fixed
+* docs: update documentation link by @kesselb in https://github.com/nextcloud-libraries/nextcloud-files/pull/780
+* Fix export of `parseFileSize`
+
 ## 3.0.0-beta.23 - 2023-09-25
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.22...v3.0.0-beta.23)
 
