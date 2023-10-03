@@ -23,6 +23,7 @@ import { basename, extname, dirname } from 'path'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
+import { encodePath } from 'webdav/dist/node/tools/path.js'
 
 export enum NodeStatus {
 	/** This is a new node and it doesn't exists on the filesystem yet */
@@ -250,11 +251,13 @@ export abstract class Node {
 	 * Move the node to a new destination
 	 *
 	 * @param {string} destination the new source.
+	 * @param {string} encodedDestination the new encoded source.
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 */
-	move(destination: string) {
-		validateData({ ...this._data, source: destination }, this._knownDavService)
+	move(destination: string, encodedDestination: string) {
+		validateData({ ...this._data, source: destination, encodedSource: encodedDestination }, this._knownDavService)
 		this._data.source = destination
+		this._data.encodedSource = encodedDestination
 		this.updateMtime()
 	}
 
@@ -268,7 +271,10 @@ export abstract class Node {
 		if (basename.includes('/')) {
 			throw new Error('Invalid basename')
 		}
-		this.move(dirname(this.source) + '/' + basename)
+		this.move(
+			dirname(this.source) + '/' + basename,
+			dirname(this.encodedSource) + '/' + encodePath(basename),
+		)
 	}
 
 	/**

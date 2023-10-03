@@ -122,6 +122,33 @@ describe('File data change', () => {
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 	})
 
+	test('Rename a file with special characters', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/~⛰️ shot of a $[big} mountain/realy #1\'s.jpeg',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/realy%20%231\'s.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
+			root: '/files/emma',
+		})
+
+		expect(file.basename).toBe('realy #1\'s.jpeg')
+		expect(file.dirname).toBe('/~⛰️ shot of a $[big} mountain')
+		expect(file.root).toBe('/files/emma')
+		expect(file.mtime?.toISOString()).toBe('2023-01-01T00:00:00.000Z')
+
+		file.rename('picture with #!&$"§.jpg')
+
+		expect(file.basename).toBe('picture with #!&$"§.jpg')
+		expect(file.dirname).toBe('/~⛰️ shot of a $[big} mountain')
+		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/~⛰️ shot of a $[big} mountain/picture with #!&$"§.jpg')
+		expect(file.root).toBe('/files/emma')
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma/~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/picture%20with%20%23!%26%24%22%C2%A7.jpg')
+
+		// Check that mtime has been updated
+		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+	})
+
 	test('Moving a file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
@@ -136,11 +163,15 @@ describe('File data change', () => {
 		expect(file.root).toBe('/files/emma/Photos')
 		expect(file.mtime?.toISOString()).toBe('2023-01-01T00:00:00.000Z')
 
-		file.move('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
+		file.move(
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old#.jpg',
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old%23.jpg',
+		)
 
-		expect(file.basename).toBe('picture-old.jpg')
+		expect(file.basename).toBe('picture-old#.jpg')
 		expect(file.dirname).toBe('/')
-		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
+		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old#.jpg')
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old%23.jpg')
 		expect(file.root).toBe('/files/emma/Pictures')
 
 		// Check that mtime has been updated
@@ -156,7 +187,10 @@ describe('File data change', () => {
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
 		})
 		expect(() => {
-			file.move('ftp://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
+			file.move(
+				'ftp://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg',
+				'ftp://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg',
+			)
 		}).toThrowError('Invalid source format, only http(s) is supported')
 	})
 
@@ -173,7 +207,10 @@ describe('File data change', () => {
 		expect(file.dirname).toBe('/Photos')
 		expect(file.root).toBe('/files/emma')
 
-		file.move('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/Old/picture-old.jpg')
+		file.move(
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/Old/picture-old.jpg',
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/Old/picture-old.jpg',
+		)
 
 		expect(file.basename).toBe('picture-old.jpg')
 		expect(file.dirname).toBe('/Pictures/Old')

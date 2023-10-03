@@ -102,6 +102,26 @@ describe('Folder data change', () => {
 		expect(folder.root).toBe('/files/emma')
 	})
 
+	test('Rename a folder with special characters', () => {
+		const file = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/~⛰️ shot of a $[big} mountain',
+			encodedSource: 'https://cloud.domain.com/remote.php/dav/files/emma/~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain',
+			owner: 'emma',
+		})
+
+		expect(file.basename).toBe('~⛰️ shot of a $[big} mountain')
+		expect(file.dirname).toBe('/')
+		expect(file.root).toBe('/files/emma')
+
+		file.rename('folder with #!&$"§')
+
+		expect(file.basename).toBe('folder with #!&$"§')
+		expect(file.dirname).toBe('/')
+		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/folder with #!&$"§')
+		expect(file.root).toBe('/files/emma')
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma/folder%20with%20%23!%26%24%22%C2%A7')
+	})
+
 	test('Moving a folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
@@ -113,7 +133,10 @@ describe('Folder data change', () => {
 		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBe('/files/emma')
 
-		folder.move('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/')
+		folder.move(
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/',
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/',
+		)
 
 		expect(folder.basename).toBe('Pictures')
 		expect(folder.dirname).toBe('/')
@@ -133,7 +156,10 @@ describe('Folder data change', () => {
 		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBe('/files/emma')
 
-		folder.move('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/1/2/3')
+		folder.move(
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/1/2/3',
+			'https://cloud.domain.com/remote.php/dav/files/emma/Pictures/1/2/3',
+		)
 
 		expect(folder.basename).toBe('3')
 		expect(folder.dirname).toBe('/Pictures/1/2')
