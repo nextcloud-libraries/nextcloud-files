@@ -72,6 +72,7 @@
     "@nextcloud/auth": "^2.2.1",
     "@nextcloud/l10n": "^2.2.0",
     "@nextcloud/logger": "^2.7.0",
+    "@nextcloud/paths": "^2.1.0",
     "@nextcloud/router": "^2.1.2",
     "is-svg": "^5.0.0",
     "webdav": "^5.3.0"
