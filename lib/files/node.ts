@@ -20,6 +20,8 @@
  *
  */
 import { basename, extname, dirname } from 'path'
+import { encodePath } from '@nextcloud/paths'
+
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
@@ -80,6 +82,14 @@ export abstract class Node {
 	get source(): string {
 		// strip any ending slash
 		return this._data.source.replace(/\/$/i, '')
+	}
+
+	/**
+	 * Get the encoded source url to this object for requests purposes
+	 */
+	get encodedSource(): string {
+		const { origin } = new URL(this.source)
+		return origin + encodePath(this.source.slice(origin.length))
 	}
 
 	/**
