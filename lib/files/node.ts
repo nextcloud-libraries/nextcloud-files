@@ -83,6 +83,14 @@ export abstract class Node {
 	}
 
 	/**
+	 * Get the encoded source url to this object
+	 */
+	get encodedSource(): string {
+		// strip any ending slash
+		return this._data.encodedSource.replace(/\/$/i, '')
+	}
+
+	/**
 	 * Get this object name
 	 */
 	get basename(): string {
