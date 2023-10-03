@@ -265,7 +265,6 @@ describe('NewFileMenu getEntries filter', () => {
 			owner: 'admin',
 			size: 2610077102,
 			source: 'https://example.com/remote.php/dav/files/admin/Folder',
-			encodedSource: 'https://example.com/remote.php/dav/files/admin/Folder',
 			permissions: Permission.ALL,
 		})
 
@@ -302,7 +301,6 @@ describe('NewFileMenu getEntries filter', () => {
 			owner: 'admin',
 			size: 2610077102,
 			source: 'https://example.com/remote.php/dav/files/admin/Folder',
-			encodedSource: 'https://example.com/remote.php/dav/files/admin/Folder',
 			permissions: Permission.READ,
 		})
 
@@ -336,7 +334,6 @@ describe('NewFileMenu getEntries filter', () => {
 			owner: 'admin',
 			size: 2610077102,
 			source: 'https://example.com/remote.php/dav/files/admin/Foo/Bar',
-			encodedSource: 'https://example.com/remote.php/dav/files/admin/Foo/Bar',
 			permissions: Permission.NONE,
 			root: '/files/admin',
 		})

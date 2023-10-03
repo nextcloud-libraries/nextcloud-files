@@ -37,13 +37,6 @@ export interface NodeData {
 	 */
 	source: string
 
-	/**
-	 * Percent encoded URL to the ressource.
-	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture_with_%23.jpg
-	 * or https://domain.com/Photos/picture_with_%23.jpg
-	 */
-	encodedSource: string
-
 	/** Last modified time */
 	mtime?: Date
 
@@ -101,10 +94,6 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Missing mandatory source')
 	}
 
-	if (!data.encodedSource) {
-		throw new Error('Missing mandatory encodedSource')
-	}
-
 	try {
 		// eslint-disable-next-line no-new
 		new URL(data.source)
@@ -112,19 +101,8 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Invalid source format, source must be a valid URL')
 	}
 
-	try {
-		// eslint-disable-next-line no-new
-		new URL(data.encodedSource)
-	} catch (e) {
-		throw new Error('Invalid encodedSource format, encodedSource must be a valid URL')
-	}
-
 	if (!data.source.startsWith('http')) {
 		throw new Error('Invalid source format, only http(s) is supported')
-	}
-
-	if (!data.encodedSource.startsWith('http')) {
-		throw new Error('Invalid encodedSource format, only http(s) is supported')
 	}
 
 	if (data.mtime && !(data.mtime instanceof Date)) {
