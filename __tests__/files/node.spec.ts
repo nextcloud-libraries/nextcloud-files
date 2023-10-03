@@ -387,3 +387,17 @@ describe('Undefined properties are allowed', () => {
 		})).not.toThrow()
 	})
 })
+
+describe('Encoded source is handled properly', () => {
+	test('File', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/em ma!/Photos~⛰️ shot of a $[big} mountain/realy #1\'s.md',
+			owner: 'em ma!',
+			id: 123456,
+			mime: 'image/jpeg',
+			root: '/files/em ma!',
+		})
+
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/em%20ma!/Photos~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/realy%20%231\'s.md')
+	})
+})
