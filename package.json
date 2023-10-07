@@ -60,7 +60,7 @@
     "@rollup/plugin-typescript": "^11.1.4",
     "@types/node": "^20.7.2",
     "@vitest/coverage-istanbul": "^0.34.6",
-    "fast-xml-parser": "^4.3.1",
+    "fast-xml-parser": "^4.3.2",
     "rollup": "^3.29.4",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.1",
