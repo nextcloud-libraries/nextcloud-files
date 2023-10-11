@@ -26,29 +26,35 @@ import logger from './utils/logger'
 export interface Entry {
 	/** Unique ID */
 	id: string
+
 	/** Translatable string displayed in the menu */
 	displayName: string
-	/** Default new file name */
-	templateName?: string
+
 	/**
 	 * Condition wether this entry is shown or not
-	 * @param {Folder} context the creation context. Usually the current folder
+	 * @param context the creation context. Usually the current folder
 	 */
-	if?: (context: Folder) => boolean
+	enabled?: (context: Folder) => boolean
+
 	/**
 	 * Either iconSvgInline or iconClass must be defined
 	 * Svg as inline string. <svg><path fill="..." /></svg>
 	 */
 	iconSvgInline?: string
+
 	/**
 	 * Existing icon css class
 	 * @deprecated use iconSvgInline instead
 	 */
 	iconClass?: string
+
+	/** Order of the entry in the menu */
+	order?: number
+
 	/**
 	 * Function to be run after creation
-	 * @param {Folder} context the creation context. Usually the current folder
-	 * @param {Node[]} content list of file/folders present in the context folder
+	 * @param context the creation context. Usually the current folder
+	 * @param content list of file/folders present in the context folder
 	 */
 	handler: (context: Folder, content: Node[]) => void
 }
@@ -83,7 +89,7 @@ export class NewFileMenu {
 	public getEntries(context?: Folder): Array<Entry> {
 		if (context) {
 			return this._entries
-				.filter(entry => typeof entry.if === 'function' ? entry.if(context) : true)
+				.filter(entry => typeof entry.enabled === 'function' ? entry.enabled(context) : true)
 		}
 		return this._entries
 	}
@@ -93,7 +99,7 @@ export class NewFileMenu {
 	}
 
 	private validateEntry(entry: Entry) {
-		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass || entry.handler)) {
+		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass) || !entry.handler) {
 			throw new Error('Invalid entry')
 		}
 
@@ -107,20 +113,16 @@ export class NewFileMenu {
 			throw new Error('Invalid icon provided')
 		}
 
-		if (entry.if !== undefined && typeof entry.if !== 'function') {
-			throw new Error('Invalid if property')
+		if (entry.enabled !== undefined && typeof entry.enabled !== 'function') {
+			throw new Error('Invalid enabled property')
 		}
 
-		if (entry.templateName && typeof entry.templateName !== 'string') {
-			throw new Error('Invalid templateName property')
-		}
-
-		if (entry.handler && typeof entry.handler !== 'function') {
+		if (typeof entry.handler !== 'function') {
 			throw new Error('Invalid handler property')
 		}
 
-		if (!entry.templateName && !entry.handler) {
-			throw new Error('At least a templateName or a handler must be provided')
+		if ('order' in entry && typeof entry.order !== 'number') {
+			throw new Error('Invalid order property')
 		}
 
 		if (this.getEntryIndex(entry.id) !== -1) {
