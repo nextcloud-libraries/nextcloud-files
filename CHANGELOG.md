@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0-beta.26 - 2023-10-11
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.25...v3.0.0-beta.26)
+
+### Enhancements
+* feat: support new file menu entry order by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/781
+
+## Dependencies
+* chore(deps): Bump postcss from 8.4.27 to 8.4.31 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/796
+* chore(deps-dev): Bump @nextcloud/vite-config from 1.0.0-beta.19 to 1.0.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/805
+* chore(deps-dev): Bump @rollup-extras/plugin-clean from 1.3.7 to 1.3.8 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/797
+* chore(deps-dev): Bump @rollup/plugin-node-resolve from 15.2.1 to 15.2.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/803
+* chore(deps-dev): Bump @rollup/plugin-typescript from 11.1.4 to 11.1.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/801
+* chore(deps-dev): Bump @types/node from 20.7.2 to 20.8.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/804
+* chore(deps-dev): Bump fast-xml-parser from 4.3.1 to 4.3.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/802
+* chore(deps-dev): Bump vite from 4.4.9 to 4.4.11 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/800
+
 ## 3.0.0-beta.25 - 2023-10-03
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.24...v3.0.0-beta.25)
 
