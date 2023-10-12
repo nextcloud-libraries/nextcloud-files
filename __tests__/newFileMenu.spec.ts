@@ -409,7 +409,7 @@ describe('NewFileMenu sort test', () => {
 
 		const entry2 = {
 			id: 'image',
-			displayName: 'Create new image',
+			displayName: 'Create new image 2',
 			templateName: 'New drawing.png',
 			iconClass: 'icon-filetype-image',
 			order: 1,
@@ -425,14 +425,25 @@ describe('NewFileMenu sort test', () => {
 			handler: () => {},
 		}
 
+		const entry4 = {
+			id: 'image2',
+			displayName: 'Create new image 1',
+			templateName: 'New drawing 2.png',
+			iconClass: 'icon-filetype-image',
+			order: 1,
+			handler: () => {},
+		}
+
 		addNewFileMenuEntry(entry1)
 		addNewFileMenuEntry(entry2)
 		addNewFileMenuEntry(entry3)
+		addNewFileMenuEntry(entry4)
 
 		const entries = getNewFileMenuEntries()
-		expect(entries).toHaveLength(3)
+		expect(entries).toHaveLength(4)
 		expect(entries[0]).toBe(entry1)
 		expect(entries[1]).toBe(entry3)
-		expect(entries[2]).toBe(entry2)
+		expect(entries[2]).toBe(entry4)
+		expect(entries[3]).toBe(entry2)
 	})
 })

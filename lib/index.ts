@@ -71,9 +71,13 @@ export const removeNewFileMenuEntry = function(entry: Entry | string) {
 export const getNewFileMenuEntries = function(context?: Folder) {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.getEntries(context).sort((a: Entry, b: Entry) => {
-		if (a.order !== undefined && b.order !== undefined) {
+		// If defined and different, sort by order
+		if (a.order !== undefined
+			&& b.order !== undefined
+			&& a.order !== b.order) {
 			return a.order - b.order
 		}
-		return a.displayName.localeCompare(b.displayName)
+		// else sort by display name
+		return a.displayName.localeCompare(b.displayName, undefined, { numeric: true, sensitivity: 'base' })
 	})
 }
