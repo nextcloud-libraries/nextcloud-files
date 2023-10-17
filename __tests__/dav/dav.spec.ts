@@ -86,6 +86,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
@@ -115,6 +116,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
