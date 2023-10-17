@@ -24,6 +24,7 @@ import { join } from 'path'
 import { Permission } from '../permissions'
 import { NodeStatus } from './node'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Attribute { [key: string]: any }
 
 export interface NodeData {
