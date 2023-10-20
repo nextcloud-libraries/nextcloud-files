@@ -60,7 +60,7 @@ interface FileActionData {
 	order?: number,
 
 	/**
-	 * This action's parent in the list.
+	 * This action's parent id in the list.
 	 * If none found, will be displayed as a top-level action.
 	 */
 	parent?: string,
