@@ -173,6 +173,17 @@ describe('Invalid FileAction creation', () => {
 			} as any as FileAction)
 		}).toThrowError('Invalid order')
 	})
+	test('Invalid parent', () => {
+		expect(() => {
+			new FileAction({
+				id: 'test',
+				displayName: () => 'Test',
+				iconSvgInline: () => '<svg></svg>',
+				exec: async () => true,
+				parent: true,
+			} as any as FileAction)
+		}).toThrowError('Invalid parent')
+	})
 	test('Invalid default', () => {
 		expect(() => {
 			new FileAction({
