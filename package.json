@@ -31,7 +31,7 @@
     "build": "vite --mode production build",
     "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
-    "dev:watch": "vite --mode development build --watch",
+    "watch": "vite --mode development build --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest run",

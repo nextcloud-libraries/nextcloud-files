@@ -40,6 +40,7 @@ interface FileActionData {
 	iconSvgInline: (files: Node[], view: View) => string
 	/** Condition wether this action is shown or not */
 	enabled?: (files: Node[], view: View) => boolean
+
 	/**
 	 * Function executed on single file action
 	 * @return true if the action was executed successfully,
@@ -54,8 +55,15 @@ interface FileActionData {
 	 * @throws Error if the action failed
 	 */
 	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
+
 	/** This action order in the list */
 	order?: number,
+
+	/**
+	 * This action's parent id in the list.
+	 * If none found, will be displayed as a top-level action.
+	 */
+	parent?: string,
 
 	/**
 	 * Make this action the default.
@@ -119,6 +127,10 @@ export class FileAction {
 		return this._action.order
 	}
 
+	get parent() {
+		return this._action.parent
+	}
+
 	get default() {
 		return this._action.default
 	}
@@ -163,6 +175,10 @@ export class FileAction {
 
 		if ('order' in action && typeof action.order !== 'number') {
 			throw new Error('Invalid order')
+		}
+
+		if ('parent' in action && typeof action.parent !== 'string') {
+			throw new Error('Invalid parent')
 		}
 
 		if (action.default && !Object.values(DefaultType).includes(action.default)) {
