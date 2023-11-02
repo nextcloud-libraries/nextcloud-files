@@ -4,8 +4,8 @@ import { formatFileSize, parseFileSize } from '../lib/humanfilesize'
 
 describe('humanFileSize', () => {
 	describe('formatFileSize', () => {
-		it('renders binary sizes by default', () => {
-			expect(formatFileSize(2048)).toBe('2 KiB')
+		it('renders binary size with decimal units by default', () => {
+			expect(formatFileSize(2048)).toBe('2 KB')
 		})
 
 		it('renders file sizes with the correct unit', function() {
@@ -32,12 +32,14 @@ describe('humanFileSize', () => {
 				[128000000000000, '116.4 TiB'],
 				[128000000000000.0, '116.4 TiB'],
 				[128000000000000000.0, '113.7 PiB'],
-			]
+			] as const
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0], false, false)).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], false, false, true)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], false, true)).toEqual(dataBinary[i][1])
+				// Binary sizes but decimal units
+				expect(formatFileSize(dataBinary[i][0], false, false)).toEqual(dataBinary[i][1].replace('i', ''))
 			}
 		})
 
@@ -61,12 +63,14 @@ describe('humanFileSize', () => {
 				[128000000000000, '116.4 TiB'],
 				[128000000000000.0, '116.4 TiB'],
 				[128000000000000000.0, '113.7 PiB'],
-			]
+			] as const
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0], true, false)).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], true, false, true)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], true, true)).toEqual(dataBinary[i][1])
+				// Binary sizes but decimal units
+				expect(formatFileSize(dataBinary[i][0], true, false)).toEqual(dataBinary[i][1].replace('i', ''))
 			}
 		})
 
@@ -95,12 +99,14 @@ describe('humanFileSize', () => {
 				[128000000000000, '116,4 TiB'],
 				[128000000000000.0, '116,4 TiB'],
 				[128000000000000000.0, '113,7 PiB'],
-			]
+			] as const
 			for (let i = 0; i < dataDecimal.length; i++) {
-				expect(formatFileSize(dataDecimal[i][0], false, false)).toEqual(dataDecimal[i][1])
+				expect(formatFileSize(dataDecimal[i][0], false, false, true)).toEqual(dataDecimal[i][1])
 			}
 			for (let i = 0; i < dataBinary.length; i++) {
 				expect(formatFileSize(dataBinary[i][0], false, true)).toEqual(dataBinary[i][1])
+				// Binary sizes but decimal units
+				expect(formatFileSize(dataBinary[i][0], false, false)).toEqual(dataBinary[i][1].replace('i', ''))
 			}
 		})
 	})
