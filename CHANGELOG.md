@@ -2,13 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0-beta.27 - 2023-11-03
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.26...v3.0.0-beta.27)
+
+### Enhancements
+* feat: support nested actions by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/814
+
+### Fixed
+* fix(humanFileSize): Revert changes to default file sizes by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/822
+* fix(newfilemenu): better sorting and proper fallback to displayName by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/806
+
+### Dependencies
+* chore(deps-dev): Bump @babel/traverse from 7.22.8 to 7.23.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/812
+* chore(deps-dev): Bump @nextcloud/eslint-config from 8.3.0-beta.2 to 8.3.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/787
+* chore(deps-dev): Bump @nextcloud/vite-config from 1.0.1 to 1.1.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/818
+* chore(deps-dev): Bump @rollup-extras/plugin-clean from 1.3.8 to 1.3.9 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/810
+* chore(deps-dev): Bump @rollup/plugin-commonjs from 25.0.4 to 25.0.7 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/811
+* chore(deps-dev): Bump @rollup/plugin-node-resolve from 15.2.2 to 15.2.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/807
+* chore(deps-dev): Bump @types/node from 20.8.3 to 20.8.9 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/819
+* chore(deps-dev): Bump browserify-sign from 4.2.1 to 4.2.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/820
+* chore(deps-dev): Bump rollup from 3.29.4 to 4.1.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/813
+* chore(deps-dev): Bump typedoc from 0.25.1 to 0.25.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/808
+* chore(deps-dev): Bump vite from 4.4.11 to 4.5.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/816
+* chore(deps): Bump @nextcloud/router from 2.1.2 to 2.2.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/817
+
 ## 3.0.0-beta.26 - 2023-10-11
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.0.0-beta.25...v3.0.0-beta.26)
 
 ### Enhancements
 * feat: support new file menu entry order by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/781
 
-## Dependencies
+### Dependencies
 * chore(deps): Bump postcss from 8.4.27 to 8.4.31 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/796
 * chore(deps-dev): Bump @nextcloud/vite-config from 1.0.0-beta.19 to 1.0.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/805
 * chore(deps-dev): Bump @rollup-extras/plugin-clean from 1.3.7 to 1.3.8 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/797
