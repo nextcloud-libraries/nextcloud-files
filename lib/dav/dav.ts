@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import type { DAVResultResponseProps, FileStat, Response, ResponseDataDetailed, WebDAVClient } from 'webdav'
+import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
 import type { Node } from '../files/node'
 
 import { File } from '../files/file'
@@ -29,10 +29,9 @@ import { NodeData } from '../files/nodeData'
 import { davParsePermissions } from './davPermissions'
 import { davGetFavoritesReport } from './davProperties'
 
-import { getCurrentUser, getRequestToken } from '@nextcloud/auth'
+import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
 import { generateRemoteUrl } from '@nextcloud/router'
-import { createClient, getPatcher, RequestOptions } from 'webdav'
-import { request } from 'webdav/dist/node/request.js'
+import { createClient, getPatcher } from 'webdav'
 
 /**
  * Nextcloud DAV result response
@@ -59,11 +58,24 @@ export const davRemoteURL = generateRemoteUrl('dav')
  * @param remoteURL The DAV server remote URL
  */
 export const davGetClient = function(remoteURL = davRemoteURL) {
-	const client = createClient(remoteURL, {
-		headers: {
-			requesttoken: getRequestToken() || '',
-		},
-	})
+	const client = createClient(remoteURL)
+
+	/**
+	 * Set headers for DAV requests
+	 * @param token CSRF token
+	 */
+	function setHeaders(token: string | null) {
+		client.setHeaders({
+			// Add this so the server knows it is an request from the browser
+			'X-Requested-With': 'XMLHttpRequest',
+			// Inject user auth
+			requesttoken: token ?? '',
+		})
+	}
+
+	// refresh headers when request token changes
+	onRequestTokenUpdate(setHeaders)
+	setHeaders(getRequestToken())
 
 	/**
 	 * Allow to override the METHOD to support dav REPORT
@@ -71,16 +83,18 @@ export const davGetClient = function(remoteURL = davRemoteURL) {
 	 * @see https://github.com/perry-mitchell/webdav-client/blob/8d9694613c978ce7404e26a401c39a41f125f87f/source/request.ts
 	 */
 	const patcher = getPatcher()
-	// https://github.com/perry-mitchell/hot-patcher/issues/6
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
-	patcher.patch('request', (options: RequestOptions): Promise<Response> => {
-		if (options.headers?.method) {
-			options.method = options.headers.method
-			delete options.headers.method
+	// https://github.com/perry-mitchell/hot-patcher/issues/6
+	patcher.patch('fetch', (url: string, options: RequestInit): Promise<Response> => {
+		const headers = options.headers as Record<string, string>
+		if (headers?.method) {
+			options.method = headers.method
+			delete headers.method
 		}
-		return request(options)
+		return fetch(url, options)
 	})
+
 	return client
 }
 
