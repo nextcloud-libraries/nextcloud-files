@@ -61,7 +61,7 @@
     "@types/node": "^20.10.2",
     "@vitest/coverage-istanbul": "^0.34.6",
     "fast-xml-parser": "^4.3.2",
-    "rollup": "^4.5.2",
+    "rollup": "^4.6.1",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.4",
     "typescript": "^5.2.2",
