@@ -43,14 +43,21 @@ interface ResponseProps extends DAVResultResponseProps {
 }
 
 /**
- * The DAV root path for the current user
+ * Current users ID or sharing token
+ * Required in case of public link share where no user is logged in
  */
-export const davRootPath = `/files/${getCurrentUser()?.uid}`
+const currentUID = () => getCurrentUser()?.uid ?? (window.document.getElementById('sharingToken') as HTMLInputElement|undefined)?.value ?? ''
+
+/**
+ * The DAV root path for the current user
+ * If no current user is logged in - e.g. public link shares - the webdav root is used
+ */
+export const davRootPath = getCurrentUser() ? `/files/${currentUID()}` : '/'
 
 /**
  * The DAV remote URL used as base URL for the WebDAV client
  */
-export const davRemoteURL = generateRemoteUrl('dav')
+export const davRemoteURL = getCurrentUser() ? generateRemoteUrl('dav') : generateRemoteUrl('webdav').replace('remote.php', 'public.php')
 
 /**
  * Get a WebDAV client configured to include the Nextcloud request token
@@ -65,7 +72,9 @@ export const davGetClient = function(remoteURL = davRemoteURL) {
 	 * @param token CSRF token
 	 */
 	function setHeaders(token: string | null) {
+		const authorization: Record<string, string> = getCurrentUser() ? {} : { Authorization: 'Basic ' + btoa(`${currentUID()}:null`) }
 		client.setHeaders({
+			...authorization,
 			// Add this so the server knows it is an request from the browser
 			'X-Requested-With': 'XMLHttpRequest',
 			// Inject user auth
@@ -141,7 +150,7 @@ export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davR
 export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
-	const owner = getCurrentUser()?.uid as string
+	const owner = currentUID()
 
 	const nodeData: NodeData = {
 		id: (props?.fileid as number) || 0,
