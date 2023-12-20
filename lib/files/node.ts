@@ -112,9 +112,16 @@ export abstract class Node {
 	 */
 	get dirname(): string {
 		if (this.root) {
+			let source = this.source
+			if (this.isDavRessource) {
+				// ensure we only work on the real path in case root is not distinct
+				source = source.split(this._knownDavService).pop()!
+			}
 			// Using replace would remove all part matching root
-			const firstMatch = this.source.indexOf(this.root)
-			return dirname(this.source.slice(firstMatch + this.root.length) || '/')
+			const firstMatch = source.indexOf(this.root)
+			// Ensure we do not remove the leading slash
+			const root = this.root.replace(/\/$/, '')
+			return dirname(source.slice(firstMatch + root.length) || '/')
 		}
 
 		// This should always be a valid URL
@@ -219,9 +226,16 @@ export abstract class Node {
 	 */
 	get path(): string {
 		if (this.root) {
+			let source = this.source
+			if (this.isDavRessource) {
+				// ensure we only work on the real path in case root is not distinct
+				source = source.split(this._knownDavService).pop()!
+			}
 			// Using replace would remove all part matching root
-			const firstMatch = this.source.indexOf(this.root)
-			return this.source.slice(firstMatch + this.root.length) || '/'
+			const firstMatch = source.indexOf(this.root)
+			// Ensure we do not remove the leading slash
+			const root = this.root.replace(/\/$/, '')
+			return source.slice(firstMatch + root.length) || '/'
 		}
 		return (this.dirname + '/' + this.basename).replace(/\/\//g, '/')
 	}
