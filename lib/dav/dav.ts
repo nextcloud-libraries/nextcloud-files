@@ -56,9 +56,10 @@ export const davRemoteURL = generateRemoteUrl('dav')
  * Get a WebDAV client configured to include the Nextcloud request token
  *
  * @param remoteURL The DAV server remote URL
+ * @param headers Optional additional headers to set for every request
  */
-export const davGetClient = function(remoteURL = davRemoteURL) {
-	const client = createClient(remoteURL)
+export const davGetClient = function(remoteURL = davRemoteURL, headers: Record<string, string> = {}) {
+	const client = createClient(remoteURL, { headers })
 
 	/**
 	 * Set headers for DAV requests
@@ -66,6 +67,7 @@ export const davGetClient = function(remoteURL = davRemoteURL) {
 	 */
 	function setHeaders(token: string | null) {
 		client.setHeaders({
+			...headers,
 			// Add this so the server knows it is an request from the browser
 			'X-Requested-With': 'XMLHttpRequest',
 			// Inject user auth
