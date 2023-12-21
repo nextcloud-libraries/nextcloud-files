@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.0 - 2023-12-21
+### Enhancements
+* enh(dav): Allow to set custom headers when creating the DAV client by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/849
+
+### Fixed
+* fix(Node): Handle slash as root path for public webdav endpoint by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/847
+* fix(dav): davResultToNode real owner by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/862
+
+## Changed
+* Update webdav from 5.3.0 to 5.3.1
+* Update dev dependencies
+
 ## 3.0.0 - 2023-11-08
 
 ### Breaking
