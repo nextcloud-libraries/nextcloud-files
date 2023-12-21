@@ -298,6 +298,18 @@ describe('Root and paths detection', () => {
 		expect(file.dirname).toBe('/Photos')
 	})
 
+	test('Root with public webdav endpoint', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/public.php/webdav/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/',
+		})
+		expect(file.root).toBe('/')
+		expect(file.dirname).toBe('/Photos')
+		expect(file.path).toBe('/Photos/picture.jpg')
+	})
+
 	test('Root with ending slash is removed', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
