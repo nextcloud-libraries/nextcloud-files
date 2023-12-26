@@ -11,13 +11,6 @@ jobs:
 
     name: Build and deploy
     steps:
-      - name: Check actor permission level
-        # Only allow admin to deploy on release
-        if: github.event.release
-        uses: skjnldsv/check-actor-permission@e591dbfe838300c007028e1219ca82cc26e8d7c5 # v2
-        with:
-          require: admin
-
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
