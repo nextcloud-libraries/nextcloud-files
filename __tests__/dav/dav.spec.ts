@@ -1,8 +1,10 @@
-import { afterAll, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 
 import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode } from '../../lib'
 import { FileStat } from 'webdav'
+import * as auth from '@nextcloud/auth'
+
 // required as default URL will be the DOM URL class which will use the window.location
 import { URL as FileURL } from 'node:url'
 
@@ -24,6 +26,10 @@ describe('DAV functions', () => {
 })
 
 describe('davResultToNode', () => {
+	afterEach(() => {
+		vi.resetAllMocks()
+	})
+
 	/* Result of:
 	davGetClient().getDirectoryContents(`${davRootPath}${path}`, { details: true })
 	 */
@@ -77,6 +83,18 @@ describe('davResultToNode', () => {
 		expect(node.source).toBe('http://example.com/dav/root/New folder/Neue Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
+	})
+
+	// If owner-id is set, it will be used as owner
+	test('has correct owner set', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+
+		result.props = { ...result.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
+		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
+
+		expect(node.isDavRessource).toBe(true)
+		expect(node.owner).toBe('user1')
 	})
 })
 

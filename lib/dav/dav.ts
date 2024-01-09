@@ -143,7 +143,7 @@ export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davR
 export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
-	const owner = getCurrentUser()?.uid as string
+	const owner = props?.['owner-id'] as string || getCurrentUser()?.uid as string
 
 	const nodeData: NodeData = {
 		id: (props?.fileid as number) || 0,
