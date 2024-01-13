@@ -59,14 +59,14 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.11.0",
-    "@vitest/coverage-istanbul": "^0.34.6",
+    "@vitest/coverage-istanbul": "^1.2.0",
     "fast-xml-parser": "^4.3.3",
     "rollup": "^4.9.5",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
     "vite": "^4.5.1",
-    "vitest": "^0.34.6"
+    "vitest": "^1.2.0"
   },
   "dependencies": {
     "@nextcloud/auth": "^2.2.1",
