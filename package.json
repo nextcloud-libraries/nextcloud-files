@@ -54,7 +54,7 @@
     "@nextcloud/eslint-config": "^8.3.0",
     "@nextcloud/typings": "^1.7.0",
     "@nextcloud/vite-config": "^1.2.1",
-    "@types/node": "^20.11.7",
+    "@types/node": "^20.11.16",
     "@vitest/coverage-istanbul": "^1.2.2",
     "fast-xml-parser": "^4.3.3",
     "jsdom": "^23.2.0",
