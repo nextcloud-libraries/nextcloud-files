@@ -57,7 +57,7 @@
     "@types/node": "^20.11.16",
     "@vitest/coverage-istanbul": "^1.2.2",
     "fast-xml-parser": "^4.3.4",
-    "jsdom": "^23.2.0",
+    "jsdom": "^24.0.0",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
