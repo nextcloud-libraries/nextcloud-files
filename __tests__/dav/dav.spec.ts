@@ -1,4 +1,4 @@
-import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 
 import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode } from '../../lib'
@@ -96,9 +96,28 @@ describe('davResultToNode', () => {
 		expect(node.isDavRessource).toBe(true)
 		expect(node.owner).toBe('user1')
 	})
+
+	test('has correct owner set if number', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'admin', displayName: 'admin', isAdmin: true })
+
+		result.props = { ...result.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
+		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
+
+		expect(node.isDavRessource).toBe(true)
+		expect(node.owner).toBe('123456789')
+	})
 })
 
 describe('DAV requests', () => {
+	beforeEach(() => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+	})
+
+	afterEach(() => {
+		vi.resetAllMocks()
+	})
+
 	test('request all favorite files', async () => {
 		const favoritesResponseJSON = JSON.parse((await readFile(new FileURL('../fixtures/favorites-response.json', import.meta.url))).toString())
 
@@ -115,12 +134,15 @@ describe('DAV requests', () => {
 			}),
 		}
 
+		// Get the favorite nodes
 		const nodes = await getFavoriteNodes(client as never)
+
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
 		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe(`${davRootPath}/`)
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.data).toBe(davGetFavoritesReport())
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.headers?.method).toBe('REPORT')
+
 		// Check for correct output
 		expect(nodes.length).toBe(2)
 		expect(nodes[0] instanceof Folder).toBe(true)
@@ -145,12 +167,15 @@ describe('DAV requests', () => {
 			}),
 		}
 
+		// Get the favorite nodes
 		const nodes = await getFavoriteNodes(client as never, '/Neuer Ordner')
+
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
 		expect(client.getDirectoryContents.mock.lastCall?.at(0)).toBe(`${davRootPath}/Neuer Ordner`)
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.data).toBe(davGetFavoritesReport())
 		expect(client.getDirectoryContents.mock.lastCall?.at(1)?.headers?.method).toBe('REPORT')
+
 		// There are no inner nodes
 		expect(nodes.length).toBe(0)
 	})
