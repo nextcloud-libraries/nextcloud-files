@@ -38,8 +38,10 @@ import { createClient, getPatcher } from 'webdav'
  */
 interface ResponseProps extends DAVResultResponseProps {
 	permissions: string
+	mime: string
 	fileid: number
 	size: number
+	'owner-id': string | number
 }
 
 /**
@@ -141,15 +143,20 @@ export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davR
  * @param remoteURL The DAV server remote URL (same as on `davGetClient`)
  */
 export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
+	const userId = getCurrentUser()?.uid
+	if (!userId) {
+		throw new Error('No user id found')
+	}
+
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
-	const owner = props?.['owner-id'] as string || getCurrentUser()?.uid as string
+	const owner = (props?.['owner-id'] || userId).toString()
 
 	const nodeData: NodeData = {
-		id: (props?.fileid as number) || 0,
+		id: props?.fileid || 0,
 		source: `${remoteURL}${node.filename}`,
 		mtime: new Date(Date.parse(node.lastmod)),
-		mime: node.mime as string,
+		mime: node.mime || 'application/octet-stream',
 		size: props?.size || Number.parseInt(props.getcontentlength || '0'),
 		permissions,
 		owner,
