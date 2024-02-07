@@ -71,6 +71,6 @@
     "@nextcloud/paths": "^2.1.0",
     "@nextcloud/router": "^3.0.0",
     "is-svg": "^5.0.0",
-    "webdav": "^5.3.1"
+    "webdav": "^5.3.2"
   }
 }
