@@ -35,16 +35,13 @@ export const defaultDavProperties = [
 	'nc:has-preview',
 	'nc:is-encrypted',
 	'nc:mount-type',
-	'nc:share-attributes',
 	'oc:comments-unread',
 	'oc:favorite',
 	'oc:fileid',
 	'oc:owner-display-name',
 	'oc:owner-id',
 	'oc:permissions',
-	'oc:share-types',
 	'oc:size',
-	'ocs:share-permissions',
 ]
 
 export const defaultDavNamespaces = {
@@ -72,7 +69,7 @@ export const registerDavProperty = function(prop: string, namespace: DavProperty
 
 	// Check duplicates
 	if (window._nc_dav_properties.find((search) => search === prop)) {
-		logger.error(`${prop} already registered`, { prop })
+		logger.warn(`${prop} already registered`, { prop })
 		return false
 	}
 
