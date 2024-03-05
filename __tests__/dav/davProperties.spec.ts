@@ -19,6 +19,9 @@ describe('DAV Properties', () => {
 	beforeEach(() => {
 		delete window._nc_dav_properties
 		delete window._nc_dav_namespaces
+
+		logger.error = vi.fn()
+		logger.warn = vi.fn()
 	})
 
 	test('getDavNameSpaces fall back to defaults', () => {
@@ -51,54 +54,51 @@ describe('DAV Properties', () => {
 	})
 
 	test('registerDavProperty registers successfully', () => {
-		logger.error = vi.fn()
-
 		expect(window._nc_dav_namespaces).toBeUndefined()
 		expect(window._nc_dav_properties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { my: 'https://example.com/ns' })).toBe(true)
+		expect(logger.warn).not.toBeCalled()
 		expect(logger.error).not.toBeCalled()
 		expect(getDavProperties().includes('my:prop')).toBe(true)
 		expect(getDavNameSpaces().includes('xmlns:my="https://example.com/ns"')).toBe(true)
 	})
 
-	test('registerDavProperty fails when registered multipletimes', () => {
-		logger.error = vi.fn()
-
+	test('registerDavProperty fails when registered multiple times', () => {
 		expect(window._nc_dav_namespaces).toBeUndefined()
 		expect(window._nc_dav_properties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { my: 'https://example.com/ns' })).toBe(true)
 		expect(registerDavProperty('my:prop')).toBe(false)
-		expect(logger.error).toBeCalled()
+		expect(logger.warn).toBeCalled()
+		expect(logger.error).not.toBeCalled()
 		// but still included
 		expect(getDavProperties().includes('my:prop')).toBe(true)
 		expect(getDavNameSpaces().includes('xmlns:my="https://example.com/ns"')).toBe(true)
 	})
 
 	test('registerDavProperty fails with invalid props', () => {
-		logger.error = vi.fn()
-
 		expect(window._nc_dav_namespaces).toBeUndefined()
 		expect(window._nc_dav_properties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop:invalid', { my: 'https://example.com/ns' })).toBe(false)
 		expect(logger.error).toBeCalled()
+		expect(logger.warn).not.toBeCalled()
 		expect(getDavProperties().includes('my:prop')).toBe(false)
 
 		expect(registerDavProperty('<my:prop />', { my: 'https://example.com/ns' })).toBe(false)
 		expect(logger.error).toBeCalled()
+		expect(logger.warn).not.toBeCalled()
 		expect(getDavProperties().includes('my:prop')).toBe(false)
 	})
 
 	test('registerDavProperty fails with missing namespace', () => {
-		logger.error = vi.fn()
-
 		expect(window._nc_dav_namespaces).toBeUndefined()
 		expect(window._nc_dav_properties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { other: 'https://example.com/ns' })).toBe(false)
 		expect(logger.error).toBeCalled()
+		expect(logger.warn).not.toBeCalled()
 		expect(getDavProperties().includes('my:prop')).toBe(false)
 	})
 })
