@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.1 - 2024-03-24
+### Fixed
+* fix(dav): various typings and owner string cast by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/882
+* fix(dav): remove sharing attributes from default dav fetch and change duplicate registration from `error` to `warn` by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/902
+
+### Changed
+* Update `@nextcloud/router` from 2.2.1 to 3.0.0
+* Update `webdav` from 5.3.2 to 5.4.0
+
 ## 3.1.0 - 2023-12-21
 ### Enhancements
 * enh(dav): Allow to set custom headers when creating the DAV client by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/849
