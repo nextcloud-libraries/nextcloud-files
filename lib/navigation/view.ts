@@ -30,6 +30,10 @@ export type ContentsWithRoot = {
 	contents: Node[]
 }
 
+interface CancellablePromise<T> extends Promise<T> {
+	cancel?: (reason?: unknown) => void
+}
+
 interface ViewData {
 	/** Unique view ID */
 	id: string
@@ -50,8 +54,10 @@ interface ViewData {
 	 * change and the promise is not resolved yet.
 	 * You _must_ also return the current directory
 	 * information alongside with its content.
+	 * @param path The current path in the view
+	 * @param onUpdate Optional callback to inform if the content changed since the last call
 	 */
-	getContents: (path: string) => Promise<ContentsWithRoot>
+	getContents: (path: string, onUpdate?: () => void) => CancellablePromise<ContentsWithRoot>
 	/** The view icon as an inline svg */
 	icon: string
 	/** The view order */
