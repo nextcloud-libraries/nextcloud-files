@@ -32,6 +32,7 @@ import { davGetFavoritesReport } from './davProperties'
 import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
 import { generateRemoteUrl } from '@nextcloud/router'
 import { createClient, getPatcher } from 'webdav'
+import { CancelablePromise } from 'cancelable-promise'
 
 /**
  * Nextcloud DAV result response
@@ -119,20 +120,30 @@ export const davGetClient = function(remoteURL = davRemoteURL, headers: Record<s
  * const favorites = await getFavoriteNodes(client, '/', davRootPath)
  * ```
  */
-export const getFavoriteNodes = async (davClient: WebDAVClient, path = '/', davRoot = davRootPath) => {
-	const contentsResponse = await davClient.getDirectoryContents(`${davRoot}${path}`, {
-		details: true,
-		data: davGetFavoritesReport(),
-		headers: {
-			// see davGetClient for patched webdav client
-			method: 'REPORT',
-		},
-		includeSelf: true,
-	}) as ResponseDataDetailed<FileStat[]>
+export const getFavoriteNodes = (davClient: WebDAVClient, path = '/', davRoot = davRootPath): CancelablePromise<Node[]> => {
+	const controller = new AbortController()
+	return new CancelablePromise(async (resolve, reject, onCancel) => {
+		onCancel(() => controller.abort())
+		try {
+			const contentsResponse = await davClient.getDirectoryContents(`${davRoot}${path}`, {
+				signal: controller.signal,
+				details: true,
+				data: davGetFavoritesReport(),
+				headers: {
+					// see davGetClient for patched webdav client
+					method: 'REPORT',
+				},
+				includeSelf: true,
+			}) as ResponseDataDetailed<FileStat[]>
 
-	return contentsResponse.data
-		.filter(node => node.filename !== path) // exclude current dir
-		.map((result) => davResultToNode(result, davRoot))
+			const nodes = contentsResponse.data
+				.filter(node => node.filename !== path) // exclude current dir
+				.map((result) => davResultToNode(result, davRoot))
+			resolve(nodes)
+		} catch (error) {
+			reject(error)
+		}
+	})
 }
 
 /**
