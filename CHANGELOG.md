@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.0 - 2024-04-15
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.1.1...v3.2.0
+
+### Enhancements
+* feat(dav): Make getFavoriteNodes cancelable by @Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/923
+
+## Changed
+* Updated webdav from 5.4.0 to 5.5.0
+* Updated development dependencies
+
 ## 3.1.1 - 2024-03-24
 ### Fixed
 * fix(dav): various typings and owner string cast by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/882
