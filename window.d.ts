@@ -10,7 +10,7 @@ export {}
 
 declare global {
 	interface Window {
-		OC: Nextcloud.v25.OC | Nextcloud.v26.OC | Nextcloud.v27.OC;
+		OC: Nextcloud.v26.OC | Nextcloud.v27.OC | Nextcloud.v28.OC;
 		_nc_dav_namespaces?: DavProperty
 		_nc_dav_properties?: string[]
 		_nc_fileactions?: FileAction[]
