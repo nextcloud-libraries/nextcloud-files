@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.2.1 - 2024-04-22
+### Changed
+* fix: Update NPM version to LTS version 10
+* Updated development dependencies
+
 ## 3.2.0 - 2024-04-15
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.1.1...v3.2.0
 
