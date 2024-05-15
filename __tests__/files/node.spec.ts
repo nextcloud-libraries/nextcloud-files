@@ -34,7 +34,7 @@ describe('Node testing', () => {
 })
 
 describe('FileId attribute', () => {
-	test('FileId null fallback', () => {
+	test('FileId undefined', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
@@ -43,7 +43,7 @@ describe('FileId attribute', () => {
 		expect(file.fileid).toBeUndefined()
 	})
 
-	test('FileId null fallback', () => {
+	test('FileId definition', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
@@ -54,7 +54,7 @@ describe('FileId attribute', () => {
 	})
 
 	// Mostly used when a node is unavailable
-	test('FileId negative fallback', () => {
+	test('FileId negative', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
 			mime: 'image/jpeg',
@@ -64,7 +64,7 @@ describe('FileId attribute', () => {
 		expect(file.fileid).toBe(-1234)
 	})
 
-	test('FileId attributes fallback', () => {
+	test('FileId attributes no fallback', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
 			mime: 'image/jpeg',
@@ -73,7 +73,79 @@ describe('FileId attribute', () => {
 				fileid: 1234,
 			},
 		})
-		expect(file.fileid).toBe(1234)
+		expect(file.fileid).toBeUndefined()
+	})
+})
+
+describe('Size attribute', () => {
+	test('Size definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			size: 1234,
+		})
+		expect(file.size).toBe(1234)
+	})
+
+	test('Size update', async () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			size: 1234,
+			mtime,
+		})
+
+		expect(file.size).toBe(1234)
+		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
+
+		// Wait for 10ms to ensure mtime is updated
+		await new Promise(resolve => setTimeout(resolve, 10))
+
+		// Update size
+		file.size = 5678
+
+		// Size and mtime are updated
+		expect(file.size).toBe(5678)
+		expect(file.mtime?.toISOString()).not.toBe(mtime?.toISOString())
+	})
+})
+
+describe('Permissions attribute', () => {
+	test('Permissions definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			permissions: Permission.READ | Permission.UPDATE | Permission.CREATE | Permission.DELETE,
+		})
+		expect(file.permissions).toBe(15)
+	})
+
+	test('Permissions update', async () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			permissions: Permission.READ,
+			mtime,
+		})
+
+		expect(file.permissions).toBe(1)
+		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
+
+		// Wait for 10ms to ensure mtime is updated
+		await new Promise(resolve => setTimeout(resolve, 10))
+
+		// Update permissions
+		file.permissions = Permission.ALL
+
+		// Permissions and mtime are updated
+		expect(file.permissions).toBe(31)
+		expect(file.mtime?.toISOString()).not.toBe(mtime?.toISOString())
 	})
 })
 
@@ -466,4 +538,26 @@ describe('Attributes update', () => {
 		expect(file.attributes?.['owner-display-name']).toBeUndefined()
 		expect(file.attributes?.['owner-id']).toBeUndefined()
 	})
+
+	test('Update attributes with protected getters', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				etag: '1234',
+			},
+		})
+
+		file.update({
+			etag: '5678',
+			owner: 'admin',
+			fileid: 1234,
+		})
+
+		expect(file.attributes?.etag).toBe('5678')
+		expect(file.attributes?.owner).toBeUndefined()
+		expect(file.attributes?.fileid).toBeUndefined()
+	})
+
 })

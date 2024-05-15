@@ -25,6 +25,7 @@ import { encodePath } from '@nextcloud/paths'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
+import logger from '../utils/logger'
 
 export enum NodeStatus {
 	/** This is a new node and it doesn't exists on the filesystem yet */
@@ -68,7 +69,7 @@ export abstract class Node {
 
 		// Proxy the attributes to update the mtime on change
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this._attributes = new Proxy(data.attributes || {} as any, this.handler)
+		this._attributes = new Proxy(this.cleanAttributes(data.attributes || {}) as any, this.handler)
 		delete this._data.attributes
 
 		if (davService) {
@@ -78,6 +79,8 @@ export abstract class Node {
 
 	/**
 	 * Get the source url to this object
+	 * There is no setter as the source is not meant to be changed manually.
+	 * You can use the rename or move method to change the source.
 	 */
 	get source(): string {
 		// strip any ending slash
@@ -94,6 +97,8 @@ export abstract class Node {
 
 	/**
 	 * Get this object name
+	 * There is no setter as the source is not meant to be changed manually.
+	 * You can use the rename or move method to change the source.
 	 */
 	get basename(): string {
 		return basename(this.source)
@@ -101,6 +106,8 @@ export abstract class Node {
 
 	/**
 	 * Get this object's extension
+	 * There is no setter as the source is not meant to be changed manually.
+	 * You can use the rename or move method to change the source.
 	 */
 	get extension(): string|null {
 		return extname(this.source)
@@ -109,6 +116,9 @@ export abstract class Node {
 	/**
 	 * Get the directory path leading to this object
 	 * Will use the relative path to root if available
+	 *
+	 * There is no setter as the source is not meant to be changed manually.
+	 * You can use the rename or move method to change the source.
 	 */
 	get dirname(): string {
 		if (this.root) {
@@ -137,6 +147,7 @@ export abstract class Node {
 
 	/**
 	 * Get the file mime
+	 * There is no setter as the mime is not meant to be changed
 	 */
 	get mime(): string|undefined {
 		return this._data.mime
@@ -144,6 +155,8 @@ export abstract class Node {
 
 	/**
 	 * Get the file modification time
+	 * There is no setter as the modification time is not meant to be changed manually.
+	 * It will be automatically updated when the attributes are changed.
 	 */
 	get mtime(): Date|undefined {
 		return this._data.mtime
@@ -151,6 +164,7 @@ export abstract class Node {
 
 	/**
 	 * Get the file creation time
+	 * There is no setter as the creation time is not meant to be changed
 	 */
 	get crtime(): Date|undefined {
 		return this._data.crtime
@@ -161,6 +175,14 @@ export abstract class Node {
 	 */
 	get size(): number|undefined {
 		return this._data.size
+	}
+
+	/**
+	 * Set the file size
+	 */
+	set size(size: number|undefined) {
+		this.updateMtime()
+		this._data.size = size
 	}
 
 	/**
@@ -186,7 +208,16 @@ export abstract class Node {
 	}
 
 	/**
+	 * Set the file permissions
+	 */
+	set permissions(permissions: Permission) {
+		this.updateMtime()
+		this._data.permissions = permissions
+	}
+
+	/**
 	 * Get the file owner
+	 * There is no setter as the owner is not meant to be changed
 	 */
 	get owner(): string|null {
 		// Remote ressources have no owner
@@ -205,6 +236,7 @@ export abstract class Node {
 
 	/**
 	 * Get the dav root of this object
+	 * There is no setter as the root is not meant to be changed
 	 */
 	get root(): string|null {
 		// If provided (recommended), use the root and strip away the ending slash
@@ -242,10 +274,10 @@ export abstract class Node {
 
 	/**
 	 * Get the node id if defined.
-	 * Will look for the fileid in attributes if undefined.
+	 * There is no setter as the fileid is not meant to be changed
 	 */
 	get fileid(): number|undefined {
-		return this._data?.id || this.attributes?.fileid
+		return this._data?.id
 	}
 
 	/**
@@ -304,7 +336,26 @@ export abstract class Node {
 	update(attributes: Attribute) {
 		// Proxy the attributes to update the mtime on change
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this._attributes = new Proxy(attributes || {} as any, this.handler)
+		this._attributes = new Proxy(this.cleanAttributes(attributes) as any, this.handler)
+	}
+
+	private cleanAttributes(attributes: Attribute): Attribute {
+		const getters = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
+			.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
+			.map(e => e[0])
+
+		// Remove protected getters from the attributes
+		// you cannot update them
+		const clean: Attribute = {}
+		for (const key in attributes) {
+			if (getters.includes(key)) {
+				logger.debug(`Discarding protected attribute ${key}`, { node: this, attributes })
+				continue
+			}
+			clean[key] = attributes[key]
+		}
+
+		return clean
 	}
 
 }
