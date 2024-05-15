@@ -19,8 +19,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-/* eslint-disable no-use-before-define */
-import type { Folder, Node } from '@nextcloud/files'
+import type { Folder } from '../files/folder'
+import type { Node } from '../files/node'
 import isSvg from 'is-svg'
 
 import { Column } from './column.js'
