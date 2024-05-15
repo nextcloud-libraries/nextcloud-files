@@ -413,3 +413,57 @@ describe('Encoded source is handled properly', () => {
 		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/em%20ma!/Photos~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/realy%20%231\'s.md')
 	})
 })
+
+describe('Status handling', () => {
+	test('Update status', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.status).toBeUndefined()
+
+		file.status = NodeStatus.LOCKED
+		expect(file.status).toBe(NodeStatus.LOCKED)
+	})
+
+	test('Clear status', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			status: NodeStatus.LOCKED,
+		})
+		expect(file.status).toBe(NodeStatus.LOCKED)
+
+		file.status = undefined
+		expect(file.status).toBeUndefined()
+	})
+})
+
+describe('Attributes update', () => {
+	test('Update attributes', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				etag: '1234',
+				'owner-display-name': 'Admin',
+				'owner-id': 'admin',
+			},
+		})
+
+		expect(file.attributes?.etag).toBe('1234')
+		expect(file.attributes?.['owner-display-name']).toBe('Admin')
+		expect(file.attributes?.['owner-id']).toBe('admin')
+
+		file.update({
+			etag: '5678',
+		})
+
+		expect(file.attributes?.etag).toBe('5678')
+		expect(file.attributes?.['owner-display-name']).toBeUndefined()
+		expect(file.attributes?.['owner-id']).toBeUndefined()
+	})
+})
