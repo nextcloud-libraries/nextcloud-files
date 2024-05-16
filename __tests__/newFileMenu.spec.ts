@@ -1,6 +1,6 @@
 import { describe, expect, test, vi, afterEach } from 'vitest'
 
-import { NewFileMenu, getNewFileMenu, type Entry } from '../lib/newFileMenu'
+import { NewFileMenu, NewMenuEntryCategory, getNewFileMenu, type Entry } from '../lib/newFileMenu'
 import logger from '../lib/utils/logger'
 import { Folder, Permission, addNewFileMenuEntry, getNewFileMenuEntries } from '../lib'
 
@@ -195,6 +195,39 @@ describe('NewFileMenu addEntry', () => {
 				handler: 'handler',
 			} as unknown as Entry)
 		}).toThrowError('Invalid handler property')
+	})
+
+	test('Adding a Entry without category', () => {
+		const newFileMenu = new NewFileMenu()
+		const entry = {
+			id: 'empty-file',
+			displayName: 'Create empty file',
+			templateName: 'New file.txt',
+			iconClass: 'icon-filetype-text',
+			handler: () => {},
+		}
+		newFileMenu.registerEntry(entry)
+
+		const entries = newFileMenu.getEntries()
+		expect(entries).toHaveLength(1)
+		expect(entries[0].category).toBe(NewMenuEntryCategory.CreateNew)
+	})
+
+	test('Adding a Entry with category', () => {
+		const newFileMenu = new NewFileMenu()
+		const entry = {
+			id: 'empty-file',
+			category: NewMenuEntryCategory.Other,
+			displayName: 'Create empty file',
+			templateName: 'New file.txt',
+			iconClass: 'icon-filetype-text',
+			handler: () => {},
+		}
+		newFileMenu.registerEntry(entry)
+
+		const entries = newFileMenu.getEntries()
+		expect(entries).toHaveLength(1)
+		expect(entries[0].category).toBe(NewMenuEntryCategory.Other)
 	})
 })
 
