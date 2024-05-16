@@ -1,8 +1,10 @@
 {
   "extends": "../tsconfig.json",
+  "include": ["../lib/**/*.ts", "./**/*.ts"],
   "compilerOptions": {
-	// Allow us to pass js files to ts-jest without babel
+  // Allow us to pass js files to ts-jest without babel
     "allowJs": true,
+    "rootDir": ".."
   }
 }
   

@@ -5,10 +5,10 @@
 
 declare global {
 	interface Window {
-		_oc_config: {
+		_oc_config?: {
 			forbidden_filenames_characters: string[]
 			/** @deprecated */
-			blacklist_files_regex: string
+			blacklist_files_regex?: string
 		}
 	}
 }
