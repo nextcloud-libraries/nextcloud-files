@@ -231,6 +231,7 @@ describe('FileActions creation', () => {
 			execBatch: async () => [true],
 			enabled: () => true,
 			order: 100,
+			parent: '123',
 			default: DefaultType.DEFAULT,
 			inline: () => true,
 			renderInline: async () => {
@@ -248,6 +249,7 @@ describe('FileActions creation', () => {
 		await expect(action.execBatch?.([], {} as any, '/')).resolves.toStrictEqual([true])
 		expect(action.enabled?.({} as any, {} as any)).toBe(true)
 		expect(action.order).toBe(100)
+		expect(action.parent).toBe('123')
 		expect(action.default).toBe(DefaultType.DEFAULT)
 		expect(action.inline?.({} as any, {} as any)).toBe(true)
 		expect((await action.renderInline?.({} as any, {} as any))?.outerHTML).toBe('<span>test</span>')
