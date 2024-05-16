@@ -23,9 +23,32 @@
 import type { Folder, Node } from './index'
 import logger from './utils/logger'
 
+export enum NewMenuEntryCategory {
+	/**
+	 * For actions where the user is intended to upload from their device
+	 */
+	UploadFromDevice = 0,
+	/**
+	 * For actions that create new nodes on the server without uploading
+	 */
+	CreateNew = 1,
+	/**
+	 * For everything not matching the other categories
+	 */
+	Other = 2,
+}
+
 export interface Entry {
 	/** Unique ID */
 	id: string
+
+	/**
+	 * Category to put this entry in
+	 * (supported since Nextcloud 30)
+	 * @since 3.3.0
+	 * @default NewMenuEntryCategory.CreateNew
+	 */
+	category?: NewMenuEntryCategory
 
 	/** Translatable string displayed in the menu */
 	displayName: string
@@ -65,6 +88,7 @@ export class NewFileMenu {
 
 	public registerEntry(entry: Entry) {
 		this.validateEntry(entry)
+		entry.category = entry.category ?? NewMenuEntryCategory.CreateNew
 		this._entries.push(entry)
 	}
 
