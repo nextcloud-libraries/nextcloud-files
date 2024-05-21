@@ -38,6 +38,7 @@ export { FileType } from './files/fileType'
 export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node, NodeStatus } from './files/node'
+export { isFilenameValid } from './filename'
 
 export * from './navigation/navigation'
 export * from './navigation/column'
