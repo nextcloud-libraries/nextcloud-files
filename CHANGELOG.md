@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.3.0 - 2024-05-21
+### Changed
+* feat: Add and export `isFilenameValid` function by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/951
+* feat(ci): add codecov bundler by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/948
+* feat(files): allow updating attributes by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/947
+* feat(new-menu): Allow to set the category for entries by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/952
+
+### Fixed
+* fix: Update workflows from organization by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/932
+* fix(fileAction): cover parent getter in tests by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/950
+* fix(navigation): files import by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/949
+* fix(dav): Add fallback for owner of dav nodes on public shares by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/959
+
+### Dependencies
+* chore(deps): Bump @nextcloud/auth from 2.2.1 to 2.3.0 by @dependabot
+* chore(deps): Bump @nextcloud/l10n from 2.2.0 to 3.1.0 by @dependabot
+* chore(deps): Bump @nextcloud/logger from 2.7.0  to 3.0.2 by @dependabot
+* chore(deps): Bump @nextcloud/router from 3.0.0 to 3.0.1 by @dependabot
+* chore(deps): Bump is-svg from 5.0.0 to 5.0.1 by @dependabot
+* chore(deps): Bump webdav from 5.5.0 to 5.6.0 by @dependabot
+
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.2.1...v3.3.0
+
 ## 3.2.1 - 2024-04-22
 ### Changed
 * fix: Update NPM version to LTS version 10
