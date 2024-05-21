@@ -89,8 +89,8 @@ describe('davResultToNode', () => {
 	test('has correct owner set', () => {
 		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
-		result.props = { ...result.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
 		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
 		expect(node.isDavRessource).toBe(true)
@@ -100,12 +100,36 @@ describe('davResultToNode', () => {
 	test('has correct owner set if number', () => {
 		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'admin', displayName: 'admin', isAdmin: true })
 
-		result.props = { ...result.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
 		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
 		expect(node.isDavRessource).toBe(true)
 		expect(node.owner).toBe('123456789')
+	})
+
+	test('has correct owner set if not set on node', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+
+		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
+
+		expect(node.isDavRessource).toBe(true)
+		expect(node.owner).toBe('user1')
+	})
+
+	test('has correct owner set on public shares', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue(null)
+		const input = document.createElement('input')
+		input.id = 'isPublic'
+		input.value = '1'
+		document.body.appendChild(input)
+
+		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
+
+		expect(node.isDavRessource).toBe(true)
+		expect(node.owner).toBe('anonymous')
 	})
 })
 
