@@ -27,7 +27,7 @@ import { type Folder } from './files/folder'
 export { formatFileSize, parseFileSize } from './humanfilesize'
 export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
 export { Header, getFileListHeaders, registerFileListHeaders } from './fileListHeaders'
-export { type Entry } from './newFileMenu'
+export { type Entry, NewMenuEntryCategory } from './newFileMenu'
 export { Permission } from './permissions'
 
 export * from './dav/davProperties'
