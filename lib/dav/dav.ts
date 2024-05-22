@@ -154,14 +154,18 @@ export const getFavoriteNodes = (davClient: WebDAVClient, path = '/', davRoot = 
  * @param remoteURL The DAV server remote URL (same as on `davGetClient`)
  */
 export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
-	const userId = getCurrentUser()?.uid
-	if (!userId) {
+	let userId = getCurrentUser()?.uid
+	const isPublic = document.querySelector<HTMLInputElement>('input#isPublic')?.value
+	if (isPublic) {
+		userId = userId ?? document.querySelector<HTMLInputElement>('input#sharingUserId')?.value
+		userId = userId ?? 'anonymous'
+	} else if (!userId) {
 		throw new Error('No user id found')
 	}
 
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
-	const owner = (props?.['owner-id'] || userId).toString()
+	const owner = String(props?.['owner-id'] || userId)
 
 	const nodeData: NodeData = {
 		id: props?.fileid || 0,
