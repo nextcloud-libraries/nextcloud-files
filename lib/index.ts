@@ -40,6 +40,8 @@ export { Node, NodeStatus } from './files/node'
 
 export { isFilenameValid } from './utils/filename'
 export { formatFileSize, parseFileSize } from './utils/fileSize'
+export { orderBy } from './utils/sorting'
+export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
 
 export * from './navigation/navigation'
 export * from './navigation/column'
