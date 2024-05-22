@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatFileSize, parseFileSize } from '../lib/humanfilesize'
+import { formatFileSize, parseFileSize } from '../../lib/index'
 
 describe('humanFileSize', () => {
 	describe('formatFileSize', () => {
