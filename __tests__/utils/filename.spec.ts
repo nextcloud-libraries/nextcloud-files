@@ -12,13 +12,13 @@ describe('isFilenameValid', () => {
 	})
 
 	it('works for valid filenames', async () => {
-		const { isFilenameValid } = await import('../lib/index')
+		const { isFilenameValid } = await import('../../lib/index')
 
 		expect(isFilenameValid('foo.bar')).toBe(true)
 	})
 
 	it('has fallback invalid characters', async () => {
-		const { isFilenameValid } = await import('../lib/index')
+		const { isFilenameValid } = await import('../../lib/index')
 
 		expect(isFilenameValid('foo\\bar')).toBe(false)
 		expect(isFilenameValid('foo/bar')).toBe(false)
@@ -26,7 +26,7 @@ describe('isFilenameValid', () => {
 
 	it('reads invalid characters from oc config', async () => {
 		window._oc_config = { forbidden_filenames_characters: ['=', '?'] }
-		const { isFilenameValid } = await import('../lib/index')
+		const { isFilenameValid } = await import('../../lib/index')
 
 		expect(isFilenameValid('foo.bar')).toBe(true)
 		expect(isFilenameValid('foo=bar')).toBe(false)
@@ -35,7 +35,7 @@ describe('isFilenameValid', () => {
 
 	it('supports invalid filename regex', async () => {
 		window._oc_config = { forbidden_filenames_characters: ['/'], blacklist_files_regex: '\\.(part|filepart)$' }
-		const { isFilenameValid } = await import('../lib/index')
+		const { isFilenameValid } = await import('../../lib/index')
 
 		expect(isFilenameValid('foo.bar')).toBe(true)
 		expect(isFilenameValid('foo.part')).toBe(false)

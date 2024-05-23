@@ -24,7 +24,6 @@
 import { type Entry, getNewFileMenu } from './newFileMenu'
 import { type Folder } from './files/folder'
 
-export { formatFileSize, parseFileSize } from './humanfilesize'
 export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
 export { Header, getFileListHeaders, registerFileListHeaders } from './fileListHeaders'
 export { type Entry, NewMenuEntryCategory } from './newFileMenu'
@@ -38,7 +37,11 @@ export { FileType } from './files/fileType'
 export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node, NodeStatus } from './files/node'
-export { isFilenameValid } from './filename'
+
+export { isFilenameValid } from './utils/filename'
+export { formatFileSize, parseFileSize } from './utils/fileSize'
+export { orderBy } from './utils/sorting'
+export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
 
 export * from './navigation/navigation'
 export * from './navigation/column'
