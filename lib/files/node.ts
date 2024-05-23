@@ -349,7 +349,6 @@ export abstract class Node {
 		const clean: Attribute = {}
 		for (const key in attributes) {
 			if (getters.includes(key)) {
-				logger.debug(`Discarding protected attribute ${key}`, { node: this, attributes })
 				continue
 			}
 			clean[key] = attributes[key]
