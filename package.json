@@ -57,7 +57,7 @@
     "@nextcloud/vite-config": "^2.0.0",
     "@types/node": "^20.12.12",
     "@vitest/coverage-istanbul": "^1.6.0",
-    "fast-xml-parser": "^4.3.6",
+    "fast-xml-parser": "^4.4.0",
     "jsdom": "^24.0.0",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.13",
