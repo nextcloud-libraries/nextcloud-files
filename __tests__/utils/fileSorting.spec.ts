@@ -84,6 +84,37 @@ describe('sortNodes', () => {
 		expect(sortNodes(array)).toEqual(['d', 'b', 'c'])
 	})
 
+	test('If same display name, then the basename is used', () => {
+		const array = [
+			// File with basename "c" but displayname "a"
+			new File({
+				owner: 'jdoe',
+				mime: 'text/plain',
+				// Resulting in name "d"
+				source: 'https://cloud.domain.com/remote.php/dav/c',
+				mtime: new Date(100),
+				size: 100,
+				attributes: {
+					displayName: 'a',
+				},
+			}),
+			// File with basename "b" but displayname "a"
+			new File({
+				owner: 'jdoe',
+				mime: 'text/plain',
+				// Resulting in name "d"
+				source: 'https://cloud.domain.com/remote.php/dav/b',
+				mtime: new Date(100),
+				size: 100,
+				attributes: {
+					displayName: 'a',
+				},
+			}),
+		]
+
+		expect(sortNodes(array)).toEqual(['b', 'c'])
+	})
+
 	test('Can sort favorites first', () => {
 		const array = [
 			file('a', 500, 100),
