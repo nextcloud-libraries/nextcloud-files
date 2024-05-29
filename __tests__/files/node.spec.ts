@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
 import { File } from '../../lib/files/file'
 import { Folder } from '../../lib/files/folder'
@@ -546,6 +546,7 @@ describe('Attributes update', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
+			size: 9999,
 			attributes: {
 				etag: '1234',
 				size: 9999,
@@ -561,8 +562,41 @@ describe('Attributes update', () => {
 
 		expect(file.attributes?.etag).toBe('5678')
 		expect(file.attributes?.size).toBe(9999)
-		expect(file.attributes?.owner).toBeUndefined()
+		expect(file.attributes?.owner).toBe('emma')
 		expect(file.attributes?.fileid).toBeUndefined()
+	})
+
+	test('Deprecated access to toplevel attributes', () => {
+		const spy = vi.spyOn(window.console, 'warn')
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			size: 9999,
+			attributes: {
+				etag: '1234',
+				size: 9999,
+			},
+		})
+
+		expect(file.attributes.size).toBe(9999)
+		expect(spy).toBeCalledTimes(1)
+	})
+
+	test('Changing a protected attributes is not possible', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				etag: '1234',
+			},
+		})
+
+		// We can not update the owner
+		expect(() => { file.attributes.owner = 'admin' }).toThrowError()
+		// The owner is still the original one
+		expect(file.attributes?.owner).toBe('emma')
 	})
 
 })
