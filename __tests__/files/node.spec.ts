@@ -532,6 +532,8 @@ describe('Attributes update', () => {
 
 		file.update({
 			etag: '5678',
+			'owner-display-name': undefined,
+			'owner-id': undefined,
 		})
 
 		expect(file.attributes?.etag).toBe('5678')
@@ -546,6 +548,7 @@ describe('Attributes update', () => {
 			owner: 'emma',
 			attributes: {
 				etag: '1234',
+				size: 9999,
 			},
 		})
 
@@ -553,9 +556,11 @@ describe('Attributes update', () => {
 			etag: '5678',
 			owner: 'admin',
 			fileid: 1234,
+			size: undefined,
 		})
 
 		expect(file.attributes?.etag).toBe('5678')
+		expect(file.attributes?.size).toBe(9999)
 		expect(file.attributes?.owner).toBeUndefined()
 		expect(file.attributes?.fileid).toBeUndefined()
 	})
