@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.4.0 - 2024-05-29
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.3.1...v3.4.0
+
+### Added
+* feat: Add `sortNodes` and generic `orderBy` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/961
+
+### Fixed
+* fix(Node): Do not drop readonly attributes but only forbid updating them by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/967
+
+### Changed
+* chore(deps-dev): Bump @codecov/vite-plugin from 0.0.1-beta.6 to 0.0.1-beta.8 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/965
+* chore(deps-dev): Bump fast-xml-parser from 4.3.6 to 4.4.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/966
+
 ## 3.3.1 - 2024-05-23
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.3.0...v3.3.1
 
