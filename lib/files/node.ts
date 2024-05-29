@@ -44,33 +44,53 @@ export abstract class Node {
 	private _attributes: Attribute
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
+	private readonlyAttributes = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
+		.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
+		.map(e => e[0])
+
 	private handler = {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		set: (target: Attribute, prop: string, value: any): any => {
+		set: (target: Attribute, prop: string, value: unknown): boolean => {
+			if (this.readonlyAttributes.includes(prop)) {
+				return false
+			}
 			// Edit modification time
 			this.updateMtime()
 			// Apply original changes
 			return Reflect.set(target, prop, value)
 		},
-		deleteProperty: (target: Attribute, prop: string) => {
+		deleteProperty: (target: Attribute, prop: string): boolean => {
+			if (this.readonlyAttributes.includes(prop)) {
+				return false
+			}
 			// Edit modification time
 			this.updateMtime()
 			// Apply original changes
 			return Reflect.deleteProperty(target, prop)
 		},
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} as ProxyHandler<any>
+		// TODO: This is deprecated and only needed for files v3
+		get: (target: Attribute, prop: string, receiver) => {
+			if (this.readonlyAttributes.includes(prop)) {
+				logger.warn(`Accessing "Node.attributes.${prop}" is deprecated, access it directly on the Node instance.`)
+				return Reflect.get(this, prop)
+			}
+			return Reflect.get(target, prop, receiver)
+		},
+	} as ProxyHandler<Attribute>
 
 	constructor(data: NodeData, davService?: RegExp) {
 		// Validate data
 		validateData(data, davService || this._knownDavService)
 
-		this._data = data
+		this._data = { ...data, attributes: {} }
 
 		// Proxy the attributes to update the mtime on change
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this._attributes = new Proxy(this.cleanAttributes(data.attributes || {}) as any, this.handler)
-		delete this._data.attributes
+		this._attributes = new Proxy(this._data.attributes!, this.handler)
+
+		// Update attributes, this sanitizes the attributes to only contain valid attributes
+		this.update(data.attributes ?? {})
+
+		// Reset the mtime if changed while updating the attributes
+		this._data.mtime = data.mtime
 
 		if (davService) {
 			this._knownDavService = davService
@@ -187,6 +207,7 @@ export abstract class Node {
 
 	/**
 	 * Get the file attribute
+	 * This contains all additional attributes not provided by the Node class
 	 */
 	get attributes(): Attribute {
 		return this._attributes
@@ -331,31 +352,25 @@ export abstract class Node {
 	/**
 	 * Update the attributes of the node
 	 *
-	 * @param attributes The new attributes to update
+	 * @param attributes The new attributes to update on the Node attributes
 	 */
 	update(attributes: Attribute) {
-		// Proxy the attributes to update the mtime on change
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		this._attributes = new Proxy(this.cleanAttributes(attributes) as any, this.handler)
-	}
-
-	private cleanAttributes(attributes: Attribute): Attribute {
-		const getters = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
-			.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
-			.map(e => e[0])
-
-		// Remove protected getters from the attributes
-		// you cannot update them
-		const clean: Attribute = {}
-		for (const key in attributes) {
-			if (getters.includes(key)) {
-				logger.debug(`Discarding protected attribute ${key}`, { node: this, attributes })
-				continue
+		for (const [name, value] of Object.entries(attributes)) {
+			try {
+				if (value === undefined) {
+					delete this.attributes[name]
+				} else {
+					this.attributes[name] = value
+				}
+			} catch (e) {
+				// Ignore readonly attributes
+				if (e instanceof TypeError) {
+					continue
+				}
+				// Throw all other exceptions
+				throw e
 			}
-			clean[key] = attributes[key]
 		}
-
-		return clean
 	}
 
 }
