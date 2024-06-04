@@ -77,6 +77,37 @@ describe('FileId attribute', () => {
 	})
 })
 
+describe('Mtime attribute', () => {
+	test('Mtime definition', () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime,
+		})
+		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
+	})
+
+	test('Mtime update', async () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime,
+		})
+
+		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
+
+		// Update mtime
+		file.mtime = new Date()
+
+		// Mtime is updated
+		expect(file.mtime?.toISOString()).not.toBe(mtime.toISOString())
+	})
+})
+
 describe('Size attribute', () => {
 	test('Size definition', () => {
 		const file = new File({
