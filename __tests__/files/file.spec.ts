@@ -188,7 +188,7 @@ describe('File data change', () => {
 	})
 })
 
-describe('Altering attributes updates mtime', () => {
+describe('Altering attributes does NOT updates mtime', () => {
 	test('mtime is updated on existing attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
@@ -202,12 +202,12 @@ describe('Altering attributes updates mtime', () => {
 		expect(file.attributes.test).toBe(true)
 		file.attributes.test = false
 
-		// Check that mtime has been updated
-		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+		// Check that mtime has NOT been updated
+		expect(file.mtime?.getDate()).toBe(1)
 		expect(file.attributes.test).toBe(false)
 	})
 
-	test('mtime is updated on new attribute', () => {
+	test('mtime is NOT updated on new attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
@@ -217,12 +217,12 @@ describe('Altering attributes updates mtime', () => {
 		expect(file.attributes.test).toBeFalsy()
 		file.attributes.test = true
 
-		// Check that mtime has been updated
-		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+		// Check that mtime has NOT been updated
+		expect(file.mtime?.getDate()).toBe(1)
 		expect(file.attributes.test).toBe(true)
 	})
 
-	test('mtime is updated on deleted attribute', () => {
+	test('mtime is NOT updated on deleted attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
@@ -235,8 +235,8 @@ describe('Altering attributes updates mtime', () => {
 		expect(file.attributes.test).toBe(true)
 		delete file.attributes.test
 
-		// Check that mtime has been updated
-		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+		// Check that mtime has NOT been updated
+		expect(file.mtime?.getDate()).toBe(1)
 		expect(file.attributes.test).toBeUndefined()
 	})
 
@@ -245,15 +245,52 @@ describe('Altering attributes updates mtime', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			attributes: {
-				test: true,
-			},
+			permissions: Permission.READ,
 		})
-		expect(file.attributes.test).toBe(true)
-		delete file.attributes.test
+
+		expect(file.permissions).toBe(Permission.READ)
+		file.permissions = Permission.ALL
 
 		// Check that mtime has been updated
 		expect(file.mtime).toBeUndefined()
-		expect(file.attributes.test).toBeUndefined()
+		expect(file.permissions).toBe(Permission.ALL)
 	})
+
+})
+
+describe('Altering top-level properties updates mtime', () => {
+	test('mtime is updated on permissions change', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
+			permissions: Permission.READ,
+		})
+
+		expect(file.permissions).toBe(Permission.READ)
+		file.permissions = Permission.ALL
+
+		// Check that mtime has been updated
+		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+		expect(file.permissions).toBe(Permission.ALL)
+	})
+
+	test('mtime is updated on size change', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
+			size: 100,
+		})
+
+		expect(file.size).toBe(100)
+		file.size = 200
+
+		// Check that mtime has been updated
+		expect(file.mtime?.getDate()).toBe(new Date().getDate())
+		expect(file.size).toBe(200)
+	})
+
 })

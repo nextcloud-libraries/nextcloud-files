@@ -53,8 +53,7 @@ export abstract class Node {
 			if (this.readonlyAttributes.includes(prop)) {
 				return false
 			}
-			// Edit modification time
-			this.updateMtime()
+
 			// Apply original changes
 			return Reflect.set(target, prop, value)
 		},
@@ -62,8 +61,7 @@ export abstract class Node {
 			if (this.readonlyAttributes.includes(prop)) {
 				return false
 			}
-			// Edit modification time
-			this.updateMtime()
+
 			// Apply original changes
 			return Reflect.deleteProperty(target, prop)
 		},
@@ -88,9 +86,6 @@ export abstract class Node {
 
 		// Update attributes, this sanitizes the attributes to only contain valid attributes
 		this.update(data.attributes ?? {})
-
-		// Reset the mtime if changed while updating the attributes
-		this._data.mtime = data.mtime
 
 		if (davService) {
 			this._knownDavService = davService
@@ -175,11 +170,16 @@ export abstract class Node {
 
 	/**
 	 * Get the file modification time
-	 * There is no setter as the modification time is not meant to be changed manually.
-	 * It will be automatically updated when the attributes are changed.
 	 */
 	get mtime(): Date|undefined {
 		return this._data.mtime
+	}
+
+	/**
+	 * Set the file modification time
+	 */
+	set mtime(mtime: Date|undefined) {
+		this._data.mtime = mtime
 	}
 
 	/**
@@ -341,9 +341,9 @@ export abstract class Node {
 	}
 
 	/**
-	 * Update the mtime if exists.
+	 * Update the mtime if exists
 	 */
-	private updateMtime() {
+	updateMtime() {
 		if (this._data.mtime) {
 			this._data.mtime = new Date()
 		}
@@ -351,6 +351,7 @@ export abstract class Node {
 
 	/**
 	 * Update the attributes of the node
+	 * Warning, updating attributes will NOT automatically update the mtime.
 	 *
 	 * @param attributes The new attributes to update on the Node attributes
 	 */
