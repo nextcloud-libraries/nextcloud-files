@@ -599,4 +599,48 @@ describe('Attributes update', () => {
 		expect(file.attributes?.owner).toBe('emma')
 	})
 
+	test('Updating attributes does NOT update mtime', () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				etag: '1234',
+			},
+			mtime,
+		})
+
+		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
+
+		// Update attributes
+		file.update({
+			etag: '5678',
+		})
+
+		// Mtime is not updated
+		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
+	})
+
+	test('Updating attributes removes the leftover ones', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				etag: '1234',
+			},
+		})
+
+		expect(file.attributes?.etag).toBe('1234')
+
+		// Update attributes
+		file.update({
+			displayName: 'Picture.jpg',
+		})
+
+		// The leftover attribute is removed
+		expect(file.attributes?.etag).toBeUndefined()
+		expect(file.attributes?.displayName).toBe('Picture.jpg')
+	})
 })

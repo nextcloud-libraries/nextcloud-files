@@ -350,11 +350,15 @@ export abstract class Node {
 	}
 
 	/**
-	 * Update the attributes of the node
+	 * Replace the attributes of the node.
+	 * This will also remove any attributes not provided in the new attributes.
 	 *
 	 * @param attributes The new attributes to update on the Node attributes
 	 */
 	update(attributes: Attribute) {
+		const mtime = this._data.mtime
+
+		// Update the incoming attributes
 		for (const [name, value] of Object.entries(attributes)) {
 			try {
 				if (value === undefined) {
@@ -371,6 +375,16 @@ export abstract class Node {
 				throw e
 			}
 		}
+
+		// Delete the leftover attributes
+		for (const name of Object.keys(this.attributes)) {
+			if (!(name in attributes)) {
+				delete this.attributes[name]
+			}
+		}
+
+		// Restore the mtime
+		this._data.mtime = mtime
 	}
 
 }
