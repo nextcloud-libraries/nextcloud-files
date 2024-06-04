@@ -341,9 +341,9 @@ export abstract class Node {
 	}
 
 	/**
-	 * Update the mtime if exists.
+	 * Update the mtime if exists
 	 */
-	private updateMtime() {
+	updateMtime() {
 		if (this._data.mtime) {
 			this._data.mtime = new Date()
 		}

@@ -89,7 +89,7 @@ describe('Mtime attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 	})
 
-	test('Mtime update', async () => {
+	test('Mtime manual update', async () => {
 		const mtime = new Date()
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
@@ -100,8 +100,32 @@ describe('Mtime attribute', () => {
 
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 
+		// Wait for 10ms to ensure mtime is updated
+		await new Promise(resolve => setTimeout(resolve, 10))
+
 		// Update mtime
 		file.mtime = new Date()
+
+		// Mtime is updated
+		expect(file.mtime?.toISOString()).not.toBe(mtime.toISOString())
+	})
+
+	test('Mtime method update', async () => {
+		const mtime = new Date()
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime,
+		})
+
+		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
+
+		// Wait for 10ms to ensure mtime is updated
+		await new Promise(resolve => setTimeout(resolve, 10))
+
+		// Update mtime
+		file.updateMtime()
 
 		// Mtime is updated
 		expect(file.mtime?.toISOString()).not.toBe(mtime.toISOString())
