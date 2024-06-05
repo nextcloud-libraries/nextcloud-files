@@ -358,3 +358,8 @@ export abstract class Node {
 	}
 
 }
+
+/**
+ * Interface of the node class
+ */
+export type INode = Pick<Node, keyof Node>

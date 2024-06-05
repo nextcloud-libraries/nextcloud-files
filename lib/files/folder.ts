@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { FileType } from './fileType'
-import { Node } from './node'
-import { NodeData } from './nodeData'
+import { type INode, Node } from './node'
+import { type NodeData } from './nodeData'
 
 export class Folder extends Node {
 
@@ -28,4 +28,13 @@ export class Folder extends Node {
 		return 'httpd/unix-directory'
 	}
 
+}
+
+/**
+ * Interface of the folder class
+ */
+export interface IFolder extends INode {
+	readonly type: FileType.Folder
+	readonly extension: null
+	readonly mime: 'httpd/unix-directory'
 }

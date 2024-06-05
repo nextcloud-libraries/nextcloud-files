@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { FileType } from './fileType'
-import { Node } from './node'
+import { type INode, Node } from './node'
 
 export class File extends Node {
 
@@ -11,4 +11,11 @@ export class File extends Node {
 		return FileType.File
 	}
 
+}
+
+/**
+ * Interface of the File class
+ */
+export interface IFile extends INode {
+	readonly type: FileType.File
 }
