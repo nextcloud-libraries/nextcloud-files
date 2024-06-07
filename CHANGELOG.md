@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.4.1 - 2024-06-05
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.4.0...v3.4.1
+
+### Fixed
+* fix(node): remove auto mtime update on attributes change and allow mtime set by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/974
+
+### Changed
+* chore(deps-dev): Bump vite from 5.2.11 to 5.2.12 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/971
+* chore(deps-dev): Bump @types/node from 20.12.12 to 20.13.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/970
+* chore(deps-dev): Bump jsdom from 24.0.0 to 24.1.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/972
+
 ## 3.4.0 - 2024-05-29
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.3.1...v3.4.0
 
