@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { XMLValidator } from 'fast-xml-parser'
 
