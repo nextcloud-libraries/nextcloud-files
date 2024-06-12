@@ -41,7 +41,7 @@ export interface FilesSortingOptions {
  * @param nodes Nodes to sort
  * @param options Sorting options
  */
-export function sortNodes(nodes: Node[], options: FilesSortingOptions = {}): Node[] {
+export function sortNodes(nodes: readonly Node[], options: FilesSortingOptions = {}): Node[] {
 	const sortingOptions = {
 		// Default to sort by name
 		sortingMode: FilesSortingMode.Name,
@@ -49,6 +49,12 @@ export function sortNodes(nodes: Node[], options: FilesSortingOptions = {}): Nod
 		sortingOrder: 'asc' as const,
 		...options,
 	}
+
+	/**
+	 * Get the basename without any extension
+	 * @param name The filename to extract the basename from
+	 */
+	const basename = (name: string) => name.lastIndexOf('.') > 0 ? name.slice(0, name.lastIndexOf('.')) : name
 
 	const identifiers = [
 		// 1: Sort favorites first if enabled
@@ -58,7 +64,7 @@ export function sortNodes(nodes: Node[], options: FilesSortingOptions = {}): Nod
 		// 3: Use sorting mode if NOT basename (to be able to use displayName too)
 		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: Node) => v[sortingOptions.sortingMode]] : []),
 		// 4: Use displayName if available, fallback to name
-		(v: Node) => v.attributes?.displayName || v.basename,
+		(v: Node) => basename(v.attributes?.displayName || v.basename),
 		// 5: Finally, use basename if all previous sorting methods failed
 		(v: Node) => v.basename,
 	]

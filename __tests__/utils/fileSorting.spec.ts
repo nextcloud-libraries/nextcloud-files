@@ -35,8 +35,8 @@ const sortNodes = (...args: ArgumentsType<typeof originalSortNodes>) => original
 describe('sortNodes', () => {
 	test('By default files are sorted by name', () => {
 		const array = [
-			file('a', 500, 100),
 			file('b', 100, 100),
+			file('a', 500, 100),
 			file('c', 100, 500),
 		]
 
@@ -223,5 +223,72 @@ describe('sortNodes', () => {
 		]
 
 		expect(sortNodes(array, { sortingMode: FilesSortingMode.Modified, sortingOrder: 'desc' })).toEqual(['a', 'b', 'c'])
+	})
+
+	/**
+	 * Regression testing for https://github.com/nextcloud/server/issues/45829
+	 */
+	test('Names with underscores are sorted correctly', () => {
+		const array = [
+			file('file_1.txt'),
+			file('file_3.txt'),
+			file('file.txt'),
+			file('file_2.txt'),
+		] as const
+
+		expect(
+			sortNodes(
+				array,
+				{
+					sortingMode: FilesSortingMode.Name,
+					sortingOrder: 'asc',
+				},
+			),
+		).toEqual(['file.txt', 'file_1.txt', 'file_2.txt', 'file_3.txt'])
+	})
+
+	/**
+	 * Ensure that also without extensions the files are sorted correctly
+	 * Regression testing for https://github.com/nextcloud/server/issues/45829
+	 */
+	test('Names with underscores without extensions are sorted correctly', () => {
+		const array = [
+			file('file_1'),
+			file('file_3'),
+			file('file'),
+			file('file_2'),
+		] as const
+
+		expect(
+			sortNodes(
+				array,
+				{
+					sortingMode: FilesSortingMode.Name,
+					sortingOrder: 'asc',
+				},
+			),
+		).toEqual(['file', 'file_1', 'file_2', 'file_3'])
+	})
+
+	/**
+	 * Ensure that files with same name but different extensions are sorted by the full name incl. extension
+	 */
+	test('Names are sorted correctly by extension', () => {
+		const array = [
+			file('file.b'),
+			file('file.c'),
+			file('file.a'),
+			file('file.d'),
+		] as const
+
+		expect(
+			sortNodes(
+				array,
+				{
+					sortingMode: FilesSortingMode.Name,
+					sortingOrder: 'asc',
+				},
+			),
+		).toEqual(['file.a', 'file.b', 'file.c', 'file.d'])
 	})
 })
