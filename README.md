@@ -1,5 +1,9 @@
+<!--
+  - SPDX-FileCopyrightText: 2019-2024 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 # @nextcloud/files
-[![npm last version](https://img.shields.io/npm/v/@nextcloud/files.svg?style=flat-square)](https://www.npmjs.com/package/@nextcloud/files) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud-libraries/nextcloud-files?style=flat-square)](https://app.codecov.io/gh/nextcloud-libraries/nextcloud-files) [![Project documentation](https://img.shields.io/badge/documentation-online-blue?style=flat-square)](https://nextcloud-libraries.github.io/nextcloud-files/)
+[![npm last version](https://img.shields.io/npm/v/@nextcloud/files.svg?style=flat-square)](https://www.npmjs.com/package/@nextcloud/files) [![REUSE status](https://api.reuse.software/badge/github.com/nextcloud-libraries/nextcloud-files)](https://api.reuse.software/info/github.com/nextcloud-libraries/nextcloud-files) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud-libraries/nextcloud-files?style=flat-square)](https://app.codecov.io/gh/nextcloud-libraries/nextcloud-files) [![Project documentation](https://img.shields.io/badge/documentation-online-blue?style=flat-square)](https://nextcloud-libraries.github.io/nextcloud-files/)
 
 Nextcloud Files helpers for Nextcloud apps and libraries
 

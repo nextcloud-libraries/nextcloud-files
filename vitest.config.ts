@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: CC0-1.0
+ */
 import config from './vite.config'
 
 export default async (env) => {

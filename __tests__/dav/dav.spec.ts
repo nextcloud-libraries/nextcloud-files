@@ -1,3 +1,7 @@
+/**
+ * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 
