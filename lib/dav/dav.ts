@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
-import type { Node } from '../files/node'
+import { NodeStatus, type Node } from '../files/node'
 
 import { File } from '../files/file'
 import { Folder } from '../files/folder'
@@ -148,13 +148,16 @@ export const davResultToNode = function(node: FileStat, filesRoot = davRootPath,
 	const props = node.props as ResponseProps
 	const permissions = davParsePermissions(props?.permissions)
 	const owner = String(props?.['owner-id'] || userId)
+	const id = props.fileid || 0
 
 	const nodeData: NodeData = {
-		id: props?.fileid || 0,
+		id,
 		source: `${remoteURL}${node.filename}`,
 		mtime: new Date(Date.parse(node.lastmod)),
 		mime: node.mime || 'application/octet-stream',
 		size: props?.size || Number.parseInt(props.getcontentlength || '0'),
+		// The fileid is set to -1 for failed requests
+		status: id < 0 ? NodeStatus.FAILED : undefined,
 		permissions,
 		owner,
 		root: filesRoot,

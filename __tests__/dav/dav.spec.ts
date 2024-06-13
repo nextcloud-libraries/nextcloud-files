@@ -5,7 +5,7 @@
 import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 
-import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode } from '../../lib'
+import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode, NodeStatus } from '../../lib'
 import { FileStat } from 'webdav'
 import * as auth from '@nextcloud/auth'
 
@@ -134,6 +134,20 @@ describe('davResultToNode', () => {
 
 		expect(node.isDavRessource).toBe(true)
 		expect(node.owner).toBe('anonymous')
+	})
+
+	test('by default no status is set', () => {
+		const remoteResult = { ...result }
+		remoteResult.props!.fileid = 1
+		const node = davResultToNode(remoteResult)
+		expect(node.status).toBeUndefined()
+	})
+
+	test('sets node status on invalid fileid', () => {
+		const remoteResult = { ...result }
+		remoteResult.props!.fileid = -1
+		const node = davResultToNode(remoteResult)
+		expect(node.status).toBe(NodeStatus.FAILED)
 	})
 })
 
