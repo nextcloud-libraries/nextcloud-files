@@ -20,7 +20,7 @@ export { File } from './files/file'
 export { Folder } from './files/folder'
 export { Node, NodeStatus } from './files/node'
 
-export { isFilenameValid } from './utils/filename'
+export { isFilenameValid, getUniqueName } from './utils/filename'
 export { formatFileSize, parseFileSize } from './utils/fileSize'
 export { orderBy } from './utils/sorting'
 export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
