@@ -16,9 +16,9 @@ export * from './dav/davPermissions'
 export * from './dav/dav'
 
 export { FileType } from './files/fileType'
-export { File } from './files/file'
-export { Folder } from './files/folder'
-export { Node, NodeStatus } from './files/node'
+export { File, type IFile } from './files/file'
+export { Folder, type IFolder } from './files/folder'
+export { Node, NodeStatus, type INode } from './files/node'
 
 export { isFilenameValid, getUniqueName } from './utils/filename'
 export { formatFileSize, parseFileSize } from './utils/fileSize'

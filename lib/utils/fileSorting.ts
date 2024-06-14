@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Node } from '../files/node'
+import type { INode } from '../files/node'
 import { orderBy } from './sorting'
 
 export enum FilesSortingMode {
@@ -41,7 +41,7 @@ export interface FilesSortingOptions {
  * @param nodes Nodes to sort
  * @param options Sorting options
  */
-export function sortNodes(nodes: readonly Node[], options: FilesSortingOptions = {}): Node[] {
+export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions = {}): INode[] {
 	const sortingOptions = {
 		// Default to sort by name
 		sortingMode: FilesSortingMode.Name,
@@ -58,15 +58,15 @@ export function sortNodes(nodes: readonly Node[], options: FilesSortingOptions =
 
 	const identifiers = [
 		// 1: Sort favorites first if enabled
-		...(sortingOptions.sortFavoritesFirst ? [(v: Node) => v.attributes?.favorite !== 1] : []),
+		...(sortingOptions.sortFavoritesFirst ? [(v: INode) => v.attributes?.favorite !== 1] : []),
 		// 2: Sort folders first if sorting by name
-		...(sortingOptions.sortFoldersFirst ? [(v: Node) => v.type !== 'folder'] : []),
+		...(sortingOptions.sortFoldersFirst ? [(v: INode) => v.type !== 'folder'] : []),
 		// 3: Use sorting mode if NOT basename (to be able to use displayName too)
-		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: Node) => v[sortingOptions.sortingMode]] : []),
+		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode]] : []),
 		// 4: Use displayName if available, fallback to name
-		(v: Node) => basename(v.attributes?.displayName || v.basename),
+		(v: INode) => basename(v.attributes?.displayName || v.basename),
 		// 5: Finally, use basename if all previous sorting methods failed
-		(v: Node) => v.basename,
+		(v: INode) => v.basename,
 	]
 	const orders = [
 		// (for 1): always sort favorites before normal files
