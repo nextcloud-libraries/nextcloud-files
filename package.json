@@ -73,6 +73,7 @@
     "@nextcloud/router": "^3.0.1",
     "cancelable-promise": "^4.3.1",
     "is-svg": "^5.0.1",
+    "typescript-event-target": "^1.1.1",
     "webdav": "^5.6.0"
   }
 }
