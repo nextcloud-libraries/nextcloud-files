@@ -6,6 +6,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.5.0 - 2024-06-17
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.4.1...v3.5.0
+
+### Added
+* feat: Add filename util `getUniqueName` to generate a unique name \([\#986](https://github.com/nextcloud-libraries/nextcloud-files/pull/986)\)
+* feat: Export public interfaces of `Node`, `File` and `Folder` \([\#976](https://github.com/nextcloud-libraries/nextcloud-files/pull/976)\)
+* feat(navigation): Allow to listen for active navigation changes \([\#987](https://github.com/nextcloud-libraries/nextcloud-files/pull/987)\)
+
+### Fixed
+* fix(dav): Set `status` in `davResultToNode` when fileid is negative \([\#985](https://github.com/nextcloud-libraries/nextcloud-files/pull/985)\)
+* fix: When sorting by filename the extension should only be considered if the basename is equal \([\#984](https://github.com/nextcloud-libraries/nextcloud-files/pull/984)\)
+
+### Changed
+* Add SPDX headers \([\#980](https://github.com/nextcloud-libraries/nextcloud-files/pull/980)\)
+* Updated development dependencies
+
 ## 3.4.1 - 2024-06-05
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.4.0...v3.4.1
 
