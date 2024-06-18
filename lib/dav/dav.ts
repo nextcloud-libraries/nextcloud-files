@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
-import { NodeStatus, type Node } from '../files/node'
+import type { Node } from '../files/node'
 
 import { File } from '../files/file'
 import { Folder } from '../files/folder'
+import { NodeStatus } from '../files/node'
 import { NodeData } from '../files/nodeData'
 import { davParsePermissions } from './davPermissions'
 import { davGetFavoritesReport } from './davProperties'
 
 import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
 import { generateRemoteUrl } from '@nextcloud/router'
-import { createClient, getPatcher } from 'webdav'
 import { CancelablePromise } from 'cancelable-promise'
+import { createClient, getPatcher } from 'webdav'
+import { isPublicShare } from '../utils/isPublic'
 
 /**
  * Nextcloud DAV result response
@@ -137,9 +139,7 @@ export const getFavoriteNodes = (davClient: WebDAVClient, path = '/', davRoot = 
  */
 export const davResultToNode = function(node: FileStat, filesRoot = davRootPath, remoteURL = davRemoteURL): Node {
 	let userId = getCurrentUser()?.uid
-	const isPublic = document.querySelector<HTMLInputElement>('input#isPublic')?.value
-	if (isPublic) {
-		userId = userId ?? document.querySelector<HTMLInputElement>('input#sharingUserId')?.value
+	if (isPublicShare()) {
 		userId = userId ?? 'anonymous'
 	} else if (!userId) {
 		throw new Error('No user id found')

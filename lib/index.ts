@@ -22,6 +22,7 @@ export { Node, NodeStatus, type INode } from './files/node'
 
 export { isFilenameValid, getUniqueName } from './utils/filename'
 export { formatFileSize, parseFileSize } from './utils/fileSize'
+export { isPublicShare } from './utils/isPublic'
 export { orderBy } from './utils/sorting'
 export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
 
