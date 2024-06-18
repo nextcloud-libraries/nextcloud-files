@@ -105,4 +105,27 @@ describe('DAV Properties', () => {
 		expect(logger.warn).not.toBeCalled()
 		expect(getDavProperties().includes('my:prop')).toBe(false)
 	})
+
+	test('default properties include all RFC DAV properties', () => {
+		// Refer to http://www.webdav.org/specs/rfc2518.html#dav.properties
+		const rfc2518 = [
+			'd:creationdate',
+			'd:displayname',
+			'd:getcontentlength',
+			'd:getcontenttype',
+			'd:getetag',
+			'd:getlastmodified',
+			'd:resourcetype',
+			// Nextcloud autmatically includes:
+			// 'd:source'
+			// Only valid for GET requests
+			// 'd:getcontentlanguage',
+			// Not used by default (stub implemented)
+			// 'd:supportedlock'
+			// 'd:lockdiscovery'
+		]
+
+		const missing = rfc2518.filter((prop) => !defaultDavProperties.includes(prop))
+		expect(missing, 'RFC defined prop not included in default DAV properties').toEqual([])
+	})
 })
