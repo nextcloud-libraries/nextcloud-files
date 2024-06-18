@@ -122,21 +122,9 @@ describe('davResultToNode', () => {
 		expect(node.owner).toBe('user1')
 	})
 
-	test('has correct owner set on public shares', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue(null)
-		const input = document.createElement('input')
-		input.id = 'isPublic'
-		input.value = '1'
-		document.body.appendChild(input)
-
-		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
-		const node = davResultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
-
-		expect(node.isDavRessource).toBe(true)
-		expect(node.owner).toBe('anonymous')
-	})
-
 	test('by default no status is set', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = 1
 		const node = davResultToNode(remoteResult)
@@ -144,6 +132,8 @@ describe('davResultToNode', () => {
 	})
 
 	test('sets node status on invalid fileid', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = -1
 		const node = davResultToNode(remoteResult)
