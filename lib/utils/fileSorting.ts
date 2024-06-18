@@ -61,10 +61,10 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		...(sortingOptions.sortFavoritesFirst ? [(v: INode) => v.attributes?.favorite !== 1] : []),
 		// 2: Sort folders first if sorting by name
 		...(sortingOptions.sortFoldersFirst ? [(v: INode) => v.type !== 'folder'] : []),
-		// 3: Use sorting mode if NOT basename (to be able to use displayName too)
+		// 3: Use sorting mode if NOT basename (to be able to use displayname too)
 		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode]] : []),
-		// 4: Use displayName if available, fallback to name
-		(v: INode) => basename(v.attributes?.displayName || v.basename),
+		// 4: Use displayname if available, fallback to name
+		(v: INode) => basename(v.attributes?.displayname || v.basename),
 		// 5: Finally, use basename if all previous sorting methods failed
 		(v: INode) => v.basename,
 	]

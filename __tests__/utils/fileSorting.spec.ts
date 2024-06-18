@@ -74,7 +74,7 @@ describe('sortNodes', () => {
 				mtime: new Date(100),
 				size: 100,
 				attributes: {
-					displayName: 'a',
+					displayname: 'a',
 				},
 			}),
 			file('b', 100, 100),
@@ -95,7 +95,7 @@ describe('sortNodes', () => {
 				mtime: new Date(100),
 				size: 100,
 				attributes: {
-					displayName: 'a',
+					displayname: 'a',
 				},
 			}),
 			// File with basename "b" but displayname "a"
@@ -107,7 +107,7 @@ describe('sortNodes', () => {
 				mtime: new Date(100),
 				size: 100,
 				attributes: {
-					displayName: 'a',
+					displayname: 'a',
 				},
 			}),
 		]
