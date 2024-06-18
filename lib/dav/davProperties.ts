@@ -12,6 +12,8 @@ export const defaultDavProperties = [
 	'd:getcontenttype',
 	'd:getetag',
 	'd:getlastmodified',
+	'd:creationdate',
+	'd:displayname',
 	'd:quota-available-bytes',
 	'd:resourcetype',
 	'nc:has-preview',
