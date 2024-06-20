@@ -6,6 +6,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.5.1 - 2024-06-20
+**Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.5.0...v3.5.1
+
+### Fixed
+* fix `davResultToNode` on public shares \([\#993](https://github.com/nextcloud-libraries/nextcloud-files/pull/993)\)
+* fix: make `davRootPath` and `davRemoteURL` support public shares \([\#996](https://github.com/nextcloud-libraries/nextcloud-files/pull/996)\)
+* fix(dav): Add `displayname` and `creationdate` to default props \([\#991](https://github.com/nextcloud-libraries/nextcloud-files/pull/991)\)
+* fix(sorting): The display name attribute is called `displayname` not `displayName` for DAV \([\#992](https://github.com/nextcloud-libraries/nextcloud-files/pull/992)\)
+
+### Changed
+* chore(deps-dev): Bump ws from 8.17.0 to 8.17.1
+* chore: Update development dependencies
+
 ## 3.5.0 - 2024-06-17
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.4.1...v3.5.0
 
