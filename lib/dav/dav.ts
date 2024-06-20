@@ -16,7 +16,7 @@ import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextclou
 import { generateRemoteUrl } from '@nextcloud/router'
 import { CancelablePromise } from 'cancelable-promise'
 import { createClient, getPatcher } from 'webdav'
-import { isPublicShare } from '../utils/isPublic'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 
 /**
  * Nextcloud DAV result response
@@ -30,14 +30,38 @@ interface ResponseProps extends DAVResultResponseProps {
 }
 
 /**
- * The DAV root path for the current user
+ * Get the DAV root path for the current user or public share
  */
-export const davRootPath = `/files/${getCurrentUser()?.uid}`
+export function davGetRootPath(): string {
+	if (isPublicShare()) {
+		return `/files/${getSharingToken()}`
+	}
+	return `/files/${getCurrentUser()?.uid}`
+}
+
+/**
+ * The DAV root path for the current user
+ * This is a cached version of `davGetRemoteURL`
+ */
+export const davRootPath = davGetRootPath()
+
+/**
+ * Get the DAV remote URL used as base URL for the WebDAV client
+ * It also handles public shares
+ */
+export function davGetRemoteURL(): string {
+	const url = generateRemoteUrl('dav')
+	if (isPublicShare()) {
+		return url.replace('remote.php', 'public.php')
+	}
+	return url
+}
 
 /**
  * The DAV remote URL used as base URL for the WebDAV client
+ * This is a cached version of `davGetRemoteURL`
  */
-export const davRemoteURL = generateRemoteUrl('dav')
+export const davRemoteURL = davGetRemoteURL()
 
 /**
  * Get a WebDAV client configured to include the Nextcloud request token

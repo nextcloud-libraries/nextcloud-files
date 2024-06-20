@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { afterAll, afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
 
 import { File, Folder, davRemoteURL, davGetFavoritesReport, davRootPath, getFavoriteNodes, davResultToNode, NodeStatus } from '../../lib'
@@ -14,10 +14,6 @@ import { URL as FileURL } from 'node:url'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
-
-afterAll(() => {
-	vi.resetAllMocks()
-})
 
 describe('DAV functions', () => {
 	test('root path is correct', () => {
