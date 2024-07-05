@@ -5,7 +5,9 @@
 # @nextcloud/files
 [![npm last version](https://img.shields.io/npm/v/@nextcloud/files.svg?style=flat-square)](https://www.npmjs.com/package/@nextcloud/files) [![REUSE status](https://api.reuse.software/badge/github.com/nextcloud-libraries/nextcloud-files)](https://api.reuse.software/info/github.com/nextcloud-libraries/nextcloud-files) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud-libraries/nextcloud-files?style=flat-square)](https://app.codecov.io/gh/nextcloud-libraries/nextcloud-files) [![Project documentation](https://img.shields.io/badge/documentation-online-blue?style=flat-square)](https://nextcloud-libraries.github.io/nextcloud-files/)
 
-Nextcloud Files helpers for Nextcloud apps and libraries
+Nextcloud Files helpers for Nextcloud apps and libraries.
+
+The `davGetClient` exported function returns a webDAV client that's a wrapper around [webdav's webDAV client](https://www.npmjs.com/package/webdav); All its methods are available here.
 
 ## Usage example
 
@@ -56,4 +58,19 @@ const nodes = results.data.map((result) => davResultToNode(r, myRoot))
 // Same if you used a different remote URL:
 const nodes = results.data.map((result) => davResultToNode(r, myRoot, myRemoteURL))
 
+```
+
+### Using WebDAV to get a Node from a file's name
+
+```ts
+	import { davGetClient, davGetDefaultPropfind, davResultToNode, davRootPath } from '@nextcloud/files'
+	import { emit } from '@nextcloud/event-bus'
+	const client = davGetClient()
+	client.stat(`${davRootPath}${filename}`, {
+		details: true,
+		data: davGetDefaultPropfind(),
+	}).then((result) => {
+		const node = davResultToNode(result.data)
+		emit('files:node:updated', node)
+	})
 ```
