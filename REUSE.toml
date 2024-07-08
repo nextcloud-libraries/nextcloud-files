@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+version = 1
+SPDX-PackageName = "nextcloud-files"
+SPDX-PackageSupplier = "Nextcloud <info@nextcloud.com>"
+SPDX-PackageDownloadLocation = "https://github.com/nextcloud-libraries/nextcloud-files"
+
+[[annotations]]
+path = ["package-lock.json", "package.json", "tsconfig.json"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2019-2024 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = [".eslintrc.json", "__tests__/fixtures/favorites-inner-response.json", "__tests__/fixtures/favorites-inner-response.xml", "__tests__/fixtures/favorites-response.json", "__tests__/fixtures/favorites-response.xml"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2023 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
