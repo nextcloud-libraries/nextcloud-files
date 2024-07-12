@@ -112,4 +112,22 @@ describe('orderBy', () => {
 			).map((v) => v.text),
 		).toEqual(['monday', 'tuesday', 'wednesday'])
 	})
+
+	test('sort with equal values', () => {
+		const array = [
+			{ text: 'Dienstag', value: 2 },
+			{ text: 'Monday', value: 1 },
+			{ text: 'Wednesday', value: 3 },
+			{ text: 'Tuesday', value: 2 },
+		]
+
+		const ordered = orderBy(
+			array,
+			[(v) => v.value],
+		)
+
+		expect(ordered[0].text).toBe('Monday')
+		expect(ordered[3].text).toBe('Wednesday')
+		// the rest can be in any order
+	})
 })
