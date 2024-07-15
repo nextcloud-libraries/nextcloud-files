@@ -306,7 +306,18 @@ export abstract class Node {
 	 */
 	move(destination: string) {
 		validateData({ ...this._data, source: destination }, this._knownDavService)
+		const oldBasename = this.basename
+
 		this._data.source = destination
+		// Check if the displayname and the (old) basename were the same
+		// meaning no special displayname was set but just a fallback to the basename by Nextclouds WebDAV server
+		if (this._attributes.displayname
+			&& this._attributes.displayname === oldBasename
+			&& this.basename !== oldBasename) {
+			// We have to assume that the displayname was not set but just a copy of the basename
+			// this can not be guaranteed, so to be sure users should better refetch the node
+			this._attributes.displayname = this.basename
+		}
 		this.updateMtime()
 	}
 

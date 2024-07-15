@@ -498,6 +498,71 @@ describe('Root and paths detection', () => {
 	})
 })
 
+describe('Move and rename of a node', () => {
+
+	test('Move updates the basename', () => {
+		const file = new File({
+			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/dav',
+		})
+
+		expect(file.basename).toBe('emma.jpeg')
+		file.move('https://cloud.example.com/dav/files/images/jane.jpeg')
+		expect(file.basename).toBe('jane.jpeg')
+	})
+
+	test('Move updates the path', () => {
+		const file = new File({
+			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/dav',
+		})
+
+		expect(file.path).toBe('/files/images/emma.jpeg')
+		file.move('https://cloud.example.com/dav/files/pictures/emma.jpeg')
+		expect(file.path).toBe('/files/pictures/emma.jpeg')
+	})
+
+	test('Move updates the fallback displayname', () => {
+		const file = new File({
+			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/dav',
+			attributes: {
+				displayname: 'emma.jpeg',
+			},
+		})
+
+		expect(file.path).toBe('/files/images/emma.jpeg')
+		expect(file.attributes.displayname).toBe('emma.jpeg')
+		file.move('https://cloud.example.com/dav/files/pictures/jane.jpeg')
+		expect(file.path).toBe('/files/pictures/jane.jpeg')
+		expect(file.attributes.displayname).toBe('jane.jpeg')
+	})
+
+	test('Move does not updates custom displayname', () => {
+		const file = new File({
+			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			root: '/dav',
+			attributes: {
+				displayname: 'profile.jpeg',
+			},
+		})
+
+		expect(file.path).toBe('/files/images/emma.jpeg')
+		expect(file.attributes.displayname).toBe('profile.jpeg')
+		file.move('https://cloud.example.com/dav/files/pictures/jane.jpeg')
+		expect(file.path).toBe('/files/pictures/jane.jpeg')
+		expect(file.attributes.displayname).toBe('profile.jpeg')
+	})
+})
+
 describe('Undefined properties are allowed', () => {
 	test('File', () => {
 		expect(() => new File({
