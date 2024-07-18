@@ -21,9 +21,13 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
+interface NodeInternalData extends NodeData {
+	attributes: Attribute
+}
+
 export abstract class Node {
 
-	private _data: NodeData
+	private _data: NodeInternalData
 	private _attributes: Attribute
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
@@ -62,7 +66,12 @@ export abstract class Node {
 		// Validate data
 		validateData(data, davService || this._knownDavService)
 
-		this._data = { ...data, attributes: {} }
+		this._data = {
+			// TODO: Remove with next major release, this is just for compatibility
+			displayname: data.attributes?.displayname,
+			...data,
+			attributes: {},
+		}
 
 		// Proxy the attributes to update the mtime on change
 		this._attributes = new Proxy(this._data.attributes!, this.handler)
@@ -100,6 +109,23 @@ export abstract class Node {
 	 */
 	get basename(): string {
 		return basename(this.source)
+	}
+
+	/**
+	 * The nodes displayname
+	 * By default the display name and the `basename` are identical,
+	 * but it is possible to have a different name. This happens
+	 * on the files app for example for shared folders.
+	 */
+	get displayname(): string {
+		return this._data.displayname || this.basename
+	}
+
+	/**
+	 * Set the displayname
+	 */
+	set displayname(displayname: string) {
+		this._data.displayname = displayname
 	}
 
 	/**
@@ -306,7 +332,17 @@ export abstract class Node {
 	 */
 	move(destination: string) {
 		validateData({ ...this._data, source: destination }, this._knownDavService)
+		const oldBasename = this.basename
+
 		this._data.source = destination
+		// Check if the displayname and the (old) basename were the same
+		// meaning no special displayname was set but just a fallback to the basename by Nextclouds WebDAV server
+		if (this.displayname === oldBasename
+			&& this.basename !== oldBasename) {
+			// We have to assume that the displayname was not set but just a copy of the basename
+			// this can not be guaranteed, so to be sure users should better refetch the node
+			this.displayname = this.basename
+		}
 		this.updateMtime()
 	}
 

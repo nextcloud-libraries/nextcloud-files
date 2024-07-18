@@ -39,6 +39,9 @@ export interface NodeData {
 	/** The owner  UID of this node */
 	owner: string|null
 
+	/** Optional the displayname of this node */
+	displayname?: string
+
 	/** The node attributes */
 	attributes?: Attribute
 
@@ -87,6 +90,10 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 
 	if (!data.source.startsWith('http')) {
 		throw new Error('Invalid source format, only http(s) is supported')
+	}
+
+	if (data.displayname && typeof data.displayname !== 'string') {
+		throw new Error('Invalid displayname type')
 	}
 
 	if (data.mtime && !(data.mtime instanceof Date)) {
