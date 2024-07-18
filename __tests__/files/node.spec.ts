@@ -208,6 +208,57 @@ describe('Permissions attribute', () => {
 	})
 })
 
+describe('Displayname attribute', () => {
+	test('legacy displayname attribute', () => {
+		// TODO: This logic can be removed with next major release (v4)
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			attributes: {
+				displayname: 'image.png',
+			},
+		})
+		expect(file.basename).toBe('picture.jpg')
+		expect(file.displayname).toBe('image.png')
+		expect(file.attributes.displayname).toBe('image.png')
+	})
+
+	test('Read displayname attribute', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			displayname: 'image.png',
+		})
+		expect(file.basename).toBe('picture.jpg')
+		expect(file.displayname).toBe('image.png')
+	})
+
+	test('Fallback displayname attribute', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.basename).toBe('picture.jpg')
+		expect(file.displayname).toBe('picture.jpg')
+	})
+
+	test('Set displayname attribute', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.basename).toBe('picture.jpg')
+		expect(file.displayname).toBe('picture.jpg')
+
+		file.displayname = 'image.png'
+		expect(file.displayname).toBe('image.png')
+	})
+})
+
 describe('Sanity checks', () => {
 	test('Invalid id', () => {
 		expect(() => new File({
@@ -235,6 +286,15 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})).toThrowError('Invalid source format, only http(s) is supported')
+	})
+
+	test('Invalid displayname', () => {
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/Photos',
+			mime: 'image',
+			displayname: true as unknown as string,
+			owner: 'emma',
+		})).toThrowError('Invalid displayname type')
 	})
 
 	test('Invalid mtime', () => {
@@ -529,19 +589,17 @@ describe('Move and rename of a node', () => {
 	test('Move updates the fallback displayname', () => {
 		const file = new File({
 			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
+			displayname: 'emma.jpeg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/dav',
-			attributes: {
-				displayname: 'emma.jpeg',
-			},
 		})
 
 		expect(file.path).toBe('/files/images/emma.jpeg')
-		expect(file.attributes.displayname).toBe('emma.jpeg')
+		expect(file.displayname).toBe('emma.jpeg')
 		file.move('https://cloud.example.com/dav/files/pictures/jane.jpeg')
 		expect(file.path).toBe('/files/pictures/jane.jpeg')
-		expect(file.attributes.displayname).toBe('jane.jpeg')
+		expect(file.displayname).toBe('jane.jpeg')
 	})
 
 	test('Move does not updates custom displayname', () => {
@@ -550,16 +608,14 @@ describe('Move and rename of a node', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 			root: '/dav',
-			attributes: {
-				displayname: 'profile.jpeg',
-			},
+			displayname: 'profile.jpeg',
 		})
 
 		expect(file.path).toBe('/files/images/emma.jpeg')
-		expect(file.attributes.displayname).toBe('profile.jpeg')
+		expect(file.displayname).toBe('profile.jpeg')
 		file.move('https://cloud.example.com/dav/files/pictures/jane.jpeg')
 		expect(file.path).toBe('/files/pictures/jane.jpeg')
-		expect(file.attributes.displayname).toBe('profile.jpeg')
+		expect(file.displayname).toBe('profile.jpeg')
 	})
 })
 

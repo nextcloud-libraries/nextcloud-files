@@ -71,11 +71,9 @@ describe('sortNodes', () => {
 				mime: 'text/plain',
 				// Resulting in name "d"
 				source: 'https://cloud.domain.com/remote.php/dav/d',
+				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,
-				attributes: {
-					displayname: 'a',
-				},
 			}),
 			file('b', 100, 100),
 			file('c', 100, 500),
@@ -92,11 +90,9 @@ describe('sortNodes', () => {
 				mime: 'text/plain',
 				// Resulting in name "d"
 				source: 'https://cloud.domain.com/remote.php/dav/c',
+				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,
-				attributes: {
-					displayname: 'a',
-				},
 			}),
 			// File with basename "b" but displayname "a"
 			new File({
@@ -104,11 +100,9 @@ describe('sortNodes', () => {
 				mime: 'text/plain',
 				// Resulting in name "d"
 				source: 'https://cloud.domain.com/remote.php/dav/b',
+				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,
-				attributes: {
-					displayname: 'a',
-				},
 			}),
 		]
 

@@ -54,6 +54,7 @@ describe('davResultToNode', () => {
 	test('path does not contain root', () => {
 		const node = davResultToNode(result)
 		expect(node.basename).toBe(result.basename)
+		expect(node.displayname).toBe(result.props!.displayname)
 		expect(node.extension).toBe('.md')
 		expect(node.source).toBe('https://localhost/dav/files/test/New folder/Neue Textdatei.md')
 		expect(node.root).toBe(davRootPath)
@@ -83,6 +84,13 @@ describe('davResultToNode', () => {
 		expect(node.source).toBe('http://example.com/dav/root/New folder/Neue Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
+	})
+
+	test('has correct displayname set', () => {
+		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
+		const node = davResultToNode(remoteResult, '/root', 'http://example.com/dav')
+		expect(node.basename).toBe(remoteResult.basename)
+		expect(node.displayname).toBe(remoteResult.props!.displayname)
 	})
 
 	// If owner-id is set, it will be used as owner
