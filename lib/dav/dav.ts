@@ -179,6 +179,7 @@ export const davResultToNode = function(node: FileStat, filesRoot = davRootPath,
 		source: `${remoteURL}${node.filename}`,
 		mtime: new Date(Date.parse(node.lastmod)),
 		mime: node.mime || 'application/octet-stream',
+		displayname: props.displayname,
 		size: props?.size || Number.parseInt(props.getcontentlength || '0'),
 		// The fileid is set to -1 for failed requests
 		status: id < 0 ? NodeStatus.FAILED : undefined,
