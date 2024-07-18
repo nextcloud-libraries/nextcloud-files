@@ -6,6 +6,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.6.0 - 2024-07-18
+[Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.5.1...v3.6.0)
+
+### Added
+* feat(filename): Improve filename validation to support Nextcloud 30 capabilities [\#1013](https://github.com/nextcloud-libraries/nextcloud-files/pull/1013) \([susnux](https://github.com/susnux)\)
+* feat(node): Add `displayname` as top level attribute [\#1019](https://github.com/nextcloud-libraries/nextcloud-files/pull/1019) \([susnux](https://github.com/susnux)\)
+
+### Fixed
+* fix: `Node.move` should also adjust the displayname [\#1018](https://github.com/nextcloud-libraries/nextcloud-files/pull/1018) \([susnux](https://github.com/susnux)\)
+
+### Changed
+* Update README.md to add more info about the webDAV client [\#1007](https://github.com/nextcloud-libraries/nextcloud-files/pull/1007) \([StCyr](https://github.com/StCyr)\)
+* test: Add missing test case for sorting equal values and ESLint warning [\#1014](https://github.com/nextcloud-libraries/nextcloud-files/pull/1014) \([susnux](https://github.com/susnux)\)
+* Migrate REUSE to TOML format [\#1012](https://github.com/nextcloud-libraries/nextcloud-files/pull/1012) \([AndyScherzinger](https://github.com/AndyScherzinger)\)
+* Bump @nextcloud/sharing from 0.2.1 to 0.2.2
+* Updated development dependencies
+
 ## 3.5.1 - 2024-06-20
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.5.0...v3.5.1
 
