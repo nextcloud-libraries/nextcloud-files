@@ -7,8 +7,12 @@ import { createLibConfig } from '@nextcloud/vite-config'
 
 export default createLibConfig({
 	index: 'lib/index.ts',
+	dav: 'lib/dav/index.ts',
 }, {
-	libraryFormats: ['es', 'cjs'],
+	libraryFormats: ['cjs', 'es'],
+
+	DTSPluginOptions: { rollupTypes: true },
+
 	nodeExternalsOptions: {
 		// Force bundle pure ESM module
 		exclude: ['is-svg'],

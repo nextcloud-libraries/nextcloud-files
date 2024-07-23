@@ -5,7 +5,7 @@
 
 import type { ArgumentsType } from 'vitest'
 import type { FileStat } from 'webdav'
-import type { davResultToNode } from '../../lib/dav/dav'
+import type { resultToNode as IResultToNode } from '../../lib/dav/dav'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({ getCurrentUser: vi.fn() }))
@@ -37,15 +37,15 @@ describe('DAV path functions', () => {
 	test('root path is correct on public shares', async () => {
 		mockPublicShare()
 
-		const { davGetRootPath } = await import('../../lib/dav/dav')
-		expect(davGetRootPath()).toBe('/files/token-1234')
+		const { getRootPath } = await import('../../lib/dav/dav')
+		expect(getRootPath()).toBe('/files/token-1234')
 	})
 
 	test('remote URL is correct on public shares', async () => {
 		mockPublicShare()
 
-		const { davGetRemoteURL } = await import('../../lib/dav/dav')
-		expect(davGetRemoteURL()).toBe('https://example.com/public.php/dav')
+		const { getRemoteURL } = await import('../../lib/dav/dav')
+		expect(getRemoteURL()).toBe('https://example.com/public.php/dav')
 	})
 })
 
@@ -56,9 +56,9 @@ describe('on public shares', () => {
 	})
 
 	// Wrapper function as we can not static import the function to allow mocking the modules
-	const resultToNode = async (...rest: ArgumentsType<typeof davResultToNode>) => {
-		const { davResultToNode } = await import('../../lib/dav/dav')
-		return davResultToNode(...rest)
+	const resultToNode = async (...rest: ArgumentsType<typeof IResultToNode>) => {
+		const { resultToNode } = await import('../../lib/dav/dav')
+		return resultToNode(...rest)
 	}
 
 	/*
@@ -83,7 +83,7 @@ describe('on public shares', () => {
 		},
 	}
 
-	describe('davResultToNode', () => {
+	describe('resultToNode', () => {
 		beforeEach(() => {
 			vi.resetModules()
 			restoreMocks()

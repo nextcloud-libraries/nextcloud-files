@@ -11,6 +11,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./dav": {
+      "types": "./dist/dav.d.ts",
+      "import": "./dist/dav.mjs",
+      "require": "./dist/dav.cjs"
     }
   },
   "files": [
@@ -29,7 +34,7 @@
   ],
   "scripts": {
     "build": "vite --mode production build",
-    "build:doc": "typedoc && touch dist/doc/.nojekyll",
+    "build:doc": "typedoc --out dist/doc lib/dav/index.ts lib/index.ts && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
     "watch": "vite --mode development build --watch",
     "lint": "eslint .",

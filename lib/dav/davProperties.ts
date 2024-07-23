@@ -100,7 +100,7 @@ export const getDavNameSpaces = function(): string {
 /**
  * Get the default PROPFIND request body
  */
-export const davGetDefaultPropfind = function(): string {
+export const getDefaultPropfind = function(): string {
 	return `<?xml version="1.0"?>
 		<d:propfind ${getDavNameSpaces()}>
 			<d:prop>
@@ -112,7 +112,7 @@ export const davGetDefaultPropfind = function(): string {
 /**
  * Get the REPORT body to filter for favorite nodes
  */
-export const davGetFavoritesReport = function(): string {
+export const getFavoritesReport = function(): string {
 	return `<?xml version="1.0"?>
 		<oc:filter-files ${getDavNameSpaces()}>
 			<d:prop>
@@ -145,7 +145,7 @@ export const davGetFavoritesReport = function(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export const davGetRecentSearch = function(lastModified: number): string {
+export const getRecentSearch = function(lastModified: number): string {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
