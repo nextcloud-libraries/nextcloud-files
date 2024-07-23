@@ -4,7 +4,7 @@
  */
 import { describe, it, expect } from 'vitest'
 
-import { davParsePermissions } from '../../lib/dav/davPermissions'
+import { parsePermissions } from '../../lib/dav/davPermissions'
 import { Permission } from '../../lib/permissions'
 
 const dataSet = [
@@ -30,7 +30,7 @@ describe('davParsePermissions', () => {
 	dataSet.forEach(({ input, permissions }) => {
 		it(`expect ${input} to be ${permissions}`, () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			expect(davParsePermissions(input as any as string)).toBe(permissions)
+			expect(parsePermissions(input as any as string)).toBe(permissions)
 		})
 	})
 })
