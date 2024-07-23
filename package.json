@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "build": "vite --mode production build",
-    "build:doc": "typedoc --out dist/doc lib && touch dist/doc/.nojekyll",
+    "build:doc": "typedoc && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
     "watch": "vite --mode development build --watch",
     "lint": "eslint .",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^0.0.1-beta.10",
     "@nextcloud/eslint-config": "^8.4.1",
+    "@nextcloud/event-bus": "^3.3.1",
     "@nextcloud/typings": "^1.9.1",
     "@nextcloud/vite-config": "^2.1.0",
     "@types/node": "^20.14.11",
@@ -75,6 +76,7 @@
     "@nextcloud/sharing": "^0.2.2",
     "cancelable-promise": "^4.3.1",
     "is-svg": "^5.0.1",
+    "typedoc-plugin-missing-exports": "^3.0.0",
     "typescript-event-target": "^1.1.1",
     "webdav": "^5.6.0"
   }

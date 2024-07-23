@@ -26,9 +26,8 @@ export { formatFileSize, parseFileSize } from './utils/fileSize'
 export { orderBy, type SortingOrder } from './utils/sorting'
 export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
 
-export * from './navigation/navigation'
-export * from './navigation/column'
-export * from './navigation/view'
+export * from './navigation/index'
+export * from './fileListFilters'
 
 /**
  * Add a new menu entry to the upload manager menu
