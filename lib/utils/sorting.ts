@@ -5,7 +5,7 @@
 import { getCanonicalLocale, getLanguage } from '@nextcloud/l10n'
 
 type IdentifierFn<T> = (v: T) => unknown
-type SortingOrder = 'asc'|'desc'
+export type SortingOrder = 'asc'|'desc'
 
 /**
  * Helper to create string representation

@@ -23,7 +23,7 @@ export { Node, NodeStatus, type INode } from './files/node'
 export * from './utils/filename-validation'
 export { getUniqueName } from './utils/filename'
 export { formatFileSize, parseFileSize } from './utils/fileSize'
-export { orderBy } from './utils/sorting'
+export { orderBy, type SortingOrder } from './utils/sorting'
 export { sortNodes, FilesSortingMode, type FilesSortingOptions } from './utils/fileSorting'
 
 export * from './navigation/navigation'
