@@ -6,6 +6,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.7.0 - 2024-07-25
+[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.6.0...v3.7.0)
+
+### Added
+* feat: Implement API for file list filters [\#1027](https://github.com/nextcloud-libraries/nextcloud-files/pull/1027) \([susnux](https://github.com/susnux)\)
+
+### Fixed
+* fix(dav): Cast displayname to string in `resultToNode` [\#1028](https://github.com/nextcloud-libraries/nextcloud-files/pull/1028) \([susnux](https://github.com/susnux)\)
+* fix: Correctly export public API [\#1026](https://github.com/nextcloud-libraries/nextcloud-files/pull/1026) \([susnux](https://github.com/susnux)\)
+
+### Changed
+* chore(deps): Bump @nextcloud/paths from 2.1.0 to 2.2.0
+
 ## 3.6.0 - 2024-07-18
 [Full Changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.5.1...v3.6.0)
 
