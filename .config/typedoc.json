@@ -1,0 +1,9 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"entryPoints": ["../lib/index.ts"],
+	"out": "../dist/doc",
+	"basePath": "../lib",
+	"plugin": [
+		"typedoc-plugin-missing-exports"
+	]
+}
