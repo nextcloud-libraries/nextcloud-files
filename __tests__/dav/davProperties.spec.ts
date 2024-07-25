@@ -6,17 +6,24 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { XMLValidator } from 'fast-xml-parser'
 
 import {
-	davGetDefaultPropfind,
-	davGetFavoritesReport,
-	getDavNameSpaces,
-	getDavProperties,
-	registerDavProperty,
 	defaultDavNamespaces,
 	defaultDavProperties,
-	davGetRecentSearch,
+	getDavNameSpaces,
+	getDavProperties,
+	getDefaultPropfind,
+	getFavoritesReport,
+	getRecentSearch,
+	registerDavProperty,
 } from '../../lib/dav/davProperties'
 
 import logger from '../../lib/utils/logger'
+
+declare global {
+	interface Window {
+		_nc_dav_namespaces?: string[]
+		_nc_dav_properties?: string[]
+	}
+}
 
 describe('DAV Properties', () => {
 
@@ -42,19 +49,19 @@ describe('DAV Properties', () => {
 		defaultDavProperties.forEach(p => expect(props.includes(p)).toBe(true))
 	})
 
-	test('davGetDefaultPropfind', () => {
-		expect(typeof davGetDefaultPropfind()).toBe('string')
-		expect(XMLValidator.validate(davGetDefaultPropfind())).toBe(true)
+	test('getDefaultPropfind', () => {
+		expect(typeof getDefaultPropfind()).toBe('string')
+		expect(XMLValidator.validate(getDefaultPropfind())).toBe(true)
 	})
 
-	test('davGetFavoritesReport', () => {
-		expect(typeof davGetFavoritesReport()).toBe('string')
-		expect(XMLValidator.validate(davGetFavoritesReport())).toBe(true)
+	test('getFavoritesReport', () => {
+		expect(typeof getFavoritesReport()).toBe('string')
+		expect(XMLValidator.validate(getFavoritesReport())).toBe(true)
 	})
 
-	test('davGetFavoritesReport', () => {
-		expect(typeof davGetRecentSearch(1337)).toBe('string')
-		expect(XMLValidator.validate(davGetRecentSearch(1337))).toBe(true)
+	test('getFavoritesReport', () => {
+		expect(typeof getRecentSearch(1337)).toBe('string')
+		expect(XMLValidator.validate(getRecentSearch(1337))).toBe(true)
 	})
 
 	test('registerDavProperty registers successfully', () => {
@@ -116,7 +123,7 @@ describe('DAV Properties', () => {
 			'd:getetag',
 			'd:getlastmodified',
 			'd:resourcetype',
-			// Nextcloud autmatically includes:
+			// Nextcloud automatically includes:
 			// 'd:source'
 			// Only valid for GET requests
 			// 'd:getcontentlanguage',
