@@ -62,7 +62,7 @@
     "jsdom": "^24.1.1",
     "tslib": "^2.6.3",
     "typedoc": "^0.26.5",
-    "typescript": "^5.5.3",
+    "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vitest": "^2.0.2"
   },
