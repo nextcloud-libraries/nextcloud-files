@@ -6,6 +6,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.8.0 - 2024-08-08
+[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.7.0...v3.8.0)
+
+## Added
+* feat: Allow registration of load child views callback on view by @Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/1046
+
+## Changed
+* chore(deps-dev): Bump @vitest/coverage-istanbul from 2.0.3 to 2.0.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1033
+* chore(deps-dev): Bump typedoc from 0.26.4 to 0.26.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1031
+* chore(deps): Bump @nextcloud/paths from 2.2.0 to 2.2.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1037
+* chore(deps): Bump @nextcloud/sharing from 0.2.2 to 0.2.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1034
+* chore(deps-dev): Bump vite from 5.3.4 to 5.3.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1036
+* chore(deps-dev): Bump jsdom from 24.1.0 to 24.1.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1035
+* chore(deps-dev): Bump @types/node from 20.14.11 to 20.14.12 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1032
+* chore(deps-dev): Bump typescript from 5.5.3 to 5.5.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1038
+* chore(deps-dev): Bump fast-xml-parser from 4.4.0 to 4.4.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1040
+* chore(deps-dev): Bump @vitest/coverage-istanbul from 2.0.4 to 2.0.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1042
+* chore(deps): Bump webdav from 5.6.0 to 5.7.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1043
+* chore(deps-dev): Bump @types/node from 20.14.12 to 22.1.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1044
+
 ## 3.7.0 - 2024-07-25
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.6.0...v3.7.0)
 
