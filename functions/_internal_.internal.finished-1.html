@@ -6,7 +6,7 @@ or has experienced an error or a premature close event.</p>
 
 <p>Especially useful in error handling scenarios where a stream is destroyed
 prematurely (like an aborted HTTP request), and will not emit <code>'end'</code> or <code>'finish'</code>.</p>
-<p>The <code>finished</code> API provides <a href="https://nodejs.org/docs/latest-v20.x/api/stream.html#streamfinishedstream-options"><code>promise version</code></a>.</p>
+<p>The <code>finished</code> API provides <a href="https://nodejs.org/docs/latest-v22.x/api/stream.html#streamfinishedstream-options"><code>promise version</code></a>.</p>
 <p><code>stream.finished()</code> leaves dangling event listeners (in particular <code>'error'</code>, <code>'end'</code>, <code>'finish'</code> and <code>'close'</code>) after <code>callback</code> has been
 invoked. The reason for this is so that unexpected <code>'error'</code> events (due to
 incorrect stream implementations) do not cause unexpected crashes.
