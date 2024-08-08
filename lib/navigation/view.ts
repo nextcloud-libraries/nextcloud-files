@@ -70,6 +70,12 @@ interface ViewData {
 	 * haven't customized their sorting column
 	 */
 	defaultSortKey?: string
+
+	/**
+	 * Method called to load child views if any
+	 */
+	// eslint-disable-next-line no-use-before-define
+	loadChildViews?: (view: View) => Promise<void>
 }
 
 export class View implements ViewData {
@@ -157,6 +163,10 @@ export class View implements ViewData {
 		return this._view.defaultSortKey
 	}
 
+	get loadChildViews() {
+		return this._view.loadChildViews
+	}
+
 }
 
 /**
@@ -220,6 +230,10 @@ const isValidView = function(view: ViewData): boolean {
 
 	if (view.defaultSortKey && typeof view.defaultSortKey !== 'string') {
 		throw new Error('View defaultSortKey must be a string')
+	}
+
+	if (view.loadChildViews && typeof view.loadChildViews !== 'function') {
+		throw new Error('View loadChildViews must be a function')
 	}
 
 	return true
