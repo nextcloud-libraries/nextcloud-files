@@ -55,7 +55,7 @@
     "@nextcloud/eslint-config": "^8.4.1",
     "@nextcloud/event-bus": "^3.3.1",
     "@nextcloud/typings": "^1.9.1",
-    "@nextcloud/vite-config": "^2.1.0",
+    "@nextcloud/vite-config": "^2.2.2",
     "@types/node": "^22.1.0",
     "@vitest/coverage-istanbul": "^2.0.5",
     "fast-xml-parser": "^4.4.1",
