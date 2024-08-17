@@ -37,8 +37,12 @@ interface ViewData {
 	getContents: (path: string) => Promise<ContentsWithRoot>
 	/** The view icon as an inline svg */
 	icon: string
-	/** The view order */
-	order: number
+
+	/**
+	 * The view order.
+	 * If not set will be natural sorted by view name.
+	 */
+	order?: number
 
 	/**
 	 * Custom params to give to the router on click
@@ -199,8 +203,8 @@ const isValidView = function(view: ViewData): boolean {
 		throw new Error('View icon is required and must be a valid svg string')
 	}
 
-	if (!('order' in view) || typeof view.order !== 'number') {
-		throw new Error('View order is required and must be a number')
+	if ('order' in view && typeof view.order !== 'number') {
+		throw new Error('View order must be a number')
 	}
 
 	// Optional properties
