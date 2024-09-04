@@ -33,10 +33,10 @@ All notable changes to this project will be documented in this file.
 ## 3.8.0 - 2024-08-08
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.7.0...v3.8.0)
 
-## Added
+### Added
 * feat: Allow registration of load child views callback on view by @Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/1046
 
-## Changed
+### Changed
 * chore(deps-dev): Bump @vitest/coverage-istanbul from 2.0.3 to 2.0.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1033
 * chore(deps-dev): Bump typedoc from 0.26.4 to 0.26.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1031
 * chore(deps): Bump @nextcloud/paths from 2.2.0 to 2.2.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1037
