@@ -6,6 +6,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.9.0 - 2024-09-04
+[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.8.0...v3.9.0)
+
+### Added
+* feat: Allow views to be naturally sorted by @Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/1053
+
+### Changed
+* chore(deps-dev): Bump @nextcloud/vite-config from 2.1.0 to 2.2.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1048
+* chore(deps-dev): Bump vite from 5.3.5 to 5.4.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1051
+* chore(deps): Bump webdav from 5.7.0 to 5.7.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1049
+* chore(deps-dev): Bump @types/node from 22.1.0 to 22.2.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1050
+* chore(deps): Bump is-svg from 5.0.1 to 5.1.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1052
+* chore(deps): Bump @nextcloud/auth from 2.3.0 to 2.4.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1054
+* chore(deps-dev): Bump vite from 5.4.0 to 5.4.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1055
+* chore(deps-dev): Bump @types/node from 22.2.0 to 22.4.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1056
+* chore(deps-dev): Bump elliptic from 6.5.5 to 6.5.7 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1057
+* chore(deps-dev): Bump tslib from 2.6.3 to 2.7.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1059
+* chore(deps-dev): Bump @types/node from 22.4.0 to 22.5.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1061
+* chore(deps-dev): Bump typedoc from 0.26.5 to 0.26.6 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1062
+* chore(deps-dev): Bump vite from 5.4.1 to 5.4.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1060
+* chore(deps-dev): Bump @types/node from 22.5.0 to 22.5.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1064
+* Update dependabot-approve-merge.yml from main org by @AndyScherzinger in https://github.com/nextcloud-libraries/nextcloud-files/pull/1066
+* chore(deps-dev): Bump jsdom from 24.1.1 to 25.0.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1065
+
 ## 3.8.0 - 2024-08-08
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.7.0...v3.8.0)
 
