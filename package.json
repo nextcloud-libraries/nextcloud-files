@@ -51,7 +51,7 @@
   },
   "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
   "devDependencies": {
-    "@codecov/vite-plugin": "^0.0.1-beta.10",
+    "@codecov/vite-plugin": "^0.0.1-beta.12",
     "@nextcloud/eslint-config": "^8.4.1",
     "@nextcloud/event-bus": "^3.3.1",
     "@nextcloud/typings": "^1.9.1",
