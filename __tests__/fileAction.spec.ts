@@ -2,12 +2,11 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-new */
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import type { Node } from '../lib/files/node'
+import type { View } from '../lib/navigation/view'
 
-import { getFileActions, registerFileAction, FileAction, DefaultType } from '../lib/fileAction'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { getFileActions, registerFileAction, FileAction, DefaultType, FileActionData } from '../lib/fileAction'
 import logger from '../lib/utils/logger'
 
 describe('FileActions init', () => {
@@ -34,8 +33,8 @@ describe('FileActions init', () => {
 		})
 
 		expect(action.id).toBe('test')
-		expect(action.displayName([], {})).toBe('Test')
-		expect(action.iconSvgInline([], {})).toBe('<svg></svg>')
+		expect(action.displayName([], {} as unknown as View)).toBe('Test')
+		expect(action.iconSvgInline([], {} as unknown as View)).toBe('<svg></svg>')
 
 		registerFileAction(action)
 
@@ -95,131 +94,129 @@ describe('FileActions init', () => {
 
 describe('Invalid FileAction creation', () => {
 	test('Invalid id', () => {
-		expect(() => {
-			new FileAction({
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-			} as any as FileAction)
-		}).toThrowError('Invalid id')
+		expect(() => new FileAction({
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid id')
 	})
 	test('Invalid displayName', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-			} as any as FileAction)
-		}).toThrowError('Invalid displayName function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid displayName function')
 	})
 	test('Invalid title', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				title: 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-			} as any as FileAction)
-		}).toThrowError('Invalid title function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			title: 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid title function')
 	})
 	test('Invalid iconSvgInline', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: '<svg></svg>',
-				exec: async () => true,
-			} as any as FileAction)
-		}).toThrowError('Invalid iconSvgInline function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: '<svg></svg>',
+			exec: async () => true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid iconSvgInline function')
 	})
 	test('Invalid exec', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: false,
-			} as any as FileAction)
-		}).toThrowError('Invalid exec function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: false,
+		} as unknown as FileAction),
+		).toThrowError('Invalid exec function')
 	})
 	test('Invalid enabled', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				enabled: false,
-			} as any as FileAction)
-		}).toThrowError('Invalid enabled function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			enabled: false,
+		} as unknown as FileAction),
+		).toThrowError('Invalid enabled function')
 	})
 	test('Invalid execBatch', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				execBatch: false,
-			} as any as FileAction)
-		}).toThrowError('Invalid execBatch function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			execBatch: false,
+		} as unknown as FileAction),
+		).toThrowError('Invalid execBatch function')
 	})
 	test('Invalid order', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				order: 'invalid',
-			} as any as FileAction)
-		}).toThrowError('Invalid order')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			order: 'invalid',
+		} as unknown as FileAction),
+		).toThrowError('Invalid order')
 	})
 	test('Invalid parent', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				parent: true,
-			} as any as FileAction)
-		}).toThrowError('Invalid parent')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			parent: true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid parent')
 	})
 	test('Invalid default', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				default: 'invalid',
-			} as any as FileAction)
-		}).toThrowError('Invalid default')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			default: 'invalid',
+		} as unknown as FileAction),
+		).toThrowError('Invalid default')
+	})
+	test('Invalid destructives', () => {
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			destructive: 'false',
+		} as unknown as FileActionData),
+		).toThrowError('Invalid destructive')
 	})
 	test('Invalid inline', () => {
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				inline: true,
-			} as any as FileAction)
-		}).toThrowError('Invalid inline function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			inline: true,
+		} as unknown as FileAction),
+		).toThrowError('Invalid inline function')
 
-		expect(() => {
-			new FileAction({
-				id: 'test',
-				displayName: () => 'Test',
-				iconSvgInline: () => '<svg></svg>',
-				exec: async () => true,
-				inline: () => true,
-				renderInline: false,
-			} as any as FileAction)
-		}).toThrowError('Invalid renderInline function')
+		expect(() => new FileAction({
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+			inline: () => true,
+			renderInline: false,
+		} as unknown as FileAction),
+		).toThrowError('Invalid renderInline function')
 	})
 })
 
@@ -236,6 +233,7 @@ describe('FileActions creation', () => {
 			enabled: () => true,
 			order: 100,
 			parent: '123',
+			destructive: true,
 			default: DefaultType.DEFAULT,
 			inline: () => true,
 			renderInline: async () => {
@@ -246,16 +244,17 @@ describe('FileActions creation', () => {
 		})
 
 		expect(action.id).toBe('test')
-		expect(action.displayName([], {} as any)).toBe('Test')
-		expect(action.title?.([], {} as any)).toBe('Test title')
-		expect(action.iconSvgInline([], {} as any)).toBe('<svg></svg>')
-		await expect(action.exec({} as any, {} as any, '/')).resolves.toBe(true)
-		await expect(action.execBatch?.([], {} as any, '/')).resolves.toStrictEqual([true])
-		expect(action.enabled?.({} as any, {} as any)).toBe(true)
+		expect(action.displayName([], {} as unknown as View)).toBe('Test')
+		expect(action.title?.([], {} as unknown as View)).toBe('Test title')
+		expect(action.iconSvgInline([], {} as unknown as View)).toBe('<svg></svg>')
+		await expect(action.exec({} as unknown as Node, {} as unknown as View, '/')).resolves.toBe(true)
+		await expect(action.execBatch?.([], {} as unknown as View, '/')).resolves.toStrictEqual([true])
+		expect(action.enabled?.([], {} as unknown as View)).toBe(true)
 		expect(action.order).toBe(100)
 		expect(action.parent).toBe('123')
+		expect(action.destructive).toBe(true)
 		expect(action.default).toBe(DefaultType.DEFAULT)
-		expect(action.inline?.({} as any, {} as any)).toBe(true)
-		expect((await action.renderInline?.({} as any, {} as any))?.outerHTML).toBe('<span>test</span>')
+		expect(action.inline?.({} as unknown as Node, {} as unknown as View)).toBe(true)
+		expect((await action.renderInline?.({} as unknown as Node, {} as unknown as View))?.outerHTML).toBe('<span>test</span>')
 	})
 })
