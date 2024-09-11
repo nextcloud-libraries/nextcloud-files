@@ -12,7 +12,7 @@ export enum DefaultType {
 	HIDDEN = 'hidden',
 }
 
-interface FileActionData {
+export interface FileActionData {
 	/** Unique ID */
 	id: string
 	/** Translatable string displayed in the menu */
@@ -41,6 +41,12 @@ interface FileActionData {
 
 	/** This action order in the list */
 	order?: number,
+
+	/**
+	 * Set to true if this action is a destructive action, like "delete".
+	 * This will change the appearance in the action menu more prominent (e.g. red colored)
+	 */
+	destructive?: boolean
 
 	/**
 	 * This action's parent id in the list.
@@ -118,6 +124,10 @@ export class FileAction {
 		return this._action.default
 	}
 
+	get destructive() {
+		return this._action.destructive
+	}
+
 	get inline() {
 		return this._action.inline
 	}
@@ -158,6 +168,10 @@ export class FileAction {
 
 		if ('order' in action && typeof action.order !== 'number') {
 			throw new Error('Invalid order')
+		}
+
+		if (action.destructive !== undefined && typeof action.destructive !== 'boolean') {
+			throw new Error('Invalid destructive flag')
 		}
 
 		if ('parent' in action && typeof action.parent !== 'string') {
