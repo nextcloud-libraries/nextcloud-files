@@ -21,13 +21,9 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
-interface NodeInternalData extends NodeData {
-	attributes: Attribute
-}
-
 export abstract class Node {
 
-	private _data: NodeInternalData
+	private _data: NodeData
 	private _attributes: Attribute
 	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
@@ -325,6 +321,13 @@ export abstract class Node {
 	}
 
 	/**
+	 * Get the node data
+	 */
+	get data(): NodeData {
+		return structuredClone(this._data)
+	}
+
+	/**
 	 * Move the node to a new destination
 	 *
 	 * @param {string} destination the new source.
@@ -392,6 +395,11 @@ export abstract class Node {
 			}
 		}
 	}
+
+	/**
+	 * Returns a clone of the node
+	 */
+	abstract clone(): Node
 
 }
 

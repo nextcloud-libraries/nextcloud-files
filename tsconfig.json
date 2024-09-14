@@ -2,6 +2,7 @@
   "include": ["./lib/**/*.ts", "./*.d.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "moduleResolution": "Bundler",
     "target": "ESNext",
     "module": "ESNext",
@@ -10,5 +11,6 @@
     "noImplicitAny": false,
     "outDir": "./dist",
     "rootDir": "./lib",
+    "noEmit": true,
   }
 }

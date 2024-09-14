@@ -19,6 +19,7 @@ export { FileType } from './files/fileType'
 export { File, type IFile } from './files/file'
 export { Folder, type IFolder } from './files/folder'
 export { Node, NodeStatus, type INode } from './files/node'
+export type { NodeData } from './files/nodeData.ts'
 
 export * from './utils/filename-validation'
 export { getUniqueName } from './utils/filename'
