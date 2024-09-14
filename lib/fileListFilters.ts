@@ -16,10 +16,17 @@ export interface IFileListFilterChip {
 	 * Text of the chip
 	 */
 	text: string
+
 	/**
 	 * Optional icon to be used on the chip (inline SVG as string)
 	 */
 	icon?: string
+
+	/**
+	 * Optional pass a user id to use a user avatar instead of an icon
+	 */
+	user?: string
+
 	/**
 	 * Handler to be called on click
 	 */
