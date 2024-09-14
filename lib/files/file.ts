@@ -11,6 +11,13 @@ export class File extends Node {
 		return FileType.File
 	}
 
+	/**
+	 * Returns a clone of the file
+	 */
+	clone(): File {
+		return new File(this.data)
+	}
+
 }
 
 /**

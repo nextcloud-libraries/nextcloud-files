@@ -28,6 +28,13 @@ export class Folder extends Node {
 		return 'httpd/unix-directory'
 	}
 
+	/**
+	 * Returns a clone of the folder
+	 */
+	clone(): Node {
+		return new Folder(this.data)
+	}
+
 }
 
 /**
