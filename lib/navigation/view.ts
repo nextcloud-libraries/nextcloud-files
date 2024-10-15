@@ -2,11 +2,13 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Folder } from '../files/folder'
-import type { Node } from '../files/node'
+
+import type { Folder } from '../files/folder.ts'
+import type { Node } from '../files/node.ts'
 import isSvg from 'is-svg'
 
-import { Column } from './column.js'
+import { Column } from './column.ts'
+import { ViewAction } from '../viewAction.ts'
 
 export type ContentsWithRoot = {
 	folder: Folder,
@@ -80,6 +82,11 @@ interface ViewData {
 	 */
 	// eslint-disable-next-line no-use-before-define
 	loadChildViews?: (view: View) => Promise<void>
+
+	/**
+	 * The view actions.
+	 */
+	actions?: ViewAction[],
 }
 
 export class View implements ViewData {
@@ -171,6 +178,10 @@ export class View implements ViewData {
 		return this._view.loadChildViews
 	}
 
+	get actions() {
+		return this._view.actions
+	}
+
 }
 
 /**
@@ -238,6 +249,12 @@ const isValidView = function(view: ViewData): boolean {
 
 	if (view.loadChildViews && typeof view.loadChildViews !== 'function') {
 		throw new Error('View loadChildViews must be a function')
+	}
+
+	if (view.actions) {
+		if (!view.actions.every((action) => action instanceof ViewAction)) {
+			throw new Error('View actions must be an array of ViewAction. Invalid action found.')
+		}
 	}
 
 	return true
