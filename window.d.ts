@@ -7,6 +7,7 @@
 import type { IFileListFilter, Navigation } from './lib'
 import type { DavProperty } from './lib/dav/davProperties'
 import type { FileAction } from './lib/fileAction'
+import type { FileListAction } from './lib/fileListAction.ts'
 import type { Header } from './lib/fileListHeaders'
 import type { NewFileMenu } from './lib/newFileMenu'
 
@@ -18,6 +19,7 @@ declare global {
 		_nc_dav_namespaces?: DavProperty
 		_nc_dav_properties?: string[]
 		_nc_fileactions?: FileAction[]
+		_nc_filelistactions?: FileListAction[]
 		_nc_filelistheader?: Header[]
 		_nc_newfilemenu?: NewFileMenu
 		_nc_navigation?: Navigation
