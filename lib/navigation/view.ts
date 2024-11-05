@@ -190,9 +190,8 @@ const isValidView = function(view: ViewData): boolean {
 		throw new Error('View name is required and must be a string')
 	}
 
-	if (view.columns && view.columns.length > 0
-		&& (!view.caption || typeof view.caption !== 'string')) {
-		throw new Error('View caption is required for top-level views and must be a string')
+	if ('caption' in view && typeof view.caption !== 'string') {
+		throw new Error('View caption must be a string')
 	}
 
 	if (!view.getContents || typeof view.getContents !== 'function') {

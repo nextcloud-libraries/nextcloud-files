@@ -7,6 +7,7 @@ import { type Entry, getNewFileMenu } from './newFileMenu'
 import { type Folder } from './files/folder'
 
 export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction'
+export { getFileListActions, registerFileListAction, FileListAction } from './fileListAction.ts'
 export { Header, getFileListHeaders, registerFileListHeaders } from './fileListHeaders'
 export { type Entry, NewMenuEntryCategory } from './newFileMenu'
 export { Permission } from './permissions'
