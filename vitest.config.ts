@@ -17,6 +17,7 @@ export default async (env) => {
 			provider: 'istanbul',
 			reporter: ['lcov', 'text'],
 		},
+		globalSetup: '__tests__/test-global-setup.ts',
 	}
 	delete cfg.define
 	return cfg
