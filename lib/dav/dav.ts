@@ -22,6 +22,7 @@ import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
  * Nextcloud DAV result response
  */
 interface ResponseProps extends DAVResultResponseProps {
+	creationdate: string
 	permissions: string
 	mime: string
 	fileid: number
@@ -174,10 +175,14 @@ export const davResultToNode = function(node: FileStat, filesRoot = davRootPath,
 	const owner = String(props?.['owner-id'] || userId)
 	const id = props.fileid || 0
 
+	const mtime = new Date(Date.parse(node.lastmod))
+	const crtime = new Date(Date.parse(props.creationdate))
+
 	const nodeData: NodeData = {
 		id,
 		source: `${remoteURL}${node.filename}`,
-		mtime: new Date(Date.parse(node.lastmod)),
+		mtime: !isNaN(mtime.getTime()) && mtime.getTime() !== 0 ? mtime : undefined,
+		crtime: !isNaN(crtime.getTime()) && crtime.getTime() !== 0 ? crtime : undefined,
 		mime: node.mime || 'application/octet-stream',
 		// Manually cast to work around for https://github.com/perry-mitchell/webdav-client/pull/380
 		displayname: props.displayname !== undefined ? String(props.displayname) : undefined,
