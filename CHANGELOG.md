@@ -6,47 +6,35 @@
 
 All notable changes to this project will be documented in this file.
 
-## 3.10.0 - 2024-10-23
-[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.9.0...v3.9.1)
+## 3.10.0 - 2024-11-13
+[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.9.2...v3.10.0)
 
-### Added 
-* feat: Allow cloning a node by @Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/1077
-* feat(FileAction): Allow to set `destructive` flag by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1076
+### Added
+* Scope package into modules [\#1025](https://github.com/nextcloud-libraries/nextcloud-files/pull/1025) \([susnux](https://github.com/susnux)\)  
+  All DAV related functions are now moved to the `@nextcloud/files/dav` module.
+  You can still import them from the main entrypoint, but this is now deprecated.
+  New functions will only be available in the `@nextcloud/files/dav` entrypoint.
+* feat: Add reset method to file list filters [\#1116](https://github.com/nextcloud-libraries/nextcloud-files/pull/1116) \([susnux](https://github.com/susnux)\)  
+* feat: Add current folder context for file list actions [\#1113](https://github.com/nextcloud-libraries/nextcloud-files/pull/1113) \([Pytal](https://github.com/Pytal)\)
+* feat: Allow cloning a node [\#1077](https://github.com/nextcloud-libraries/nextcloud-files/pull/1077) \([Pytal](https://github.com/Pytal)\)
+* feat(FileAction): Allow to set `destructive` flag [\#1076](https://github.com/nextcloud-libraries/nextcloud-files/pull/1076) \([susnux](https://github.com/susnux)\)
 
 ### Fixed
-* fix: Document optional `user` property of FileListFilterChip by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1075
-* fix deprecation warning `Node.attributes.displayname` should be accessed directly on the `Node` by @dvaerum in https://github.com/nextcloud-libraries/nextcloud-files/pull/1074
+* fix: Document optional `user` property of FileListFilterChip [\#1075](https://github.com/nextcloud-libraries/nextcloud-files/pull/1075) \([susnux](https://github.com/susnux)\)
+* fix deprecation warning `Node.attributes.displayname` should be accessed directly on the `Node` [\#1074](https://github.com/nextcloud-libraries/nextcloud-files/pull/1074) \([dvaerum](https://github.com/dvaerum)\)
 
 ### Changed
-* chore(deps-dev): Bump @codecov/vite-plugin from 0.0.1-beta.10 to 0.0.1-beta.12 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1073
-* chore(deps-dev): Bump @types/node from 22.5.1 to 22.5.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1070
-* chore(deps-dev): Bump @types/node from 22.5.4 to 22.5.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1078
-* chore(deps-dev): Bump @types/node from 22.5.5 to 22.7.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1089
-* chore(deps-dev): Bump @types/node from 22.7.4 to 22.7.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1094
-* chore(deps-dev): Bump @types/node from 22.7.5 to 22.7.6 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1101
-* chore(deps-dev): Bump @vitest/coverage-istanbul from 2.0.5 to 2.1.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1079
-* chore(deps-dev): Bump @vitest/coverage-istanbul from 2.1.1 to 2.1.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1093
-* chore(deps-dev): Bump @vitest/coverage-istanbul from 2.1.2 to 2.1.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1100
-* chore(deps-dev): Bump fast-xml-parser from 4.4.1 to 4.5.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1072
-* chore(deps-dev): Bump jsdom from 25.0.0 to 25.0.1 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1091
-* chore(deps-dev): Bump tslib from 2.7.0 to 2.8.0 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1098
-* chore(deps-dev): Bump typedoc from 0.26.6 to 0.26.7 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1080
-* chore(deps-dev): Bump typedoc from 0.26.7 to 0.26.8 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1092
-* chore(deps-dev): Bump typedoc from 0.26.8 to 0.26.9 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1095
-* chore(deps-dev): Bump typedoc from 0.26.9 to 0.26.10 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1102
-* chore(deps-dev): Bump typescript from 5.5.4 to 5.6.2 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1082
-* chore(deps-dev): Bump typescript from 5.6.2 to 5.6.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1096
-* chore(deps-dev): Bump vite from 5.4.2 to 5.4.3 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1071
-* chore(deps-dev): Bump vite from 5.4.3 to 5.4.5 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1083
-* chore(deps-dev): Bump vite from 5.4.5 to 5.4.6 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1085
-* chore(deps-dev): Bump vite from 5.4.6 to 5.4.7 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1087
-* chore(deps-dev): Bump vite from 5.4.7 to 5.4.8 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1090
-* chore(deps-dev): Bump vite from 5.4.8 to 5.4.9 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1103
-* chore(deps): Bump dompurify from 3.1.2 to 3.1.6 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1084
-* chore(deps): Bump rollup from 4.21.0 to 4.22.4 by @dependabot in https://github.com/nextcloud-libraries/nextcloud-files/pull/1088
+* chore(deps): Bump dompurify to 3.1.6
 
-### New Contributors
-* @dvaerum made their first contribution in https://github.com/nextcloud-libraries/nextcloud-files/pull/1074
+## 3.9.2 - 2024-11-13
+
+### Changed
+* Updated development dependencies
+* Fix published package
+
+## 3.9.1 - 2024-10-23
+
+Broken - do not use.
 
 ## 3.9.0 - 2024-09-04
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.8.0...v3.9.0)
