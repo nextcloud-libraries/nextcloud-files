@@ -68,15 +68,27 @@ export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents>
 	readonly order: number
 
 	/**
-	 * If the filter needs a visual element for settings it can provide a function to mount it.
+	 * Filter function to decide if a node is shown.
+	 *
+	 * @param nodes Nodes to filter
+	 * @return Subset of the `nodes` parameter to show
 	 */
-	readonly mount?: (el: HTMLElement) => void
+	filter(nodes: INode[]): INode[]
 
 	/**
-	 * Filter function to decide if a node is shown
-	 * @return The nodes to be shown
+	 * If the filter needs a visual element for settings it can provide a function to mount it.
+	 * @param el The DOM element to mount to
 	 */
-	filter(node: INode[]): INode[]
+	mount?(el: HTMLElement): void
+
+	/**
+	 * Reset the filter to the initial state.
+	 * This is called by the files app.
+	 * Implementations should make sure,that if they provide chips they need to emit the `update:chips` event.
+	 *
+	 * @since 3.10.0
+	 */
+	reset?(): void
 }
 
 export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> implements IFileListFilter {
