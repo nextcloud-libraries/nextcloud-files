@@ -64,6 +64,20 @@ describe('File list filter class', () => {
 		const filter = new TestFilter('my:id')
 		expect(() => filter.filter([])).toThrowError()
 	})
+
+	test('emits chips updated event', () => {
+		const filter = new TestFilter('my:id', 50)
+		const chips: IFileListFilterChip[] = [{ text: 'my chip', onclick: () => {} }]
+		const spy = vi.fn()
+
+		filter.addEventListener('update:chips', spy)
+		filter.testUpdateChips(chips)
+
+		expect(spy).toBeCalled()
+		expect(spy.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(spy.mock.calls[0][0].type).toBe('update:chips')
+		expect(spy.mock.calls[0][0].detail).toBe(chips)
+	})
 })
 
 describe('File list filter functions', () => {
