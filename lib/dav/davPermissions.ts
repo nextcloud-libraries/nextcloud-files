@@ -5,11 +5,11 @@
 import { Permission } from '../permissions'
 
 /**
- * Parse the webdav permission string to a permission enum
+ * Parse the WebDAV permission string to a permission enum
  *
  * @param permString The DAV permission string
  */
-export const davParsePermissions = function(permString = ''): number {
+export const parsePermissions = function(permString = ''): number {
 	let permissions = Permission.NONE
 
 	if (!permString) { return permissions }
