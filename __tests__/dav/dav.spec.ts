@@ -143,6 +143,25 @@ describe('davResultToNode', () => {
 		const node = davResultToNode(remoteResult)
 		expect(node.status).toBe(NodeStatus.FAILED)
 	})
+
+	test('Ignore invalid times', () => {
+		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+
+		// Invalid dates
+		const remoteResult = { ...result }
+		remoteResult.lastmod = 'invalid'
+		remoteResult.props!.creationdate = 'invalid'
+		const node = davResultToNode(remoteResult)
+		expect(node.mtime).toBeUndefined()
+		expect(node.crtime).toBeUndefined()
+
+		// Zero dates
+		remoteResult.lastmod = 'Thu, 01 Jan 1970 00:00:00 GMT'
+		remoteResult.props!.creationdate = 'Thu, 01 Jan 1970 00:00:00 GMT'
+		const node2 = davResultToNode(remoteResult)
+		expect(node2.mtime).toBeUndefined()
+		expect(node2.crtime).toBeUndefined()
+	})
 })
 
 describe('DAV requests', () => {
