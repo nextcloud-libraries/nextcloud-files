@@ -8,6 +8,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import type { View } from '../lib/navigation/view.ts'
 
 import { getFileListActions, registerFileListAction, FileListAction } from '../lib/fileListAction.ts'
+import { Folder } from '../lib/files/folder.ts'
 import logger from '../lib/utils/logger.ts'
 
 const mockAction = (id: string) => new FileListAction({
@@ -155,7 +156,7 @@ describe('FileListAction creation', () => {
 		expect(testAction.displayName({} as unknown as View)).toBe('Test')
 		expect(testAction.iconSvgInline({} as unknown as View)).toBe('<svg></svg>')
 		expect(testAction.order).toBe(0)
-		expect(testAction.enabled?.({} as unknown as View, [])).toBe(true)
-		await expect(testAction.exec({} as unknown as View, [])).resolves.toBe(undefined)
+		expect(testAction.enabled?.({} as unknown as View, [], { folder: {} as Folder })).toBe(true)
+		await expect(testAction.exec({} as unknown as View, [], { folder: {} as Folder })).resolves.toBe(undefined)
 	})
 })
