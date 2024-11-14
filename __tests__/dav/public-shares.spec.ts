@@ -95,7 +95,7 @@ describe('on public shares', () => {
 			const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 			const node = await resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
-			expect(node.isDavRessource).toBe(true)
+			expect(node.isDavResource).toBe(true)
 			expect(node.owner).toBe('anonymous')
 		})
 	})

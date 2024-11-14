@@ -7,7 +7,7 @@ import { encodePath } from '@nextcloud/paths'
 
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
-import { Attribute, NodeData, isDavRessource, validateData } from './nodeData'
+import { Attribute, isDavResource, NodeData, validateData } from './nodeData'
 import logger from '../utils/logger'
 
 export enum NodeStatus {
@@ -143,7 +143,7 @@ export abstract class Node {
 	get dirname(): string {
 		if (this.root) {
 			let source = this.source
-			if (this.isDavRessource) {
+			if (this.isDavResource) {
 				// ensure we only work on the real path in case root is not distinct
 				source = source.split(this._knownDavService).pop()!
 			}
@@ -222,8 +222,8 @@ export abstract class Node {
 	 * Get the file permissions
 	 */
 	get permissions(): Permission {
-		// If this is not a dav ressource, we can only read it
-		if (this.owner === null && !this.isDavRessource) {
+		// If this is not a dav resource, we can only read it
+		if (this.owner === null && !this.isDavResource) {
 			return Permission.READ
 		}
 
@@ -246,18 +246,25 @@ export abstract class Node {
 	 * There is no setter as the owner is not meant to be changed
 	 */
 	get owner(): string|null {
-		// Remote ressources have no owner
-		if (!this.isDavRessource) {
+		// Remote resources have no owner
+		if (!this.isDavResource) {
 			return null
 		}
 		return this._data.owner
 	}
 
 	/**
-	 * Is this a dav-related ressource ?
+	 * Is this a dav-related resource ?
+	 */
+	get isDavResource(): boolean {
+		return isDavResource(this.source, this._knownDavService)
+	}
+
+	/**
+	 * @deprecated use `isDavResource` instead - will be removed in next major version.
 	 */
 	get isDavRessource(): boolean {
-		return isDavRessource(this.source, this._knownDavService)
+		return this.isDavResource
 	}
 
 	/**
@@ -271,7 +278,7 @@ export abstract class Node {
 		}
 
 		// Use the source to get the root from the dav service
-		if (this.isDavRessource) {
+		if (this.isDavResource) {
 			const root = dirname(this.source)
 			return root.split(this._knownDavService).pop() || null
 		}
@@ -285,7 +292,7 @@ export abstract class Node {
 	get path(): string {
 		if (this.root) {
 			let source = this.source
-			if (this.isDavRessource) {
+			if (this.isDavResource) {
 				// ensure we only work on the real path in case root is not distinct
 				source = source.split(this._knownDavService).pop()!
 			}
@@ -339,7 +346,7 @@ export abstract class Node {
 
 		this._data.source = destination
 		// Check if the displayname and the (old) basename were the same
-		// meaning no special displayname was set but just a fallback to the basename by Nextclouds WebDAV server
+		// meaning no special displayname was set but just a fallback to the basename by Nextcloud's WebDAV server
 		if (this.displayname === oldBasename
 			&& this.basename !== oldBasename) {
 			// We have to assume that the displayname was not set but just a copy of the basename

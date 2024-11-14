@@ -15,7 +15,7 @@ export interface NodeData {
 	id?: number
 
 	/**
-	 * URL to the ressource.
+	 * URL to the resource.
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 * or https://domain.com/Photos/picture.jpg
 	 */
@@ -60,9 +60,9 @@ export interface NodeData {
  * Check if a node source is from a specific DAV service
  *
  * @param source The source to check
- * @param davService Pattern to check if source is DAV ressource
+ * @param davService Pattern to check if source is DAV resource
  */
-export const isDavRessource = function(source: string, davService: RegExp): boolean {
+export const isDavResource = function(source: string, davService: RegExp): boolean {
 	return source.match(davService) !== null
 }
 
@@ -146,7 +146,7 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 		throw new Error('Root must be part of the source')
 	}
 
-	if (data.root && isDavRessource(data.source, davService)) {
+	if (data.root && isDavResource(data.source, davService)) {
 		const service = data.source.match(davService)![0]
 		if (!data.source.includes(join(service, data.root))) {
 			throw new Error('The root must be relative to the service. e.g /files/emma')
