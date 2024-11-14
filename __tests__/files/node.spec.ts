@@ -405,28 +405,28 @@ describe('Dav service detection', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file1.isDavRessource).toBe(true)
+		expect(file1.isDavResource).toBe(true)
 
 		const file2 = new File({
 			source: 'https://cloud.domain.com/remote.php/webdav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file2.isDavRessource).toBe(true)
+		expect(file2.isDavResource).toBe(true)
 
 		const file3 = new File({
 			source: 'https://cloud.domain.com/public.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file3.isDavRessource).toBe(true)
+		expect(file3.isDavResource).toBe(true)
 
 		const file4 = new File({
 			source: 'https://cloud.domain.com/public.php/webdav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file4.isDavRessource).toBe(true)
+		expect(file4.isDavResource).toBe(true)
 	})
 
 	test('Custom dav service', () => {
@@ -435,14 +435,14 @@ describe('Dav service detection', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		}, /test\.php\/dav/)
-		expect(file1.isDavRessource).toBe(true)
+		expect(file1.isDavResource).toBe(true)
 
 		const file2 = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		}, /test\.php\/dav/)
-		expect(file2.isDavRessource).toBe(false)
+		expect(file2.isDavResource).toBe(false)
 	})
 })
 
@@ -551,7 +551,7 @@ describe('Root and paths detection', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		expect(file.isDavRessource).toBe(false)
+		expect(file.isDavResource).toBe(false)
 		expect(file.root).toBe(null)
 		expect(file.dirname).toBe('/files/images')
 		expect(file.path).toBe('/files/images/emma.jpeg')

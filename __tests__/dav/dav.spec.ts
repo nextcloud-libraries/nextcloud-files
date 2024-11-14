@@ -108,7 +108,7 @@ describe('resultToNode', () => {
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
-		expect(node.isDavRessource).toBe(true)
+		expect(node.isDavResource).toBe(true)
 		expect(node.owner).toBe('user1')
 	})
 
@@ -119,7 +119,7 @@ describe('resultToNode', () => {
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
-		expect(node.isDavRessource).toBe(true)
+		expect(node.isDavResource).toBe(true)
 		expect(node.owner).toBe('123456789')
 	})
 
@@ -129,7 +129,7 @@ describe('resultToNode', () => {
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
-		expect(node.isDavRessource).toBe(true)
+		expect(node.isDavResource).toBe(true)
 		expect(node.owner).toBe('user1')
 	})
 

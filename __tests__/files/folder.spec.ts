@@ -29,7 +29,7 @@ describe('Folder creation', () => {
 		expect(folder.extension).toBeNull()
 		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBe('/files/emma')
-		expect(folder.isDavRessource).toBe(true)
+		expect(folder.isDavResource).toBe(true)
 		expect(folder.permissions).toBe(Permission.NONE)
 	})
 
@@ -54,7 +54,7 @@ describe('Folder creation', () => {
 		expect(folder.extension).toBeNull()
 		expect(folder.dirname).toBe('/Photos')
 		expect(folder.root).toBe('/files/emma')
-		expect(folder.isDavRessource).toBe(true)
+		expect(folder.isDavResource).toBe(true)
 		expect(folder.permissions).toBe(Permission.NONE)
 	})
 
@@ -78,7 +78,7 @@ describe('Folder creation', () => {
 		expect(folder.extension).toBeNull()
 		expect(folder.dirname).toBe('/')
 		expect(folder.root).toBeNull()
-		expect(folder.isDavRessource).toBe(false)
+		expect(folder.isDavResource).toBe(false)
 		expect(folder.permissions).toBe(Permission.READ)
 	})
 })
