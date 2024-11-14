@@ -2,9 +2,9 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+import type { NodeData } from './nodeData'
 import { FileType } from './fileType'
-import { type INode, Node } from './node'
-import { type NodeData } from './nodeData'
+import { Node } from './node'
 
 export class Folder extends Node {
 
@@ -16,22 +16,22 @@ export class Folder extends Node {
 		})
 	}
 
-	get type(): FileType {
+	get type(): FileType.Folder {
 		return FileType.Folder
 	}
 
-	get extension(): string|null {
+	get extension(): null {
 		return null
 	}
 
-	get mime(): string {
+	get mime(): 'httpd/unix-directory' {
 		return 'httpd/unix-directory'
 	}
 
 	/**
 	 * Returns a clone of the folder
 	 */
-	clone(): Node {
+	clone(): Folder {
 		return new Folder(this.data)
 	}
 
@@ -40,8 +40,4 @@ export class Folder extends Node {
 /**
  * Interface of the folder class
  */
-export interface IFolder extends INode {
-	readonly type: FileType.Folder
-	readonly extension: null
-	readonly mime: 'httpd/unix-directory'
-}
+export type IFolder = Pick<Folder, keyof Folder>
