@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { FileType } from './fileType'
-import { type INode, Node } from './node'
+import { Node } from './node'
 
 export class File extends Node {
 
-	get type(): FileType {
+	get type(): FileType.File {
 		return FileType.File
 	}
 
@@ -23,6 +23,4 @@ export class File extends Node {
 /**
  * Interface of the File class
  */
-export interface IFile extends INode {
-	readonly type: FileType.File
-}
+export type IFile = Pick<File, keyof File>
