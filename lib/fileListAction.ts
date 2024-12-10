@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Node } from './files/node.ts'
-import { Folder } from './files/folder.ts'
-import { View } from './navigation/view.ts'
-import logger from './utils/logger.ts'
+import type { Node } from './files/node'
+import type { Folder } from './files/folder'
+import type { View } from './navigation/view'
+import logger from './utils/logger'
 
 interface ActionContext {
 	folder: Folder,

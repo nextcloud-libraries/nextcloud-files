@@ -5,8 +5,8 @@
 
 import { describe, expect, test } from 'vitest'
 
-import { View } from '../lib/navigation/view.ts'
-import { Folder } from '../lib/index.ts'
+import { View } from '../lib/navigation/view'
+import { Folder } from '../lib/files/folder'
 
 describe('Invalid View creation', () => {
 	test('Invalid id', () => {

@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder, Node } from './index'
+import type { Node } from './files/node'
+import type { Folder } from './files/folder'
 import logger from './utils/logger'
 
 export enum NewMenuEntryCategory {

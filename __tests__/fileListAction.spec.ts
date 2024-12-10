@@ -5,11 +5,11 @@
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import type { View } from '../lib/navigation/view.ts'
+import type { View } from '../lib/navigation/view'
 
-import { getFileListActions, registerFileListAction, FileListAction } from '../lib/fileListAction.ts'
-import { Folder } from '../lib/files/folder.ts'
-import logger from '../lib/utils/logger.ts'
+import { getFileListActions, registerFileListAction, FileListAction } from '../lib/fileListAction'
+import { Folder } from '../lib/files/folder'
+import logger from '../lib/utils/logger'
 
 const mockAction = (id: string) => new FileListAction({
 	id,

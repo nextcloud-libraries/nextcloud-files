@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Node } from './files/node'
-import { View } from './navigation/view'
+import type { Node } from './files/node'
+import type { View } from './navigation/view'
 import logger from './utils/logger'
 
 export enum DefaultType {
