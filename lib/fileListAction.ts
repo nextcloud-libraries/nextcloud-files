@@ -20,7 +20,7 @@ interface FileListActionData {
 	displayName: (view: View) => string
 
 	/** Raw svg string */
-	iconSvgInline: (view: View) => string
+	iconSvgInline?: (view: View) => string
 
 	/** Sort order */
 	order: number
@@ -86,7 +86,7 @@ export class FileListAction {
 			throw new Error('Invalid displayName function')
 		}
 
-		if (!action.iconSvgInline || typeof action.iconSvgInline !== 'function') {
+		if ('iconSvgInline' in action && typeof action.iconSvgInline !== 'function') {
 			throw new Error('Invalid iconSvgInline function')
 		}
 
