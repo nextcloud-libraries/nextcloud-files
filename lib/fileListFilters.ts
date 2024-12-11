@@ -5,7 +5,7 @@
 
 import { emit } from '@nextcloud/event-bus'
 import { TypedEventTarget } from 'typescript-event-target'
-import { INode } from './files/node'
+import { Node } from './files/node'
 
 /**
  * Active filters can provide one or more "chips" to show the currently active state.
@@ -73,7 +73,7 @@ export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents>
 	 * @param nodes Nodes to filter
 	 * @return Subset of the `nodes` parameter to show
 	 */
-	filter(nodes: INode[]): INode[]
+	filter(nodes: Node[]): Node[]
 
 	/**
 	 * If the filter needs a visual element for settings it can provide a function to mount it.
@@ -103,7 +103,7 @@ export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> impl
 		this.order = order
 	}
 
-	public filter(nodes: INode[]): INode[] {
+	public filter(nodes: Node[]): Node[] {
 		throw new Error('Not implemented')
 		return nodes
 	}

@@ -4,6 +4,9 @@
  */
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { readFile } from 'node:fs/promises'
+// required as default URL will be the DOM URL class which will use the window.location
+import { URL as FileURL } from 'node:url'
+import * as auth from '@nextcloud/auth'
 
 import {
 	defaultRemoteURL,
@@ -12,12 +15,11 @@ import {
 	getFavoriteNodes,
 	resultToNode,
 } from '../../lib/dav/index'
-import { File, Folder, NodeStatus } from '../../lib'
-import { FileStat } from 'webdav'
-import * as auth from '@nextcloud/auth'
 
-// required as default URL will be the DOM URL class which will use the window.location
-import { URL as FileURL } from 'node:url'
+import { File } from '../../lib/files/file'
+import { FileStat } from 'webdav'
+import { Folder } from '../../lib/files/folder'
+import { NodeStatus } from '../../lib/files/node'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')

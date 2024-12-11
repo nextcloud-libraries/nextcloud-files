@@ -12,10 +12,10 @@ import { NodeData } from '../files/nodeData'
 import { parsePermissions } from './davPermissions'
 import { getFavoritesReport } from './davProperties'
 
-import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
-import { generateRemoteUrl } from '@nextcloud/router'
 import { CancelablePromise } from 'cancelable-promise'
 import { createClient, getPatcher } from 'webdav'
+import { generateRemoteUrl } from '@nextcloud/router'
+import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
 import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 
 /**
@@ -201,5 +201,5 @@ export const resultToNode = function(node: FileStat, filesRoot = defaultRootPath
 
 	delete nodeData.attributes?.props
 
-	return node.type === 'file' ? new File(nodeData) : new Folder(nodeData)
+	return (node.type === 'file' ? new File(nodeData) : new Folder(nodeData)) as Node
 }

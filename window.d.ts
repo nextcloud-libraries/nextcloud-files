@@ -7,7 +7,7 @@
 import type { IFileListFilter, Navigation } from './lib'
 import type { DavProperty } from './lib/dav/davProperties'
 import type { FileAction } from './lib/fileAction'
-import type { FileListAction } from './lib/fileListAction.ts'
+import type { FileListAction } from './lib/fileListAction'
 import type { Header } from './lib/fileListHeaders'
 import type { NewFileMenu } from './lib/newFileMenu'
 
