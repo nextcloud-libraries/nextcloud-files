@@ -11,8 +11,6 @@ export default createLibConfig({
 }, {
 	libraryFormats: ['cjs', 'es'],
 
-	DTSPluginOptions: { rollupTypes: true },
-
 	nodeExternalsOptions: {
 		// Force bundle pure ESM module
 		exclude: ['is-svg'],
