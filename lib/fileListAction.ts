@@ -22,8 +22,7 @@ interface FileListActionData {
 	order: number
 
 	/**
-	 * Returns true if this action shoud be shown
-	 *
+	 * Condition wether this action is shown or not
 	 * @param view The current view
 	 * @param nodes The nodes in the current directory
 	 * @param folder The current folder
@@ -31,13 +30,12 @@ interface FileListActionData {
 	enabled?: (view: View, nodes: Node[], folder: Folder) => boolean
 
 	/**
-	 * Function to execute
-	 *
-	 * @param view The current view
-	 * @param nodes The nodes in the current directory
-	 * @param folder The current folder
+	 * Function executed on single file action
+	 * @return true if the action was executed successfully,
+	 * false otherwise and null if the action is silent/undefined.
+	 * @throws Error if the action failed
 	 */
-	exec: (view: View, nodes: Node[], folder: Folder) => Promise<void>
+	exec: (view: View, nodes: Node[], folder: Folder) => Promise<boolean|null>,
 }
 
 export class FileListAction {
