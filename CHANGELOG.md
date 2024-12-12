@@ -6,6 +6,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.10.1 - 2024-12-12
+[Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.10.0...v3.10.1)
+
+## Fixed
+* fix: Allow omitting icon for file list actions by Pytal in https://github.com/nextcloud-libraries/nextcloud-files/pull/1143
+* fix: Do not rollup types by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1142
+* fix: Make types of File and Folder more explicit by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1118
+* fix: Typo in method name `isDavResource` instead of `isDavRessource` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1119
+* fix(fileListAction): keep same method param pattern accross our APIs by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1135
+
 ## 3.10.0 - 2024-11-13
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.9.2...v3.10.0)
 
