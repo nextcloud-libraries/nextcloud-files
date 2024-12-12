@@ -103,6 +103,7 @@ describe('Invalid FileListAction creation', () => {
 	test('Invalid iconSvgInline', () => {
 		expect(() => new FileListAction({
 			id: 'test',
+			iconSvgInline: null,
 			displayName: () => 'Test',
 			order: 0,
 			exec: async () => {},
