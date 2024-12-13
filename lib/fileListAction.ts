@@ -22,7 +22,7 @@ interface FileListActionData {
 	order: number
 
 	/**
-	 * Condition wether this action is shown or not
+	 * Condition whether this action is shown or not
 	 * @param view The current view
 	 * @param nodes The nodes in the current directory
 	 * @param folder The current folder
