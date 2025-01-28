@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: CC0-1.0
+
 version: 2
 updates:
 - package-ecosystem: npm
@@ -9,5 +10,9 @@ updates:
     day: saturday
     time: "03:00"
     timezone: Europe/Paris
+  labels:
+    - "type: dependencies"
+  reviewers:
+    - "nextcloud-libraries/files"
   open-pull-requests-limit: 10
   versioning-strategy: increase
