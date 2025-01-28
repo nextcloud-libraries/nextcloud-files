@@ -2,19 +2,19 @@
 # SPDX-License-Identifier: CC0-1.0
 
 changelog:
-	categories:
-		- title: 💥 Breaking changes
-			labels:
-				- breaking
-				- "type: breaking"
-		- title: 🚀 Enhancements
-			labels:
-				- enhancement
-				- "type: enhancement"
-		- title: 🐛 Fixed bugs
-			labels:
-				- bug
-				- "type: bug"
-		- title: Other changes
-			labels:
-				- "*"
+  categories:
+    - title: 💥 Breaking changes
+      labels:
+        - breaking
+        - "type: breaking"
+    - title: 🚀 Enhancements
+      labels:
+        - enhancement
+        - "type: enhancement"
+    - title: 🐛 Fixed bugs
+      labels:
+        - bug
+        - "type: bug"
+    - title: Other changes
+      labels:
+        - "*"
