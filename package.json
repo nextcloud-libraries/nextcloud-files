@@ -13,7 +13,7 @@
       "require": "./dist/index.cjs"
     },
     "./dav": {
-      "types": "./dist/dav.d.ts",
+      "types": "./dist/dav/index.d.ts",
       "import": "./dist/dav.mjs",
       "require": "./dist/dav.cjs"
     }
