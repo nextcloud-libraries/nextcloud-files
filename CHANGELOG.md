@@ -6,6 +6,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.10.2 - 2025-02-13
+### Fixed
+* fix: ensure FileListAction return `bool|null` on `exec` [\#1145](https://github.com/nextcloud-libraries/nextcloud-files/pull/1145) \([skjnldsv](https://github.com/skjnldsv)\)
+* fix: Correctly export DAV types [\#1176](https://github.com/nextcloud-libraries/nextcloud-files/pull/1176) \([susnux](https://github.com/susnux)\)
+* fix(deps): typedoc-plugin-missing-exports as dev dependency [\#1183](https://github.com/nextcloud-libraries/nextcloud-files/pull/1183) \([max-nextcloud](https://github.com/max-nextcloud)\)
+
+### Changed
+* Updated development dependencies
+* chore(deps): Bump `@nextcloud/sharing` to 0.2.4
+* ci: Update workflows from organization [\#1177](https://github.com/nextcloud-libraries/nextcloud-files/pull/1177) \([susnux](https://github.com/susnux)\)
+
 ## 3.10.1 - 2024-12-12
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.10.0...v3.10.1)
 
