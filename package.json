@@ -83,6 +83,6 @@
     "cancelable-promise": "^4.3.1",
     "is-svg": "^5.1.0",
     "typescript-event-target": "^1.1.1",
-    "webdav": "^5.7.1"
+    "webdav": "^5.8.0"
   }
 }
