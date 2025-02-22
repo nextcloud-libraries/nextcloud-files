@@ -61,7 +61,7 @@
     "@nextcloud/event-bus": "^3.3.1",
     "@nextcloud/typings": "^1.9.1",
     "@nextcloud/vite-config": "^2.3.1",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@vitest/coverage-istanbul": "^3.0.6",
     "fast-xml-parser": "^4.5.1",
     "jsdom": "^26.0.0",
