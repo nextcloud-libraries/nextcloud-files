@@ -65,7 +65,7 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		// 3: Use sorting mode if NOT basename (to be able to use display name too)
 		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode]] : []),
 		// 4: Use display name if available, fallback to name
-		(v: INode) => basename(v.displayname || v.attributes?.displayname || v.basename),
+		(v: INode) => basename(v.displayname || v.attributes?.displayname || v.basename || ''),
 		// 5: Finally, use basename if all previous sorting methods failed
 		(v: INode) => v.basename,
 	]
