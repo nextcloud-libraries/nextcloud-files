@@ -58,7 +58,7 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.0",
     "@nextcloud/eslint-config": "^8.4.2",
-    "@nextcloud/event-bus": "^3.3.1",
+    "@nextcloud/event-bus": "^3.3.2",
     "@nextcloud/typings": "^1.9.1",
     "@nextcloud/vite-config": "^2.3.1",
     "@types/node": "^22.13.5",
