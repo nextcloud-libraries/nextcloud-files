@@ -372,7 +372,6 @@ export abstract class Node {
 			// this can not be guaranteed, so to be sure users should better refetch the node
 			this.displayname = this.basename
 		}
-		this.updateMtime()
 	}
 
 	/**

@@ -640,7 +640,6 @@ describe('Root and paths detection', () => {
 })
 
 describe('Move and rename of a node', () => {
-
 	test('Move updates the basename', () => {
 		const file = new File({
 			source: 'https://cloud.example.com/dav/files/images/emma.jpeg',
