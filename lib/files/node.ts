@@ -182,9 +182,7 @@ export abstract class Node {
 	 * Removing the mime type will set it to `application/octet-stream`
 	 */
 	set mime(mime: string|undefined) {
-		if (mime === undefined) {
-			mime = 'application/octet-stream'
-		}
+		mime ??= 'application/octet-stream'
 
 		validateData({ ...this._data, mime }, this._knownDavService)
 		this._data.mime = mime
