@@ -59,6 +59,10 @@ export abstract class Node {
 	} as ProxyHandler<Attribute>
 
 	constructor(data: NodeData, davService?: RegExp) {
+		if (!data.mime) {
+			data.mime = 'application/octet-stream'
+		}
+
 		// Validate data
 		validateData(data, davService || this._knownDavService)
 
@@ -121,6 +125,7 @@ export abstract class Node {
 	 * Set the displayname
 	 */
 	set displayname(displayname: string) {
+		validateData({ ...this._data, displayname }, this._knownDavService)
 		this._data.displayname = displayname
 	}
 
@@ -167,10 +172,20 @@ export abstract class Node {
 
 	/**
 	 * Get the file mime
-	 * There is no setter as the mime is not meant to be changed
 	 */
-	get mime(): string|undefined {
-		return this._data.mime
+	get mime(): string {
+		return this._data.mime || 'application/octet-stream'
+	}
+
+	/**
+	 * Set the file mime
+	 * Removing the mime type will set it to `application/octet-stream`
+	 */
+	set mime(mime: string|undefined) {
+		mime ??= 'application/octet-stream'
+
+		validateData({ ...this._data, mime }, this._knownDavService)
+		this._data.mime = mime
 	}
 
 	/**
@@ -184,6 +199,7 @@ export abstract class Node {
 	 * Set the file modification time
 	 */
 	set mtime(mtime: Date|undefined) {
+		validateData({ ...this._data, mtime }, this._knownDavService)
 		this._data.mtime = mtime
 	}
 
@@ -206,6 +222,7 @@ export abstract class Node {
 	 * Set the file size
 	 */
 	set size(size: number|undefined) {
+		validateData({ ...this._data, size }, this._knownDavService)
 		this.updateMtime()
 		this._data.size = size
 	}
@@ -237,6 +254,7 @@ export abstract class Node {
 	 * Set the file permissions
 	 */
 	set permissions(permissions: Permission) {
+		validateData({ ...this._data, permissions }, this._knownDavService)
 		this.updateMtime()
 		this._data.permissions = permissions
 	}
@@ -324,6 +342,7 @@ export abstract class Node {
 	 * Set the node status.
 	 */
 	set status(status: NodeStatus|undefined) {
+		validateData({ ...this._data, status }, this._knownDavService)
 		this._data.status = status
 	}
 

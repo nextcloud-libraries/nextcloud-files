@@ -81,6 +81,49 @@ describe('FileId attribute', () => {
 	})
 })
 
+describe('Mime attribute', () => {
+	test('Mime definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+	})
+
+	test('Default mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('application/octet-stream')
+	})
+
+	test('Changing mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+
+		file.mime = 'image/png'
+		expect(file.mime).toBe('image/png')
+	})
+
+	test('Removing mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+
+		file.mime = undefined
+		expect(file.mime).toBe('application/octet-stream')
+	})
+})
+
 describe('Mtime attribute', () => {
 	test('Mtime definition', () => {
 		const mtime = new Date()
@@ -271,9 +314,8 @@ describe('Sanity checks', () => {
 
 	test('Invalid source', () => {
 		expect(() => new File({} as unknown as NodeData)).toThrowError('Missing mandatory source')
-		expect(() => new File({
+		expect(() => new Folder({
 			source: 'cloud.domain.com/remote.php/dav/Photos',
-			mime: 'image/jpeg',
 			owner: 'emma',
 		})).toThrowError('Invalid source')
 		expect(() => new File({
@@ -289,27 +331,40 @@ describe('Sanity checks', () => {
 	})
 
 	test('Invalid displayname', () => {
-		expect(() => new File({
+		expect(() => new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/Photos',
-			mime: 'image',
 			displayname: true as unknown as string,
 			owner: 'emma',
 		})).toThrowError('Invalid displayname type')
+
+		const file = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/Photos',
+			displayname: 'test',
+			owner: 'emma',
+		})
+		// @ts-expect-error wrong type error check
+		expect(() => { file.displayname = true }).toThrowError('Invalid displayname')
 	})
 
 	test('Invalid mtime', () => {
 		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos',
-			mime: 'image',
+			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
 			owner: 'emma',
 			mtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid mtime type')
+
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
+			owner: 'emma',
+		})
+		// @ts-expect-error wrong type error check
+		expect(() => { file.mtime = 'invalid' }).toThrowError('Invalid mtime type')
 	})
 
 	test('Invalid crtime', () => {
 		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos',
-			mime: 'image',
+			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
+			mime: 'image/jpeg',
 			owner: 'emma',
 			crtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid crtime type')
@@ -321,6 +376,15 @@ describe('Sanity checks', () => {
 			mime: 'image',
 			owner: 'emma',
 		})).toThrowError('Missing or invalid mandatory mime')
+
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		// @ts-expect-error wrong type error check
+		expect(() => { file.mime = 1234 }).toThrowError('Missing or invalid mandatory mime')
+		expect(() => { file.mime = 'image' }).toThrowError('Missing or invalid mandatory mime')
 	})
 
 	test('Invalid attributes', () => {
@@ -348,6 +412,14 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			size: 'test' as unknown as number,
 		})).toThrowError('Invalid size type')
+
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		// @ts-expect-error wrong type error check
+		expect(() => { file.size = 'test' }).toThrowError('Invalid size type')
 	})
 
 	test('Invalid owner', () => {
@@ -395,6 +467,15 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			status: 'invalid' as unknown as NodeStatus,
 		})).toThrowError('Status must be a valid NodeStatus')
+
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			status: NodeStatus.LOCKED,
+		})
+		// @ts-expect-error wrong type error check
+		expect(() => { file.status = 'invalid' }).toThrowError('Status must be a valid NodeStatus')
 	})
 })
 
