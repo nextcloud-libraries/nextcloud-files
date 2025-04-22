@@ -187,7 +187,6 @@ export abstract class Node {
 		}
 
 		validateData({ ...this._data, mime }, this._knownDavService)
-		this.updateMtime()
 		this._data.mime = mime
 	}
 
