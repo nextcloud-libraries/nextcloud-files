@@ -81,6 +81,49 @@ describe('FileId attribute', () => {
 	})
 })
 
+describe('Mime attribute', () => {
+	test('Mime definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+	})
+
+	test('Default mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('application/octet-stream')
+	})
+
+	test('Changing mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+
+		file.mime = 'image/png'
+		expect(file.mime).toBe('image/png')
+	})
+
+	test('Removing mime', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.mime).toBe('image/jpeg')
+
+		file.mime = undefined
+		expect(file.mime).toBe('application/octet-stream')
+	})
+})
+
 describe('Mtime attribute', () => {
 	test('Mtime definition', () => {
 		const mtime = new Date()

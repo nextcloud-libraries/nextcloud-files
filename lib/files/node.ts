@@ -59,6 +59,10 @@ export abstract class Node {
 	} as ProxyHandler<Attribute>
 
 	constructor(data: NodeData, davService?: RegExp) {
+		if (!data.mime) {
+			data.mime = 'application/octet-stream'
+		}
+
 		// Validate data
 		validateData(data, davService || this._knownDavService)
 
@@ -167,10 +171,23 @@ export abstract class Node {
 
 	/**
 	 * Get the file mime
-	 * There is no setter as the mime is not meant to be changed
 	 */
-	get mime(): string|undefined {
-		return this._data.mime
+	get mime(): string {
+		return this._data.mime || 'application/octet-stream'
+	}
+
+	/**
+	 * Set the file mime
+	 * Removing the mime type will set it to `application/octet-stream`
+	 */
+	set mime(mime: string|undefined) {
+		if (mime === undefined) {
+			mime = 'application/octet-stream'
+		}
+
+		validateData({ ...this._data, mime }, this._knownDavService)
+		this.updateMtime()
+		this._data.mime = mime
 	}
 
 	/**
