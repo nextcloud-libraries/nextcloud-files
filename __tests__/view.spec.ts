@@ -58,6 +58,18 @@ describe('Invalid View creation', () => {
 		} as unknown as View),
 		).toThrowError('View icon is required and must be a valid svg string')
 	})
+
+	test('Invalid hidden', () => {
+		expect(() => new View({
+			id: 'test',
+			name: 'Test',
+			order: 1,
+			hidden: 'true',
+			getContents: () => Promise.reject(new Error()),
+		} as unknown as View),
+		).toThrowError('View hidden must be a boolean')
+	})
+
 	test('Invalid order', () => {
 		expect(() => new View({
 			id: 'test',
@@ -157,6 +169,7 @@ describe('View creation', () => {
 			emptyTitle: 'Test empty title',
 			emptyCaption: 'Test empty caption',
 			getContents: () => Promise.resolve({ folder, contents: [] }),
+			hidden: true,
 			icon: '<svg></svg>',
 			order: 1,
 			params: {},
@@ -175,6 +188,7 @@ describe('View creation', () => {
 		expect(view.emptyTitle).toBe('Test empty title')
 		expect(view.emptyCaption).toBe('Test empty caption')
 		await expect(view.getContents('/')).resolves.toStrictEqual({ folder, contents: [] })
+		expect(view.hidden).toBe(true)
 		expect(view.icon).toBe('<svg></svg>')
 		expect(view.order).toBe(1)
 		expect(view.params).toStrictEqual({})
