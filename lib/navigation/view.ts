@@ -35,6 +35,12 @@ interface ViewData {
 	 * information alongside with its content.
 	 */
 	getContents: (path: string) => Promise<ContentsWithRoot>
+
+	/**
+	 * If set then the view will be hidden from the navigation unless its the active view.
+	 */
+	hidden?: true
+
 	/** The view icon as an inline svg */
 	icon: string
 
@@ -113,6 +119,10 @@ export class View implements ViewData {
 
 	get getContents() {
 		return this._view.getContents
+	}
+
+	get hidden() {
+		return this._view.hidden
 	}
 
 	get icon() {
@@ -196,6 +206,10 @@ const isValidView = function(view: ViewData): boolean {
 
 	if (!view.getContents || typeof view.getContents !== 'function') {
 		throw new Error('View getContents is required and must be a function')
+	}
+
+	if ('hidden' in view && typeof view.hidden !== 'boolean') {
+		throw new Error('View hidden must be a boolean')
 	}
 
 	if (!view.icon || typeof view.icon !== 'string' || !isSvg(view.icon)) {
