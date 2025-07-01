@@ -2,10 +2,22 @@
   "name": "@nextcloud/files",
   "version": "3.10.2",
   "description": "Nextcloud files utils",
+  "keywords": [
+    "nextcloud",
+    "files",
+    "library"
+  ],
+  "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
+  "bugs": {
+    "url": "https://github.com/nextcloud-libraries/nextcloud-files/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextcloud-libraries/nextcloud-files.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "Nextcloud GmbH and Nextcloud contributors",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,43 +30,36 @@
       "require": "./dist/dav.cjs"
     }
   },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
-  ],
-  "author": "Christoph Wurst <christoph@winzerhof-wurst.at>",
-  "contributors": [
-    "John Molakvoæ <skjnldsv@protonmail.com>",
-    "Ferdinand Thiessen <opensource@fthiessen.de>"
-  ],
-  "license": "AGPL-3.0-or-later",
-  "keywords": [
-    "nextcloud",
-    "files",
-    "library"
   ],
   "scripts": {
     "build": "vite --mode production build",
     "build:doc": "typedoc --out dist/doc lib/dav/index.ts lib/index.ts && touch dist/doc/.nojekyll",
     "dev": "vite --mode development build",
-    "watch": "vite --mode development build --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage"
+    "watch": "vite --mode development build --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nextcloud-libraries/nextcloud-files.git"
+  "dependencies": {
+    "@nextcloud/auth": "^2.5.1",
+    "@nextcloud/capabilities": "^1.2.0",
+    "@nextcloud/l10n": "^3.3.0",
+    "@nextcloud/logger": "^3.0.2",
+    "@nextcloud/paths": "^2.2.1",
+    "@nextcloud/router": "^3.0.1",
+    "@nextcloud/sharing": "^0.2.4",
+    "cancelable-promise": "^4.3.1",
+    "is-svg": "^5.1.0",
+    "typescript-event-target": "^1.1.1",
+    "webdav": "^5.8.0"
   },
-  "bugs": {
-    "url": "https://github.com/nextcloud-libraries/nextcloud-files/issues"
-  },
-  "engines": {
-    "node": "^20.0.0",
-    "npm": "^10.0.0"
-  },
-  "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
     "@nextcloud/eslint-config": "^8.4.2",
@@ -72,17 +77,8 @@
     "vite": "^6.3.5",
     "vitest": "^3.0.4"
   },
-  "dependencies": {
-    "@nextcloud/auth": "^2.5.1",
-    "@nextcloud/capabilities": "^1.2.0",
-    "@nextcloud/l10n": "^3.3.0",
-    "@nextcloud/logger": "^3.0.2",
-    "@nextcloud/paths": "^2.2.1",
-    "@nextcloud/router": "^3.0.1",
-    "@nextcloud/sharing": "^0.2.4",
-    "cancelable-promise": "^4.3.1",
-    "is-svg": "^5.1.0",
-    "typescript-event-target": "^1.1.1",
-    "webdav": "^5.8.0"
+  "engines": {
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   }
 }
