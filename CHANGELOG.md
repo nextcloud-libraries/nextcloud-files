@@ -6,6 +6,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.11.0 - 2025-07-02
+### 🚀 Enhancements
+* feat: allow changing Node mime type [\#1234](https://github.com/nextcloud-libraries/nextcloud-files/pull/1234) \([skjnldsv](https://github.com/skjnldsv)\)
+* feat(view): add `hidden` attribute to the View [\#1281](https://github.com/nextcloud-libraries/nextcloud-files/pull/1281) \([susnux](https://github.com/susnux)\)
+
+### Fixed
+* fix(sorting): fallback basename to empty string just in case [\#1197](https://github.com/nextcloud-libraries/nextcloud-files/pull/1197) \([skjnldsv](https://github.com/skjnldsv)\)
+* fix: also validate Node data on setter  [\#1235](https://github.com/nextcloud-libraries/nextcloud-files/pull/1235) \([skjnldsv](https://github.com/skjnldsv)\)
+* fix: do not update mtime on move/rename [\#1236](https://github.com/nextcloud-libraries/nextcloud-files/pull/1236) \([skjnldsv](https://github.com/skjnldsv)\)
+
+### Changed
+* chore: update node version to all supported ones and add `devEngines` [\#1282](https://github.com/nextcloud-libraries/nextcloud-files/pull/1282) \([susnux](https://github.com/susnux)\)
+* chore: make `package.json` consistent and update authors [\#1280](https://github.com/nextcloud-libraries/nextcloud-files/pull/1280) \([susnux](https://github.com/susnux)\)
+* chore(deps): Bump @nextcloud/auth to 2.5.1
+* chore(deps): Bump @nextcloud/l10n to 3.3.0
+* chore(deps): Bump is-svg to 6.0.0
+* chore(deps): Bump webdav to 5.8.0
+
 ## 3.10.2 - 2025-02-13
 ### Fixed
 * fix: ensure FileListAction return `bool|null` on `exec` [\#1145](https://github.com/nextcloud-libraries/nextcloud-files/pull/1145) \([skjnldsv](https://github.com/skjnldsv)\)
