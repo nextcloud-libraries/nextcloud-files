@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
 import { View } from '../lib/navigation/view.ts'
 import { Folder } from '../lib/index.ts'
+import { subscribe } from '@nextcloud/event-bus'
 
 describe('Invalid View creation', () => {
 	test('Invalid id', () => {
@@ -199,5 +200,52 @@ describe('View creation', () => {
 		expect(view.expanded).toBe(false)
 		expect(view.defaultSortKey).toBe('key')
 		await expect(view.loadChildViews?.({} as unknown as View)).resolves.toBe(undefined)
+	})
+})
+
+describe('View update', () => {
+	test('Update a View', () => {
+		const view = new View({
+			id: 'test',
+			name: 'Test',
+			caption: 'Test caption',
+			emptyTitle: 'Test empty title',
+			emptyCaption: 'Test empty caption',
+			getContents: () => Promise.reject(new Error()),
+			hidden: true,
+			icon: '<svg></svg>',
+			order: 1,
+			params: {},
+			columns: [],
+			emptyView: () => {},
+			parent: 'parent',
+			sticky: false,
+			expanded: false,
+			defaultSortKey: 'key',
+			loadChildViews: async () => {},
+		})
+
+		const spy = vi.fn()
+		subscribe('files:view:updated', spy)
+
+		view.update({
+			name: 'Updated Test',
+			order: 2,
+			icon: '<svg>updated</svg>',
+			caption: 'Updated caption',
+			emptyTitle: 'Updated empty title',
+			emptyCaption: 'Updated empty caption',
+		})
+
+		expect(view.name).toBe('Updated Test')
+		expect(view.order).toBe(2)
+		expect(view.icon).toBe('<svg>updated</svg>')
+		expect(view.caption).toBe('Updated caption')
+		expect(view.emptyTitle).toBe('Updated empty title')
+		expect(view.emptyCaption).toBe('Updated empty caption')
+
+		expect(() => view.update({ id: 'new-id' })).toThrowError('The view ID is immutable and cannot be changed after creation')
+
+		expect(spy).toHaveBeenCalledOnce()
 	})
 })
