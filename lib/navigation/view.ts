@@ -13,7 +13,7 @@ export type ContentsWithRoot = {
 	contents: Node[]
 }
 
-interface ViewData {
+export interface ViewData {
 	/** Unique view ID */
 	id: string
 	/** Translated view name */
@@ -83,6 +83,7 @@ interface ViewData {
 
 	/**
 	 * Method called to load child views if any
+	 * @param view This view (deprecated use `this` instead)
 	 */
 	// eslint-disable-next-line no-use-before-define
 	loadChildViews?: (view: View) => Promise<void>
@@ -118,7 +119,7 @@ export class View implements ViewData {
 	}
 
 	get getContents() {
-		return this._view.getContents
+		return this._view.getContents.bind(this._view)
 	}
 
 	get hidden() {
@@ -154,7 +155,7 @@ export class View implements ViewData {
 	}
 
 	get emptyView() {
-		return this._view.emptyView
+		return this._view.emptyView?.bind(this._view)
 	}
 
 	get parent() {
@@ -178,7 +179,7 @@ export class View implements ViewData {
 	}
 
 	get loadChildViews() {
-		return this._view.loadChildViews
+		return this._view.loadChildViews?.bind(this._view)
 	}
 
 }
