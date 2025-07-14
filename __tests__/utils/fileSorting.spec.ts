@@ -2,10 +2,12 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+import type { Attribute } from '../../lib/files/nodeData'
+
 import { ArgumentsType, describe, expect, test } from 'vitest'
 import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib'
 
-const file = (name: string, size?: number, modified?: number, favorite = false) => new File({
+const file = (name: string, size?: number, modified?: number, favorite = false, attributes: Attribute = {}) => new File({
 	source: `https://cloud.domain.com/remote.php/dav/${name}`,
 	mime: 'text/plain',
 	owner: 'jdoe',
@@ -15,7 +17,7 @@ const file = (name: string, size?: number, modified?: number, favorite = false) 
 		? {
 			favorite: 1,
 		}
-		: undefined,
+		: attributes,
 })
 
 const folder = (name: string, size?: number, modified?: number, favorite = false) => new Folder({
@@ -284,5 +286,15 @@ describe('sortNodes', () => {
 				},
 			),
 		).toEqual(['file.a', 'file.b', 'file.c', 'file.d'])
+	})
+
+	test('Can sort by random attribute', () => {
+		const array = [
+			file('a', 500, 100, false, { order: 3 }),
+			file('b', 100, 100, false, { order: 2 }),
+			file('c', 100, 500, false, { order: 1 }),
+		]
+
+		expect(sortNodes(array, { sortingMode: 'order' })).toEqual(['c', 'b', 'a'])
 	})
 })

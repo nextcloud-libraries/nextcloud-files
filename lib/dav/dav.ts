@@ -156,7 +156,7 @@ export const getFavoriteNodes = (davClient: WebDAVClient, path = '/', davRoot = 
 }
 
 /**
- * Covert DAV result `FileStat` to `Node`
+ * Convert DAV result `FileStat` to `Node`
  *
  * @param node The DAV result
  * @param filesRoot The DAV files root path
