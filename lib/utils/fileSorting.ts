@@ -17,7 +17,7 @@ export interface FilesSortingOptions {
 	 * They key to order the files by
 	 * @default FilesSortingMode.Name
 	 */
-	sortingMode?: FilesSortingMode
+	sortingMode?: FilesSortingMode | string
 
 	/**
 	 * @default 'asc'
@@ -63,7 +63,7 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		// 2: Sort folders first if sorting by name
 		...(sortingOptions.sortFoldersFirst ? [(v: INode) => v.type !== 'folder'] : []),
 		// 3: Use sorting mode if NOT basename (to be able to use display name too)
-		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode]] : []),
+		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode] || v.attributes[sortingOptions.sortingMode]] : []),
 		// 4: Use display name if available, fallback to name
 		(v: INode) => basename(v.displayname || v.attributes?.displayname || v.basename || ''),
 		// 5: Finally, use basename if all previous sorting methods failed
