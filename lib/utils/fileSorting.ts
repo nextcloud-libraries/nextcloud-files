@@ -1,10 +1,12 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { INode } from '../files/node'
-import type { SortingOrder } from './sorting'
-import { orderBy } from './sorting'
+
+import type { INode } from '../node/node.ts'
+import type { SortingOrder } from './sorting.ts'
+
+import { orderBy } from './sorting.ts'
 
 export enum FilesSortingMode {
 	Name = 'basename',

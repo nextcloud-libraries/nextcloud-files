@@ -2,13 +2,12 @@
  * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, expect, test, vi } from 'vitest'
 
-import { File } from '../../lib/files/file'
-import { Folder } from '../../lib/files/folder'
-import { Attribute, NodeData } from '../../lib/files/nodeData'
-import { Permission } from '../../lib/permissions'
-import { NodeStatus } from '../../lib/files/node'
+import type { Attribute, NodeData } from '../../lib/node/index.ts'
+
+import { describe, expect, test, vi } from 'vitest'
+import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
+import { Permission } from '../../lib/permissions.ts'
 
 describe('Node testing', () => {
 	test('Root null fallback', () => {

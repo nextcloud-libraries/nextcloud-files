@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Node } from './files/node'
-import { View } from './navigation/view'
-import logger from './utils/logger'
+import type { Node } from '../node/node.ts'
+import type { View } from '../navigation/view.ts'
+
+import logger from '../utils/logger.ts'
 
 export enum DefaultType {
 	DEFAULT = 'default',
