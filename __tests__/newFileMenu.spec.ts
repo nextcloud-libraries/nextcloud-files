@@ -1,24 +1,28 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, expect, test, vi, afterEach } from 'vitest'
 
-import { NewFileMenu, NewMenuEntryCategory, getNewFileMenu, type Entry } from '../lib/newFileMenu'
+import type { NewMenuEntry } from '../lib/newMenu/index.ts'
+
+import { describe, expect, test, vi, afterEach } from 'vitest'
+import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries } from '../lib/newMenu/index.ts'
+import { NewMenu, NewMenuEntryCategory } from '../lib/newMenu/NewMenu.ts'
+import { Folder } from '../lib/node/index.ts'
+import { Permission } from '../lib/permissions.ts'
 import logger from '../lib/utils/logger'
-import { Folder, Permission, addNewFileMenuEntry, getNewFileMenuEntries } from '../lib'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
 		logger.debug = vi.fn()
 		const newFileMenu = getNewFileMenu()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
+		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 		expect(window._nc_newfilemenu).toBe(newFileMenu)
 		expect(logger.debug).toHaveBeenCalled()
 	})
 
-	test('Getting existing NewFileMenu', () => {
-		const newFileMenu = new NewFileMenu()
+	test('Getting existing NewMenu', () => {
+		const newFileMenu = new NewMenu()
 		Object.assign(window, { _nc_newfilemenu: newFileMenu })
 
 		expect(window._nc_newfilemenu).toBe(newFileMenu)
@@ -26,9 +30,9 @@ describe('NewFileMenu init', () => {
 	})
 })
 
-describe('NewFileMenu addEntry', () => {
+describe('NewMenu addEntry', () => {
 	test('Adding a valid Entry', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -44,7 +48,7 @@ describe('NewFileMenu addEntry', () => {
 	})
 
 	test('Adding multiple valid Entries', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry1 = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -83,7 +87,7 @@ describe('NewFileMenu addEntry', () => {
 	})
 
 	test('Adding duplicate Entry', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -106,9 +110,9 @@ describe('NewFileMenu addEntry', () => {
 	})
 
 	test('Adding invalid entry', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		expect(() => {
-			newFileMenu.registerEntry({} as Entry)
+			newFileMenu.registerEntry({} as NewMenuEntry)
 		}).toThrowError('Invalid entry')
 
 		expect(() => {
@@ -117,7 +121,7 @@ describe('NewFileMenu addEntry', () => {
 				displayName: '123456',
 				templateName: 'New file.txt',
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid entry')
 
 		expect(() => {
@@ -125,7 +129,7 @@ describe('NewFileMenu addEntry', () => {
 				id: 123456,
 				displayName: '123456',
 				iconSvgInline: '<svg></svg>',
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid entry')
 
 		expect(() => {
@@ -135,7 +139,7 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid id or displayName property')
 
 		expect(() => {
@@ -145,7 +149,7 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid id or displayName property')
 
 		expect(() => {
@@ -155,7 +159,7 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconClass: 123456,
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid icon provided')
 
 		expect(() => {
@@ -165,7 +169,7 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconSvgInline: 123456,
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid icon provided')
 
 		expect(() => {
@@ -176,7 +180,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				enabled: true,
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid enabled property')
 
 		expect(() => {
@@ -187,7 +191,7 @@ describe('NewFileMenu addEntry', () => {
 				iconClass: 'icon-filetype-text',
 				order: true,
 				handler: () => {},
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid order property')
 
 		expect(() => {
@@ -197,12 +201,12 @@ describe('NewFileMenu addEntry', () => {
 				templateName: 'New file.txt',
 				iconClass: 'icon-filetype-text',
 				handler: 'handler',
-			} as unknown as Entry)
+			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid handler property')
 	})
 
 	test('Adding a Entry without category', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -218,7 +222,7 @@ describe('NewFileMenu addEntry', () => {
 	})
 
 	test('Adding a Entry with category', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			category: NewMenuEntryCategory.Other,
@@ -235,9 +239,9 @@ describe('NewFileMenu addEntry', () => {
 	})
 })
 
-describe('NewFileMenu removeEntry', () => {
+describe('NewMenu removeEntry', () => {
 	test('Removing an existing Entry', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -256,7 +260,7 @@ describe('NewFileMenu removeEntry', () => {
 	})
 
 	test('Removing an existing Entry by id', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -275,7 +279,7 @@ describe('NewFileMenu removeEntry', () => {
 
 	test('Removing a non-existing entry', () => {
 		logger.warn = vi.fn()
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 
 		newFileMenu.unregisterEntry('unknown-entry')
 
@@ -284,9 +288,9 @@ describe('NewFileMenu removeEntry', () => {
 	})
 })
 
-describe('NewFileMenu getEntries filter', () => {
+describe('NewMenu getEntries filter', () => {
 	test('Filter no entries', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry1 = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -322,7 +326,7 @@ describe('NewFileMenu getEntries filter', () => {
 	})
 
 	test('Filter all entries', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry1 = {
 			id: 'empty-file',
 			displayName: 'Create empty file',
@@ -356,7 +360,7 @@ describe('NewFileMenu getEntries filter', () => {
 	})
 
 	test('Filter some entries', () => {
-		const newFileMenu = new NewFileMenu()
+		const newFileMenu = new NewMenu()
 		const entry1 = {
 			id: 'empty-file',
 			displayName: 'Create template',
@@ -391,12 +395,12 @@ describe('NewFileMenu getEntries filter', () => {
 	})
 })
 
-describe('NewFileMenu sort test', () => {
+describe('NewMenu sort test', () => {
 	afterEach(() => {
 		delete window._nc_newfilemenu
 	})
 
-	test('Specified NewFileMenu order', () => {
+	test('Specified NewMenu order', () => {
 		const entry1 = {
 			id: 'empty-file',
 			displayName: 'Create empty file',

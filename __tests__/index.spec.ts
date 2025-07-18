@@ -1,9 +1,11 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, expect, test } from 'vitest'
 
+import type { NewMenuEntry } from '../lib/newMenu/NewMenu.ts'
+
+import { describe, expect, test } from 'vitest'
 import {
 	formatFileSize,
 	addNewFileMenuEntry,
@@ -15,10 +17,9 @@ import {
 	Node,
 	Permission,
 	davParsePermissions,
-} from '../lib/index'
-
-import { Entry, NewFileMenu } from '../lib/newFileMenu'
-import { FileAction, registerFileAction, getFileActions } from '../lib/fileAction'
+} from '../lib/index.ts'
+import { FileAction, registerFileAction, getFileActions } from '../lib/actions/fileAction.ts'
+import { NewMenu } from '../lib/newMenu/NewMenu.ts'
 
 describe('Exports checks', () => {
 	test('formatFileSize', () => {
@@ -94,7 +95,7 @@ describe('NewFileMenu methods', () => {
 		templateName: 'New file.txt',
 		iconClass: 'icon-filetype-text',
 		handler: () => {},
-	} as Entry
+	} as NewMenuEntry
 
 	test('Init NewFileMenu', () => {
 		expect(window._nc_newfilemenu).toBeUndefined()
@@ -103,21 +104,21 @@ describe('NewFileMenu methods', () => {
 		expect(menuEntries).toHaveLength(0)
 
 		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
+		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 	})
 
-	test('Use existing initialized NewFileMenu', () => {
+	test('Use existing initialized NewMenu', () => {
 		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
+		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 
 		addNewFileMenuEntry(entry)
 
 		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
+		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 
 		removeNewFileMenuEntry(entry)
 
 		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
+		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 	})
 })

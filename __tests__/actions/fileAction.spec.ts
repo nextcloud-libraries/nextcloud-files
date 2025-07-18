@@ -2,12 +2,13 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Node } from '../lib/files/node'
-import type { View } from '../lib/navigation/view'
+
+import type { Node } from '../../lib/node/index.ts'
+import type { View } from '../../lib/navigation/view.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileActions, registerFileAction, FileAction, DefaultType, FileActionData } from '../lib/fileAction'
-import logger from '../lib/utils/logger'
+import { getFileActions, registerFileAction, FileAction, DefaultType, FileActionData } from '../../lib/actions/index.ts'
+import logger from '../../lib/utils/logger.ts'
 
 describe('FileActions init', () => {
 

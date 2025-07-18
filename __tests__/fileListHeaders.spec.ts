@@ -5,11 +5,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-new */
-import { describe, expect, test, beforeEach, vi } from 'vitest'
 
-import { Folder } from '../lib/files/folder'
-import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders'
-import logger from '../lib/utils/logger'
+import { describe, expect, test, beforeEach, vi } from 'vitest'
+import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders.ts'
+import { Folder } from '../lib/node/index.ts'
+import logger from '../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
 

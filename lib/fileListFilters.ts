@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { INode } from './node/index.ts'
+
 import { emit } from '@nextcloud/event-bus'
 import { TypedEventTarget } from 'typescript-event-target'
-import { INode } from './files/node'
 
 /**
  * Active filters can provide one or more "chips" to show the currently active state.

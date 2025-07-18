@@ -1,12 +1,13 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Folder } from '../files/folder'
-import type { Node } from '../files/node'
-import isSvg from 'is-svg'
 
-import { Column } from './column.js'
+import type { Folder } from '../node/folder.ts'
+import type { Node } from '../node/node.ts'
+
+import isSvg from 'is-svg'
+import { Column } from './column.ts'
 
 export type ContentsWithRoot = {
 	folder: Folder,

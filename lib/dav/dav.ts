@@ -1,22 +1,19 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
-import type { Node } from '../files/node'
 
-import { File } from '../files/file'
-import { Folder } from '../files/folder'
-import { NodeStatus } from '../files/node'
-import { NodeData } from '../files/nodeData'
-import { parsePermissions } from './davPermissions'
-import { getFavoritesReport } from './davProperties'
+import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClient } from 'webdav'
+import type { Node, NodeData } from '../node/index.ts'
 
 import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { generateRemoteUrl } from '@nextcloud/router'
 import { CancelablePromise } from 'cancelable-promise'
 import { createClient, getPatcher } from 'webdav'
-import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
+import { parsePermissions } from './davPermissions.ts'
+import { getFavoritesReport } from './davProperties.ts'
+import { File, Folder, NodeStatus } from '../node/index.ts'
 
 /**
  * Nextcloud DAV result response

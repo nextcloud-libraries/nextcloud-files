@@ -1,27 +1,30 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder, Node } from './index'
-import logger from './utils/logger'
+import type { Folder, Node } from '../node/index.ts'
+
+import logger from '../utils/logger.ts'
 
 export enum NewMenuEntryCategory {
 	/**
 	 * For actions where the user is intended to upload from their device
 	 */
 	UploadFromDevice = 0,
+
 	/**
 	 * For actions that create new nodes on the server without uploading
 	 */
 	CreateNew = 1,
+
 	/**
 	 * For everything not matching the other categories
 	 */
 	Other = 2,
 }
 
-export interface Entry {
+export interface NewMenuEntry {
 	/** Unique ID */
 	id: string
 
@@ -59,23 +62,23 @@ export interface Entry {
 
 	/**
 	 * Function to be run after creation
-	 * @param context the creation context. Usually the current folder
-	 * @param content list of file/folders present in the context folder
+	 * @param context - The creation context. Usually the current folder
+	 * @param content - List of file/folders present in the context folder
 	 */
 	handler: (context: Folder, content: Node[]) => void
 }
 
-export class NewFileMenu {
+export class NewMenu {
 
-	private _entries: Array<Entry> = []
+	private _entries: Array<NewMenuEntry> = []
 
-	public registerEntry(entry: Entry) {
+	public registerEntry(entry: NewMenuEntry) {
 		this.validateEntry(entry)
 		entry.category = entry.category ?? NewMenuEntryCategory.CreateNew
 		this._entries.push(entry)
 	}
 
-	public unregisterEntry(entry: Entry | string) {
+	public unregisterEntry(entry: NewMenuEntry | string) {
 		const entryIndex = typeof entry === 'string'
 			? this.getEntryIndex(entry)
 			: this.getEntryIndex(entry.id)
@@ -93,7 +96,7 @@ export class NewFileMenu {
 	 *
 	 * @param {Folder} context the creation context. Usually the current folder
 	 */
-	public getEntries(context?: Folder): Array<Entry> {
+	public getEntries(context?: Folder): Array<NewMenuEntry> {
 		if (context) {
 			return this._entries
 				.filter(entry => typeof entry.enabled === 'function' ? entry.enabled(context) : true)
@@ -105,7 +108,7 @@ export class NewFileMenu {
 		return this._entries.findIndex(entry => entry.id === id)
 	}
 
-	private validateEntry(entry: Entry) {
+	private validateEntry(entry: NewMenuEntry) {
 		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass) || !entry.handler) {
 			throw new Error('Invalid entry')
 		}
@@ -137,12 +140,4 @@ export class NewFileMenu {
 		}
 	}
 
-}
-
-export const getNewFileMenu = function(): NewFileMenu {
-	if (typeof window._nc_newfilemenu === 'undefined') {
-		window._nc_newfilemenu = new NewFileMenu()
-		logger.debug('NewFileMenu initialized')
-	}
-	return window._nc_newfilemenu
 }
