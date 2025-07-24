@@ -26,6 +26,15 @@ interface ViewData {
 	emptyTitle?: string
 	/** Translated description of the empty view */
 	emptyCaption?: string
+	/**
+	 * Custom implementation of the empty view.
+	 * If set and no content is found for the current view,
+	 * then this method is called with the container element
+	 * where to render your empty view implementation.
+	 *
+	 * @param div - The container element to render into
+	 */
+	emptyView?: (div: HTMLDivElement) => void
 
 	/**
 	 * Method return the content of the  provided path
@@ -63,8 +72,7 @@ interface ViewData {
 	 * by default always included
 	 */
 	columns?: Column[]
-	/** The empty view element to render your empty content into */
-	emptyView?: (div: HTMLDivElement) => void
+
 	/** The parent unique ID */
 	parent?: string
 	/** This view is sticky (sent at the bottom) */
