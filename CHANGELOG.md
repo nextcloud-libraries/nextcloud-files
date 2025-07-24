@@ -6,6 +6,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.12.0 - 2025-07-24
+### 🚀 Enhancements
+* feat(actions): allow to define hotkey for file action [\#1288](https://github.com/nextcloud-libraries/nextcloud-files/pull/1288) \([susnux](https://github.com/susnux)\)
+
+### 🐛 Fixed bugs
+* fix(sorting): also check attributes [\#1285](https://github.com/nextcloud-libraries/nextcloud-files/pull/1285) \([skjnldsv](https://github.com/skjnldsv)\)
+* fix(sorting): adjust attribute fallback condition [\#1286](https://github.com/nextcloud-libraries/nextcloud-files/pull/1286) \([skjnldsv](https://github.com/skjnldsv)\)
+
+### Other changes
+* refactor: restructure source files [\#1287](https://github.com/nextcloud-libraries/nextcloud-files/pull/1287) \([susnux](https://github.com/susnux)\)
+
 ## 3.11.0 - 2025-07-02
 ### 🚀 Enhancements
 * feat: allow changing Node mime type [\#1234](https://github.com/nextcloud-libraries/nextcloud-files/pull/1234) \([skjnldsv](https://github.com/skjnldsv)\)
