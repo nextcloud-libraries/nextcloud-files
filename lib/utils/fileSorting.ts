@@ -6,6 +6,7 @@
 import type { INode } from '../node/node.ts'
 import type { SortingOrder } from './sorting.ts'
 
+import { FileType } from '../node/fileType.ts'
 import { orderBy } from './sorting.ts'
 
 export enum FilesSortingMode {
@@ -54,10 +55,20 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 	}
 
 	/**
-	 * Get the basename without any extension
-	 * @param name The filename to extract the basename from
+	 * Get the basename without any extension if the current node is a file
+	 *
+	 * @param node - The node to get the basename of
 	 */
-	const basename = (name: string) => name.lastIndexOf('.') > 0 ? name.slice(0, name.lastIndexOf('.')) : name
+	function basename(node: INode): string {
+		const name = node.displayname || node.attributes?.displayname || node.basename || ''
+		if (node.type === FileType.Folder) {
+			return name
+		}
+
+		return name.lastIndexOf('.') > 0
+			? name.slice(0, name.lastIndexOf('.'))
+			: name
+	}
 
 	const identifiers = [
 		// 1: Sort favorites first if enabled
@@ -67,7 +78,7 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		// 3: Use sorting mode if NOT basename (to be able to use display name too)
 		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode] ?? v.attributes[sortingOptions.sortingMode]] : []),
 		// 4: Use display name if available, fallback to name
-		(v: INode) => basename(v.displayname || v.attributes?.displayname || v.basename || ''),
+		(v: INode) => basename(v),
 		// 5: Finally, use basename if all previous sorting methods failed
 		(v: INode) => v.basename,
 	]
