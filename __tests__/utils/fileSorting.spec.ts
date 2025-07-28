@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Attribute } from '../../lib/files/nodeData'
+import type { Attribute } from '../../lib/node/index.ts'
 
 import { ArgumentsType, describe, expect, test } from 'vitest'
 import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib'
@@ -53,6 +53,23 @@ describe('sortNodes', () => {
 		]
 
 		expect(sortNodes(array)).toEqual(['a', 'b', 'c'])
+	})
+
+	/**
+	 * Regression test
+	 * Previously we sorted by basename without extension,
+	 * but also trimmed the extension of folders.
+	 *
+	 * @see https://github.com/nextcloud/server/issues/54036
+	 */
+	test('Folder names are compared by full length', () => {
+		const array = [
+			folder('10.11', 100, 100),
+			folder('10.10', 500, 100),
+			folder('10.10.1', 100, 500),
+		]
+
+		expect(sortNodes(array)).toEqual(['10.10', '10.10.1', '10.11'])
 	})
 
 	test('By default favorites are not handled special', () => {
