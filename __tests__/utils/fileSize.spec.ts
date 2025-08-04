@@ -2,11 +2,13 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 import { formatFileSize, parseFileSize } from '../../lib/index'
+import { setLocale } from '@nextcloud/l10n'
 
 describe('humanFileSize', () => {
+	beforeEach(() => setLocale('en'))
 	describe('formatFileSize', () => {
 		it('renders binary size with decimal units by default', () => {
 			expect(formatFileSize(2048)).toBe('2 KB')
@@ -79,7 +81,7 @@ describe('humanFileSize', () => {
 		})
 
 		it('renders file sizes with the correct locale', function() {
-			document.documentElement.dataset.locale = 'de'
+			setLocale('de')
 			const dataDecimal = [
 				[0, '0 B'],
 				['0', '0 B'],
