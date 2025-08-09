@@ -182,6 +182,9 @@ describe('View creation', () => {
 	})
 })
 
+/**
+ * Creates a mock View and its associated Folder for testing purposes.
+ */
 export function mockView() {
 	const folder = new Folder({
 		source: 'https://example.org/dav/files/admin/',

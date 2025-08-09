@@ -1,5 +1,13 @@
 {
 	"extends": [
 		"@nextcloud/eslint-config/typescript"
+	],
+	"overrides": [
+		{
+			"files": ["**.spec.*"],
+			"rules": {
+				"no-console": "off"
+			}
+		}
 	]
 }
