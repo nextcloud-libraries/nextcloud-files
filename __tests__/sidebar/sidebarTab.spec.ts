@@ -6,7 +6,7 @@
 import type { IFolder, INode, IView } from '../../lib/index.ts'
 
 import { beforeEach, describe, expect, it, Mock, vi } from 'vitest'
-import { getSidebarTabs, ISidebarTab, registerSidebarTab } from '../../lib/sidebar'
+import { getSidebarTabs, ISidebarTab, registerSidebarTab } from '../../lib/sidebar/SidebarTab.ts'
 // missing in JSDom but supported by every browser!
 import 'css.escape'
 
