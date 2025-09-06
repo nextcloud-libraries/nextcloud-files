@@ -54,7 +54,7 @@
     "@nextcloud/logger": "^3.0.2",
     "@nextcloud/paths": "^2.2.1",
     "@nextcloud/router": "^3.0.1",
-    "@nextcloud/sharing": "^0.2.5",
+    "@nextcloud/sharing": "^0.3.0",
     "cancelable-promise": "^4.3.1",
     "is-svg": "^6.1.0",
     "typescript-event-target": "^1.1.1",
