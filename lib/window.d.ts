@@ -13,9 +13,8 @@ import type {
 	NewMenu,
 } from './index.ts'
 
-import type {
-	DavProperty,
-} from './dav/index.ts'
+import type { DavProperty } from './dav/index.ts'
+import type { ISidebarTab } from './sidebar/index.ts'
 
 export {}
 
@@ -30,6 +29,7 @@ declare global {
 		_nc_newfilemenu?: NewMenu
 		_nc_navigation?: Navigation
 		_nc_filelist_filters?: Map<string, IFileListFilter>
+		_nc_files_sidebar_tabs?: Map<string, ISidebarTab>
 
 		_oc_config?: {
 			forbidden_filenames_characters: string[]
