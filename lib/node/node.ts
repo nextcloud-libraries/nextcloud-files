@@ -7,7 +7,7 @@ import { encodePath } from '@nextcloud/paths'
 
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
-import { Attribute, isDavResource, NodeData, validateData } from './nodeData'
+import { Attribute, fixDates, fixRegExp, isDavResource, NodeData, validateData } from './nodeData'
 import logger from '../utils/logger'
 
 export enum NodeStatus {
@@ -21,11 +21,14 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
+type NodeConstructorData = [NodeData, RegExp?]
+
 export abstract class Node {
 
-	private _data: NodeData
 	private _attributes: Attribute
-	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
+
+	protected _data: NodeData
+	protected _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
 	private readonlyAttributes = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
 		.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
@@ -58,13 +61,17 @@ export abstract class Node {
 		},
 	} as ProxyHandler<Attribute>
 
-	constructor(data: NodeData, davService?: RegExp) {
+	protected constructor(...[data, davService]: NodeConstructorData) {
 		if (!data.mime) {
 			data.mime = 'application/octet-stream'
 		}
 
+		// Fix primitive types if needed
+		fixDates(data)
+		davService = fixRegExp(davService || this._knownDavService)
+
 		// Validate data
-		validateData(data, davService || this._knownDavService)
+		validateData(data, davService)
 
 		this._data = {
 			// TODO: Remove with next major release, this is just for compatibility
@@ -347,13 +354,6 @@ export abstract class Node {
 	}
 
 	/**
-	 * Get the node data
-	 */
-	get data(): NodeData {
-		return structuredClone(this._data)
-	}
-
-	/**
 	 * Move the node to a new destination
 	 *
 	 * @param {string} destination the new source.
@@ -424,7 +424,17 @@ export abstract class Node {
 	/**
 	 * Returns a clone of the node
 	 */
-	abstract clone(): Node
+	clone(): this {
+		// @ts-expect-error -- this class is abstract and cannot be instantiated directly but all its children can
+		return new this.constructor(structuredClone(this._data), this._knownDavService)
+	}
+
+	/**
+	 * JSON representation of the node
+	 */
+	toJSON(): string {
+		return JSON.stringify([structuredClone(this._data), this._knownDavService.toString()])
+	}
 
 }
 
