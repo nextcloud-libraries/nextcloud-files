@@ -436,6 +436,14 @@ export abstract class Node {
 		return JSON.stringify([structuredClone(this._data), this._knownDavService.toString()])
 	}
 
+	/**
+	 * String representation of the node
+	 */
+	toString(): string {
+		const constructorData: NodeConstructorData = [this._data, this._knownDavService]
+		return JSON.stringify(constructorData)
+	}
+
 }
 
 /**
