@@ -7,7 +7,7 @@ import { encodePath } from '@nextcloud/paths'
 
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
-import { Attribute, isDavResource, NodeData, validateData } from './nodeData'
+import { Attribute, fixDates, fixRegExp, isDavResource, NodeData, validateData } from './nodeData'
 import logger from '../utils/logger'
 
 export enum NodeStatus {
@@ -66,8 +66,12 @@ export abstract class Node {
 			data.mime = 'application/octet-stream'
 		}
 
+		// Fix primitive types if needed
+		fixDates(data)
+		davService = fixRegExp(davService || this._knownDavService)
+
 		// Validate data
-		validateData(data, davService || this._knownDavService)
+		validateData(data, davService)
 
 		this._data = {
 			// TODO: Remove with next major release, this is just for compatibility
@@ -426,8 +430,7 @@ export abstract class Node {
 	 * String representation of the node
 	 */
 	toString(): string {
-		const constructorData: NodeConstructorData = [this._data, this._knownDavService]
-		return JSON.stringify(constructorData)
+		return JSON.stringify([this._data, this._knownDavService.toString()])
 	}
 
 }
