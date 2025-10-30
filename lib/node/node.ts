@@ -21,11 +21,14 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
+type NodeConstructorData = [NodeData, RegExp?]
+
 export abstract class Node {
 
-	private _data: NodeData
 	private _attributes: Attribute
-	private _knownDavService = /(remote|public)\.php\/(web)?dav/i
+
+	protected _data: NodeData
+	protected _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
 	private readonlyAttributes = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
 		.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
@@ -58,7 +61,7 @@ export abstract class Node {
 		},
 	} as ProxyHandler<Attribute>
 
-	constructor(data: NodeData, davService?: RegExp) {
+	constructor(...[data, davService]: NodeConstructorData) {
 		if (!data.mime) {
 			data.mime = 'application/octet-stream'
 		}
@@ -344,13 +347,6 @@ export abstract class Node {
 	set status(status: NodeStatus|undefined) {
 		validateData({ ...this._data, status }, this._knownDavService)
 		this._data.status = status
-	}
-
-	/**
-	 * Get the node data
-	 */
-	get data(): NodeData {
-		return structuredClone(this._data)
 	}
 
 	/**
