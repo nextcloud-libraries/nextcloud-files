@@ -422,6 +422,14 @@ export abstract class Node {
 	 */
 	abstract clone(): Node
 
+	/**
+	 * String representation of the node
+	 */
+	toString(): string {
+		const constructorData: NodeConstructorData = [this._data, this._knownDavService]
+		return JSON.stringify(constructorData)
+	}
+
 }
 
 /**
