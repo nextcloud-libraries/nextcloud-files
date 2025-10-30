@@ -21,7 +21,7 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
-type NodeConstructorData = [NodeData, RegExp?]
+export type NodeConstructorData = [NodeData, RegExp?]
 
 export abstract class Node {
 
@@ -434,14 +434,6 @@ export abstract class Node {
 	 */
 	toJSON(): string {
 		return JSON.stringify([structuredClone(this._data), this._knownDavService.toString()])
-	}
-
-	/**
-	 * String representation of the node
-	 */
-	toString(): string {
-		const constructorData: NodeConstructorData = [this._data, this._knownDavService]
-		return JSON.stringify(constructorData)
 	}
 
 }
