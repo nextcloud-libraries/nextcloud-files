@@ -4,6 +4,8 @@
  */
 
 import { join } from 'path'
+import RegexParser from 'regex-parser'
+
 import { Permission } from '../permissions'
 import { NodeStatus } from './node'
 
@@ -156,4 +158,31 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 	if (data.status && !Object.values(NodeStatus).includes(data.status)) {
 		throw new Error('Status must be a valid NodeStatus')
 	}
+}
+
+/**
+ * In case we try to create a node from deserialized data,
+ * we need to fix date types.
+ */
+export const fixDates = (data: NodeData) => {
+	if (data.mtime && typeof data.mtime === 'string') {
+		if (!isNaN(Date.parse(data.mtime))
+			&& JSON.stringify(new Date(data.mtime)) === JSON.stringify(data.mtime)) {
+			data.mtime = new Date(data.mtime)
+		}
+	}
+
+	if (data.crtime && typeof data.crtime === 'string') {
+		if (!isNaN(Date.parse(data.crtime))
+			&& JSON.stringify(new Date(data.crtime)) === JSON.stringify(data.crtime)) {
+			data.crtime = new Date(data.crtime)
+		}
+	}
+}
+
+export const fixRegExp = (pattern: string | RegExp): RegExp => {
+	if (typeof pattern === 'string') {
+		return RegexParser(pattern)
+	}
+	return pattern
 }
