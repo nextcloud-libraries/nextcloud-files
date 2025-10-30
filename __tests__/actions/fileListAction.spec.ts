@@ -3,19 +3,19 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { View } from '../../lib/navigation/view.ts'
+
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-
-import type { View } from '../lib/navigation/view.ts'
-
-import { getFileListActions, registerFileListAction, FileListAction } from '../lib/fileListAction.ts'
-import { Folder } from '../lib/files/folder.ts'
-import logger from '../lib/utils/logger.ts'
+import { getFileListActions, registerFileListAction, FileListAction } from '../../lib/actions/fileListAction.ts'
+import { Folder } from '../../lib/node/index.ts'
+import logger from '../../lib/utils/logger.ts'
 
 const mockAction = (id: string) => new FileListAction({
 	id,
 	displayName: () => 'Test',
 	iconSvgInline: () => '<svg></svg>',
 	order: 0,
+	// @ts-expect-error mocking for tests
 	exec: async () => {},
 })
 
@@ -38,7 +38,7 @@ describe('FileListActions init', () => {
 
 		expect(testAction.id).toBe('test')
 		expect(testAction.displayName({} as unknown as View)).toBe('Test')
-		expect(testAction.iconSvgInline({} as unknown as View)).toBe('<svg></svg>')
+		expect(testAction.iconSvgInline!({} as unknown as View)).toBe('<svg></svg>')
 
 		registerFileListAction(testAction)
 		expect(actions).toHaveLength(1)
@@ -150,12 +150,13 @@ describe('FileListAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			enabled: () => true,
+			// @ts-expect-error mocking for tests
 			exec: async () => {},
 		})
 
 		expect(testAction.id).toBe('test')
 		expect(testAction.displayName({} as unknown as View)).toBe('Test')
-		expect(testAction.iconSvgInline({} as unknown as View)).toBe('<svg></svg>')
+		expect(testAction.iconSvgInline!({} as unknown as View)).toBe('<svg></svg>')
 		expect(testAction.order).toBe(0)
 		expect(testAction.enabled?.({} as unknown as View, [], {} as Folder)).toBe(true)
 		await expect(testAction.exec({} as unknown as View, [], {} as Folder)).resolves.toBe(undefined)

@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from './files/folder.ts'
-import type { Node } from './files/node.ts'
-import type { View } from './navigation/view.ts'
-import logger from './utils/logger.ts'
+import type { Folder } from '../node/folder.ts'
+import type { Node } from '../node/node.ts'
+import type { View } from '../navigation/view.ts'
+
+import logger from '../utils/logger.ts'
 
 interface FileListActionData {
 	/** Unique ID */

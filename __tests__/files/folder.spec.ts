@@ -1,12 +1,12 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { describe, expect, test } from 'vitest'
 
-import { Folder } from '../../lib/files/folder'
-import { FileType } from '../../lib/files/fileType'
-import { Permission } from '../../lib/permissions'
+import { FileType, Folder } from '../../lib/node/index.ts'
+import { Permission } from '../../lib/permissions.ts'
 
 describe('Folder creation', () => {
 	test('Valid dav folder', () => {

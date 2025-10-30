@@ -3,13 +3,45 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Node } from './files/node'
-import { View } from './navigation/view'
-import logger from './utils/logger'
+import type { Node } from '../node/node.ts'
+import type { View } from '../navigation/view.ts'
+
+import logger from '../utils/logger.ts'
 
 export enum DefaultType {
 	DEFAULT = 'default',
 	HIDDEN = 'hidden',
+}
+
+export interface IHotkeyConfig {
+	/**
+	 * Short, translated, description what this action is doing.
+	 * This will be used as the description next to the hotkey in the shortcuts overview.
+	 */
+	description: string
+
+	/**
+	 * The key to be pressed.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+	 */
+	key: string
+
+	/**
+	 * If set then the callback is only called when the shift key is (not) pressed.
+	 * When left `undefined` a pressed shift key is ignored (callback is run with and without shift pressed).
+	 */
+	shift?: boolean
+
+	/**
+	 * Only execute the action if the control key is pressed.
+	 * On Mac devices the command key is used instead.
+	 */
+	ctrl?: true
+
+	/**
+	 * Only execute the action if the alt key is pressed
+	 */
+	alt?: true
 }
 
 export interface FileActionData {
@@ -40,7 +72,12 @@ export interface FileActionData {
 	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
 
 	/** This action order in the list */
-	order?: number,
+	order?: number
+
+	/**
+	 * Allows to define a hotkey which will trigger this action for the selected node.
+	 */
+	hotkey?: IHotkeyConfig
 
 	/**
 	 * Set to true if this action is a destructive action, like "delete".
@@ -110,6 +147,10 @@ export class FileAction {
 
 	get execBatch() {
 		return this._action.execBatch
+	}
+
+	get hotkey() {
+		return this._action.hotkey
 	}
 
 	get order() {
@@ -188,6 +229,20 @@ export class FileAction {
 
 		if ('renderInline' in action && typeof action.renderInline !== 'function') {
 			throw new Error('Invalid renderInline function')
+		}
+
+		if ('hotkey' in action && action.hotkey !== undefined) {
+			if (typeof action.hotkey !== 'object') {
+				throw new Error('Invalid hotkey configuration')
+			}
+
+			if (typeof action.hotkey.key !== 'string' || !action.hotkey.key) {
+				throw new Error('Missing or invalid hotkey key')
+			}
+
+			if (typeof action.hotkey.description !== 'string' || !action.hotkey.description) {
+				throw new Error('Missing or invalid hotkey description')
+			}
 		}
 	}
 

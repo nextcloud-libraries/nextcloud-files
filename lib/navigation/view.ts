@@ -1,13 +1,15 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Folder } from '../files/folder'
-import type { Node } from '../files/node'
+
+import type { Folder } from '../node/folder.ts'
+import type { Node } from '../node/node.ts'
+
+import { emit } from '@nextcloud/event-bus'
 import isSvg from 'is-svg'
 
-import { Column } from './column.js'
-import { emit } from '@nextcloud/event-bus'
+import { Column } from './column.ts'
 
 export type ContentsWithRoot = {
 	folder: Folder,
@@ -26,6 +28,15 @@ interface ViewData {
 	emptyTitle?: string
 	/** Translated description of the empty view */
 	emptyCaption?: string
+	/**
+	 * Custom implementation of the empty view.
+	 * If set and no content is found for the current view,
+	 * then this method is called with the container element
+	 * where to render your empty view implementation.
+	 *
+	 * @param div - The container element to render into
+	 */
+	emptyView?: (div: HTMLDivElement) => void
 
 	/**
 	 * Method return the content of the  provided path
@@ -63,8 +74,7 @@ interface ViewData {
 	 * by default always included
 	 */
 	columns?: Column[]
-	/** The empty view element to render your empty content into */
-	emptyView?: (div: HTMLDivElement) => void
+
 	/** The parent unique ID */
 	parent?: string
 	/** This view is sticky (sent at the bottom) */

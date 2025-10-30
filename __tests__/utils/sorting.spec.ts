@@ -98,6 +98,21 @@ describe('orderBy', () => {
 		).toEqual(['2024-01-05', '2024-01-05 Foo', '2024-01-10', '2024-05-01'])
 	})
 
+	test('Numbers with multiple dots are handled correctly', () => {
+		const array = [
+			{ text: '2.11' },
+			{ text: '2.10' },
+			{ text: '2.10.1' },
+		] as const
+
+		expect(
+			orderBy(
+				array,
+				[(v) => v.text],
+			).map((v) => v.text),
+		).toEqual(['2.10', '2.10.1', '2.11'])
+	})
+
 	test('Dates are handled correctly', () => {
 		const array = [
 			{ text: 'monday', date: new Date(1716212366 * 1000) },

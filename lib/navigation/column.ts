@@ -1,9 +1,10 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { Node } from '../files/node'
-import type { View } from './view'
+
+import type { Node } from '../node/node.ts'
+import type { View } from './view.ts'
 
 interface ColumnData {
 	/** Unique column ID */

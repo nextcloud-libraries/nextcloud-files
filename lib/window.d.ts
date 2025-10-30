@@ -1,15 +1,21 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 /// <reference types="@nextcloud/typings" />
 
-import type { IFileListFilter, Navigation } from './lib'
-import type { DavProperty } from './lib/dav/davProperties'
-import type { FileAction } from './lib/fileAction'
-import type { FileListAction } from './lib/fileListAction.ts'
-import type { Header } from './lib/fileListHeaders'
-import type { NewFileMenu } from './lib/newFileMenu'
+import type {
+	IFileListFilter,
+	Navigation,
+	FileAction,
+	FileListAction,
+	Header,
+	NewMenu,
+} from './index.ts'
+
+import type {
+	DavProperty,
+} from './dav/index.ts'
 
 export {}
 
@@ -21,7 +27,7 @@ declare global {
 		_nc_fileactions?: FileAction[]
 		_nc_filelistactions?: FileListAction[]
 		_nc_filelistheader?: Header[]
-		_nc_newfilemenu?: NewFileMenu
+		_nc_newfilemenu?: NewMenu
 		_nc_navigation?: Navigation
 		_nc_filelist_filters?: Map<string, IFileListFilter>
 

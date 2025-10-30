@@ -1,11 +1,12 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Folder } from './files/folder'
-import { View } from './navigation/view'
-import logger from './utils/logger'
+import type { Folder } from './node/folder.ts'
+import type { View } from './navigation/view.ts'
+
+import logger from './utils/logger.ts'
 
 export interface HeaderData {
 	/** Unique ID */
