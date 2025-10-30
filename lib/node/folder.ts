@@ -2,18 +2,17 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { NodeData } from './nodeData'
 import { FileType } from './fileType'
 import { Node } from './node'
 
 export class Folder extends Node {
 
-	constructor(data: NodeData) {
+	constructor(...[data, davService]: ConstructorParameters<typeof Node>) {
 		// enforcing mimes
 		super({
 			...data,
 			mime: 'httpd/unix-directory',
-		})
+		}, davService)
 	}
 
 	get type(): FileType.Folder {
@@ -32,7 +31,7 @@ export class Folder extends Node {
 	 * Returns a clone of the folder
 	 */
 	clone(): Folder {
-		return new Folder(this.data)
+		return new Folder(structuredClone(this._data), this._knownDavService)
 	}
 
 }
