@@ -47,6 +47,11 @@
     "test:watch": "vitest watch",
     "watch": "vite --mode development build --watch"
   },
+  "overrides": {
+    "@codecov/vite-plugin": {
+      "vite": "^7.0"
+    }
+  },
   "dependencies": {
     "@nextcloud/auth": "^2.5.3",
     "@nextcloud/capabilities": "^1.2.0",
@@ -65,7 +70,7 @@
     "@nextcloud/eslint-config": "^8.4.2",
     "@nextcloud/event-bus": "^3.3.2",
     "@nextcloud/typings": "^1.9.1",
-    "@nextcloud/vite-config": "^2.4.0",
+    "@nextcloud/vite-config": "^2.5.2",
     "@types/node": "^24.9.2",
     "@vitest/coverage-istanbul": "^3.2.4",
     "fast-xml-parser": "^5.3.0",
