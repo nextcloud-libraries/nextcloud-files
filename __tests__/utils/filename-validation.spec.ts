@@ -32,7 +32,7 @@ describe('isFilenameValid', () => {
 describe('validateFilename', () => {
 
 	beforeEach(() => {
-		vi.restoreAllMocks()
+		vi.resetAllMocks()
 		delete window._oc_config
 	})
 
