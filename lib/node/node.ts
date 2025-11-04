@@ -427,10 +427,10 @@ export abstract class Node {
 	abstract clone(): Node
 
 	/**
-	 * String representation of the node
+	 * JSON representation of the node
 	 */
-	toString(): string {
-		return JSON.stringify([this._data, this._knownDavService.toString()])
+	toJSON(): string {
+		return JSON.stringify([structuredClone(this._data), this._knownDavService.toString()])
 	}
 
 }

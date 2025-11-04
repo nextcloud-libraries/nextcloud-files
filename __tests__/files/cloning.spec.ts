@@ -114,7 +114,7 @@ describe('File cloning', () => {
 })
 
 describe('File serialization and deserialization', () => {
-	test('toString and JSON.parse roundtrip preserves all properties', () => {
+	test('toJSON and JSON.parse roundtrip preserves all properties', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
@@ -127,7 +127,7 @@ describe('File serialization and deserialization', () => {
 			status: NodeStatus.LOADING,
 		})
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(reconstructed).toBeInstanceOf(File)
@@ -154,7 +154,7 @@ describe('File serialization and deserialization', () => {
 			},
 		})
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(reconstructed.attributes).toStrictEqual(file.attributes)
@@ -169,7 +169,7 @@ describe('File serialization and deserialization', () => {
 			owner: 'emma',
 		})
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(reconstructed).toBeInstanceOf(File)
@@ -189,7 +189,7 @@ describe('File serialization and deserialization', () => {
 			},
 		})
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		// Modify the reconstructed file
@@ -213,7 +213,7 @@ describe('File serialization and deserialization', () => {
 			},
 		})
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(reconstructed.displayname).toBe('My Vacation Photo')
@@ -231,7 +231,7 @@ describe('File serialization and deserialization', () => {
 		expect(file.isDavResource).toBe(false)
 		expect(file.permissions).toBe(Permission.READ)
 
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(reconstructed).toBeInstanceOf(File)
@@ -251,7 +251,7 @@ describe('File serialization and deserialization', () => {
 				status,
 			})
 
-			const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+			const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 			const reconstructed = new File(parsed[0], parsed[1])
 			expect(reconstructed.status).toBe(status)
 		}
@@ -265,7 +265,7 @@ describe('File serialization and deserialization', () => {
 			size: 12345,
 		})
 
-		const str = file.toString()
+		const str = file.toJSON()
 		expect(() => JSON.parse(str)).not.toThrow()
 
 		const parsed = JSON.parse(str)
@@ -292,7 +292,7 @@ describe('Cloning methods comparison', () => {
 		})
 
 		const cloned = file.clone()
-		const parsed = JSON.parse(file.toString()) as [NodeData, RegExp?]
+		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]
 		const reconstructed = new File(parsed[0], parsed[1])
 
 		expect(cloned.source).toBe(reconstructed.source)
