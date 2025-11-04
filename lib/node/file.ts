@@ -15,7 +15,7 @@ export class File extends Node {
 	 * Returns a clone of the file
 	 */
 	clone(): File {
-		return new File(this._data, this._knownDavService)
+		return new File(structuredClone(this._data), this._knownDavService)
 	}
 
 }

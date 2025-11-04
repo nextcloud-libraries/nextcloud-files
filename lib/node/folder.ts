@@ -31,7 +31,7 @@ export class Folder extends Node {
 	 * Returns a clone of the folder
 	 */
 	clone(): Folder {
-		return new Folder(this._data, this._knownDavService)
+		return new Folder(structuredClone(this._data), this._knownDavService)
 	}
 
 }
