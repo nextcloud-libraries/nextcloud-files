@@ -89,12 +89,12 @@
     "packageManager": [
       {
         "name": "npm",
-        "version": "^10.5.0"
+        "version": "^11.3.0"
       }
     ],
     "runtime": {
       "name": "node",
-      "version": "^22.0.0"
+      "version": "^24.0.0"
     }
   }
 }
