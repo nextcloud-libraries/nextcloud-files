@@ -9,6 +9,27 @@ import { FileType, Folder } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 
 describe('Folder creation', () => {
+	test('clone a file', () => {
+		const folder = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
+			owner: 'emma',
+		})
+		const clonedFolder = folder.clone()
+
+		expect(clonedFolder).toBeInstanceOf(Folder)
+		expect(clonedFolder).not.toBe(folder)
+
+		// @ts-expect-error access to private property for testing
+		expect(clonedFolder.data).not.toBe(folder.data)
+		// @ts-expect-error access to private property for testing
+		expect(clonedFolder.data).toEqual(folder.data)
+
+		// see that the inner objects are cloned not copied (references)
+		expect(clonedFolder.mtime).not.toBe(folder.mtime)
+		expect(clonedFolder.mtime?.toUTCString()).toBe(folder.mtime?.toUTCString())
+	})
+
 	test('Valid dav folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',

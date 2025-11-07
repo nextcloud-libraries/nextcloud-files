@@ -8,6 +8,30 @@ import { File, FileType, NodeStatus } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 
 describe('File creation', () => {
+	test('clone a file', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
+			crtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
+			status: NodeStatus.NEW,
+		})
+		const clonedFile = file.clone()
+
+		expect(clonedFile).toBeInstanceOf(File)
+		expect(clonedFile).not.toBe(file)
+
+		// @ts-expect-error access to private property for testing
+		expect(clonedFile.data).not.toBe(file.data)
+		// @ts-expect-error access to private property for testing
+		expect(clonedFile.data).toEqual(file.data)
+
+		// see that the inner objects are cloned not copied (references)
+		expect(clonedFile.mtime).not.toBe(file.mtime)
+		expect(clonedFile.mtime?.toUTCString()).toBe(file.mtime?.toUTCString())
+	})
+
 	test('Valid dav file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',

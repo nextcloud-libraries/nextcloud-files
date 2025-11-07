@@ -21,7 +21,7 @@ export enum NodeStatus {
 	LOCKED = 'locked',
 }
 
-type NodeConstructorData = [NodeData, RegExp?]
+export type NodeConstructorData = [NodeData, RegExp?]
 
 export abstract class Node {
 
@@ -61,7 +61,7 @@ export abstract class Node {
 		},
 	} as ProxyHandler<Attribute>
 
-	constructor(...[data, davService]: NodeConstructorData) {
+	protected constructor(...[data, davService]: NodeConstructorData) {
 		if (!data.mime) {
 			data.mime = 'application/octet-stream'
 		}
@@ -420,7 +420,17 @@ export abstract class Node {
 	/**
 	 * Returns a clone of the node
 	 */
-	abstract clone(): Node
+	clone(): this {
+		// @ts-expect-error -- this class is abstract and cannot be instantiated directly but all its children can
+		return new this.constructor(this.data, this._knownDavService)
+	}
+
+	/**
+	 * Get the node data
+	 */
+	private get data(): NodeData {
+		return structuredClone(this._data)
+	}
 
 }
 
