@@ -2,20 +2,19 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+import type { NodeConstructorData } from './node'
+
 import { FileType } from './fileType'
 import { Node } from './node'
 
 export class File extends Node {
 
-	get type(): FileType.File {
-		return FileType.File
+	public constructor(...[data, davService]: NodeConstructorData) {
+		super(data, davService)
 	}
 
-	/**
-	 * Returns a clone of the file
-	 */
-	clone(): File {
-		return new File(structuredClone(this._data), this._knownDavService)
+	get type(): FileType.File {
+		return FileType.File
 	}
 
 }

@@ -47,13 +47,18 @@
     "test:watch": "vitest watch",
     "watch": "vite --mode development build --watch"
   },
+  "overrides": {
+    "@codecov/vite-plugin": {
+      "vite": "^7.0"
+    }
+  },
   "dependencies": {
     "@nextcloud/auth": "^2.5.3",
-    "@nextcloud/capabilities": "^1.2.0",
-    "@nextcloud/l10n": "^3.4.0",
+    "@nextcloud/capabilities": "^1.2.1",
+    "@nextcloud/l10n": "^3.4.1",
     "@nextcloud/logger": "^3.0.2",
-    "@nextcloud/paths": "^2.2.1",
-    "@nextcloud/router": "^3.0.1",
+    "@nextcloud/paths": "^2.3.0",
+    "@nextcloud/router": "^3.1.0",
     "@nextcloud/sharing": "^0.3.0",
     "cancelable-promise": "^4.3.1",
     "is-svg": "^6.1.0",
@@ -64,19 +69,19 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
     "@nextcloud/eslint-config": "^8.4.2",
-    "@nextcloud/event-bus": "^3.3.2",
-    "@nextcloud/typings": "^1.9.1",
-    "@nextcloud/vite-config": "^2.4.0",
-    "@types/node": "^24.9.1",
-    "@vitest/coverage-istanbul": "^3.2.4",
-    "fast-xml-parser": "^5.3.0",
-    "jsdom": "^27.0.1",
+    "@nextcloud/event-bus": "^3.3.3",
+    "@nextcloud/typings": "^1.10.0",
+    "@nextcloud/vite-config": "^2.5.2",
+    "@types/node": "^24.10.1",
+    "@vitest/coverage-istanbul": "^4.0.9",
+    "fast-xml-parser": "^5.3.2",
+    "jsdom": "^27.2.0",
     "tslib": "^2.8.1",
     "typedoc": "^0.28.14",
     "typedoc-plugin-missing-exports": "^4.1.2",
     "typescript": "^5.9.3",
-    "vite": "^6.4.1",
-    "vitest": "^3.0.4"
+    "vite": "^7.2.2",
+    "vitest": "^4.0.6"
   },
   "engines": {
     "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
@@ -90,7 +95,7 @@
     ],
     "runtime": {
       "name": "node",
-      "version": "^22.0.0"
+      "version": "^24.0.0"
     }
   }
 }
