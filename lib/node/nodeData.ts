@@ -12,7 +12,7 @@ export interface Attribute { [key: string]: any }
 
 export interface NodeData {
 	/** Unique ID */
-	id?: number
+	id?: number|string
 
 	/**
 	 * URL to the resource.
@@ -73,7 +73,7 @@ export const isDavResource = function(source: string, davService: RegExp): boole
  * @param davService Pattern to check if source is DAV ressource
  */
 export const validateData = (data: NodeData, davService: RegExp) => {
-	if (data.id && typeof data.id !== 'number') {
+	if (data.id && typeof data.id !== 'number' && typeof data.id !== 'string') {
 		throw new Error('Invalid id type of value')
 	}
 

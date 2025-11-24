@@ -302,15 +302,6 @@ describe('Displayname attribute', () => {
 })
 
 describe('Sanity checks', () => {
-	test('Invalid id', () => {
-		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-			id: '1234' as unknown as number,
-		})).toThrowError('Invalid id type of value')
-	})
-
 	test('Invalid source', () => {
 		expect(() => new File({} as unknown as NodeData)).toThrowError('Missing mandatory source')
 		expect(() => new Folder({
