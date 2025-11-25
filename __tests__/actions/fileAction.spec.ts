@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node } from '../../lib/node/index.ts'
+import type { Folder, Node } from '../../lib/node/index.ts'
 import type { View } from '../../lib/navigation/view.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
@@ -248,8 +248,8 @@ describe('FileActions creation', () => {
 		expect(action.displayName([], {} as unknown as View)).toBe('Test')
 		expect(action.title?.([], {} as unknown as View)).toBe('Test title')
 		expect(action.iconSvgInline([], {} as unknown as View)).toBe('<svg></svg>')
-		await expect(action.exec({} as unknown as Node, {} as unknown as View, '/')).resolves.toBe(true)
-		await expect(action.execBatch?.([], {} as unknown as View, '/')).resolves.toStrictEqual([true])
+		await expect(action.exec({} as unknown as Node, {} as unknown as View, {} as unknown as Folder, [])).resolves.toBe(true)
+		await expect(action.execBatch?.([], {} as unknown as View, {} as unknown as Folder, [])).resolves.toStrictEqual([true])
 		expect(action.enabled?.([], {} as unknown as View)).toBe(true)
 		expect(action.order).toBe(100)
 		expect(action.parent).toBe('123')

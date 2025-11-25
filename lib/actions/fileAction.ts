@@ -7,6 +7,7 @@ import type { Node } from '../node/node.ts'
 import type { View } from '../navigation/view.ts'
 
 import logger from '../utils/logger.ts'
+import { Folder } from '../node/folder.ts'
 
 export enum DefaultType {
 	DEFAULT = 'default',
@@ -62,14 +63,14 @@ export interface FileActionData {
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	exec: (file: Node, view: View, dir: string) => Promise<boolean|null>,
+	exec: (file: Node, view: View, folder: Folder, contents: Node[]) => Promise<boolean|null>,
 	/**
 	 * Function executed on multiple files action
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	execBatch?: (files: Node[], view: View, dir: string) => Promise<(boolean|null)[]>
+	execBatch?: (files: Node[], view: View, folder: Folder, contents: Node[]) => Promise<(boolean|null)[]>
 
 	/** This action order in the list */
 	order?: number
