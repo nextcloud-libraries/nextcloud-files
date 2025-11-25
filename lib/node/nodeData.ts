@@ -4,7 +4,6 @@
  */
 
 import { join } from 'path'
-import RegexParser from 'regex-parser'
 
 import { Permission } from '../permissions'
 import { NodeStatus } from './node'
@@ -163,6 +162,8 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 /**
  * In case we try to create a node from deserialized data,
  * we need to fix date types.
+ *
+ * @param data The internal node data
  */
 export const fixDates = (data: NodeData) => {
 	if (data.mtime && typeof data.mtime === 'string') {
@@ -180,9 +181,30 @@ export const fixDates = (data: NodeData) => {
 	}
 }
 
+/**
+ * Fix a RegExp pattern from string or RegExp to RegExp
+ *
+ * @param pattern The pattern as string or RegExp
+ */
 export const fixRegExp = (pattern: string | RegExp): RegExp => {
-	if (typeof pattern === 'string') {
-		return RegexParser(pattern)
+	if (pattern instanceof RegExp) {
+		return pattern
 	}
-	return pattern
+
+	// Extract the pattern and flags if it's a string
+	// Pulled from https://www.npmjs.com/package/regex-parser
+	const matches = pattern.match(/(\/?)(.+)\1([a-z]*)/i)
+
+	// If there's no match, throw an error
+	if (!matches) {
+		throw new Error('Invalid regular expression format.')
+	}
+
+	// Filter valid flags: 'g', 'i', 'm', 's', 'u', and 'y'
+	const validFlags = Array.from(new Set(matches[3]))
+		.filter((flag) => 'gimsuy'.includes(flag))
+		.join('')
+
+	// Create the regular expression
+	return new RegExp(matches[2], validFlags)
 }
