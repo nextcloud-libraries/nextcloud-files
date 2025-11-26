@@ -10,6 +10,9 @@ import { getFileListActions, registerFileListAction, FileListAction } from '../.
 import { Folder } from '../../lib/node/index.ts'
 import logger from '../../lib/utils/logger.ts'
 
+const folder = {} as Folder
+const view = {} as View
+
 const mockAction = (id: string) => new FileListAction({
 	id,
 	displayName: () => 'Test',
@@ -37,8 +40,8 @@ describe('FileListActions init', () => {
 		const testAction = mockAction('test')
 
 		expect(testAction.id).toBe('test')
-		expect(testAction.displayName({} as unknown as View)).toBe('Test')
-		expect(testAction.iconSvgInline!({} as unknown as View)).toBe('<svg></svg>')
+		expect(testAction.displayName({ view, folder })).toBe('Test')
+		expect(testAction.iconSvgInline!({ view, folder })).toBe('<svg></svg>')
 
 		registerFileListAction(testAction)
 		expect(actions).toHaveLength(1)
@@ -155,10 +158,10 @@ describe('FileListAction creation', () => {
 		})
 
 		expect(testAction.id).toBe('test')
-		expect(testAction.displayName({} as unknown as View)).toBe('Test')
-		expect(testAction.iconSvgInline!({} as unknown as View)).toBe('<svg></svg>')
+		expect(testAction.displayName({ view, folder })).toBe('Test')
+		expect(testAction.iconSvgInline!({ view, folder })).toBe('<svg></svg>')
 		expect(testAction.order).toBe(0)
-		expect(testAction.enabled?.({} as unknown as View, [], {} as Folder)).toBe(true)
-		await expect(testAction.exec({} as unknown as View, [], {} as Folder)).resolves.toBe(undefined)
+		expect(testAction.enabled?.({ view, folder })).toBe(true)
+		await expect(testAction.exec({ view, folder, nodes: [], content: [] })).resolves.toBe(undefined)
 	})
 })
