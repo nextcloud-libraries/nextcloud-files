@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node } from '../../lib/node/index.ts'
+import type { Folder, Node } from '../../lib/node/index.ts'
 import type { View } from '../../lib/navigation/view.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { getFileActions, registerFileAction, FileAction, DefaultType, FileActionData } from '../../lib/actions/index.ts'
 import logger from '../../lib/utils/logger.ts'
 
+const folder = {} as Folder
+const view = {} as View
 describe('FileActions init', () => {
 
 	beforeEach(() => {
@@ -34,8 +36,8 @@ describe('FileActions init', () => {
 		})
 
 		expect(action.id).toBe('test')
-		expect(action.displayName([], {} as unknown as View)).toBe('Test')
-		expect(action.iconSvgInline([], {} as unknown as View)).toBe('<svg></svg>')
+		expect(action.displayName({ view, folder, nodes: [], content: [] })).toBe('Test')
+		expect(action.iconSvgInline({ view, folder, nodes: [], content: [] })).toBe('<svg></svg>')
 
 		registerFileAction(action)
 
@@ -244,18 +246,20 @@ describe('FileActions creation', () => {
 			},
 		})
 
+		const node = {} as Node
+
 		expect(action.id).toBe('test')
-		expect(action.displayName([], {} as unknown as View)).toBe('Test')
-		expect(action.title?.([], {} as unknown as View)).toBe('Test title')
-		expect(action.iconSvgInline([], {} as unknown as View)).toBe('<svg></svg>')
-		await expect(action.exec({} as unknown as Node, {} as unknown as View, '/')).resolves.toBe(true)
-		await expect(action.execBatch?.([], {} as unknown as View, '/')).resolves.toStrictEqual([true])
-		expect(action.enabled?.([], {} as unknown as View)).toBe(true)
+		expect(action.displayName({ view, folder, nodes: [], content: [] })).toBe('Test')
+		expect(action.title?.({ view, folder, nodes: [], content: [] })).toBe('Test title')
+		expect(action.iconSvgInline({ view, folder, nodes: [], content: [] })).toBe('<svg></svg>')
+		await expect(action.exec({ view, folder, nodes: [node], content: [] })).resolves.toBe(true)
+		await expect(action.execBatch?.({ view, folder, nodes: [], content: [] })).resolves.toStrictEqual([true])
+		expect(action.enabled?.({ view, folder, nodes: [], content: [] })).toBe(true)
 		expect(action.order).toBe(100)
 		expect(action.parent).toBe('123')
 		expect(action.destructive).toBe(true)
 		expect(action.default).toBe(DefaultType.DEFAULT)
-		expect(action.inline?.({} as unknown as Node, {} as unknown as View)).toBe(true)
-		expect((await action.renderInline?.({} as unknown as Node, {} as unknown as View))?.outerHTML).toBe('<span>test</span>')
+		expect(action.inline?.({ view, folder, nodes: [], content: [] })).toBe(true)
+		expect((await action.renderInline?.({ view, folder, nodes: [], content: [] }))?.outerHTML).toBe('<span>test</span>')
 	})
 })

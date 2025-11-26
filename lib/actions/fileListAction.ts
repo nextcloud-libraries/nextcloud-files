@@ -2,10 +2,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
-import type { Folder } from '../node/folder.ts'
-import type { Node } from '../node/node.ts'
-import type { View } from '../navigation/view.ts'
+import type { ActionContext, ViewActionContext } from '../types'
 
 import logger from '../utils/logger.ts'
 
@@ -14,21 +11,18 @@ interface FileListActionData {
 	id: string
 
 	/** Translated name of the action */
-	displayName: (view: View) => string
+	displayName: (context: ViewActionContext) => string
 
 	/** Raw svg string */
-	iconSvgInline?: (view: View) => string
+	iconSvgInline?: (context: ViewActionContext) => string
 
 	/** Sort order */
 	order: number
 
 	/**
 	 * Condition whether this action is shown or not
-	 * @param view The current view
-	 * @param nodes The nodes in the current directory
-	 * @param folder The current folder
 	 */
-	enabled?: (view: View, nodes: Node[], folder: Folder) => boolean
+	enabled?: (context: ViewActionContext) => boolean
 
 	/**
 	 * Function executed on single file action
@@ -36,7 +30,7 @@ interface FileListActionData {
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	exec: (view: View, nodes: Node[], folder: Folder) => Promise<boolean|null>,
+	exec: (context: ActionContext) => Promise<boolean|null>,
 }
 
 export class FileListAction {
