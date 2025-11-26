@@ -208,9 +208,7 @@ describe('File serialization and deserialization', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			attributes: {
-				displayname: 'My Vacation Photo',
-			},
+			displayname: 'My Vacation Photo',
 		})
 
 		const parsed = JSON.parse(file.toJSON()) as [NodeData, RegExp?]

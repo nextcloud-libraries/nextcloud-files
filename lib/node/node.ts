@@ -8,7 +8,6 @@ import { encodePath } from '@nextcloud/paths'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, fixDates, fixRegExp, isDavResource, NodeData, validateData } from './nodeData'
-import logger from '../utils/logger'
 
 export enum NodeStatus {
 	/** This is a new node and it doesn't exists on the filesystem yet */
@@ -51,14 +50,6 @@ export abstract class Node {
 			// Apply original changes
 			return Reflect.deleteProperty(target, prop)
 		},
-		// TODO: This is deprecated and only needed for files v3
-		get: (target: Attribute, prop: string, receiver) => {
-			if (this.readonlyAttributes.includes(prop)) {
-				logger.warn(`Accessing "Node.attributes.${prop}" is deprecated, access it directly on the Node instance.`)
-				return Reflect.get(this, prop)
-			}
-			return Reflect.get(target, prop, receiver)
-		},
 	} as ProxyHandler<Attribute>
 
 	protected constructor(...[data, davService]: NodeConstructorData) {
@@ -74,8 +65,6 @@ export abstract class Node {
 		validateData(data, davService)
 
 		this._data = {
-			// TODO: Remove with next major release, this is just for compatibility
-			displayname: data.attributes?.displayname,
 			...data,
 			attributes: {},
 		}
