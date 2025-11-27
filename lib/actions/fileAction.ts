@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { ActionContext, ActionContextSingle } from '../types'
+import type { ActionContext, ActionContextSingle } from '../types.ts'
 
 import logger from '../utils/logger.ts'
 

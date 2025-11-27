@@ -6,21 +6,21 @@
 import { Folder, Node } from './node/index.ts'
 import { View } from './navigation/index.ts'
 
-type ActionContextSingle = {
+export type ActionContextSingle = {
 	nodes: [Node],
 	view: View,
 	folder: Folder,
 	content: Node[],
 }
 
-type ActionContext = {
+export type ActionContext = {
 	nodes: Node[],
 	view: View,
 	folder: Folder,
 	content: Node[],
 }
 
-type ViewActionContext = {
+export type ViewActionContext = {
 	view: View,
 	folder: Folder,
 }
