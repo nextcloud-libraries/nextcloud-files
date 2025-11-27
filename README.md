@@ -13,6 +13,15 @@ This library provides three kinds of utils:
 2. Geneal purpose function related to files or folders, like filename validation.
 3. Functions and classes to interact with the Nextcloud **files** app, like registering a new view or a file action.
 
+## Compatibility
+
+| `@nextcloud/files` version | Supported | Nextcloud version |
+|----------------------------|-----------|-------------------|
+|                        4.x |        ✅ |               30+ |
+|                        3.x |        ✅ |               26+ |
+|                        2.x |        ❌ |             23-25 |
+|                        1.x |        ❌ |             20-22 |
+
 ## Usage examples
 
 ### Files app

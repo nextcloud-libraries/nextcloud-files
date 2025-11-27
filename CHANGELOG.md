@@ -6,6 +6,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0 (UNRELEASED)
+### 📝 Notes
+* The support for Nextcloud versions below 30 has been removed,
+  this means some functions like filename validation will now only
+  work with the capabilities provided by Nextcloud 30 or newer.
+
 ## 4.0.0-beta.1 - 2025-11-27
 ### 🐛 Fixed bugs
 * fix: actions type exports by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1381

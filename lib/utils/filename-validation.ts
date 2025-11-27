@@ -78,7 +78,7 @@ export function validateFilename(filename: string): void {
 
 	// Handle forbidden characters
 	// This needs to be done first as the other checks are case insensitive!
-	const forbiddenCharacters = capabilities.forbidden_filename_characters ?? window._oc_config?.forbidden_filenames_characters ?? ['/', '\\']
+	const forbiddenCharacters = capabilities.forbidden_filename_characters ?? ['/', '\\']
 	for (const character of forbiddenCharacters) {
 		if (filename.includes(character)) {
 			throw new InvalidFilenameError({ segment: character, reason: InvalidFilenameErrorReason.Character, filename })
@@ -102,9 +102,7 @@ export function validateFilename(filename: string): void {
 		throw new InvalidFilenameError({ filename, segment: basename, reason: InvalidFilenameErrorReason.ReservedName })
 	}
 
-	// The legacy 'blacklist_files_regex' was hardcoded to the extension '.part' and '.filepart'
-	// So if the new (Nextcloud 30) capability is not awailable then we fallback to that
-	const forbiddenFilenameExtensions = capabilities.forbidden_filename_extensions ?? ['.part', '.filepart']
+	const forbiddenFilenameExtensions = capabilities.forbidden_filename_extensions ?? []
 	for (const extension of forbiddenFilenameExtensions) {
 		if (filename.length > extension.length && filename.endsWith(extension)) {
 			throw new InvalidFilenameError({ segment: extension, reason: InvalidFilenameErrorReason.Extension, filename })
@@ -114,7 +112,7 @@ export function validateFilename(filename: string): void {
 
 /**
  * Check the validity of a filename
- * This is a convinient wrapper for `checkFilenameValidity` to only return a boolean for the valid
+ * This is a convenient wrapper for `checkFilenameValidity` to only return a boolean for the valid
  * @param filename Filename to check validity
  */
 export function isFilenameValid(filename: string): boolean {
