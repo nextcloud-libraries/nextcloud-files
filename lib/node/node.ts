@@ -275,13 +275,6 @@ export abstract class Node {
 	}
 
 	/**
-	 * @deprecated use `isDavResource` instead - will be removed in next major version.
-	 */
-	get isDavRessource(): boolean {
-		return this.isDavResource
-	}
-
-	/**
 	 * Get the dav root of this object
 	 * There is no setter as the root is not meant to be changed
 	 */
