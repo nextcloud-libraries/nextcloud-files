@@ -10,14 +10,14 @@ export type ActionContextSingle = {
 	nodes: [Node],
 	view: View,
 	folder: Folder,
-	content: Node[],
+	contents: Node[],
 }
 
 export type ActionContext = {
 	nodes: Node[],
 	view: View,
 	folder: Folder,
-	content: Node[],
+	contents: Node[],
 }
 
 export type ViewActionContext = {
