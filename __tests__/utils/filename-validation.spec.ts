@@ -49,19 +49,6 @@ describe('validateFilename', () => {
 		expect(() => validateFilename('.htaccess')).toThrowError(InvalidFilenameError)
 	})
 
-	it('has fallback invalid extension', async () => {
-		expect(() => validateFilename('file.txt.part')).toThrowError(InvalidFilenameError)
-		expect(() => validateFilename('file.txt.filepart')).toThrowError(InvalidFilenameError)
-	})
-
-	// Nextcloud 29
-	it('fallback fetching forbidden characters from oc config', async () => {
-		window._oc_config = { forbidden_filenames_characters: ['=', '?'] }
-		expect(() => validateFilename('foo.bar')).not.toThrow()
-		expect(() => validateFilename('foo=bar')).toThrowError(InvalidFilenameError)
-		expect(() => validateFilename('foo?bar')).toThrowError(InvalidFilenameError)
-	})
-
 	// Nextcloud 30+
 	it('fetches forbidden characters from capabilities', async () => {
 		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_characters: ['=', '?'] } }))
@@ -136,14 +123,16 @@ describe('validateFilename', () => {
 	})
 
 	it('sets error properties correctly on invalid extension', async () => {
+		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_extensions: ['.txt'] } }))
+
 		try {
-			validateFilename('file.part')
+			validateFilename('file.txt')
 			expect(true, 'should not be reached').toBeFalsy()
 		} catch (error) {
 			expect(error).toBeInstanceOf(InvalidFilenameError)
 			expect((error as InvalidFilenameError).reason).toBe(InvalidFilenameErrorReason.Extension)
-			expect((error as InvalidFilenameError).segment).toBe('.part')
-			expect((error as InvalidFilenameError).filename).toBe('file.part')
+			expect((error as InvalidFilenameError).segment).toBe('.txt')
+			expect((error as InvalidFilenameError).filename).toBe('file.txt')
 		}
 	})
 

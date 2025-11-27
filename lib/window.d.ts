@@ -33,8 +33,6 @@ declare global {
 
 		_oc_config?: {
 			forbidden_filenames_characters: string[]
-			/** @deprecated */
-			blacklist_files_regex?: string
 		}
 	}
 }
