@@ -6,6 +6,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0-beta.0 - 2025-11-27
+### 💥 Breaking changes
+* fix(node): cloning by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1348
+* feat(actions): standardize contexts by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1124
+
+### 🚀 Enhancements
+* feat(node): allow to cast as JSON by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1349
+
+### 🐛 Fixed bugs
+* fix(sortNodes): do not trim "extension" of folder names by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1291
+
+### Other changes
+* chore: align devEngines with apps by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1355
+* chore: remove legacy node attributes deprecation by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1379
+* chore: work around bug in `corepack` blocking dependency updates by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1292
+* docs(View): improve documentation of `View.emptyView` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1290
+* chore(deps): Bump @nextcloud/auth from 2.5.1 to 2.5.3
+* chore(deps): Bump @nextcloud/capabilities from 1.2.0 to 1.2.1
+* chore(deps): Bump @nextcloud/l10n from 3.3.0 to 3.4.1
+* chore(deps): Bump @nextcloud/paths from 2.2.1 to 2.3.0
+* chore(deps): Bump @nextcloud/router from 3.0.1 to 3.1.0
+* chore(deps): Bump @nextcloud/sharing from 0.2.4 to 0.3.0
+* chore(deps): Bump brace-expansion
+* chore(deps): Bump is-svg from 6.0.0 to 6.1.0
+* chore(deps-dev): Bump @nextcloud/event-bus from 3.3.2 to 3.3.3
+* chore(deps-dev): Bump @nextcloud/typings from 1.9.1 to 1.10.0
+* chore(deps-dev): Bump @nextcloud/vite-config from 2.3.5 to 2.4.0
+* chore(deps-dev): Bump @types/node from 24.0.3 to 24.10.0
+* chore(deps-dev): Bump @vitest/coverage-istanbul from 4.0.6 to 4.0.13
+* chore(deps-dev): Bump fast-xml-parser from 5.2.5 to 5.3.2
+* chore(deps-dev): Bump js-yaml from 4.1.0 to 4.1.1
+* chore(deps-dev): Bump jsdom from 26.1.0 to 27.2.0
+* chore(deps-dev): Bump sha.js from 2.4.11 to 2.4.12
+* chore(deps-dev): Bump typedoc from 0.28.10 to 0.28.10
+* chore(deps-dev): Bump typedoc-plugin-missing-exports from 4.0.0 to 4.1.2
+* chore(deps-dev): Bump typescript from 5.8.3 to 5.9.3
+* chore(deps-dev): Bump vite from 6.3.5 to 7.2.4
+* chore(deps-dev): Bump vitest from 3.2.4 to 4.0.6
+
 ## 3.12.0 - 2025-07-24
 ### 🚀 Enhancements
 * feat(actions): allow to define hotkey for file action [\#1288](https://github.com/nextcloud-libraries/nextcloud-files/pull/1288) \([susnux](https://github.com/susnux)\)
