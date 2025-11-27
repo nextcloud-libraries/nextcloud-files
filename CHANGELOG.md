@@ -42,6 +42,14 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.2 - 2025-11-27
+### 💥 Breaking changes
+* chore!: drop deprecated DAV exports from main entry point by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1384
+* chore!: remove deprecated filename validation fallbacks for Nextcloud 29 and below by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1383
+* chore!: remove deprecated `NewMenuEntry.iconClass` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1385
+
+### Other changes
+* fix(actions): rename content to contents by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1386
 
 ## 4.0.0-beta.1 - 2025-11-27
 ### 🐛 Fixed bugs
