@@ -142,23 +142,7 @@ export abstract class Node {
 	 * You can use the rename or move method to change the source.
 	 */
 	get dirname(): string {
-		if (this.root) {
-			let source = this.source
-			if (this.isDavResource) {
-				// ensure we only work on the real path in case root is not distinct
-				source = source.split(this._knownDavService).pop()!
-			}
-			// Using replace would remove all part matching root
-			const firstMatch = source.indexOf(this.root)
-			// Ensure we do not remove the leading slash
-			const root = this.root.replace(/\/$/, '')
-			return dirname(source.slice(firstMatch + root.length) || '/')
-		}
-
-		// This should always be a valid URL
-		// as this is tested in the constructor
-		const url = new URL(this.source)
-		return dirname(url.pathname)
+		return dirname(this.path)
 	}
 
 	/**
@@ -285,38 +269,26 @@ export abstract class Node {
 	 * Get the dav root of this object
 	 * There is no setter as the root is not meant to be changed
 	 */
-	get root(): string|null {
-		// If provided (recommended), use the root and strip away the ending slash
-		if (this._data.root) {
-			return this._data.root.replace(/^(.+)\/$/, '$1')
-		}
-
-		// Use the source to get the root from the dav service
-		if (this.isDavResource) {
-			const root = dirname(this.source)
-			return root.split(this._knownDavService).pop() || null
-		}
-
-		return null
+	get root(): string {
+		return this._data.root.replace(/^(.+)\/$/, '$1')
 	}
 
 	/**
 	 * Get the absolute path of this object relative to the root
 	 */
 	get path(): string {
-		if (this.root) {
-			let source = this.source
-			if (this.isDavResource) {
-				// ensure we only work on the real path in case root is not distinct
-				source = source.split(this._knownDavService).pop()!
-			}
-			// Using replace would remove all part matching root
-			const firstMatch = source.indexOf(this.root)
-			// Ensure we do not remove the leading slash
-			const root = this.root.replace(/\/$/, '')
-			return source.slice(firstMatch + root.length) || '/'
+		const url = new URL(this.source)
+		let source = decodeURI(url.pathname)
+
+		if (this.isDavResource) {
+			// ensure we only work on the real path in case root is not distinct
+			source = source.split(this._knownDavService).pop()!
 		}
-		return (this.dirname + '/' + this.basename).replace(/\/\//g, '/')
+		// Using replace would remove all part matching root
+		const firstMatch = source.indexOf(this.root)
+		// Ensure we do not remove the leading slash
+		const root = this.root.replace(/\/$/, '')
+		return source.slice(firstMatch + root.length) || '/'
 	}
 
 	/**

@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 * The support for Nextcloud versions below 30 has been removed,
   this means some functions like filename validation will now only
   work with the capabilities provided by Nextcloud 30 or newer.
+* The Node API was changed, the `root` property of any node,
+  including `File` or `Folder`, is now required.
 
 #### DAV related export
 The DAV related exports from the main entry point were deprecated

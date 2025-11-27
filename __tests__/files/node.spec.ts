@@ -10,18 +10,10 @@ import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 
 describe('Node testing', () => {
-	test('Root null fallback', () => {
-		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-		})
-		expect(file.root).toBeNull()
-	})
-
 	test('Remove source ending slash', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Photos')
@@ -30,6 +22,7 @@ describe('Node testing', () => {
 	test('Invalid rename', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 		expect(() => file.rename('new/folder')).toThrowError('Invalid basename')
@@ -39,7 +32,8 @@ describe('Node testing', () => {
 describe('FileId attribute', () => {
 	test('FileId undefined', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -48,7 +42,8 @@ describe('FileId attribute', () => {
 
 	test('FileId definition', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			id: 1234,
@@ -59,7 +54,8 @@ describe('FileId attribute', () => {
 	// Mostly used when a node is unavailable
 	test('FileId negative', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			id: -1234,
@@ -70,6 +66,7 @@ describe('FileId attribute', () => {
 	test('FileId attributes no fallback', () => {
 		const file = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
@@ -83,7 +80,8 @@ describe('FileId attribute', () => {
 describe('Mime attribute', () => {
 	test('Mime definition', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -92,7 +90,8 @@ describe('Mime attribute', () => {
 
 	test('Default mime', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 		expect(file.mime).toBe('application/octet-stream')
@@ -100,7 +99,8 @@ describe('Mime attribute', () => {
 
 	test('Changing mime', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -112,7 +112,8 @@ describe('Mime attribute', () => {
 
 	test('Removing mime', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -127,7 +128,8 @@ describe('Mtime attribute', () => {
 	test('Mtime definition', () => {
 		const mtime = new Date()
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime,
@@ -138,7 +140,8 @@ describe('Mtime attribute', () => {
 	test('Mtime manual update', async () => {
 		const mtime = new Date()
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime,
@@ -159,7 +162,8 @@ describe('Mtime attribute', () => {
 	test('Mtime method update', async () => {
 		const mtime = new Date()
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime,
@@ -181,7 +185,8 @@ describe('Mtime attribute', () => {
 describe('Size attribute', () => {
 	test('Size definition', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 1234,
@@ -192,7 +197,8 @@ describe('Size attribute', () => {
 	test('Size update', async () => {
 		const mtime = new Date()
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 1234,
@@ -217,7 +223,8 @@ describe('Size attribute', () => {
 describe('Permissions attribute', () => {
 	test('Permissions definition', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			permissions: Permission.READ | Permission.UPDATE | Permission.CREATE | Permission.DELETE,
@@ -228,7 +235,8 @@ describe('Permissions attribute', () => {
 	test('Permissions update', async () => {
 		const mtime = new Date()
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			permissions: Permission.READ,
@@ -253,7 +261,8 @@ describe('Permissions attribute', () => {
 describe('Displayname attribute', () => {
 	test('Read displayname attribute', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			displayname: 'image.png',
@@ -264,7 +273,8 @@ describe('Displayname attribute', () => {
 
 	test('Fallback displayname attribute', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -274,7 +284,8 @@ describe('Displayname attribute', () => {
 
 	test('Set displayname attribute', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -290,6 +301,7 @@ describe('Sanity checks', () => {
 	test('Invalid id', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			id: '1234' as unknown as number,
@@ -299,16 +311,19 @@ describe('Sanity checks', () => {
 	test('Invalid source', () => {
 		expect(() => new File({} as unknown as NodeData)).toThrowError('Missing mandatory source')
 		expect(() => new Folder({
-			source: 'cloud.domain.com/remote.php/dav/Photos',
+			source: 'cloud.domain.com/remote.php/dav/files/emma/Photos',
+			root: '/files/emma',
 			owner: 'emma',
 		})).toThrowError('Invalid source')
 		expect(() => new File({
 			source: '/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})).toThrowError('Invalid source format, source must be a valid URL')
 		expect(() => new File({
 			source: 'ftp://remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})).toThrowError('Invalid source format, only http(s) is supported')
@@ -316,13 +331,15 @@ describe('Sanity checks', () => {
 
 	test('Invalid displayname', () => {
 		expect(() => new Folder({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos',
+			root: '/files/emma',
 			displayname: true as unknown as string,
 			owner: 'emma',
 		})).toThrowError('Invalid displayname type')
 
 		const file = new Folder({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos',
+			root: '/files/emma',
 			displayname: 'test',
 			owner: 'emma',
 		})
@@ -332,13 +349,15 @@ describe('Sanity checks', () => {
 
 	test('Invalid mtime', () => {
 		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			owner: 'emma',
 			mtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid mtime type')
 
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 		// @ts-expect-error wrong type error check
@@ -347,9 +366,10 @@ describe('Sanity checks', () => {
 
 	test('Invalid crtime', () => {
 		expect(() => new File({
-			source: 'https://cloud.domain.com/remote.php/dav/Photos/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
+			root: '/files/emma',
 			crtime: 'invalid' as unknown as Date,
 		})).toThrowError('Invalid crtime type')
 	})
@@ -359,10 +379,12 @@ describe('Sanity checks', () => {
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image',
 			owner: 'emma',
+			root: '/files/emma',
 		})).toThrowError('Missing or invalid mandatory mime')
 
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -374,6 +396,7 @@ describe('Sanity checks', () => {
 	test('Invalid attributes', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: 'test' as unknown as Attribute,
@@ -383,6 +406,7 @@ describe('Sanity checks', () => {
 	test('Invalid permissions', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			permissions: 324 as unknown as number,
@@ -392,6 +416,7 @@ describe('Sanity checks', () => {
 	test('Invalid size', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 'test' as unknown as number,
@@ -399,6 +424,7 @@ describe('Sanity checks', () => {
 
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -409,17 +435,26 @@ describe('Sanity checks', () => {
 	test('Invalid owner', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: true as unknown as string,
 		})).toThrowError('Invalid owner')
 	})
 
 	test('Invalid root', () => {
+		// @ts-expect-error -- mock so we can test missing root
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			root: true as unknown as string,
+		})).toThrowError('Missing mandatory root')
+
+		expect(() => new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			// @ts-expect-error -- mock so we can test wrong type
+			root: true,
 		})).toThrowError('Invalid root type')
 
 		expect(() => new File({
@@ -447,6 +482,7 @@ describe('Sanity checks', () => {
 	test('Invalid status', () => {
 		expect(() => new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			status: 'invalid' as unknown as NodeStatus,
@@ -454,6 +490,7 @@ describe('Sanity checks', () => {
 
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			status: NodeStatus.LOCKED,
@@ -467,6 +504,7 @@ describe('Dav service detection', () => {
 	test('Known dav services', () => {
 		const file1 = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -474,6 +512,7 @@ describe('Dav service detection', () => {
 
 		const file2 = new File({
 			source: 'https://cloud.domain.com/remote.php/webdav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -481,6 +520,7 @@ describe('Dav service detection', () => {
 
 		const file3 = new File({
 			source: 'https://cloud.domain.com/public.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -488,6 +528,7 @@ describe('Dav service detection', () => {
 
 		const file4 = new File({
 			source: 'https://cloud.domain.com/public.php/webdav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -497,6 +538,7 @@ describe('Dav service detection', () => {
 	test('Custom dav service', () => {
 		const file1 = new File({
 			source: 'https://cloud.domain.com/test.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		}, /test\.php\/dav/)
@@ -504,6 +546,7 @@ describe('Dav service detection', () => {
 
 		const file2 = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		}, /test\.php\/dav/)
@@ -515,6 +558,7 @@ describe('Permissions handling', () => {
 	test('Default permissions', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -524,6 +568,7 @@ describe('Permissions handling', () => {
 	test('Custom permissions', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			permissions: Permission.READ | Permission.UPDATE | Permission.CREATE | Permission.DELETE | Permission.SHARE,
@@ -533,16 +578,6 @@ describe('Permissions handling', () => {
 })
 
 describe('Root and paths detection', () => {
-	test('Unknown root', () => {
-		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-		})
-		expect(file.root).toBe('/files/emma/Photos')
-		expect(file.dirname).toBe('/')
-	})
-
 	test('Provided root dav service', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
@@ -608,18 +643,6 @@ describe('Root and paths detection', () => {
 		expect(file.root).toBe('/files/emma')
 		expect(file.dirname).toBe('/files')
 		expect(file.path).toBe('/files/emma.jpeg')
-	})
-
-	test('Non dav ressource with undefined root', () => {
-		const file = new File({
-			source: 'https://domain.com/files/images/emma.jpeg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-		})
-		expect(file.isDavResource).toBe(false)
-		expect(file.root).toBe(null)
-		expect(file.dirname).toBe('/files/images')
-		expect(file.path).toBe('/files/images/emma.jpeg')
 	})
 })
 
@@ -687,6 +710,7 @@ describe('Undefined properties are allowed', () => {
 	test('File', () => {
 		expect(() => new File({
 			source: 'https://domain.com/files/images/emma.jpeg',
+			root: '/files',
 			owner: 'emma',
 			id: undefined,
 			mtime: undefined,
@@ -696,13 +720,13 @@ describe('Undefined properties are allowed', () => {
 			size: undefined,
 			permissions: undefined,
 			attributes: undefined,
-			root: undefined,
 		})).not.toThrow()
 	})
 
 	test('Folder', () => {
 		expect(() => new Folder({
 			source: 'https://domain.com/files/images/',
+			root: '/files',
 			owner: 'emma',
 			id: undefined,
 			mtime: undefined,
@@ -711,7 +735,6 @@ describe('Undefined properties are allowed', () => {
 			size: undefined,
 			permissions: undefined,
 			attributes: undefined,
-			root: undefined,
 		})).not.toThrow()
 	})
 })
@@ -734,6 +757,7 @@ describe('Status handling', () => {
 	test('Update status', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
@@ -746,6 +770,7 @@ describe('Status handling', () => {
 	test('Clear status', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			status: NodeStatus.LOCKED,
@@ -761,6 +786,7 @@ describe('Attributes update', () => {
 	test('Update attributes', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
@@ -788,6 +814,7 @@ describe('Attributes update', () => {
 	test('Update attributes with protected getters', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 9999,
@@ -813,6 +840,7 @@ describe('Attributes update', () => {
 	test('Changing a protected attributes is not possible', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {

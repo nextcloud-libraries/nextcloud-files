@@ -312,10 +312,11 @@ describe('NewMenu getEntries filter', () => {
 		newFileMenu.registerEntry(entry2)
 
 		const context = new Folder({
+			source: 'https://example.com/remote.php/dav/files/admin/Folder',
+			root: '/files/admin',
 			id: 56,
 			owner: 'admin',
 			size: 2610077102,
-			source: 'https://example.com/remote.php/dav/files/admin/Folder',
 			permissions: Permission.ALL,
 		})
 
@@ -348,10 +349,11 @@ describe('NewMenu getEntries filter', () => {
 		newFileMenu.registerEntry(entry2)
 
 		const context = new Folder({
+			source: 'https://example.com/remote.php/dav/files/admin/Folder',
+			root: '/files/admin',
 			id: 56,
 			owner: 'admin',
 			size: 2610077102,
-			source: 'https://example.com/remote.php/dav/files/admin/Folder',
 			permissions: Permission.READ,
 		})
 
