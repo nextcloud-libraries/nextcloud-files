@@ -24,6 +24,25 @@ For example:
 + import { defaultRemoteURL } from '@nextcloud/files/dav'
 ```
 
+#### File Actions API changes
+The `FileAction` API has been changed to provide a more consistent
+set of context to the action handlers.
+We're now using destructuring objects for the context parameters.
+For example:
+
+```diff
+type ActionContext = {
+  nodes: Node[],
+  view: View,
+  folder: Folder,
+  contents: Node[],
+}
+
+- action.exec(view: View, folder: Folder, dir: string): Promise<boolean>
++ action.exec({ nodes, view, folder, contents }): Promise<boolean>
+```
+
+
 ## 4.0.0-beta.1 - 2025-11-27
 ### 🐛 Fixed bugs
 * fix: actions type exports by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1381
