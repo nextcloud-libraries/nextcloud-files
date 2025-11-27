@@ -16,7 +16,6 @@ import {
 	Folder,
 	Node,
 	Permission,
-	davParsePermissions,
 } from '../lib/index.ts'
 import { FileAction, registerFileAction, getFileActions } from '../lib/actions/fileAction.ts'
 import { NewMenu } from '../lib/newMenu/NewMenu.ts'
@@ -50,11 +49,6 @@ describe('Exports checks', () => {
 	test('Permission', () => {
 		expect(Permission).toBeTruthy()
 		expect(typeof Permission).toBe('object')
-	})
-
-	test('davParsePermissions', () => {
-		expect(davParsePermissions).toBeTruthy()
-		expect(typeof davParsePermissions).toBe('function')
 	})
 
 	test('File', () => {

@@ -6,6 +6,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0 (UNRELEASED)
+### 📝 Notes
+#### DAV related export
+The DAV related exports from the main entry point were deprecated
+for a long time and are now removed from it.
+Instead you have to use the `@nextcloud/files/dav` entry point.
+
+For example:
+
+```diff
+- import { davRemoteURL } from '@nextcloud/files'
++ import { defaultRemoteURL } from '@nextcloud/files/dav'
+```
+
 ## 4.0.0-beta.1 - 2025-11-27
 ### 🐛 Fixed bugs
 * fix: actions type exports by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1381
