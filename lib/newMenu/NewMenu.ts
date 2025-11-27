@@ -51,12 +51,6 @@ export interface NewMenuEntry {
 	 */
 	iconSvgInline?: string
 
-	/**
-	 * Existing icon css class
-	 * @deprecated use iconSvgInline instead
-	 */
-	iconClass?: string
-
 	/** Order of the entry in the menu */
 	order?: number
 
@@ -109,7 +103,7 @@ export class NewMenu {
 	}
 
 	private validateEntry(entry: NewMenuEntry) {
-		if (!entry.id || !entry.displayName || !(entry.iconSvgInline || entry.iconClass) || !entry.handler) {
+		if (!entry.id || !entry.displayName || !entry.iconSvgInline || !entry.handler) {
 			throw new Error('Invalid entry')
 		}
 
@@ -118,8 +112,7 @@ export class NewMenu {
 			throw new Error('Invalid id or displayName property')
 		}
 
-		if ((entry.iconClass && typeof entry.iconClass !== 'string')
-			|| (entry.iconSvgInline && typeof entry.iconSvgInline !== 'string')) {
+		if (entry.iconSvgInline && typeof entry.iconSvgInline !== 'string') {
 			throw new Error('Invalid icon provided')
 		}
 

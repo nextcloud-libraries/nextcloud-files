@@ -93,7 +93,7 @@ describe('NewFileMenu methods', () => {
 		id: 'empty-file',
 		displayName: 'Create empty file',
 		templateName: 'New file.txt',
-		iconClass: 'icon-filetype-text',
+		iconSvgInline: '<svg></svg>',
 		handler: () => {},
 	} as NewMenuEntry
 

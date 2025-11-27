@@ -37,7 +37,7 @@ describe('NewMenu addEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -53,7 +53,7 @@ describe('NewMenu addEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -65,7 +65,7 @@ describe('NewMenu addEntry', () => {
 			id: 'image',
 			displayName: 'Create new image',
 			templateName: 'New drawing.png',
-			iconClass: 'icon-filetype-image',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -77,7 +77,7 @@ describe('NewMenu addEntry', () => {
 			id: 'folder',
 			displayName: 'New folder',
 			templateName: 'New folder',
-			iconClass: 'icon-folder',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry3)
@@ -92,7 +92,7 @@ describe('NewMenu addEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -137,7 +137,7 @@ describe('NewMenu addEntry', () => {
 				id: 123456,
 				displayName: '123456',
 				templateName: 'New file.txt',
-				iconClass: 'icon-filetype-text',
+				iconSvgInline: '<svg></svg>',
 				handler: () => {},
 			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid id or displayName property')
@@ -147,7 +147,7 @@ describe('NewMenu addEntry', () => {
 				id: 'empty-file',
 				displayName: 123456,
 				templateName: 'New file.txt',
-				iconClass: 'icon-filetype-text',
+				iconSvgInline: '<svg></svg>',
 				handler: () => {},
 			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid id or displayName property')
@@ -157,7 +157,7 @@ describe('NewMenu addEntry', () => {
 				id: 'empty-file',
 				displayName: '123456',
 				templateName: 'New file.txt',
-				iconClass: 123456,
+				iconSvgInline: 123456,
 				handler: () => {},
 			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid icon provided')
@@ -177,7 +177,7 @@ describe('NewMenu addEntry', () => {
 				id: 'empty-file',
 				displayName: '123456',
 				templateName: 'New file.txt',
-				iconClass: 'icon-filetype-text',
+				iconSvgInline: '<svg></svg>',
 				enabled: true,
 				handler: () => {},
 			} as unknown as NewMenuEntry)
@@ -188,7 +188,7 @@ describe('NewMenu addEntry', () => {
 				id: 'empty-file',
 				displayName: '123456',
 				templateName: 'New file.txt',
-				iconClass: 'icon-filetype-text',
+				iconSvgInline: '<svg></svg>',
 				order: true,
 				handler: () => {},
 			} as unknown as NewMenuEntry)
@@ -199,7 +199,7 @@ describe('NewMenu addEntry', () => {
 				id: 'empty-file',
 				displayName: '123456',
 				templateName: 'New file.txt',
-				iconClass: 'icon-filetype-text',
+				iconSvgInline: '<svg></svg>',
 				handler: 'handler',
 			} as unknown as NewMenuEntry)
 		}).toThrowError('Invalid handler property')
@@ -211,7 +211,7 @@ describe('NewMenu addEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -228,7 +228,7 @@ describe('NewMenu addEntry', () => {
 			category: NewMenuEntryCategory.Other,
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -246,7 +246,7 @@ describe('NewMenu removeEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -265,7 +265,7 @@ describe('NewMenu removeEntry', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry)
@@ -295,7 +295,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file',
-			iconClass: 'icon-file',
+			iconSvgInline: '<svg></svg>',
 			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
@@ -305,7 +305,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-text-md',
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
@@ -331,7 +331,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file',
-			iconClass: 'icon-file',
+			iconSvgInline: '<svg></svg>',
 			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
@@ -341,7 +341,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-text-md',
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
@@ -365,7 +365,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-file',
 			displayName: 'Create template',
 			templateName: 'New file',
-			iconClass: 'icon-file',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -374,7 +374,7 @@ describe('NewMenu getEntries filter', () => {
 			id: 'empty-text-md',
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
@@ -405,7 +405,7 @@ describe('NewMenu sort test', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			order: 3,
 			handler: () => {},
 		}
@@ -414,7 +414,7 @@ describe('NewMenu sort test', () => {
 			id: 'image',
 			displayName: 'Create new image',
 			templateName: 'New drawing.png',
-			iconClass: 'icon-filetype-image',
+			iconSvgInline: '<svg></svg>',
 			order: 2,
 			handler: () => {},
 		}
@@ -423,7 +423,7 @@ describe('NewMenu sort test', () => {
 			id: 'folder',
 			displayName: 'New folder',
 			templateName: 'New folder',
-			iconClass: 'icon-folder',
+			iconSvgInline: '<svg></svg>',
 			order: 1,
 			handler: () => {},
 		}
@@ -444,7 +444,7 @@ describe('NewMenu sort test', () => {
 			id: 'empty-file',
 			displayName: 'Create empty file',
 			templateName: 'New file.txt',
-			iconClass: 'icon-filetype-text',
+			iconSvgInline: '<svg></svg>',
 			handler: () => {},
 		}
 
@@ -452,7 +452,7 @@ describe('NewMenu sort test', () => {
 			id: 'image',
 			displayName: 'Create new image 2',
 			templateName: 'New drawing.png',
-			iconClass: 'icon-filetype-image',
+			iconSvgInline: '<svg></svg>',
 			order: 1,
 			handler: () => {},
 		}
@@ -461,7 +461,7 @@ describe('NewMenu sort test', () => {
 			id: 'folder',
 			displayName: 'New folder',
 			templateName: 'New folder',
-			iconClass: 'icon-folder',
+			iconSvgInline: '<svg></svg>',
 			order: 0,
 			handler: () => {},
 		}
@@ -470,7 +470,7 @@ describe('NewMenu sort test', () => {
 			id: 'image2',
 			displayName: 'Create new image 1',
 			templateName: 'New drawing 2.png',
-			iconClass: 'icon-filetype-image',
+			iconSvgInline: '<svg></svg>',
 			order: 1,
 			handler: () => {},
 		}
