@@ -6,6 +6,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0-beta.1 - 2025-11-27
+### 🐛 Fixed bugs
+* fix: actions type exports by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1381
+
 ## 4.0.0-beta.0 - 2025-11-27
 ### 💥 Breaking changes
 * fix(node): cloning by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1348
