@@ -39,6 +39,7 @@ describe('File cloning', () => {
 	test('Clone preserves attributes', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
@@ -59,6 +60,7 @@ describe('File cloning', () => {
 	test('Clone is independent from original', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 100,
@@ -85,6 +87,7 @@ describe('File cloning', () => {
 	test('Clone works with minimal file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/file.txt',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 
@@ -99,6 +102,7 @@ describe('File cloning', () => {
 	test('Clone works with remote file', () => {
 		const file = new File({
 			source: 'https://domain.com/Photos/picture.jpg',
+			root: '/',
 			mime: 'image/jpeg',
 			owner: null,
 		})
@@ -145,6 +149,7 @@ describe('File serialization and deserialization', () => {
 	test('toString and JSON.parse preserves attributes', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			attributes: {
@@ -166,6 +171,7 @@ describe('File serialization and deserialization', () => {
 	test('toString and JSON.parse works with minimal file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/file.txt',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 
@@ -181,6 +187,7 @@ describe('File serialization and deserialization', () => {
 	test('toString and JSON.parse is independent from original', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 100,
@@ -206,6 +213,7 @@ describe('File serialization and deserialization', () => {
 	test('toString and JSON.parse preserves displayname', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			displayname: 'My Vacation Photo',
@@ -221,6 +229,7 @@ describe('File serialization and deserialization', () => {
 	test('toString and JSON.parse works with remote file', () => {
 		const file = new File({
 			source: 'https://domain.com/Photos/picture.jpg',
+			root: '/',
 			mime: 'image/jpeg',
 			owner: null,
 		})
@@ -245,6 +254,7 @@ describe('File serialization and deserialization', () => {
 		for (const status of statuses) {
 			const file = new File({
 				source: 'https://cloud.domain.com/remote.php/dav/files/emma/file.txt',
+				root: '/files/emma',
 				owner: 'emma',
 				status,
 			})
@@ -258,6 +268,7 @@ describe('File serialization and deserialization', () => {
 	test('toString output is valid JSON', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			size: 12345,

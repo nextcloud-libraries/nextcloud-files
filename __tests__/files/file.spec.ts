@@ -11,6 +11,7 @@ describe('File creation', () => {
 	test('Valid dav file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma/Photos',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -45,9 +46,9 @@ describe('File creation', () => {
 	test('Valid dav file with root', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			root: '/files/emma',
 		})
 
 		expect(file).toBeInstanceOf(File)
@@ -72,6 +73,7 @@ describe('File creation', () => {
 	test('Valid remote file', () => {
 		const file = new File({
 			source: 'https://domain.com/Photos/picture.jpg',
+			root: '/',
 			mime: 'image/jpeg',
 			owner: null,
 		})
@@ -89,7 +91,7 @@ describe('File creation', () => {
 		expect(file.basename).toBe('picture.jpg')
 		expect(file.extension).toBe('.jpg')
 		expect(file.dirname).toBe('/Photos')
-		expect(file.root).toBeNull()
+		expect(file.root).toBe('/')
 		expect(file.isDavResource).toBe(false)
 		expect(file.permissions).toBe(Permission.READ)
 	})
@@ -98,45 +100,48 @@ describe('File creation', () => {
 describe('File data change', () => {
 	test('Rename a file', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
 
 		expect(file.basename).toBe('picture.jpg')
 		expect(file.dirname).toBe('/')
-		expect(file.root).toBe('/files/emma/Photos')
+		expect(file.root).toBe('/files/emma')
 
 		file.rename('picture-old.jpg')
 
 		expect(file.basename).toBe('picture-old.jpg')
 		expect(file.dirname).toBe('/')
-		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture-old.jpg')
-		expect(file.root).toBe('/files/emma/Photos')
+		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/picture-old.jpg')
+		expect(file.root).toBe('/files/emma')
 	})
 
 	test('Moving a file', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
 
 		expect(file.basename).toBe('picture.jpg')
-		expect(file.dirname).toBe('/')
-		expect(file.root).toBe('/files/emma/Photos')
+		expect(file.dirname).toBe('/Photos')
+		expect(file.root).toBe('/files/emma')
 
 		file.move('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
 
 		expect(file.basename).toBe('picture-old.jpg')
-		expect(file.dirname).toBe('/')
+		expect(file.dirname).toBe('/Pictures')
 		expect(file.source).toBe('https://cloud.domain.com/remote.php/dav/files/emma/Pictures/picture-old.jpg')
-		expect(file.root).toBe('/files/emma/Pictures')
+		expect(file.root).toBe('/files/emma')
 	})
 
 	test('Moving a file to an invalid destination throws', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(2023, 0, 1, 0, 0, 0)),
@@ -184,6 +189,7 @@ describe('Altering attributes does NOT updates mtime', () => {
 	test('mtime is updated on existing attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -202,6 +208,7 @@ describe('Altering attributes does NOT updates mtime', () => {
 	test('mtime is NOT updated on new attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -217,6 +224,7 @@ describe('Altering attributes does NOT updates mtime', () => {
 	test('mtime is NOT updated on deleted attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -235,6 +243,7 @@ describe('Altering attributes does NOT updates mtime', () => {
 	test('mtime is NOT updated if not initially defined', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			permissions: Permission.READ,
@@ -254,6 +263,7 @@ describe('Altering top-level properties updates mtime', () => {
 	test('mtime is updated on permissions change', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),
@@ -271,6 +281,7 @@ describe('Altering top-level properties updates mtime', () => {
 	test('mtime is updated on size change', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma',
+			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
 			mtime: new Date(Date.UTC(1990, 0, 1, 0, 0, 0)),

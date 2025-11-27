@@ -161,7 +161,11 @@ describe('Invalid View creation', () => {
 
 describe('View creation', () => {
 	test('Create a View', async () => {
-		const folder = new Folder({ source: 'https://example.org', owner: 'admin' })
+		const folder = new Folder({
+			source: 'https://example.org/dav/files/admin/',
+			root: '/files/admin',
+			owner: 'admin',
+		})
 		const view = new View({
 			id: 'test',
 			name: 'Test',

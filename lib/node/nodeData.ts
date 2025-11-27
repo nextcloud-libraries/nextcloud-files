@@ -12,15 +12,22 @@ import { NodeStatus } from './node'
 export interface Attribute { [key: string]: any }
 
 export interface NodeData {
-	/** Unique ID */
-	id?: number
-
 	/**
 	 * URL to the resource.
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 * or https://domain.com/Photos/picture.jpg
 	 */
 	source: string
+
+	/**
+	 * The absolute root of the home relative to the service.
+	 * It is highly recommended to provide that information.
+	 * e.g. /files/emma
+	 */
+	root: string
+
+	/** Unique ID */
+	id?: number
 
 	/** Last modified time */
 	mtime?: Date
@@ -46,13 +53,6 @@ export interface NodeData {
 	/** The node attributes */
 	attributes?: Attribute
 
-	/**
-	 * The absolute root of the home relative to the service.
-	 * It is highly recommended to provide that information.
-	 * e.g. /files/emma
-	 */
-	root?: string
-
 	/** The node status */
 	status?: NodeStatus
 }
@@ -73,7 +73,7 @@ export const isDavResource = function(source: string, davService: RegExp): boole
  * @param data The node data
  * @param davService Pattern to check if source is DAV ressource
  */
-export const validateData = (data: NodeData, davService: RegExp) => {
+export function validateData(data: NodeData, davService: RegExp) {
 	if (data.id && typeof data.id !== 'number') {
 		throw new Error('Invalid id type of value')
 	}
@@ -91,6 +91,29 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 
 	if (!data.source.startsWith('http')) {
 		throw new Error('Invalid source format, only http(s) is supported')
+	}
+
+	if (!data.root) {
+		throw new Error('Missing mandatory root')
+	}
+
+	if (typeof data.root !== 'string') {
+		throw new Error('Invalid root type')
+	}
+
+	if (!data.root.startsWith('/')) {
+		throw new Error('Root must start with a leading slash')
+	}
+
+	if (!data.source.includes(data.root)) {
+		throw new Error('Root must be part of the source')
+	}
+
+	if (isDavResource(data.source, davService)) {
+		const service = data.source.match(davService)![0]
+		if (!data.source.includes(join(service, data.root))) {
+			throw new Error('The root must be relative to the service. e.g /files/emma')
+		}
 	}
 
 	if (data.displayname && typeof data.displayname !== 'string') {
@@ -133,25 +156,6 @@ export const validateData = (data: NodeData, davService: RegExp) => {
 
 	if (data.attributes && typeof data.attributes !== 'object') {
 		throw new Error('Invalid attributes type')
-	}
-
-	if (data.root && typeof data.root !== 'string') {
-		throw new Error('Invalid root type')
-	}
-
-	if (data.root && !data.root.startsWith('/')) {
-		throw new Error('Root must start with a leading slash')
-	}
-
-	if (data.root && !data.source.includes(data.root)) {
-		throw new Error('Root must be part of the source')
-	}
-
-	if (data.root && isDavResource(data.source, davService)) {
-		const service = data.source.match(davService)![0]
-		if (!data.source.includes(join(service, data.root))) {
-			throw new Error('The root must be relative to the service. e.g /files/emma')
-		}
 	}
 
 	if (data.status && !Object.values(NodeStatus).includes(data.status)) {

@@ -4,11 +4,12 @@
  */
 import type { Attribute } from '../../lib/node/index.ts'
 
-import { ArgumentsType, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib'
 
 const file = (name: string, size?: number, modified?: number, favorite = false, attributes: Attribute = {}) => new File({
-	source: `https://cloud.domain.com/remote.php/dav/${name}`,
+	source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
+	root: '/files/emma',
 	mime: 'text/plain',
 	owner: 'jdoe',
 	mtime: new Date(modified ?? Date.now()),
@@ -21,7 +22,8 @@ const file = (name: string, size?: number, modified?: number, favorite = false, 
 })
 
 const folder = (name: string, size?: number, modified?: number, favorite = false) => new Folder({
-	source: `https://cloud.domain.com/remote.php/dav/${name}`,
+	source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
+	root: '/files/emma',
 	owner: 'jdoe',
 	mtime: new Date(modified ?? Date.now()),
 	size,
@@ -32,7 +34,7 @@ const folder = (name: string, size?: number, modified?: number, favorite = false
 		: undefined,
 })
 
-const sortNodes = (...args: ArgumentsType<typeof originalSortNodes>) => originalSortNodes(...args).map((node) => node.basename)
+const sortNodes = (...args: Parameters<typeof originalSortNodes>) => originalSortNodes(...args).map((node) => node.basename)
 
 describe('sortNodes', () => {
 	test('By default files are sorted by name', () => {
@@ -89,7 +91,8 @@ describe('sortNodes', () => {
 				owner: 'jdoe',
 				mime: 'text/plain',
 				// Resulting in name "d"
-				source: 'https://cloud.domain.com/remote.php/dav/d',
+				source: 'https://cloud.domain.com/remote.php/dav/files/jdoe/d',
+				root: '/files/jdoe',
 				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,
@@ -108,7 +111,8 @@ describe('sortNodes', () => {
 				owner: 'jdoe',
 				mime: 'text/plain',
 				// Resulting in name "d"
-				source: 'https://cloud.domain.com/remote.php/dav/c',
+				source: 'https://cloud.domain.com/remote.php/dav/files/jdoe/c',
+				root: '/files/jdoe',
 				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,
@@ -118,7 +122,8 @@ describe('sortNodes', () => {
 				owner: 'jdoe',
 				mime: 'text/plain',
 				// Resulting in name "d"
-				source: 'https://cloud.domain.com/remote.php/dav/b',
+				source: 'https://cloud.domain.com/remote.php/dav/files/jdoe/b',
+				root: '/files/jdoe',
 				displayname: 'a',
 				mtime: new Date(100),
 				size: 100,

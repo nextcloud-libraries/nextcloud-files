@@ -12,6 +12,7 @@ describe('Folder creation', () => {
 	test('Valid dav folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 
@@ -61,6 +62,7 @@ describe('Folder creation', () => {
 	test('Valid remote folder', () => {
 		const folder = new Folder({
 			source: 'https://domain.com/Photos/',
+			root: '/',
 			owner: null,
 		})
 
@@ -77,7 +79,7 @@ describe('Folder creation', () => {
 		expect(folder.basename).toBe('Photos')
 		expect(folder.extension).toBeNull()
 		expect(folder.dirname).toBe('/')
-		expect(folder.root).toBeNull()
+		expect(folder.root).toBe('/')
 		expect(folder.isDavResource).toBe(false)
 		expect(folder.permissions).toBe(Permission.READ)
 	})
@@ -87,6 +89,7 @@ describe('Folder data change', () => {
 	test('Rename a folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 
@@ -105,6 +108,7 @@ describe('Folder data change', () => {
 	test('Moving a folder', () => {
 		const folder = new Folder({
 			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/',
+			root: '/files/emma',
 			owner: 'emma',
 		})
 
