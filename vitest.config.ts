@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: CC0-1.0
  */
 
+import { defineConfig } from 'vite'
 import config from './vite.config'
 
-export default async (env) => {
+export default defineConfig(async (env) => {
 	const cfg = await config(env)
 	delete cfg.define
 
@@ -25,4 +26,4 @@ export default async (env) => {
 			globalSetup: '__tests__/test-global-setup.ts',
 		},
 	}
-}
+})
