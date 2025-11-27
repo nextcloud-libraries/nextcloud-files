@@ -5,7 +5,7 @@
 
 import type { Attribute, NodeData } from '../../lib/node/index.ts'
 
-import { describe, expect, test, vi } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 
@@ -251,21 +251,6 @@ describe('Permissions attribute', () => {
 })
 
 describe('Displayname attribute', () => {
-	test('legacy displayname attribute', () => {
-		// TODO: This logic can be removed with next major release (v4)
-		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-			attributes: {
-				displayname: 'image.png',
-			},
-		})
-		expect(file.basename).toBe('picture.jpg')
-		expect(file.displayname).toBe('image.png')
-		expect(file.attributes.displayname).toBe('image.png')
-	})
-
 	test('Read displayname attribute', () => {
 		const file = new File({
 			source: 'https://cloud.domain.com/remote.php/dav/picture.jpg',
@@ -820,26 +805,9 @@ describe('Attributes update', () => {
 		})
 
 		expect(file.attributes?.etag).toBe('5678')
-		expect(file.attributes?.size).toBe(9999)
-		expect(file.attributes?.owner).toBe('emma')
-		expect(file.attributes?.fileid).toBeUndefined()
-	})
-
-	test('Deprecated access to toplevel attributes', () => {
-		const spy = vi.spyOn(window.console, 'warn')
-		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg',
-			mime: 'image/jpeg',
-			owner: 'emma',
-			size: 9999,
-			attributes: {
-				etag: '1234',
-				size: 9999,
-			},
-		})
-
-		expect(file.attributes.size).toBe(9999)
-		expect(spy).toBeCalledTimes(1)
+		expect(file?.size).toBe(9999)
+		expect(file?.owner).toBe('emma')
+		expect(file?.fileid).toBeUndefined()
 	})
 
 	test('Changing a protected attributes is not possible', () => {
@@ -853,9 +821,10 @@ describe('Attributes update', () => {
 		})
 
 		// We can not update the owner
-		expect(() => { file.attributes.owner = 'admin' }).toThrowError()
+		// @ts-expect-error owner is a read-only property
+		expect(() => { file.owner = 'admin' }).toThrowError()
 		// The owner is still the original one
-		expect(file.attributes?.owner).toBe('emma')
+		expect(file?.owner).toBe('emma')
 	})
 
 })
