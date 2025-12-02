@@ -102,12 +102,12 @@ export interface FileActionData {
 	/**
 	 * If true, the renderInline function will be called
 	 */
-	inline?: (context: ActionContext) => boolean,
+	inline?: (context: ActionContextSingle) => boolean,
 	/**
 	 * If defined, the returned html element will be
 	 * appended before the actions menu.
 	 */
-	renderInline?: (context: ActionContext) => Promise<HTMLElement | null>,
+	renderInline?: (context: ActionContextSingle) => Promise<HTMLElement | null>,
 }
 
 export class FileAction {
