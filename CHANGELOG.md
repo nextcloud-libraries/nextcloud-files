@@ -44,6 +44,16 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.3 - 2025-12-03
+### 💥 Breaking changes
+* refactor(Node)!: make `Node.root` a required attribute by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1388
+### 🐛 Fixed bugs
+* fix(actions): only pass a single node to renderInline by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1391
+* fix(actions): add back nodes contents to view action params by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1392
+### Other changes
+* chore(Node)!: remove deprecated `isDavRessource` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1390
+* chore(deps): align and update vitest dependencies by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1389
+
 ## 4.0.0-beta.2 - 2025-11-27
 ### 💥 Breaking changes
 * chore!: drop deprecated DAV exports from main entry point by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1384
