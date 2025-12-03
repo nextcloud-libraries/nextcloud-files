@@ -23,4 +23,5 @@ export type ActionContext = {
 export type ViewActionContext = {
 	view: View,
 	folder: Folder,
+	contents: Node[],
 }
