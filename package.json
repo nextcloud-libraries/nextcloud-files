@@ -80,7 +80,7 @@
     "typedoc-plugin-missing-exports": "^4.1.2",
     "typescript": "^5.9.3",
     "vite": "^7.2.4",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.15"
   },
   "engines": {
     "node": "^20.0.0 || ^22.0.0 || ^24.0.0"
