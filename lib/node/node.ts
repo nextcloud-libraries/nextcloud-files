@@ -270,8 +270,21 @@ export abstract class Node {
 	 * Get the absolute path of this object relative to the root
 	 */
 	get path(): string {
-		const url = new URL(this.source)
-		let source = decodeURI(url.pathname)
+		// Extract the path part from the source URL
+		// e.g. https://cloud.domain.com/remote.php/dav/files/username/Path/To/File.txt
+		const idx = this.source.indexOf('://')
+		const protocol = this.source.slice(0, idx) // e.g. https
+		const remainder = this.source.slice(idx + 3) // e.g. cloud.domain.com/remote.php/dav/files/username/Path/To/File.txt
+
+		const slashIndex = remainder.indexOf('/')
+		const host = remainder.slice(0, slashIndex) // e.g. cloud.domain.com
+		const rawPath = remainder.slice(slashIndex) // e.g. /remote.php/dav/files/username/Path/To/File.txt
+
+		// Rebuild a safe URL with encoded path
+		const safeUrl = `${protocol}://${host}${encodePath(rawPath)}`
+		const url = new URL(safeUrl)
+
+		let source = decodeURIComponent(url.pathname)
 
 		if (this.isDavResource) {
 			// ensure we only work on the real path in case root is not distinct
