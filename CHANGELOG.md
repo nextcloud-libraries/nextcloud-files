@@ -44,12 +44,23 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.4 - 2025-12-09
+### 🐛 Fixed bugs
+* fix(node): better special character encoding and detection by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1398
+
+### Other changes
+* chore(deps-dev): Bump typedoc from 0.28.14 to 0.28.15 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1394
+* chore(deps-dev): Bump vite from 7.2.4 to 7.2.6 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1397
+* chore(deps-dev): Bump @vitest/coverage-istanbul from 4.0.14 to 4.0.15 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1396
+
 ## 4.0.0-beta.3 - 2025-12-03
 ### 💥 Breaking changes
 * refactor(Node)!: make `Node.root` a required attribute by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1388
+
 ### 🐛 Fixed bugs
 * fix(actions): only pass a single node to renderInline by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1391
 * fix(actions): add back nodes contents to view action params by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1392
+
 ### Other changes
 * chore(Node)!: remove deprecated `isDavRessource` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1390
 * chore(deps): align and update vitest dependencies by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1389
