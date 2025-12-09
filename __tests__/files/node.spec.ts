@@ -740,16 +740,66 @@ describe('Undefined properties are allowed', () => {
 })
 
 describe('Encoded source is handled properly', () => {
-	test('File', () => {
+	test('File with special characters', () => {
 		const file = new File({
-			source: 'https://cloud.domain.com/remote.php/dav/files/em ma!/Photos~⛰️ shot of a $[big} mountain/realy #1\'s.md',
+			source: 'https://cloud.domain.com/remote.php/dav/files/em ma!/Photos~⛰️ shot of a $[big} mountain/really #1\'s.md',
 			owner: 'em ma!',
 			id: 123456,
 			mime: 'image/jpeg',
 			root: '/files/em ma!',
 		})
 
-		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/em%20ma!/Photos~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/realy%20%231\'s.md')
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/em%20ma!/Photos~%E2%9B%B0%EF%B8%8F%20shot%20of%20a%20%24%5Bbig%7D%20mountain/really%20%231\'s.md')
+		expect(file.path).toBe('/Photos~⛰️ shot of a $[big} mountain/really #1\'s.md')
+		expect(file.basename).toBe('really #1\'s.md')
+	})
+
+	test('Folder with question mark', () => {
+		const folder = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma?/Photos?',
+			owner: 'emma?',
+			root: '/files/emma?',
+		})
+
+		expect(folder.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma%3F/Photos%3F')
+		expect(folder.path).toBe('/Photos?')
+		expect(folder.basename).toBe('Photos?')
+	})
+
+	test('Folder with percent characters', () => {
+		const folder = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma%/Ph%otos/rea%lly%',
+			owner: 'emma%',
+			root: '/files/emma%',
+		})
+
+		expect(folder.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma%25/Ph%25otos/rea%25lly%25')
+		expect(folder.path).toBe('/Ph%otos/rea%lly%')
+		expect(folder.basename).toBe('rea%lly%')
+	})
+
+	test('Unicode combining marks', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/cre\u0301me',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+
+		expect(file.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma/cre%CC%81me')
+		expect(file.path).toBe('/créme')
+		expect(file.basename).toBe('créme')
+	})
+
+	test('Plus signs in filename', () => {
+		const folder = new Folder({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/My+Folder/fi+le+.txt',
+			owner: 'emma',
+			root: '/files/emma',
+		})
+
+		expect(folder.encodedSource).toBe('https://cloud.domain.com/remote.php/dav/files/emma/My%2BFolder/fi%2Ble%2B.txt')
+		expect(folder.path).toBe('/My+Folder/fi+le+.txt')
+		expect(folder.basename).toBe('fi+le+.txt')
 	})
 })
 
