@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Node } from '../node/node.ts'
-import type { View } from './view.ts'
+import type { INode } from '../node/node.ts'
+import type { IView } from './view.ts'
 
 interface ColumnData {
 	/** Unique column ID */
@@ -12,14 +12,14 @@ interface ColumnData {
 	/** Translated column title */
 	title: string
 	/** The content of the cell. The element will be appended within */
-	render: (node: Node, view: View) => HTMLElement
-	/** Function used to sort Nodes between them */
-	sort?: (nodeA: Node, nodeB: Node) => number
+	render: (node: INode, view: IView) => HTMLElement
+	/** Function used to sort INodes between them */
+	sort?: (nodeA: INode, nodeB: INode) => number
 	/**
 	 * Custom summary of the column to display at the end of the list.
 	 * Will not be displayed if  nothing is provided
 	 */
-	summary?: (node: Node[], view: View) => string
+	summary?: (node: INode[], view: IView) => string
 }
 
 export class Column implements ColumnData {

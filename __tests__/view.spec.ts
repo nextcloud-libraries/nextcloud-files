@@ -161,31 +161,7 @@ describe('Invalid View creation', () => {
 
 describe('View creation', () => {
 	test('Create a View', async () => {
-		const folder = new Folder({
-			source: 'https://example.org/dav/files/admin/',
-			root: '/files/admin',
-			owner: 'admin',
-		})
-		const view = new View({
-			id: 'test',
-			name: 'Test',
-			caption: 'Test caption',
-			emptyTitle: 'Test empty title',
-			emptyCaption: 'Test empty caption',
-			getContents: () => Promise.resolve({ folder, contents: [] }),
-			hidden: true,
-			icon: '<svg></svg>',
-			order: 1,
-			params: {},
-			columns: [],
-			emptyView: () => {},
-			parent: 'parent',
-			sticky: false,
-			expanded: false,
-			defaultSortKey: 'key',
-			loadChildViews: async () => {},
-		})
-
+		const { view, folder } = mockView()
 		expect(view.id).toBe('test')
 		expect(view.name).toBe('Test')
 		expect(view.caption).toBe('Test caption')
@@ -205,3 +181,33 @@ describe('View creation', () => {
 		await expect(view.loadChildViews?.({} as unknown as View)).resolves.toBe(undefined)
 	})
 })
+
+export function mockView() {
+	const folder = new Folder({
+		source: 'https://example.org/dav/files/admin/',
+		root: '/files/admin',
+		owner: 'admin',
+	})
+
+	const view = new View({
+		id: 'test',
+		name: 'Test',
+		caption: 'Test caption',
+		emptyTitle: 'Test empty title',
+		emptyCaption: 'Test empty caption',
+		getContents: () => Promise.resolve({ folder, contents: [] }),
+		hidden: true,
+		icon: '<svg></svg>',
+		order: 1,
+		params: {},
+		columns: [],
+		emptyView: () => {},
+		parent: 'parent',
+		sticky: false,
+		expanded: false,
+		defaultSortKey: 'key',
+		loadChildViews: async () => {},
+	})
+
+	return { folder, view }
+}

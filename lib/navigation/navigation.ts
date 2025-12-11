@@ -2,7 +2,10 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { View } from './view'
+
+import type { IView } from './view'
+
+import { validateView } from './view'
 import { TypedEventTarget } from 'typescript-event-target'
 import logger from '../utils/logger'
 
@@ -10,7 +13,7 @@ import logger from '../utils/logger'
  * The event is emitted when the navigation view was updated.
  * It contains the new active view in the `detail` attribute.
  */
-interface UpdateActiveViewEvent extends CustomEvent<View | null> {
+interface UpdateActiveViewEvent extends CustomEvent<IView | null> {
 	type: 'updateActive'
 }
 
@@ -44,18 +47,21 @@ interface UpdateViewsEvent extends CustomEvent<never> {
  */
 export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveViewEvent, update: UpdateViewsEvent }> {
 
-	private _views: View[] = []
-	private _currentView: View | null = null
+	private _views: IView[] = []
+	private _currentView: IView | null = null
 
 	/**
 	 * Register a new view on the navigation
 	 * @param view The view to register
-	 * @throws `Error` is thrown if a view with the same id is already registered
+	 * @throws {Error} if a view with the same id is already registered
+	 * @throws {Error} if the registered view is invalid
 	 */
-	register(view: View): void {
+	register(view: IView): void {
 		if (this._views.find(search => search.id === view.id)) {
-			throw new Error(`View id ${view.id} is already registered`)
+			throw new Error(`IView id ${view.id} is already registered`)
 		}
+
+		validateView(view)
 
 		this._views.push(view)
 		this.dispatchTypedEvent('update', new CustomEvent<never>('update') as UpdateViewsEvent)
@@ -78,23 +84,23 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
 	 * @fires UpdateActiveViewEvent
 	 * @param view New active view
 	 */
-	setActive(view: View | null): void {
+	setActive(view: IView | null): void {
 		this._currentView = view
-		const event = new CustomEvent<View | null>('updateActive', { detail: view })
+		const event = new CustomEvent<IView | null>('updateActive', { detail: view })
 		this.dispatchTypedEvent('updateActive', event as UpdateActiveViewEvent)
 	}
 
 	/**
 	 * The currently active files view
 	 */
-	get active(): View | null {
+	get active(): IView | null {
 		return this._currentView
 	}
 
 	/**
 	 * All registered views
 	 */
-	get views(): View[] {
+	get views(): IView[] {
 		return this._views
 	}
 
