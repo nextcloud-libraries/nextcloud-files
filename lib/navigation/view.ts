@@ -6,7 +6,9 @@
 import type { Folder } from '../node/folder.ts'
 import type { Node } from '../node/node.ts'
 
+import { emit } from '@nextcloud/event-bus'
 import isSvg from 'is-svg'
+
 import { Column } from './column.ts'
 
 export type ContentsWithRoot = {
@@ -188,6 +190,23 @@ export class View implements ViewData {
 
 	get loadChildViews() {
 		return this._view.loadChildViews
+	}
+
+	/**
+	 * Allows to update the view data.
+	 * This will throw an error if the view is not valid.
+	 * Warning: the view ID is immutable and cannot be changed after creation.
+	 * @param {Partial<ViewData>} view the view data to update
+	 */
+	update(view: Partial<ViewData>) {
+		if (view.id && view.id !== this._view.id) {
+			throw new Error('The view ID is immutable and cannot be changed after creation')
+		}
+
+		isValidView({ ...this._view, ...view })
+		Object.assign(this._view, view)
+
+		emit('files:view:updated', this)
 	}
 
 }
