@@ -4,9 +4,7 @@
  */
 import { describe, it, expect, vi } from 'vitest'
 import { Navigation, getNavigation } from '../lib/navigation/navigation'
-import { View } from '../lib/navigation/view'
-
-const mockView = (id = 'view', order = 1) => new View({ id, order, name: 'View', icon: '<svg></svg>', getContents: () => Promise.reject(new Error()) })
+import { mockView } from './view.spec'
 
 describe('getNavigation', () => {
 	it('creates a new navigation if needed', () => {
@@ -40,15 +38,23 @@ describe('getNavigation', () => {
 describe('Navigation', () => {
 	it('Can register a view', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		navigation.register(view)
 
 		expect(navigation.views).toEqual([view])
 	})
 
+	it('Throws when trying to register invalid view', async () => {
+		const navigation = new Navigation()
+		expect(() => {
+			// @ts-expect-error mocking to test invalid input
+			navigation.register({ id: 'someid' })
+		}).toThrowError()
+	})
+
 	it('Throws when registering the same view twice', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		navigation.register(view)
 		expect(() => navigation.register(view)).toThrow(/already registered/)
 		expect(navigation.views).toEqual([view])
@@ -56,7 +62,7 @@ describe('Navigation', () => {
 
 	it('Emits update event after registering a view', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		const listener = vi.fn()
 
 		navigation.addEventListener('update', listener)
@@ -68,7 +74,7 @@ describe('Navigation', () => {
 
 	it('Can remove a view', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		navigation.register(view)
 		expect(navigation.views).toEqual([view])
 		navigation.remove(view.id)
@@ -77,7 +83,7 @@ describe('Navigation', () => {
 
 	it('Emits update event after removing a view', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		const listener = vi.fn()
 		navigation.register(view)
 		navigation.addEventListener('update', listener)
@@ -98,7 +104,7 @@ describe('Navigation', () => {
 
 	it('Can set a view as active', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		navigation.register(view)
 
 		expect(navigation.active).toBe(null)
@@ -109,7 +115,7 @@ describe('Navigation', () => {
 
 	it('Emits event when setting a view as active', async () => {
 		const navigation = new Navigation()
-		const view = mockView()
+		const { view } = mockView()
 		navigation.register(view)
 
 		// add listener

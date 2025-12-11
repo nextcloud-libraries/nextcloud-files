@@ -14,7 +14,7 @@ export type ContentsWithRoot = {
 	contents: Node[]
 }
 
-interface ViewData {
+export interface IView {
 	/** Unique view ID */
 	id: string
 	/** Translated view name */
@@ -97,12 +97,12 @@ interface ViewData {
 	loadChildViews?: (view: View) => Promise<void>
 }
 
-export class View implements ViewData {
+export class View implements IView {
 
-	private _view: ViewData
+	private _view: IView
 
-	constructor(view: ViewData) {
-		isValidView(view)
+	constructor(view: IView) {
+		validateView(view)
 		this._view = view
 	}
 
@@ -193,14 +193,12 @@ export class View implements ViewData {
 }
 
 /**
- * Typescript cannot validate an interface.
- * Please keep in sync with the View interface requirements.
+ * Validate a view interface to check all required properties are satisfied.
  *
- * @param {ViewData} view the view to check
- * @return {boolean} true if the column is valid
+ * @param view the view to check
  * @throws {Error} if the view is not valid
  */
-const isValidView = function(view: ViewData): boolean {
+export function validateView(view: IView) {
 	if (!view.id || typeof view.id !== 'string') {
 		throw new Error('View id is required and must be a string')
 	}
@@ -261,6 +259,4 @@ const isValidView = function(view: ViewData): boolean {
 	if (view.loadChildViews && typeof view.loadChildViews !== 'function') {
 		throw new Error('View loadChildViews must be a function')
 	}
-
-	return true
 }

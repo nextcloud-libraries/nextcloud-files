@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from './node/folder.ts'
-import type { View } from './navigation/view.ts'
+import type { IFolder } from './node/folder.ts'
+import type { IView } from './navigation/view.ts'
 
 import logger from './utils/logger.ts'
 
@@ -14,11 +14,11 @@ export interface HeaderData {
 	/** Order */
 	order: number
 	/** Condition wether this header is shown or not */
-	enabled?: (folder: Folder, view: View) => boolean
+	enabled?: (folder: IFolder, view: IView) => boolean
 	/** Executed when file list is initialized */
-	render: (el: HTMLElement, folder: Folder, view: View) => void
+	render: (el: HTMLElement, folder: IFolder, view: IView) => void
 	/** Executed when root folder changed */
-	updated(folder: Folder, view: View)
+	updated(folder: IFolder, view: IView)
 }
 
 export class Header {
