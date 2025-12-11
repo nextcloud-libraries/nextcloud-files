@@ -6,6 +6,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.12.1 - 2025-12-11
+### 🐛 Fixed bugs
+* fix(sortNodes): do not trim "extension" of folder names [\#1291](https://github.com/nextcloud-libraries/nextcloud-files/pull/1291) \([susnux](https://github.com/susnux)\)
+
+### Changed
+* docs(View): improve documentation of `View.emptyView` [\#1290](https://github.com/nextcloud-libraries/nextcloud-files/pull/1290) \([susnux](https://github.com/susnux)\)
+* chore: work around bug in `corepack` blocking dependency updates [\#1292](https://github.com/nextcloud-libraries/nextcloud-files/pull/1292) \([susnux](https://github.com/susnux)\)
+* ci: update workflows from organization [\#1354](https://github.com/nextcloud-libraries/nextcloud-files/pull/1354) \([susnux](https://github.com/susnux)\)
+* chore: align devEngines with apps [\#1355](https://github.com/nextcloud-libraries/nextcloud-files/pull/1355) \([susnux](https://github.com/susnux)\)
+* Updated dependencies:
+  * Bump `is-svg` to 6.1.0
+  * Bump `@nextcloud/sharing` to to 0.3.0
+  * Bump `@nextcloud/auth` to to 2.5.3
+  * Bump `@nextcloud/l10n` to to 3.4.1
+  * Bump `@nextcloud/capabilities` to to 1.2.1
+  * Bump `@nextcloud/router` to to 3.1.0
+  * Bump `@nextcloud/paths` to to 2.3.0
+
 ## 3.12.0 - 2025-07-24
 ### 🚀 Enhancements
 * feat(actions): allow to define hotkey for file action [\#1288](https://github.com/nextcloud-libraries/nextcloud-files/pull/1288) \([susnux](https://github.com/susnux)\)
