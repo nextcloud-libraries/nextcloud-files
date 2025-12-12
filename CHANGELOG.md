@@ -8,11 +8,14 @@ All notable changes to this project will be documented in this file.
 
 ## 4.0.0 (UNRELEASED)
 ### 📝 Notes
-* The support for Nextcloud versions below 30 has been removed,
-  this means some functions like filename validation will now only
-  work with the capabilities provided by Nextcloud 30 or newer.
+* Due to breaking changes this major version is only compatible with
+  the files app of Nextcloud 33 or later.
 * The Node API was changed, the `root` property of any node,
   including `File` or `Folder`, is now required.
+* All methods now also accept the interface of the provided classes,
+  meaning instead of accepting `View` they accept the more generic
+  `IView` interface. This allows better integration with frameworks
+  and custom implementations of the interface where needed.
 
 #### DAV related export
 The DAV related exports from the main entry point were deprecated
@@ -34,10 +37,10 @@ For example:
 
 ```diff
 type ActionContext = {
-  nodes: Node[],
-  view: View,
-  folder: Folder,
-  contents: Node[],
+  nodes: INode[],
+  view: IView,
+  folder: IFolder,
+  contents: INode[],
 }
 
 - action.exec(view: View, folder: Folder, dir: string): Promise<boolean>
@@ -102,20 +105,24 @@ type ActionContext = {
 * chore(deps): Bump @nextcloud/sharing from 0.2.4 to 0.3.0
 * chore(deps): Bump brace-expansion
 * chore(deps): Bump is-svg from 6.0.0 to 6.1.0
-* chore(deps-dev): Bump @nextcloud/event-bus from 3.3.2 to 3.3.3
-* chore(deps-dev): Bump @nextcloud/typings from 1.9.1 to 1.10.0
-* chore(deps-dev): Bump @nextcloud/vite-config from 2.3.5 to 2.4.0
-* chore(deps-dev): Bump @types/node from 24.0.3 to 24.10.0
-* chore(deps-dev): Bump @vitest/coverage-istanbul from 4.0.6 to 4.0.13
-* chore(deps-dev): Bump fast-xml-parser from 5.2.5 to 5.3.2
-* chore(deps-dev): Bump js-yaml from 4.1.0 to 4.1.1
-* chore(deps-dev): Bump jsdom from 26.1.0 to 27.2.0
-* chore(deps-dev): Bump sha.js from 2.4.11 to 2.4.12
-* chore(deps-dev): Bump typedoc from 0.28.10 to 0.28.10
-* chore(deps-dev): Bump typedoc-plugin-missing-exports from 4.0.0 to 4.1.2
-* chore(deps-dev): Bump typescript from 5.8.3 to 5.9.3
-* chore(deps-dev): Bump vite from 6.3.5 to 7.2.4
-* chore(deps-dev): Bump vitest from 3.2.4 to 4.0.6
+
+## 3.12.1 - 2025-12-11
+### 🐛 Fixed bugs
+* fix(sortNodes): do not trim "extension" of folder names [\#1291](https://github.com/nextcloud-libraries/nextcloud-files/pull/1291) \([susnux](https://github.com/susnux)\)
+
+### Changed
+* docs(View): improve documentation of `View.emptyView` [\#1290](https://github.com/nextcloud-libraries/nextcloud-files/pull/1290) \([susnux](https://github.com/susnux)\)
+* chore: work around bug in `corepack` blocking dependency updates [\#1292](https://github.com/nextcloud-libraries/nextcloud-files/pull/1292) \([susnux](https://github.com/susnux)\)
+* ci: update workflows from organization [\#1354](https://github.com/nextcloud-libraries/nextcloud-files/pull/1354) \([susnux](https://github.com/susnux)\)
+* chore: align devEngines with apps [\#1355](https://github.com/nextcloud-libraries/nextcloud-files/pull/1355) \([susnux](https://github.com/susnux)\)
+* Updated dependencies:
+  * Bump `is-svg` to 6.1.0
+  * Bump `@nextcloud/sharing` to to 0.3.0
+  * Bump `@nextcloud/auth` to to 2.5.3
+  * Bump `@nextcloud/l10n` to to 3.4.1
+  * Bump `@nextcloud/capabilities` to to 1.2.1
+  * Bump `@nextcloud/router` to to 3.1.0
+  * Bump `@nextcloud/paths` to to 2.3.0
 
 ## 3.12.0 - 2025-07-24
 ### 🚀 Enhancements
