@@ -17,8 +17,8 @@ This library provides three kinds of utils:
 
 | `@nextcloud/files` version | Supported | Nextcloud version |
 |----------------------------|-----------|-------------------|
-|                        4.x |        ✅ |               30+ |
-|                        3.x |        ✅ |               26+ |
+|                        4.x |        ✅ |               33+ |
+|                        3.x |        ✅ |             26-32 |
 |                        2.x |        ❌ |             23-25 |
 |                        1.x |        ❌ |             20-22 |
 

@@ -81,12 +81,23 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
 
 	/**
 	 * Set the currently active view
+	 *
+	 * @param id - The id of the view to set as active
+	 * @throws {Error} If no view with the given id was registered
 	 * @fires UpdateActiveViewEvent
-	 * @param view New active view
 	 */
-	setActive(view: IView | null): void {
-		this._currentView = view
-		const event = new CustomEvent<IView | null>('updateActive', { detail: view })
+	setActive(id: string | null): void {
+		if (id === null) {
+			this._currentView = null
+		} else {
+			const view = this._views.find(({ id: viewId }) => viewId === id)
+			if (!view) {
+				throw new Error(`No view with ${id} registered`)
+			}
+			this._currentView = view
+		}
+
+		const event = new CustomEvent<IView | null>('updateActive', { detail: this._currentView })
 		this.dispatchTypedEvent('updateActive', event as UpdateActiveViewEvent)
 	}
 

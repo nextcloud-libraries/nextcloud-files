@@ -109,7 +109,7 @@ describe('Navigation', () => {
 
 		expect(navigation.active).toBe(null)
 
-		navigation.setActive(view)
+		navigation.setActive(view.id)
 		expect(navigation.active).toEqual(view)
 	})
 
@@ -122,9 +122,25 @@ describe('Navigation', () => {
 		const listener = vi.fn()
 		navigation.addEventListener('updateActive', listener)
 
-		navigation.setActive(view)
+		navigation.setActive(view.id)
 		expect(listener).toHaveBeenCalledOnce()
 		// So it was called, we then expect the first argument of the first call to be the event with the view as the detail
 		expect(listener.mock.calls[0][0].detail).toBe(view)
+	})
+
+	it('Can unset the active view', async () => {
+		const navigation = new Navigation()
+		const { view } = mockView()
+		navigation.register(view)
+		navigation.setActive(view.id)
+		expect(navigation.active).toEqual(view)
+
+		navigation.setActive(null)
+		expect(navigation.active).toBeNull()
+	})
+
+	it('Throws when there is no view to set active', () => {
+		const navigation = new Navigation()
+		expect(() => navigation.setActive('does not exist')).toThrowError()
 	})
 })
