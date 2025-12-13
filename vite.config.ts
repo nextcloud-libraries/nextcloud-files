@@ -9,13 +9,6 @@ export default createLibConfig({
 	index: 'lib/index.ts',
 	dav: 'lib/dav/index.ts',
 }, {
-	libraryFormats: ['cjs', 'es'],
-
-	nodeExternalsOptions: {
-		// Force bundle pure ESM module
-		exclude: ['is-svg'],
-	},
-
 	config: {
 		plugins: [
 			// Put the Codecov vite plugin after all other plugins
