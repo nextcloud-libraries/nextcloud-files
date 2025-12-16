@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ## 4.0.0 (UNRELEASED)
 ### 📝 Notes
+* This package now is a pure ES module.
 * Due to breaking changes this major version is only compatible with
   the files app of Nextcloud 33 or later.
 * The Node API was changed, the `root` property of any node,
@@ -47,56 +48,70 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
-## 4.0.0-beta.4 - 2025-12-09
-### 🐛 Fixed bugs
-* fix(node): better special character encoding and detection by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1398
+## 4.0.0-beta.5 - 2025-12-16
+### 💥 Breaking changes
+* refactor!(navigation): pass `id` of view to `setActive` [\#1418](https://github.com/nextcloud-libraries/nextcloud-files/pull/1418) \([susnux](https://github.com/susnux)\)
+* refactor!: migrate from cancelable promise to AbortSignal [\#1428](https://github.com/nextcloud-libraries/nextcloud-files/pull/1428) \([susnux](https://github.com/susnux)\)
+* chore!: remove commonjs entry point [\#1420](https://github.com/nextcloud-libraries/nextcloud-files/pull/1420) \([susnux](https://github.com/susnux)\)
+
+### 🚀 Enhancements
+* feat(sidebar): provide public API to register a sidebar tab with web components [\#1419](https://github.com/nextcloud-libraries/nextcloud-files/pull/1419) \([susnux](https://github.com/susnux)\)
+* feat(sidebar): provide a proxy for the files sidebar [\#1306](https://github.com/nextcloud-libraries/nextcloud-files/pull/1306) \([susnux](https://github.com/susnux)\)
 
 ### Other changes
-* chore(deps-dev): Bump typedoc from 0.28.14 to 0.28.15 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1394
-* chore(deps-dev): Bump vite from 7.2.4 to 7.2.6 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1397
-* chore(deps-dev): Bump @vitest/coverage-istanbul from 4.0.14 to 4.0.15 by @dependabot[bot] in https://github.com/nextcloud-libraries/nextcloud-files/pull/1396
+* refactor: use interfaces where possible instead of instances [\#1417](https://github.com/nextcloud-libraries/nextcloud-files/pull/1417) \([susnux](https://github.com/susnux)\)
+* refactor: drop dependency on Node modules [\#1421](https://github.com/nextcloud-libraries/nextcloud-files/pull/1421) \([susnux](https://github.com/susnux)\)
+* ci: update dependencies also on stable3 [\#1400](https://github.com/nextcloud-libraries/nextcloud-files/pull/1400) \([susnux](https://github.com/susnux)\)
+* ci: drop npm token publishing and use trusted publisher [\#1416](https://github.com/nextcloud-libraries/nextcloud-files/pull/1416)
+* Updated dependencies:
+  * Bump `@nextcloud/logger` to 3.0.3
+  * Bump `@nextcloud/paths` to 3.0.0
+
+## 4.0.0-beta.4 - 2025-12-09
+### 🐛 Fixed bugs
+* fix(node): better special character encoding and detection [\#1398](https://github.com/nextcloud-libraries/nextcloud-files/pull/1398) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ## 4.0.0-beta.3 - 2025-12-03
 ### 💥 Breaking changes
-* refactor(Node)!: make `Node.root` a required attribute by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1388
+* refactor(Node)!: make `Node.root` a required attribute [\#1388](https://github.com/nextcloud-libraries/nextcloud-files/pull/1388) \([susnux](https://github.com/susnux)\)
 
 ### 🐛 Fixed bugs
-* fix(actions): only pass a single node to renderInline by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1391
-* fix(actions): add back nodes contents to view action params by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1392
+* fix(actions): only pass a single node to renderInline [\#1391](https://github.com/nextcloud-libraries/nextcloud-files/pull/1391) \([skjnldsv](https://github.com/skjnldsv)\)
+* fix(actions): add back nodes contents to view action params [\#1392](https://github.com/nextcloud-libraries/nextcloud-files/pull/1392) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ### Other changes
-* chore(Node)!: remove deprecated `isDavRessource` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1390
-* chore(deps): align and update vitest dependencies by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1389
+* chore(Node)!: remove deprecated `isDavRessource` [\#1390](https://github.com/nextcloud-libraries/nextcloud-files/pull/1390) \([susnux](https://github.com/susnux)\)
+* chore(deps): align and update vitest dependencies [\#1389](https://github.com/nextcloud-libraries/nextcloud-files/pull/1389) \([susnux](https://github.com/susnux)\)
 
 ## 4.0.0-beta.2 - 2025-11-27
 ### 💥 Breaking changes
-* chore!: drop deprecated DAV exports from main entry point by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1384
-* chore!: remove deprecated filename validation fallbacks for Nextcloud 29 and below by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1383
-* chore!: remove deprecated `NewMenuEntry.iconClass` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1385
+* chore!: drop deprecated DAV exports from main entry point [\#1384](https://github.com/nextcloud-libraries/nextcloud-files/pull/1384) \([susnux](https://github.com/susnux)\)
+* chore!: remove deprecated filename validation fallbacks for Nextcloud 29 and below [\#1383](https://github.com/nextcloud-libraries/nextcloud-files/pull/1383) \([susnux](https://github.com/susnux)\)
+* chore!: remove deprecated `NewMenuEntry.iconClass` [\#1385](https://github.com/nextcloud-libraries/nextcloud-files/pull/1385) \([susnux](https://github.com/susnux)\)
 
 ### Other changes
-* fix(actions): rename content to contents by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1386
+* fix(actions): rename content to contents [\#1386](https://github.com/nextcloud-libraries/nextcloud-files/pull/1386) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ## 4.0.0-beta.1 - 2025-11-27
 ### 🐛 Fixed bugs
-* fix: actions type exports by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1381
+* fix: actions type exports [\#1381](https://github.com/nextcloud-libraries/nextcloud-files/pull/1381) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ## 4.0.0-beta.0 - 2025-11-27
 ### 💥 Breaking changes
-* fix(node): cloning by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1348
-* feat(actions): standardize contexts by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1124
+* fix(node): cloning [\#1348](https://github.com/nextcloud-libraries/nextcloud-files/pull/1348) \([skjnldsv](https://github.com/skjnldsv)\)
+* feat(actions): standardize contexts [\#1124](https://github.com/nextcloud-libraries/nextcloud-files/pull/1124) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ### 🚀 Enhancements
-* feat(node): allow to cast as JSON by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1349
+* feat(node): allow to cast as JSON [\#1349](https://github.com/nextcloud-libraries/nextcloud-files/pull/1349) \([skjnldsv](https://github.com/skjnldsv)\)
 
 ### 🐛 Fixed bugs
-* fix(sortNodes): do not trim "extension" of folder names by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1291
+* fix(sortNodes): do not trim "extension" of folder names [\#1291](https://github.com/nextcloud-libraries/nextcloud-files/pull/1291) \([susnux](https://github.com/susnux)\)
 
 ### Other changes
-* chore: align devEngines with apps by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1355
-* chore: remove legacy node attributes deprecation by @skjnldsv in https://github.com/nextcloud-libraries/nextcloud-files/pull/1379
-* chore: work around bug in `corepack` blocking dependency updates by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1292
-* docs(View): improve documentation of `View.emptyView` by @susnux in https://github.com/nextcloud-libraries/nextcloud-files/pull/1290
+* chore: align devEngines with apps [\#1355](https://github.com/nextcloud-libraries/nextcloud-files/pull/1355) \([susnux](https://github.com/susnux)\)
+* chore: remove legacy node attributes deprecation [\#1379](https://github.com/nextcloud-libraries/nextcloud-files/pull/1379) \([skjnldsv](https://github.com/skjnldsv)\)
+* chore: work around bug in `corepack` blocking dependency updates [\#1292](https://github.com/nextcloud-libraries/nextcloud-files/pull/1292) \([susnux](https://github.com/susnux)\)
+* docs(View): improve documentation of `View.emptyView` [\#1290](https://github.com/nextcloud-libraries/nextcloud-files/pull/1290) \([susnux](https://github.com/susnux)\)
 * chore(deps): Bump @nextcloud/auth from 2.5.1 to 2.5.3
 * chore(deps): Bump @nextcloud/capabilities from 1.2.0 to 1.2.1
 * chore(deps): Bump @nextcloud/l10n from 3.3.0 to 3.4.1
