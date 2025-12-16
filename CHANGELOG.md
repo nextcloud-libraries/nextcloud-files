@@ -6,6 +6,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.12.2 - 2025-12-16
+### Other changes
+* refactor: drop dependency on NodeJS modules [\#1427](https://github.com/nextcloud-libraries/nextcloud-files/pull/1427)
+* Bump `@nextcloud/paths` to 3.0.0
+
 ## 3.12.1 - 2025-12-11
 ### 🐛 Fixed bugs
 * fix(sortNodes): do not trim "extension" of folder names [\#1291](https://github.com/nextcloud-libraries/nextcloud-files/pull/1291) \([susnux](https://github.com/susnux)\)
