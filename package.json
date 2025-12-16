@@ -1,6 +1,6 @@
 {
   "name": "@nextcloud/files",
-  "version": "3.12.1",
+  "version": "3.12.2",
   "description": "Nextcloud files utils",
   "keywords": [
     "nextcloud",
