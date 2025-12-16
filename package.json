@@ -21,18 +21,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
     "./dav": {
       "types": "./dist/dav/index.d.ts",
-      "import": "./dist/dav.mjs",
-      "require": "./dist/dav.cjs"
+      "import": "./dist/dav.mjs"
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
