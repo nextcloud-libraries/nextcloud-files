@@ -37,14 +37,16 @@ export interface IView {
 	emptyView?: (div: HTMLDivElement) => void
 
 	/**
-	 * Method return the content of the  provided path
-	 * This ideally should be a cancellable promise.
-	 * promise.cancel(reason) will be called when the directory
-	 * change and the promise is not resolved yet.
-	 * You _must_ also return the current directory
+	 * Method return the content of the provided path.
+	 *
+	 * This method _must_ also return the current directory
 	 * information alongside with its content.
+	 *
+	 * Usually a abort signal is provided to be able to
+	 * cancel the request if the user change directory
+	 * {@see https://developer.mozilla.org/en-US/docs/Web/API/AbortController }.
 	 */
-	getContents: (path: string) => Promise<ContentsWithRoot>
+	getContents(path: string, options: { signal: AbortSignal }): Promise<ContentsWithRoot>
 
 	/**
 	 * If set then the view will be hidden from the navigation unless its the active view.

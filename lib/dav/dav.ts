@@ -9,7 +9,6 @@ import type { Node, NodeData } from '../node/index.ts'
 import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
 import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { generateRemoteUrl } from '@nextcloud/router'
-import { CancelablePromise } from 'cancelable-promise'
 import { createClient, getPatcher } from 'webdav'
 import { parsePermissions } from './davPermissions.ts'
 import { getFavoritesReport } from './davProperties.ts'
@@ -112,44 +111,52 @@ export const getClient = function(remoteURL = defaultRemoteURL, headers: Record<
 /**
  * Use WebDAV to query for favorite Nodes
  *
- * @param davClient The WebDAV client to use for performing the request
- * @param path Base path for the favorites, if unset all favorites are queried
- * @param davRoot The root path for the DAV user (defaults to `defaultRootPath`)
+ * @param options - Options for the favorite query
+ * @param options.client - The WebDAV client to use for performing the request
+ * @param options.path - Base path for the favorites, if unset all favorites are queried
+ * @param options.davRoot - The root path for the DAV user (defaults to `defaultRootPath`)
+ * @param options.signal - Optional abort signal to cancel the request
+ *
  * @example
  * ```js
+ * import { getFavoriteNodes } from '@nextcloud/files'
+ *
+ * // query favorites for the root
+ * const favorites = await getFavoriteNodes()
+ * ```
+ * @example
+ * ```js
+ * // Advanced usage with custom client and path
  * import { getClient, defaultRootPath, getFavoriteNodes } from '@nextcloud/files'
  *
  * const client = getClient()
- * // query favorites for the root
- * const favorites = await getFavoriteNodes(client)
- * // which is the same as writing:
- * const favorites = await getFavoriteNodes(client, '/', defaultRootPath)
+ * const controller = new AbortController()
+ * const favoritesPromise = getFavoriteNodes({ client, path: '/some/folder', signal: controller.signal })
+ * // you can abort the request if needed
+ * controller.abort()
+ * // or await the result
+ * const favorites = await favoritesPromise
  * ```
  */
-export const getFavoriteNodes = (davClient: WebDAVClient, path = '/', davRoot = defaultRootPath): CancelablePromise<Node[]> => {
-	const controller = new AbortController()
-	return new CancelablePromise(async (resolve, reject, onCancel) => {
-		onCancel(() => controller.abort())
-		try {
-			const contentsResponse = await davClient.getDirectoryContents(`${davRoot}${path}`, {
-				signal: controller.signal,
-				details: true,
-				data: getFavoritesReport(),
-				headers: {
-					// see getClient for patched webdav client
-					method: 'REPORT',
-				},
-				includeSelf: true,
-			}) as ResponseDataDetailed<FileStat[]>
+export async function getFavoriteNodes(options: { client?: WebDAVClient, path?: string, davRoot?: string, signal?: AbortSignal } = {}): Promise<Node[]> {
+	const client = options.client ?? getClient()
+	const path = options.path ?? '/'
+	const davRoot = options.davRoot ?? defaultRootPath
 
-			const nodes = contentsResponse.data
-				.filter(node => node.filename !== path) // exclude current dir
-				.map((result) => resultToNode(result, davRoot))
-			resolve(nodes)
-		} catch (error) {
-			reject(error)
-		}
-	})
+	const contentsResponse = await client.getDirectoryContents(`${davRoot}${path}`, {
+		signal: options.signal,
+		details: true,
+		data: getFavoritesReport(),
+		headers: {
+			// see getClient for patched webdav client
+			method: 'REPORT',
+		},
+		includeSelf: true,
+	}) as ResponseDataDetailed<FileStat[]>
+
+	return contentsResponse.data
+		.filter(node => node.filename !== path) // exclude current dir
+		.map((result) => resultToNode(result, davRoot))
 }
 
 /**

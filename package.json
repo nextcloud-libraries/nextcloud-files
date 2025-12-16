@@ -60,7 +60,6 @@
     "@nextcloud/paths": "^2.4.0",
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/sharing": "^0.3.0",
-    "cancelable-promise": "^4.3.1",
     "is-svg": "^6.1.0",
     "typescript-event-target": "^1.1.1",
     "webdav": "^5.8.0"
