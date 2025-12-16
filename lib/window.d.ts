@@ -20,7 +20,9 @@ export {}
 
 declare global {
 	interface Window {
-		OC: Nextcloud.v27.OC | Nextcloud.v28.OC | Nextcloud.v29.OC;
+		OC: Nextcloud.v32.OC
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		OCA: any
 		_nc_dav_namespaces?: DavProperty
 		_nc_dav_properties?: string[]
 		_nc_fileactions?: FileAction[]
