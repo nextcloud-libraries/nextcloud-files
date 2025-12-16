@@ -13,7 +13,7 @@ import {
 	resultToNode,
 } from '../../lib/dav/index'
 import { File, Folder, NodeStatus } from '../../lib'
-import { FileStat } from 'webdav'
+import { FileStat, WebDAVClient } from 'webdav'
 import * as auth from '@nextcloud/auth'
 
 // required as default URL will be the DOM URL class which will use the window.location
@@ -197,7 +197,7 @@ describe('DAV requests', () => {
 		}
 
 		// Get the favorite nodes
-		const nodes = await getFavoriteNodes(client as never)
+		const nodes = await getFavoriteNodes({ client: client as unknown as WebDAVClient })
 
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
@@ -230,7 +230,7 @@ describe('DAV requests', () => {
 		}
 
 		// Get the favorite nodes
-		const nodes = await getFavoriteNodes(client as never, '/Neuer Ordner')
+		const nodes = await getFavoriteNodes({ client: client as unknown as WebDAVClient, path: '/Neuer Ordner' })
 
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
