@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { join } from 'path'
+import { join } from '@nextcloud/paths'
 import { Permission } from '../permissions'
 import { NodeStatus } from './node'
 

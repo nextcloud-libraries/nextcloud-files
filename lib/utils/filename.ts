@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
  */
 
-import { basename, extname } from 'path'
+import { basename, extname } from '@nextcloud/paths'
 
 interface UniqueNameOptions {
 	/**

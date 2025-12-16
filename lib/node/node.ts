@@ -2,9 +2,8 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { basename, extname, dirname } from 'path'
-import { encodePath } from '@nextcloud/paths'
 
+import { basename, dirname, encodePath, extname } from '@nextcloud/paths'
 import { Permission } from '../permissions'
 import { FileType } from './fileType'
 import { Attribute, isDavResource, NodeData, validateData } from './nodeData'
