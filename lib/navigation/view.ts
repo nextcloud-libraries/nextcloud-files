@@ -3,15 +3,23 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from '../node/folder.ts'
-import type { Node } from '../node/node.ts'
+import type { IFolder, INode } from '../node/index.ts'
 
 import isSvg from 'is-svg'
 import { Column } from './column.ts'
 
 export type ContentsWithRoot = {
-	folder: Folder,
-	contents: Node[]
+	folder: IFolder,
+	contents: INode[]
+}
+
+export interface IGetContentsOptions {
+	/**
+	 * Abort signal to be able to cancel the request.
+	 *
+	 *@see https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+	 */
+	signal: AbortSignal
 }
 
 export interface IView {
@@ -42,11 +50,11 @@ export interface IView {
 	 * This method _must_ also return the current directory
 	 * information alongside with its content.
 	 *
-	 * Usually a abort signal is provided to be able to
+	 * An abort signal is provided to be able to
 	 * cancel the request if the user change directory
 	 * {@see https://developer.mozilla.org/en-US/docs/Web/API/AbortController }.
 	 */
-	getContents(path: string, options: { signal: AbortSignal }): Promise<ContentsWithRoot>
+	getContents(path: string, options: IGetContentsOptions): Promise<ContentsWithRoot>
 
 	/**
 	 * If set then the view will be hidden from the navigation unless its the active view.
@@ -95,8 +103,7 @@ export interface IView {
 	/**
 	 * Method called to load child views if any
 	 */
-	// eslint-disable-next-line no-use-before-define
-	loadChildViews?: (view: View) => Promise<void>
+	loadChildViews?: (view: IView) => Promise<void>
 }
 
 export class View implements IView {
