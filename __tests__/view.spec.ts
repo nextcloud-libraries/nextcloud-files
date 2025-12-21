@@ -5,8 +5,8 @@
 
 import { describe, expect, test } from 'vitest'
 
-import { View } from '../lib/navigation/view.ts'
-import { Folder } from '../lib/index.ts'
+import { IView, View } from '../lib/navigation/view.ts'
+import { mockView } from './fixtures/view.ts'
 
 describe('Invalid View creation', () => {
 	test('Invalid id', () => {
@@ -63,10 +63,10 @@ describe('Invalid View creation', () => {
 		expect(() => new View({
 			id: 'test',
 			name: 'Test',
-			order: 1,
-			hidden: 'true',
+			hidden: 'yes',
+			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
+		} as unknown as IView),
 		).toThrowError('View hidden must be a boolean')
 	})
 
@@ -157,6 +157,28 @@ describe('Invalid View creation', () => {
 		} as unknown as View),
 		).toThrowError('View loadChildViews must be a function')
 	})
+	test('Invalid params', () => {
+		expect(() => new View({
+			id: 'test',
+			name: 'Test',
+			order: 1,
+			icon: '<svg></svg>',
+			getContents: () => Promise.reject(new Error()),
+			params: [],
+		} as unknown as View),
+		).toThrowError('View params must be an object')
+	})
+	test('Invalid params with null', () => {
+		expect(() => new View({
+			id: 'test',
+			name: 'Test',
+			order: 1,
+			icon: '<svg></svg>',
+			getContents: () => Promise.reject(new Error()),
+			params: null,
+		} as unknown as View),
+		).toThrowError('View params must be an object')
+	})
 })
 
 describe('View creation', () => {
@@ -167,7 +189,7 @@ describe('View creation', () => {
 		expect(view.caption).toBe('Test caption')
 		expect(view.emptyTitle).toBe('Test empty title')
 		expect(view.emptyCaption).toBe('Test empty caption')
-		await expect(view.getContents('/')).resolves.toStrictEqual({ folder, contents: [] })
+		await expect(view.getContents('/', { signal: new AbortController().signal })).resolves.toStrictEqual({ folder, contents: [] })
 		expect(view.hidden).toBe(true)
 		expect(view.icon).toBe('<svg></svg>')
 		expect(view.order).toBe(1)
@@ -181,36 +203,3 @@ describe('View creation', () => {
 		await expect(view.loadChildViews?.({} as unknown as View)).resolves.toBe(undefined)
 	})
 })
-
-/**
- * Creates a mock View and its associated Folder for testing purposes.
- */
-export function mockView() {
-	const folder = new Folder({
-		source: 'https://example.org/dav/files/admin/',
-		root: '/files/admin',
-		owner: 'admin',
-	})
-
-	const view = new View({
-		id: 'test',
-		name: 'Test',
-		caption: 'Test caption',
-		emptyTitle: 'Test empty title',
-		emptyCaption: 'Test empty caption',
-		getContents: () => Promise.resolve({ folder, contents: [] }),
-		hidden: true,
-		icon: '<svg></svg>',
-		order: 1,
-		params: {},
-		columns: [],
-		emptyView: () => {},
-		parent: 'parent',
-		sticky: false,
-		expanded: false,
-		defaultSortKey: 'key',
-		loadChildViews: async () => {},
-	})
-
-	return { folder, view }
-}

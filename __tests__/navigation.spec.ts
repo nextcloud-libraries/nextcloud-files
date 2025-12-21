@@ -2,9 +2,11 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { describe, it, expect, vi } from 'vitest'
 import { Navigation, getNavigation } from '../lib/navigation/navigation'
-import { mockView } from './view.spec'
+import { mockView } from './fixtures/view.ts'
+import { View } from '../lib/index.ts'
 
 describe('getNavigation', () => {
 	it('creates a new navigation if needed', () => {
@@ -41,6 +43,19 @@ describe('Navigation', () => {
 		const { view } = mockView()
 		navigation.register(view)
 
+		expect(navigation.views).toEqual([view])
+	})
+
+	it('Can register a view with only required files', async () => {
+		const view = new View({
+			id: 'minimal',
+			name: 'Minimal view',
+			icon: '<svg></svg>',
+			getContents: () => Promise.reject(new Error('Not implemented')),
+		})
+
+		const navigation = new Navigation()
+		navigation.register(view)
 		expect(navigation.views).toEqual([view])
 	})
 
