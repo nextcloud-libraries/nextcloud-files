@@ -208,35 +208,38 @@ export class View implements IView {
  * @throws {Error} if the view is not valid
  */
 export function validateView(view: IView) {
+	if (!view.icon || typeof view.icon !== 'string' || !isSvg(view.icon)) {
+		throw new Error('View icon is required and must be a valid svg string')
+	}
+
 	if (!view.id || typeof view.id !== 'string') {
 		throw new Error('View id is required and must be a string')
-	}
-
-	if (!view.name || typeof view.name !== 'string') {
-		throw new Error('View name is required and must be a string')
-	}
-
-	if ('caption' in view && typeof view.caption !== 'string') {
-		throw new Error('View caption must be a string')
 	}
 
 	if (!view.getContents || typeof view.getContents !== 'function') {
 		throw new Error('View getContents is required and must be a function')
 	}
 
-	if ('hidden' in view && typeof view.hidden !== 'boolean') {
-		throw new Error('View hidden must be a boolean')
+	if (!view.name || typeof view.name !== 'string') {
+		throw new Error('View name is required and must be a string')
 	}
 
-	if (!view.icon || typeof view.icon !== 'string' || !isSvg(view.icon)) {
-		throw new Error('View icon is required and must be a valid svg string')
-	}
+	// optional properties type checks
 
-	if ('order' in view && typeof view.order !== 'number') {
-		throw new Error('View order must be a number')
-	}
+	checkOptionalProperty(view, 'caption', 'string')
+	checkOptionalProperty(view, 'columns', 'array')
+	checkOptionalProperty(view, 'defaultSortKey', 'string')
+	checkOptionalProperty(view, 'emptyCaption', 'string')
+	checkOptionalProperty(view, 'emptyTitle', 'string')
+	checkOptionalProperty(view, 'emptyView', 'function')
+	checkOptionalProperty(view, 'expanded', 'boolean')
+	checkOptionalProperty(view, 'hidden', 'boolean')
+	checkOptionalProperty(view, 'loadChildViews', 'function')
+	checkOptionalProperty(view, 'order', 'number')
+	checkOptionalProperty(view, 'params', 'object')
+	checkOptionalProperty(view, 'parent', 'string')
+	checkOptionalProperty(view, 'sticky', 'boolean')
 
-	// Optional properties
 	if (view.columns) {
 		view.columns.forEach((column) => {
 			if (!(column instanceof Column)) {
@@ -244,28 +247,31 @@ export function validateView(view: IView) {
 			}
 		})
 	}
+}
 
-	if (view.emptyView && typeof view.emptyView !== 'function') {
-		throw new Error('View emptyView must be a function')
-	}
-
-	if (view.parent && typeof view.parent !== 'string') {
-		throw new Error('View parent must be a string')
-	}
-
-	if ('sticky' in view && typeof view.sticky !== 'boolean') {
-		throw new Error('View sticky must be a boolean')
-	}
-
-	if ('expanded' in view && typeof view.expanded !== 'boolean') {
-		throw new Error('View expanded must be a boolean')
-	}
-
-	if (view.defaultSortKey && typeof view.defaultSortKey !== 'string') {
-		throw new Error('View defaultSortKey must be a string')
-	}
-
-	if (view.loadChildViews && typeof view.loadChildViews !== 'function') {
-		throw new Error('View loadChildViews must be a function')
+/**
+ * Check an optional property type
+ *
+ * @param obj - the object to check
+ * @param property - the property name
+ * @param type - the expected type
+ * @throws {Error} if the property is defined and not of the expected type
+ */
+function checkOptionalProperty(
+	obj: Partial<IView>,
+	property: keyof IView,
+	type: 'array' | 'function' | 'string' | 'boolean' | 'number' | 'object',
+): void {
+	if (typeof obj[property] !== 'undefined') {
+		if (type === 'array') {
+			if (!Array.isArray(obj[property])) {
+				throw new Error(`View ${property} must be an array`)
+			}
+		// eslint-disable-next-line valid-typeof
+		} else if (typeof obj[property] !== type) {
+			throw new Error(`View ${property} must be a ${type}`)
+		} else if (type === 'object' && (obj[property] === null || Array.isArray(obj[property]))) {
+			throw new Error(`View ${property} must be an object`)
+		}
 	}
 }
