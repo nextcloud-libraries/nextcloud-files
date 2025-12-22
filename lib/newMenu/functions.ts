@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from '../node/index.ts'
+import type { IFolder } from '../node/index.ts'
 import type { NewMenuEntry } from './NewMenu.ts'
 
 import { NewMenu } from './NewMenu.ts'
@@ -43,9 +43,9 @@ export function removeNewFileMenuEntry(entry: NewMenuEntry | string) {
 /**
  * Get the list of registered entries from the upload menu
  *
- * @param {Folder} context - The current folder to get the available entries
+ * @param context - The current folder to get the available entries
  */
-export function getNewFileMenuEntries(context?: Folder): NewMenuEntry[] {
+export function getNewFileMenuEntries(context?: IFolder): NewMenuEntry[] {
 	const newFileMenu = getNewFileMenu()
 	return newFileMenu.getEntries(context).sort((a: NewMenuEntry, b: NewMenuEntry) => {
 		// If defined and different, sort by order

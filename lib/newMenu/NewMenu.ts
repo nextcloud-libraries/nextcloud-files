@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder, Node } from '../node/index.ts'
+import type { IFolder, INode } from '../node/index.ts'
 
 import logger from '../utils/logger.ts'
 
@@ -43,7 +43,7 @@ export interface NewMenuEntry {
 	 * Condition wether this entry is shown or not
 	 * @param context the creation context. Usually the current folder
 	 */
-	enabled?: (context: Folder) => boolean
+	enabled?: (context: IFolder) => boolean
 
 	/**
 	 * Either iconSvgInline or iconClass must be defined
@@ -59,7 +59,7 @@ export interface NewMenuEntry {
 	 * @param context - The creation context. Usually the current folder
 	 * @param content - List of file/folders present in the context folder
 	 */
-	handler: (context: Folder, content: Node[]) => void
+	handler: (context: IFolder, content: INode[]) => void
 }
 
 export class NewMenu {
@@ -88,9 +88,9 @@ export class NewMenu {
 	/**
 	 * Get the list of registered entries
 	 *
-	 * @param {Folder} context the creation context. Usually the current folder
+	 * @param context - The creation context. Usually the current folder
 	 */
-	public getEntries(context?: Folder): Array<NewMenuEntry> {
+	public getEntries(context?: IFolder): Array<NewMenuEntry> {
 		if (context) {
 			return this._entries
 				.filter(entry => typeof entry.enabled === 'function' ? entry.enabled(context) : true)
