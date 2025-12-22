@@ -6,7 +6,8 @@
 import type { IFolder, INode } from '../node/index.ts'
 
 import isSvg from 'is-svg'
-import { Column } from './column.ts'
+import { Column, validateColumn } from './column.ts'
+import { checkOptionalProperty } from '../utils/objectValidation.ts'
 
 export type ContentsWithRoot = {
 	folder: IFolder,
@@ -241,37 +242,13 @@ export function validateView(view: IView) {
 	checkOptionalProperty(view, 'sticky', 'boolean')
 
 	if (view.columns) {
-		view.columns.forEach((column) => {
-			if (!(column instanceof Column)) {
-				throw new Error('View columns must be an array of Column. Invalid column found')
-			}
-		})
-	}
-}
-
-/**
- * Check an optional property type
- *
- * @param obj - the object to check
- * @param property - the property name
- * @param type - the expected type
- * @throws {Error} if the property is defined and not of the expected type
- */
-function checkOptionalProperty(
-	obj: Partial<IView>,
-	property: keyof IView,
-	type: 'array' | 'function' | 'string' | 'boolean' | 'number' | 'object',
-): void {
-	if (typeof obj[property] !== 'undefined') {
-		if (type === 'array') {
-			if (!Array.isArray(obj[property])) {
-				throw new Error(`View ${property} must be an array`)
-			}
-		// eslint-disable-next-line valid-typeof
-		} else if (typeof obj[property] !== type) {
-			throw new Error(`View ${property} must be a ${type}`)
-		} else if (type === 'object' && (obj[property] === null || Array.isArray(obj[property]))) {
-			throw new Error(`View ${property} must be an object`)
+		// we cannot use `instanceof` here because if the Navigation and the Column class are loaded by different apps
+		// (Navigation is set by files app and Column by a 3rd party app),
+		// the `instanceof` check will fail even if the object has the correct shape because they are different classes in memory.
+		view.columns.forEach(validateColumn)
+		const columnIds = view.columns.reduce((set, column) => set.add(column.id), new Set<string>())
+		if (columnIds.size !== view.columns.length) {
+			throw new Error('View columns must have unique ids')
 		}
 	}
 }

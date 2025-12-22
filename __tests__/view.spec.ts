@@ -87,9 +87,20 @@ describe('Invalid View creation', () => {
 			order: 1,
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
+			columns: [{}],
+		} as unknown as View),
+		).toThrowError('A column id is required')
+	})
+	test('Invalid columns with null', () => {
+		expect(() => new View({
+			id: 'test',
+			name: 'Test',
+			order: 1,
+			icon: '<svg></svg>',
+			getContents: () => Promise.reject(new Error()),
 			columns: [null],
 		} as unknown as View),
-		).toThrowError('View columns must be an array of Column. Invalid column found')
+		).toThrowError('View column must be an object')
 	})
 	test('Invalid emptyView', () => {
 		expect(() => new View({
