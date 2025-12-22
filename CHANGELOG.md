@@ -48,6 +48,14 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.6 - 2025-12-22
+### 🐛 Fixed bugs
+* fix(view): ensure all optional properties are validated [\#1438](https://github.com/nextcloud-libraries/nextcloud-files/pull/1438) \([susnux](https://github.com/susnux)\)
+
+### Other changes
+* chore: adjust types to only use interfaces if possible [\#1440](https://github.com/nextcloud-libraries/nextcloud-files/pull/1440) \([susnux](https://github.com/susnux)\)
+* ci: add workflow to check for Typescript issues [\#1439](https://github.com/nextcloud-libraries/nextcloud-files/pull/1439) \([susnux](https://github.com/susnux)\)
+
 ## 4.0.0-beta.5 - 2025-12-16
 ### 💥 Breaking changes
 * refactor!(navigation): pass `id` of view to `setActive` [\#1418](https://github.com/nextcloud-libraries/nextcloud-files/pull/1418) \([susnux](https://github.com/susnux)\)
