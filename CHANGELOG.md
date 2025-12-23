@@ -48,6 +48,13 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.7 - 2025-12-23
+### 🐛 Fixed bugs
+* fix(column): validate interface rather than the instance type [\#1442](https://github.com/nextcloud-libraries/nextcloud-files/pull/1442) \([susnux](https://github.com/susnux)\)
+
+### Other changes
+* refactor(column): use interfaces rather than instances [\#1443](https://github.com/nextcloud-libraries/nextcloud-files/pull/1443) \([susnux](https://github.com/susnux)\)
+
 ## 4.0.0-beta.6 - 2025-12-22
 ### 🐛 Fixed bugs
 * fix(view): ensure all optional properties are validated [\#1438](https://github.com/nextcloud-libraries/nextcloud-files/pull/1438) \([susnux](https://github.com/susnux)\)
