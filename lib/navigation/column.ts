@@ -6,6 +6,8 @@
 import type { INode } from '../node/node.ts'
 import type { IView } from './view.ts'
 
+import { checkOptionalProperty } from '../utils/objectValidation.ts'
+
 interface ColumnData {
 	/** Unique column ID */
 	id: string
@@ -27,7 +29,7 @@ export class Column implements ColumnData {
 	private _column: ColumnData
 
 	constructor(column: ColumnData) {
-		isValidColumn(column)
+		validateColumn(column)
 		this._column = column
 	}
 
@@ -54,13 +56,16 @@ export class Column implements ColumnData {
 }
 
 /**
- * Typescript cannot validate an interface.
- * Please keep in sync with the Column interface requirements.
+ * Validate a column definition
  *
- * @param {ColumnData} column the column to check
- * @return {boolean} true if the column is valid
+ * @param column - the column to check
+ * @throws {Error} if the column is not valid
  */
-const isValidColumn = function(column: ColumnData): boolean {
+export function validateColumn(column: ColumnData): void {
+	if (typeof column !== 'object' || column === null) {
+		throw new Error('View column must be an object')
+	}
+
 	if (!column.id || typeof column.id !== 'string') {
 		throw new Error('A column id is required')
 	}
@@ -74,13 +79,6 @@ const isValidColumn = function(column: ColumnData): boolean {
 	}
 
 	// Optional properties
-	if (column.sort && typeof column.sort !== 'function') {
-		throw new Error('Column sortFunction must be a function')
-	}
-
-	if (column.summary && typeof column.summary !== 'function') {
-		throw new Error('Column summary must be a function')
-	}
-
-	return true
+	checkOptionalProperty(column, 'sort', 'function')
+	checkOptionalProperty(column, 'summary', 'function')
 }
