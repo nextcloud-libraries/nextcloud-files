@@ -4,9 +4,10 @@
  */
 
 import type { IFolder, INode } from '../node/index.ts'
+import type { IColumn } from './column.ts'
 
 import isSvg from 'is-svg'
-import { Column, validateColumn } from './column.ts'
+import { validateColumn } from './column.ts'
 import { checkOptionalProperty } from '../utils/objectValidation.ts'
 
 export type ContentsWithRoot = {
@@ -82,7 +83,7 @@ export interface IView {
 	 * This view column(s). Name and actions are
 	 * by default always included
 	 */
-	columns?: Column[]
+	columns?: IColumn[]
 
 	/** The parent unique ID */
 	parent?: string

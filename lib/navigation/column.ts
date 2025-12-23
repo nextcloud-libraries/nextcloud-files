@@ -8,7 +8,7 @@ import type { IView } from './view.ts'
 
 import { checkOptionalProperty } from '../utils/objectValidation.ts'
 
-interface ColumnData {
+export interface IColumn {
 	/** Unique column ID */
 	id: string
 	/** Translated column title */
@@ -24,11 +24,11 @@ interface ColumnData {
 	summary?: (node: INode[], view: IView) => string
 }
 
-export class Column implements ColumnData {
+export class Column implements IColumn {
 
-	private _column: ColumnData
+	private _column: IColumn
 
-	constructor(column: ColumnData) {
+	constructor(column: IColumn) {
 		validateColumn(column)
 		this._column = column
 	}
@@ -61,7 +61,7 @@ export class Column implements ColumnData {
  * @param column - the column to check
  * @throws {Error} if the column is not valid
  */
-export function validateColumn(column: ColumnData): void {
+export function validateColumn(column: IColumn): void {
 	if (typeof column !== 'object' || column === null) {
 		throw new Error('View column must be an object')
 	}
