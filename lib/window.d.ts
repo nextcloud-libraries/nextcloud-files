@@ -15,6 +15,7 @@ import type {
 
 import type { DavProperty } from './dav/index.ts'
 import type { ISidebarTab } from './sidebar/index.ts'
+import type { ISidebarAction } from './sidebar/SidebarAction.ts'
 
 export {}
 
@@ -31,6 +32,7 @@ declare global {
 		_nc_newfilemenu?: NewMenu
 		_nc_navigation?: Navigation
 		_nc_filelist_filters?: Map<string, IFileListFilter>
+		_nc_files_sidebar_actions?: Map<string, ISidebarAction>
 		_nc_files_sidebar_tabs?: Map<string, ISidebarTab>
 
 		_oc_config?: {

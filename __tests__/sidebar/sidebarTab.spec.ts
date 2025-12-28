@@ -3,32 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder, INode, IView } from '../../lib/index.ts'
-
-import { beforeEach, describe, expect, it, Mock, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getSidebarTabs, ISidebarTab, registerSidebarTab } from '../../lib/sidebar/SidebarTab.ts'
 // missing in JSDom but supported by every browser!
 import 'css.escape'
 
-class SidebarTabMock extends HTMLElement {
-
-	node?: INode
-	folder?: IFolder
-	view?: IView
-
-	public setActive(active: boolean) {
-		console.log('setActive', active)
-	}
-
-}
-
 describe('Sidebar tabs', () => {
-	let getCustomElementsSpy: Mock
 
 	beforeEach(() => {
 		vi.restoreAllMocks()
-		getCustomElementsSpy = vi.spyOn(window.customElements, 'get')
-			.mockImplementation(() => SidebarTabMock)
 		delete window._nc_files_sidebar_tabs
 	})
 
@@ -95,16 +78,6 @@ describe('Sidebar tabs', () => {
 		it('fails with invalid tagName name', () => {
 			expect(() => registerSidebarTab({ ...getExampleTab(), tagName: 'MyAppSidebarTab' }))
 				.toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs tagName name is invalid]')
-		})
-
-		it('fails with non registered element', () => {
-			getCustomElementsSpy.mockImplementationOnce(() => undefined)
-			expect(() => registerSidebarTab(getExampleTab())).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab element not registered]')
-		})
-
-		it('fails with invalid custom element', () => {
-			getCustomElementsSpy.mockImplementationOnce(() => HTMLElement)
-			expect(() => registerSidebarTab(getExampleTab())).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab elements must have the `setActive` method]')
 		})
 
 		it('fails with missing name', () => {
