@@ -48,6 +48,10 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+## 4.0.0-beta.8 - 2025-12-29
+### 🚀 Enhancements
+* feat(sidebar): properly implement sidebar Proxy for Nextcloud 33+ [\#1447](https://github.com/nextcloud-libraries/nextcloud-files/pull/1447) \([susnux](https://github.com/susnux)\)
+
 ## 4.0.0-beta.7 - 2025-12-23
 ### 🐛 Fixed bugs
 * fix(column): validate interface rather than the instance type [\#1442](https://github.com/nextcloud-libraries/nextcloud-files/pull/1442) \([susnux](https://github.com/susnux)\)
