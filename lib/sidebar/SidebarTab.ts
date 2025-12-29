@@ -149,15 +149,4 @@ function validateSidebarTab(tab: ISidebarTab): void {
 	if (typeof tab.enabled !== 'function') {
 		throw new Error('Sidebar tabs need to have an "enabled" method')
 	}
-
-	// now check the custom element constructor
-	const tagConstructor = window.customElements.get(tab.tagName)
-	if (!tagConstructor) {
-		throw new Error('Sidebar tab element not registered')
-	}
-
-	if (!('setActive' in tagConstructor.prototype)) {
-		// we cannot check properties like `node` or `view` because those are not necessarily defined in the prototype.
-		throw new Error('Sidebar tab elements must have the `setActive` method')
-	}
 }

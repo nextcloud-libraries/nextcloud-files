@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { INode } from '../node/node.ts'
+import type { ISidebarAction } from './SidebarAction.ts'
 import type { ISidebarContext, ISidebarTab } from './SidebarTab.ts'
 
-import { getSidebarTabs, registerSidebarTab } from './SidebarTab.ts'
+import { registerSidebarAction } from './SidebarAction.ts'
+import { registerSidebarTab } from './SidebarTab.ts'
 
 export interface ISidebar {
 	/**
@@ -17,17 +20,47 @@ export interface ISidebar {
 	/**
 	 * The current open state of the sidebar
 	 */
-	readonly open: boolean
+	readonly isOpen: boolean
 
 	/**
-	 * Open or close the sidebar
-	 *
-	 * @param open - The new open state
+	 * The currently active sidebar tab id
 	 */
-	setOpen(open: boolean): void
+	readonly activeTab?: string
 
 	/**
-	 * Register a new sidebar tab
+	 * The currently opened node in the sidebar
+	 */
+	readonly node?: INode
+
+	/**
+	 * Open the sidebar for a specific node.
+	 *
+	 * When the sidebar is fully opened the `files:sidebar:opened` event is emitted,
+	 * see also `@nextcloud/event-bus`.
+	 *
+	 * @param node - The node to open the sidebar for
+	 * @param tab - The tab to open by default
+	 */
+	open(node: INode, tab?: string): void
+
+	/**
+	 * Close the sidebar.
+	 *
+	 * When the sidebar is fully closed the `files:sidebar:closed` event is emitted,
+	 * see also `@nextcloud/event-bus`.
+	 */
+	close(): void
+
+	/**
+	 * Set the active sidebar tab
+	 *
+	 * @param tabId - The tab to set active
+	 */
+	setActiveTab(tabId: string): void
+
+	/**
+	 * Register a new sidebar tab.
+	 * This should ideally be done on app initialization using Nextcloud init scripts.
 	 *
 	 * @param tab - The sidebar tab to register
 	 */
@@ -38,6 +71,22 @@ export interface ISidebar {
 	 * If a node is passed only the enabled tabs are retrieved.
 	 */
 	getTabs(context?: ISidebarContext): ISidebarTab[]
+
+	/**
+	 * Get all registered sidebar actions.
+	 *
+	 * If a context is provided only the enabled actions are returned.
+	 *
+	 * @param context - The context
+	 */
+	getActions(context?: ISidebarContext): ISidebarAction[]
+
+	/**
+	 * Register a new sidebar action.
+	 *
+	 * @param action - The action to register
+	 */
+	registerAction(action: ISidebarAction): void
 }
 
 /**
@@ -50,24 +99,36 @@ export interface ISidebar {
  */
 class SidebarProxy implements ISidebar {
 
+	get #impl(): Omit<ISidebar, 'available' | 'registerTab' | 'registerAction'> | undefined {
+		return window.OCA?.Files?._sidebar?.()
+	}
+
 	get available(): boolean {
-		return !!window.OCA?.Files?.Sidebar
+		return !!this.#impl
 	}
 
-	get open(): boolean {
-		return !!window.OCA?.Files?.Sidebar?.state.file
+	get isOpen(): boolean {
+		return this.#impl?.isOpen ?? false
 	}
 
-	setOpen(open: boolean): void {
-		if (open) {
-			window.OCA?.Files?.Sidebar?.open()
-		} else {
-			window.OCA?.Files?.Sidebar?.close()
-		}
+	get activeTab(): string | undefined {
+		return this.#impl?.activeTab
+	}
+
+	get node(): INode | undefined {
+		return this.#impl?.node
+	}
+
+	open(node: INode, tab?: string): void {
+		this.#impl?.open(node, tab)
+	}
+
+	close(): void {
+		this.#impl?.close()
 	}
 
 	setActiveTab(tabId: string): void {
-		window.OCA?.Files?.Sidebar?.setActiveTab(tabId)
+		this.#impl?.setActiveTab(tabId)
 	}
 
 	registerTab(tab: ISidebarTab): void {
@@ -75,11 +136,15 @@ class SidebarProxy implements ISidebar {
 	}
 
 	getTabs(context?: ISidebarContext): ISidebarTab[] {
-		const tabs = getSidebarTabs()
-		if (context) {
-			return tabs.filter((tab) => tab.enabled(context))
-		}
-		return tabs
+		return this.#impl?.getTabs(context) ?? []
+	}
+
+	getActions(context?: ISidebarContext): ISidebarAction[] {
+		return this.#impl?.getActions(context) ?? []
+	}
+
+	registerAction(action: ISidebarAction): void {
+		registerSidebarAction(action)
 	}
 
 }

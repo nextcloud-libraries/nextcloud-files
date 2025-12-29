@@ -31,7 +31,7 @@ export interface IFileListFilterChip {
 	/**
 	 * Handler to be called on click
 	 */
-	onclick: () => void
+	onclick(): void
 }
 
 /**
