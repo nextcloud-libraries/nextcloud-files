@@ -16,11 +16,13 @@ interface NextcloudCapabilities extends Record<string, unknown> {
 	}
 }
 
-export enum InvalidFilenameErrorReason {
-	ReservedName = 'reserved name',
-	Character = 'character',
-	Extension = 'extension',
-}
+export const InvalidFilenameErrorReason = Object.freeze({
+	ReservedName: 'reserved name',
+	Character: 'character',
+	Extension: 'extension',
+})
+
+export type TInvalidFilenameErrorReason = typeof InvalidFilenameErrorReason[keyof typeof InvalidFilenameErrorReason]
 
 interface InvalidFilenameErrorOptions {
 	/**
@@ -31,7 +33,7 @@ interface InvalidFilenameErrorOptions {
 	/**
 	 * Reason why the validation failed
 	 */
-	reason: InvalidFilenameErrorReason
+	reason: TInvalidFilenameErrorReason
 
 	/**
 	 * Part of the filename that caused this error

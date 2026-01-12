@@ -7,22 +7,24 @@ import type { IFolder, INode } from '../node/index.ts'
 
 import logger from '../utils/logger.ts'
 
-export enum NewMenuEntryCategory {
+export const NewMenuEntryCategory = Object.freeze({
 	/**
 	 * For actions where the user is intended to upload from their device
 	 */
-	UploadFromDevice = 0,
+	UploadFromDevice: 0,
 
 	/**
 	 * For actions that create new nodes on the server without uploading
 	 */
-	CreateNew = 1,
+	CreateNew: 1,
 
 	/**
 	 * For everything not matching the other categories
 	 */
-	Other = 2,
-}
+	Other: 2,
+})
+
+export type TNewMenuEntryCategory = typeof NewMenuEntryCategory[keyof typeof NewMenuEntryCategory]
 
 export interface NewMenuEntry {
 	/** Unique ID */
@@ -31,10 +33,12 @@ export interface NewMenuEntry {
 	/**
 	 * Category to put this entry in
 	 * (supported since Nextcloud 30)
-	 * @since 3.3.0
+	 *
 	 * @default NewMenuEntryCategory.CreateNew
+	 * @see NewMenuEntryCategory
+	 * @since 3.3.0
 	 */
-	category?: NewMenuEntryCategory
+	category?: TNewMenuEntryCategory
 
 	/** Translatable string displayed in the menu */
 	displayName: string

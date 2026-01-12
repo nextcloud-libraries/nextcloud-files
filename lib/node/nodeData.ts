@@ -6,7 +6,7 @@
 import { join } from '@nextcloud/paths'
 
 import { Permission } from '../permissions'
-import { NodeStatus } from './node'
+import { NodeStatus, TNodeStatus } from './node'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Attribute { [key: string]: any }
@@ -41,8 +41,13 @@ export interface NodeData {
 	/** The node size type */
 	size?: number
 
-	/** The node permissions */
-	permissions?: Permission
+	/**
+	 * The node permissions.
+	 *
+	 * A binary mask of `Permission` values.
+	 * @see Permission
+	 */
+	permissions?: number
 
 	/** The owner  UID of this node */
 	owner: string|null
@@ -54,7 +59,7 @@ export interface NodeData {
 	attributes?: Attribute
 
 	/** The node status */
-	status?: NodeStatus
+	status?: TNodeStatus
 }
 
 /**

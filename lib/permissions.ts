@@ -6,12 +6,37 @@
 /**
  * Node permissions
  */
-export enum Permission {
-	NONE = 0,
-	CREATE = 4,
-	READ = 1,
-	UPDATE = 2,
-	DELETE = 8,
-	SHARE = 16,
-	ALL = 31,
-}
+export const Permission = Object.freeze({
+	/**
+	 * No permissions granted
+	 */
+	NONE: 0,
+	/**
+	 * Can read the file content
+	 */
+	READ: 1,
+	/**
+	 * Can modify the file itself (move, rename, etc)
+	 */
+	UPDATE: 2,
+	/**
+	 * Can create new files/folders inside a folder
+	 */
+	CREATE: 4,
+	/**
+	 * Can change the file content
+	 */
+	WRITE: 4,
+	/**
+	 * Can delete the node
+	 */
+	DELETE: 8,
+	/**
+	 * Can share the node
+	 */
+	SHARE: 16,
+	/**
+	 * All permissions are granted
+	 */
+	ALL: 31,
+})

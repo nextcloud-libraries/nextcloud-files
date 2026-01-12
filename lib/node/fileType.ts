@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-export enum FileType {
-	Folder = 'folder',
-	File = 'file',
-}
+export const FileType = Object.freeze({
+	Folder: 'folder',
+	File: 'file',
+})
+
+export type TFileType = typeof FileType[keyof typeof FileType]

@@ -6,10 +6,12 @@ import type { ActionContext, ActionContextSingle } from '../types.ts'
 
 import logger from '../utils/logger.ts'
 
-export enum DefaultType {
-	DEFAULT = 'default',
-	HIDDEN = 'hidden',
-}
+export const DefaultType = Object.freeze({
+	DEFAULT: 'default',
+	HIDDEN: 'hidden',
+})
+
+export type TDefaultType = typeof DefaultType[keyof typeof DefaultType]
 
 export interface IHotkeyConfig {
 	/**
@@ -91,14 +93,17 @@ export interface FileActionData {
 
 	/**
 	 * Make this action the default.
-	 * If multiple actions are default, the first one
-	 * will be used. The other ones will be put as first
-	 * entries in the actions menu iff DefaultType.Hidden is not used.
-	 * A DefaultType.Hidden action will never be shown
+	 *
+	 * If multiple actions are default, the first one will be used.
+	 * The other ones will be put as first entries in the actions menu iff `DefaultType.Hidden` is not used.
+	 *
+	 * A `DefaultType.Hidden` action will never be shown
 	 * in the actions menu even if another action takes
 	 * its place as default.
+	 *
+	 * @see DefaultType
 	 */
-	default?: DefaultType,
+	default?: TDefaultType,
 	/**
 	 * If true, the renderInline function will be called
 	 */

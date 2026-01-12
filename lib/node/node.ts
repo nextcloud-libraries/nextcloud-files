@@ -3,21 +3,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { TFileType } from './fileType.ts'
+
 import { basename, dirname, encodePath, extname } from '@nextcloud/paths'
 import { Permission } from '../permissions'
-import { FileType } from './fileType'
 import { Attribute, fixDates, fixRegExp, isDavResource, NodeData, validateData } from './nodeData'
 
-export enum NodeStatus {
+export const NodeStatus = Object.freeze({
 	/** This is a new node and it doesn't exists on the filesystem yet */
-	NEW = 'new',
+	NEW: 'new',
 	/** This node has failed and is unavailable  */
-	FAILED = 'failed',
+	FAILED: 'failed',
 	/** This node is currently loading or have an operation in progress */
-	LOADING = 'loading',
+	LOADING: 'loading',
 	/** This node is locked and cannot be modified */
-	LOCKED = 'locked',
-}
+	LOCKED: 'locked',
+})
+
+export type TNodeStatus = typeof NodeStatus[keyof typeof NodeStatus]
 
 export type NodeConstructorData = [NodeData, RegExp?]
 
@@ -147,7 +150,7 @@ export abstract class Node {
 	/**
 	 * Is it a file or a folder ?
 	 */
-	abstract get type(): FileType
+	abstract get type(): TFileType
 
 	/**
 	 * Get the file mime
@@ -217,7 +220,7 @@ export abstract class Node {
 	/**
 	 * Get the file permissions
 	 */
-	get permissions(): Permission {
+	get permissions(): number {
 		// If this is not a dav resource, we can only read it
 		if (this.owner === null && !this.isDavResource) {
 			return Permission.READ
@@ -232,7 +235,7 @@ export abstract class Node {
 	/**
 	 * Set the file permissions
 	 */
-	set permissions(permissions: Permission) {
+	set permissions(permissions: number) {
 		validateData({ ...this._data, permissions }, this._knownDavService)
 		this.updateMtime()
 		this._data.permissions = permissions
@@ -307,14 +310,14 @@ export abstract class Node {
 	/**
 	 * Get the node status.
 	 */
-	get status(): NodeStatus|undefined {
+	get status(): TNodeStatus|undefined {
 		return this._data?.status
 	}
 
 	/**
 	 * Set the node status.
 	 */
-	set status(status: NodeStatus|undefined) {
+	set status(status: TNodeStatus|undefined) {
 		validateData({ ...this._data, status }, this._knownDavService)
 		this._data.status = status
 	}
