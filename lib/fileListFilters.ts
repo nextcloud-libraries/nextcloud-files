@@ -54,7 +54,7 @@ interface IFileListFilterEvents {
 	'update:chips': FilterUpdateChipsEvent
 }
 
-export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents> {
+export interface IFileListFilterBase extends TypedEventTarget<IFileListFilterEvents> {
 
 	/**
 	 * Unique ID of this filter
@@ -77,25 +77,53 @@ export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents>
 	filter(nodes: INode[]): INode[]
 
 	/**
-	 * If the filter needs a visual element for settings it can provide a function to mount it.
-	 *
-	 * @param el The DOM element to mount to
-	 */
-	mount?(el: HTMLElement): void
-
-	/**
 	 * Reset the filter to the initial state.
-	 * This is called by the files app.
+	 *
 	 * Implementations should make sure,that if they provide chips they need to emit the `update:chips` event.
+	 * This is called by the files app.
 	 *
 	 * @since 3.10.0
 	 */
 	reset?(): void
 }
 
-export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> implements IFileListFilter {
-	public id: string
+/**
+ * File list filter interface with UI component
+ *
+ * Filters with UI must provide additional information for rendering the filter component.
+ * The ui will be rendered depending on the view port - either as inline actions or in a dropdown menu.
+ */
+export interface IFileListFilterWithUi extends IFileListFilterBase {
+	/**
+	 * Display name of the filter
+	 */
+	readonly displayName: string
 
+	/**
+	 * Inline SVG icon as string for the filter
+	 */
+	readonly iconSvgInline: string
+
+	/**
+	 * Tag name of the web component to use as filter UI
+	 *
+	 * The web component must extend `HTMLElement` and accept a property `filter` of type `IFileListFilterWithUi`
+	 * (it will receive the filter instance itself).
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements
+	 */
+	readonly tagName: string
+}
+
+/**
+ * File list filter interface
+ *
+ * Filters can either be simple filters without UI or filters with a UI component.
+ */
+export type IFileListFilter = IFileListFilterBase | IFileListFilterWithUi
+
+export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> implements IFileListFilterBase {
+	public id: string
 	public order: number
 
 	constructor(id: string, order: number = 100) {
