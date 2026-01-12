@@ -9,18 +9,20 @@ import type { SortingOrder } from './sorting.ts'
 import { FileType } from '../node/fileType.ts'
 import { orderBy } from './sorting.ts'
 
-export enum FilesSortingMode {
-	Name = 'basename',
-	Modified = 'mtime',
-	Size = 'size',
-}
+export const FilesSortingMode = Object.freeze({
+	Name: 'basename',
+	Modified: 'mtime',
+	Size: 'size',
+})
+
+export type TFilesSortingMode = typeof FilesSortingMode[keyof typeof FilesSortingMode]
 
 export interface FilesSortingOptions {
 	/**
 	 * They key to order the files by
 	 * @default FilesSortingMode.Name
 	 */
-	sortingMode?: FilesSortingMode | string
+	sortingMode?: TFilesSortingMode | string
 
 	/**
 	 * @default 'asc'

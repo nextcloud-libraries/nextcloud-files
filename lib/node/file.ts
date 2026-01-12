@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { NodeConstructorData } from './node'
 
 import { FileType } from './fileType'
@@ -13,7 +14,7 @@ export class File extends Node {
 		super(data, davService)
 	}
 
-	get type(): FileType.File {
+	get type(): typeof FileType.File {
 		return FileType.File
 	}
 
