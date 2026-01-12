@@ -150,7 +150,7 @@ describe('Mtime attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update mtime
 		file.mtime = new Date()
@@ -172,7 +172,7 @@ describe('Mtime attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update mtime
 		file.updateMtime()
@@ -209,7 +209,7 @@ describe('Size attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update size
 		file.size = 5678
@@ -247,7 +247,7 @@ describe('Permissions attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update permissions
 		file.permissions = Permission.ALL
@@ -904,5 +904,4 @@ describe('Attributes update', () => {
 		// The owner is still the original one
 		expect(file?.owner).toBe('emma')
 	})
-
 })

@@ -49,9 +49,9 @@ export interface FilterUpdateChipsEvent extends CustomEvent<IFileListFilterChip[
 }
 
 interface IFileListFilterEvents {
-	[name: string]: CustomEvent,
+	[name: string]: CustomEvent
 	'update:filter': FilterUpdateEvent
-	'update:chips' : FilterUpdateChipsEvent
+	'update:chips': FilterUpdateChipsEvent
 }
 
 export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents> {
@@ -78,6 +78,7 @@ export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents>
 
 	/**
 	 * If the filter needs a visual element for settings it can provide a function to mount it.
+	 *
 	 * @param el The DOM element to mount to
 	 */
 	mount?(el: HTMLElement): void
@@ -93,7 +94,6 @@ export interface IFileListFilter extends TypedEventTarget<IFileListFilterEvents>
 }
 
 export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> implements IFileListFilter {
-
 	public id: string
 
 	public order: number
@@ -116,7 +116,6 @@ export class FileListFilter extends TypedEventTarget<IFileListFilterEvents> impl
 	protected filterUpdated() {
 		this.dispatchTypedEvent('update:filter', new CustomEvent('update:filter') as FilterUpdateEvent)
 	}
-
 }
 
 /**
@@ -140,6 +139,7 @@ export function registerFileListFilter(filter: IFileListFilter): void {
 
 /**
  * Remove a registered filter from the file list
+ *
  * @param filterId The unique ID of the filter to remove
  */
 export function unregisterFileListFilter(filterId: string): void {

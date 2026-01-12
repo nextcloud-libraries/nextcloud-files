@@ -6,18 +6,18 @@
 import type { NewMenuEntry } from '../lib/newMenu/NewMenu.ts'
 
 import { describe, expect, test } from 'vitest'
+import { FileAction, getFileActions, registerFileAction } from '../lib/actions/fileAction.ts'
 import {
-	formatFileSize,
 	addNewFileMenuEntry,
-	removeNewFileMenuEntry,
-	getNewFileMenuEntries,
-	FileType,
 	File,
+	FileType,
 	Folder,
+	formatFileSize,
+	getNewFileMenuEntries,
 	Node,
 	Permission,
+	removeNewFileMenuEntry,
 } from '../lib/index.ts'
-import { FileAction, registerFileAction, getFileActions } from '../lib/actions/fileAction.ts'
 import { NewMenu } from '../lib/newMenu/NewMenu.ts'
 
 describe('Exports checks', () => {

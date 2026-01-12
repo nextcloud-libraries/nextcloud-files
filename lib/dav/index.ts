@@ -7,6 +7,7 @@
  * This module provides utils to work with the Nextcloud WebDAV interface.
  *
  * The DAV functions are based on the [`webdav`](https://www.npmjs.com/package/webdav) package.
+ *
  * @packageDocumentation
  */
 

@@ -6,8 +6,8 @@
 import type { IFolder } from '../node/index.ts'
 import type { NewMenuEntry } from './NewMenu.ts'
 
-import { NewMenu } from './NewMenu.ts'
 import logger from '../utils/logger.ts'
+import { NewMenu } from './NewMenu.ts'
 
 /**
  * Get the NewMenu instance used by the files app.

@@ -4,7 +4,6 @@
  */
 
 import { describe, expect, test } from 'vitest'
-
 import { FileType, Folder } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 

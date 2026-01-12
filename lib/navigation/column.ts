@@ -25,7 +25,6 @@ export interface IColumn {
 }
 
 export class Column implements IColumn {
-
 	private _column: IColumn
 
 	constructor(column: IColumn) {
@@ -52,7 +51,6 @@ export class Column implements IColumn {
 	get summary() {
 		return this._column.summary
 	}
-
 }
 
 /**

@@ -6,6 +6,7 @@
 import type { ArgumentsType } from 'vitest'
 import type { FileStat } from 'webdav'
 import type { resultToNode as IResultToNode } from '../../lib/dav/dav'
+
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({ getCurrentUser: vi.fn() }))
@@ -16,19 +17,18 @@ vi.mock('@nextcloud/auth', () => auth)
 vi.mock('@nextcloud/router', () => router)
 vi.mock('@nextcloud/sharing/public', () => sharing)
 
-const restoreMocks = () => {
+function restoreMocks() {
 	vi.resetAllMocks()
 	router.generateRemoteUrl.mockImplementation((service) => `https://example.com/remote.php/${service}`)
 }
 
-const mockPublicShare = () => {
+function mockPublicShare() {
 	auth.getCurrentUser.mockImplementationOnce(() => null)
 	sharing.isPublicShare.mockImplementation(() => true)
 	sharing.getSharingToken.mockImplementation(() => 'token-1234')
 }
 
 describe('DAV path functions', () => {
-
 	beforeEach(() => {
 		vi.resetModules()
 		restoreMocks()

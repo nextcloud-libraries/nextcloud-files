@@ -9,7 +9,6 @@ import { FileType } from './fileType'
 import { Node } from './node'
 
 export class Folder extends Node {
-
 	constructor(...[data, davService]: NodeConstructorData) {
 		// enforcing mimes
 		super({
@@ -29,7 +28,6 @@ export class Folder extends Node {
 	get mime(): 'httpd/unix-directory' {
 		return 'httpd/unix-directory'
 	}
-
 }
 
 /**

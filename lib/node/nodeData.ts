@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { join } from '@nextcloud/paths'
+import type { TNodeStatus } from './node'
 
+import { join } from '@nextcloud/paths'
 import { Permission } from '../permissions'
-import { NodeStatus, TNodeStatus } from './node'
+import { NodeStatus } from './node'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Attribute { [key: string]: any }
@@ -45,12 +46,13 @@ export interface NodeData {
 	 * The node permissions.
 	 *
 	 * A binary mask of `Permission` values.
+	 *
 	 * @see Permission
 	 */
 	permissions?: number
 
 	/** The owner  UID of this node */
-	owner: string|null
+	owner: string | null
 
 	/** Optional the displayname of this node */
 	displayname?: string
@@ -68,7 +70,7 @@ export interface NodeData {
  * @param source The source to check
  * @param davService Pattern to check if source is DAV resource
  */
-export const isDavResource = function(source: string, davService: RegExp): boolean {
+export function isDavResource(source: string, davService: RegExp): boolean {
 	return source.match(davService) !== null
 }
 
@@ -88,7 +90,6 @@ export function validateData(data: NodeData, davService: RegExp) {
 	}
 
 	try {
-		// eslint-disable-next-line no-new
 		new URL(data.source)
 	} catch (e) {
 		throw new Error('Invalid source format, source must be a valid URL')
@@ -174,7 +175,7 @@ export function validateData(data: NodeData, davService: RegExp) {
  *
  * @param data The internal node data
  */
-export const fixDates = (data: NodeData) => {
+export function fixDates(data: NodeData) {
 	if (data.mtime && typeof data.mtime === 'string') {
 		if (!isNaN(Date.parse(data.mtime))
 			&& JSON.stringify(new Date(data.mtime)) === JSON.stringify(data.mtime)) {
@@ -195,7 +196,7 @@ export const fixDates = (data: NodeData) => {
  *
  * @param pattern The pattern as string or RegExp
  */
-export const fixRegExp = (pattern: string | RegExp): RegExp => {
+export function fixRegExp(pattern: string | RegExp): RegExp {
 	if (pattern instanceof RegExp) {
 		return pattern
 	}

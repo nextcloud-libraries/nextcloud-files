@@ -5,9 +5,9 @@
 
 import type { IView } from './view'
 
-import { validateView } from './view'
 import { TypedEventTarget } from 'typescript-event-target'
 import logger from '../utils/logger'
+import { validateView } from './view'
 
 /**
  * The event is emitted when the navigation view was updated.
@@ -29,6 +29,7 @@ interface UpdateViewsEvent extends CustomEvent<never> {
  *
  * Custom views for the files app can be registered (examples are the favorites views or the shared-with-you view).
  * It is also possible to listen on changes of the registered views or when the current active view is changed.
+ *
  * @example
  * ```js
  * const navigation = getNavigation()
@@ -46,18 +47,18 @@ interface UpdateViewsEvent extends CustomEvent<never> {
  * ```
  */
 export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveViewEvent, update: UpdateViewsEvent }> {
-
 	private _views: IView[] = []
 	private _currentView: IView | null = null
 
 	/**
 	 * Register a new view on the navigation
+	 *
 	 * @param view The view to register
 	 * @throws {Error} if a view with the same id is already registered
 	 * @throws {Error} if the registered view is invalid
 	 */
 	register(view: IView): void {
-		if (this._views.find(search => search.id === view.id)) {
+		if (this._views.find((search) => search.id === view.id)) {
 			throw new Error(`IView id ${view.id} is already registered`)
 		}
 
@@ -69,10 +70,11 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
 
 	/**
 	 * Remove a registered view
+	 *
 	 * @param id The id of the view to remove
 	 */
 	remove(id: string): void {
-		const index = this._views.findIndex(view => view.id === id)
+		const index = this._views.findIndex((view) => view.id === id)
 		if (index !== -1) {
 			this._views.splice(index, 1)
 			this.dispatchTypedEvent('update', new CustomEvent('update') as UpdateViewsEvent)
@@ -114,13 +116,12 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
 	get views(): IView[] {
 		return this._views
 	}
-
 }
 
 /**
  * Get the current files navigation
  */
-export const getNavigation = function(): Navigation {
+export function getNavigation(): Navigation {
 	if (typeof window._nc_navigation === 'undefined') {
 		window._nc_navigation = new Navigation()
 		logger.debug('Navigation service initialized')

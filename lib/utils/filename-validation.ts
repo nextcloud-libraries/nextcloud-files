@@ -7,12 +7,12 @@ import { getCapabilities } from '@nextcloud/capabilities'
 
 interface NextcloudCapabilities extends Record<string, unknown> {
 	files: {
-		'bigfilechunking': boolean
+		bigfilechunking: boolean
 		// those are new in Nextcloud 30
-		'forbidden_filenames'?: string[]
-		'forbidden_filename_basenames'?: string[]
-		'forbidden_filename_characters'?: string[]
-		'forbidden_filename_extensions'?: string[]
+		forbidden_filenames?: string[]
+		forbidden_filename_basenames?: string[]
+		forbidden_filename_characters?: string[]
+		forbidden_filename_extensions?: string[]
 	}
 }
 
@@ -42,7 +42,6 @@ interface InvalidFilenameErrorOptions {
 }
 
 export class InvalidFilenameError extends Error {
-
 	public constructor(options: InvalidFilenameErrorOptions) {
 		super(`Invalid ${options.reason} '${options.segment}' in filename '${options.filename}'`, { cause: options })
 	}
@@ -67,11 +66,11 @@ export class InvalidFilenameError extends Error {
 	public get segment() {
 		return (this.cause as InvalidFilenameErrorOptions).segment
 	}
-
 }
 
 /**
  * Validate a given filename
+ *
  * @param filename The filename to check
  * @throws {InvalidFilenameError}
  */
@@ -115,6 +114,7 @@ export function validateFilename(filename: string): void {
 /**
  * Check the validity of a filename
  * This is a convenient wrapper for `checkFilenameValidity` to only return a boolean for the valid
+ *
  * @param filename Filename to check validity
  */
 export function isFilenameValid(filename: string): boolean {

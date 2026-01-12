@@ -9,7 +9,6 @@ import { FileType } from './fileType'
 import { Node } from './node'
 
 export class File extends Node {
-
 	public constructor(...[data, davService]: NodeConstructorData) {
 		super(data, davService)
 	}
@@ -17,7 +16,6 @@ export class File extends Node {
 	get type(): typeof FileType.File {
 		return FileType.File
 	}
-
 }
 
 /**

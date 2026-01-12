@@ -7,12 +7,12 @@ import type { DAVResultResponseProps, FileStat, ResponseDataDetailed, WebDAVClie
 import type { Node, NodeData } from '../node/index.ts'
 
 import { getCurrentUser, getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth'
-import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { generateRemoteUrl } from '@nextcloud/router'
+import { getSharingToken, isPublicShare } from '@nextcloud/sharing/public'
 import { createClient, getPatcher } from 'webdav'
+import { File, Folder, NodeStatus } from '../node/index.ts'
 import { parsePermissions } from './davPermissions.ts'
 import { getFavoritesReport } from './davProperties.ts'
-import { File, Folder, NodeStatus } from '../node/index.ts'
 
 /**
  * Nextcloud DAV result response
@@ -66,11 +66,12 @@ export const defaultRemoteURL = getRemoteURL()
  * @param remoteURL The DAV server remote URL
  * @param headers Optional additional headers to set for every request
  */
-export const getClient = function(remoteURL = defaultRemoteURL, headers: Record<string, string> = {}) {
+export function getClient(remoteURL = defaultRemoteURL, headers: Record<string, string> = {}) {
 	const client = createClient(remoteURL, { headers })
 
 	/**
 	 * Set headers for DAV requests
+	 *
 	 * @param token CSRF token
 	 */
 	function setHeaders(token: string | null) {
@@ -155,7 +156,7 @@ export async function getFavoriteNodes(options: { client?: WebDAVClient, path?: 
 	}) as ResponseDataDetailed<FileStat[]>
 
 	return contentsResponse.data
-		.filter(node => node.filename !== path) // exclude current dir
+		.filter((node) => node.filename !== path) // exclude current dir
 		.map((result) => resultToNode(result, davRoot))
 }
 
@@ -166,7 +167,7 @@ export async function getFavoriteNodes(options: { client?: WebDAVClient, path?: 
  * @param filesRoot The DAV files root path
  * @param remoteURL The DAV server remote URL (same as on `getClient`)
  */
-export const resultToNode = function(node: FileStat, filesRoot = defaultRootPath, remoteURL = defaultRemoteURL): Node {
+export function resultToNode(node: FileStat, filesRoot = defaultRootPath, remoteURL = defaultRemoteURL): Node {
 	let userId = getCurrentUser()?.uid
 	if (isPublicShare()) {
 		userId = userId ?? 'anonymous'

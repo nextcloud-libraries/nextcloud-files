@@ -98,7 +98,6 @@ export interface ISidebar {
  * If we decide to do a breaking change we can either add compatibility wrappers in the implementation in the files app.
  */
 class SidebarProxy implements ISidebar {
-
 	get #impl(): Omit<ISidebar, 'available' | 'registerTab' | 'registerAction'> | undefined {
 		return window.OCA?.Files?._sidebar?.()
 	}
@@ -146,7 +145,6 @@ class SidebarProxy implements ISidebar {
 	registerAction(action: ISidebarAction): void {
 		registerSidebarAction(action)
 	}
-
 }
 
 /**

@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { ViewActionContext } from '../types.ts'
 
 import logger from '../utils/logger.ts'
@@ -26,15 +27,15 @@ interface FileListActionData {
 
 	/**
 	 * Function executed on single file action
+	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
 	 * @throws Error if the action failed
 	 */
-	exec: (context: ViewActionContext) => Promise<boolean|null>,
+	exec: (context: ViewActionContext) => Promise<boolean | null>
 }
 
 export class FileListAction {
-
 	private _action: FileListActionData
 
 	constructor(action: FileListActionData) {
@@ -91,15 +92,18 @@ export class FileListAction {
 			throw new Error('Invalid exec function')
 		}
 	}
-
 }
 
-export const registerFileListAction = (action: FileListAction) => {
+/**
+ *
+ * @param action
+ */
+export function registerFileListAction(action: FileListAction) {
 	if (typeof window._nc_filelistactions === 'undefined') {
 		window._nc_filelistactions = []
 	}
 
-	if (window._nc_filelistactions.find(listAction => listAction.id === action.id)) {
+	if (window._nc_filelistactions.find((listAction) => listAction.id === action.id)) {
 		logger.error(`FileListAction with id "${action.id}" is already registered`, { action })
 		return
 	}
@@ -107,7 +111,10 @@ export const registerFileListAction = (action: FileListAction) => {
 	window._nc_filelistactions.push(action)
 }
 
-export const getFileListActions = (): FileListAction[] => {
+/**
+ *
+ */
+export function getFileListActions(): FileListAction[] {
 	if (typeof window._nc_filelistactions === 'undefined') {
 		window._nc_filelistactions = []
 	}

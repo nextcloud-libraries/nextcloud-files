@@ -8,6 +8,7 @@ import { basename, extname } from '@nextcloud/paths'
 interface UniqueNameOptions {
 	/**
 	 * A function that takes an index and returns a suffix to add to the file name, defaults to '(index)'
+	 *
 	 * @param index The current index to add
 	 */
 	suffix?: (index: number) => string
@@ -19,10 +20,11 @@ interface UniqueNameOptions {
 
 /**
  * Create an unique file name
+ *
  * @param name The initial name to use
  * @param otherNames Other names that are already used
  * @param options Optional parameters for tuning the behavior
- * @return {string} Either the initial name, if unique, or the name with the suffix so that the name is unique
+ * @return Either the initial name, if unique, or the name with the suffix so that the name is unique
  */
 export function getUniqueName(
 	name: string,

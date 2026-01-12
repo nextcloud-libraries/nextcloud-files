@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { ISidebarTab } from '../../lib/sidebar/SidebarTab.ts'
+
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getSidebarTabs, ISidebarTab, registerSidebarTab } from '../../lib/sidebar/SidebarTab.ts'
+import { getSidebarTabs, registerSidebarTab } from '../../lib/sidebar/SidebarTab.ts'
+
 // missing in JSDom but supported by every browser!
 import 'css.escape'
 
 describe('Sidebar tabs', () => {
-
 	beforeEach(() => {
 		vi.restoreAllMocks()
 		delete window._nc_files_sidebar_tabs
@@ -51,28 +53,23 @@ describe('Sidebar tabs', () => {
 		it('fails with an invalid parameter', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab(getExampleTab),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab is not an object]')
+				() => registerSidebarTab(getExampleTab)).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab is not an object]')
 		})
 
 		it('fails with missing id', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), id: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an id conforming to the HTML id attribute specifications]')
+				() => registerSidebarTab({ ...getExampleTab(), id: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an id conforming to the HTML id attribute specifications]')
 		})
 
 		it('fails with non conforming id', () => {
-			expect(
-				() => registerSidebarTab({ ...getExampleTab(), id: 'this is invalid' }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an id conforming to the HTML id attribute specifications]')
+			expect(() => registerSidebarTab({ ...getExampleTab(), id: 'this is invalid' })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an id conforming to the HTML id attribute specifications]')
 		})
 
 		it('fails with missing tagName name', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), tagName: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have the tagName name set]')
+				() => registerSidebarTab({ ...getExampleTab(), tagName: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have the tagName name set]')
 		})
 
 		it('fails with invalid tagName name', () => {
@@ -83,49 +80,41 @@ describe('Sidebar tabs', () => {
 		it('fails with missing name', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), displayName: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a name set]')
+				() => registerSidebarTab({ ...getExampleTab(), displayName: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a name set]')
 		})
 
 		it('fails with invalid name', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), displayName: 1234 }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a name set]')
+				() => registerSidebarTab({ ...getExampleTab(), displayName: 1234 })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a name set]')
 		})
 
 		it('fails with missing icon', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), iconSvgInline: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an valid SVG icon]')
+				() => registerSidebarTab({ ...getExampleTab(), iconSvgInline: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an valid SVG icon]')
 		})
 
 		it('fails with invalid SVG icon', () => {
-			expect(
-				() => registerSidebarTab({ ...getExampleTab(), iconSvgInline: 'icon-group' }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an valid SVG icon]')
+			expect(() => registerSidebarTab({ ...getExampleTab(), iconSvgInline: 'icon-group' })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an valid SVG icon]')
 		})
 
 		it('fails with missing order', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), order: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a numeric order set]')
+				() => registerSidebarTab({ ...getExampleTab(), order: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a numeric order set]')
 		})
 
 		it('fails with invalid order', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), order: '3' }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a numeric order set]')
+				() => registerSidebarTab({ ...getExampleTab(), order: '3' })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a numeric order set]')
 		})
 
 		it('fails with missing "enabled" method', () => {
 			expect(
 				// @ts-expect-error mocking for testing
-				() => registerSidebarTab({ ...getExampleTab(), enabled: undefined }),
-			).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an "enabled" method]')
+				() => registerSidebarTab({ ...getExampleTab(), enabled: undefined })).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an "enabled" method]')
 		})
 	})
 })

@@ -4,23 +4,25 @@
  */
 
 import type { View } from '../../lib/navigation/view.ts'
+import type { Folder } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileListActions, registerFileListAction, FileListAction } from '../../lib/actions/fileListAction.ts'
-import { Folder } from '../../lib/node/index.ts'
+import { FileListAction, getFileListActions, registerFileListAction } from '../../lib/actions/fileListAction.ts'
 import logger from '../../lib/utils/logger.ts'
 
 const folder = {} as Folder
 const view = {} as View
 
-const mockAction = (id: string) => new FileListAction({
-	id,
-	displayName: () => 'Test',
-	iconSvgInline: () => '<svg></svg>',
-	order: 0,
-	// @ts-expect-error mocking for tests
-	exec: async () => {},
-})
+function mockAction(id: string) {
+	return new FileListAction({
+		id,
+		displayName: () => 'Test',
+		iconSvgInline: () => '<svg></svg>',
+		order: 0,
+		// @ts-expect-error mocking for tests
+		exec: async () => {},
+	})
+}
 
 describe('FileListActions init', () => {
 	beforeEach(() => {
@@ -61,9 +63,9 @@ describe('FileListActions init', () => {
 		registerFileListAction(bazAction)
 		expect(actions).toHaveLength(3)
 
-		expect(actions.find(action => action.id === 'foo')).toStrictEqual(fooAction)
-		expect(actions.find(action => action.id === 'bar')).toStrictEqual(barAction)
-		expect(actions.find(action => action.id === 'baz')).toStrictEqual(bazAction)
+		expect(actions.find((action) => action.id === 'foo')).toStrictEqual(fooAction)
+		expect(actions.find((action) => action.id === 'bar')).toStrictEqual(barAction)
+		expect(actions.find((action) => action.id === 'baz')).toStrictEqual(bazAction)
 	})
 
 	test('Register an action with a duplicate id', () => {
@@ -91,8 +93,7 @@ describe('Invalid FileListAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction),
-		).toThrowError('Invalid id')
+		} as unknown as FileListAction)).toThrowError('Invalid id')
 	})
 	test('Invalid displayName', () => {
 		expect(() => new FileListAction({
@@ -100,8 +101,7 @@ describe('Invalid FileListAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction),
-		).toThrowError('Invalid displayName function')
+		} as unknown as FileListAction)).toThrowError('Invalid displayName function')
 	})
 	test('Invalid iconSvgInline', () => {
 		expect(() => new FileListAction({
@@ -110,8 +110,7 @@ describe('Invalid FileListAction creation', () => {
 			displayName: () => 'Test',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction),
-		).toThrowError('Invalid iconSvgInline function')
+		} as unknown as FileListAction)).toThrowError('Invalid iconSvgInline function')
 	})
 	test('Invalid order', () => {
 		expect(() => new FileListAction({
@@ -120,8 +119,7 @@ describe('Invalid FileListAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			order: null,
 			exec: async () => {},
-		} as unknown as FileListAction),
-		).toThrowError('Invalid order')
+		} as unknown as FileListAction)).toThrowError('Invalid order')
 	})
 	test('Invalid enabled', () => {
 		expect(() => new FileListAction({
@@ -131,8 +129,7 @@ describe('Invalid FileListAction creation', () => {
 			order: 0,
 			enabled: null,
 			exec: async () => {},
-		} as unknown as FileListAction),
-		).toThrowError('Invalid enabled function')
+		} as unknown as FileListAction)).toThrowError('Invalid enabled function')
 	})
 	test('Invalid exec', () => {
 		expect(() => new FileListAction({
@@ -140,8 +137,7 @@ describe('Invalid FileListAction creation', () => {
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: null,
-		} as unknown as FileListAction),
-		).toThrowError('Invalid exec function')
+		} as unknown as FileListAction)).toThrowError('Invalid exec function')
 	})
 })
 

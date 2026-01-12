@@ -2,17 +2,14 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-new */
 
-import { describe, expect, test, beforeEach, vi } from 'vitest'
-import { Header, getFileListHeaders, registerFileListHeaders } from '../lib/fileListHeaders.ts'
-import { Folder } from '../lib/node/index.ts'
+import type { Folder } from '../lib/node/index.ts'
+
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { getFileListHeaders, Header, registerFileListHeaders } from '../lib/fileListHeaders.ts'
 import logger from '../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
-
 	beforeEach(() => {
 		delete window._nc_filelistheader
 	})
@@ -164,7 +161,6 @@ describe('FileListHeader validate', () => {
 })
 
 describe('FileListHeader exec', () => {
-
 	test('Initializing FileListHeader', () => {
 		const enabled = vi.fn()
 		const render = vi.fn()

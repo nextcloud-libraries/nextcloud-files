@@ -4,16 +4,15 @@
  */
 /// <reference types="@nextcloud/typings" />
 
+import type { DavProperty } from './dav/index.ts'
 import type {
-	IFileListFilter,
-	Navigation,
 	FileAction,
 	FileListAction,
 	Header,
+	IFileListFilter,
+	Navigation,
 	NewMenu,
 } from './index.ts'
-
-import type { DavProperty } from './dav/index.ts'
 import type { ISidebarTab } from './sidebar/index.ts'
 import type { ISidebarAction } from './sidebar/SidebarAction.ts'
 

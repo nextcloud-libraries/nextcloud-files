@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { describe, expect, test } from 'vitest'
+import type { IView } from '../lib/navigation/view.ts'
 
-import { IView, View } from '../lib/navigation/view.ts'
+import { describe, expect, test } from 'vitest'
+import { View } from '../lib/navigation/view.ts'
 import { mockView } from './fixtures/view.ts'
 
 describe('Invalid View creation', () => {
@@ -15,8 +16,7 @@ describe('Invalid View creation', () => {
 			order: 1,
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
-		).toThrowError('View id is required and must be a string')
+		} as unknown as View)).toThrowError('View id is required and must be a string')
 	})
 	test('Invalid name', () => {
 		expect(() => new View({
@@ -24,8 +24,7 @@ describe('Invalid View creation', () => {
 			order: 1,
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
-		).toThrowError('View name is required and must be a string')
+		} as unknown as View)).toThrowError('View name is required and must be a string')
 	})
 	test('Invalid caption', () => {
 		expect(() => new View({
@@ -35,8 +34,7 @@ describe('Invalid View creation', () => {
 			caption: null,
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
-		).toThrowError('View caption must be a string')
+		} as unknown as View)).toThrowError('View caption must be a string')
 	})
 	test('Invalid getContents', () => {
 		expect(() => new View({
@@ -45,8 +43,7 @@ describe('Invalid View creation', () => {
 			order: 1,
 			icon: '<svg></svg>',
 			getContents: null,
-		} as unknown as View),
-		).toThrowError('View getContents is required and must be a function')
+		} as unknown as View)).toThrowError('View getContents is required and must be a function')
 	})
 	test('Invalid icon', () => {
 		expect(() => new View({
@@ -55,8 +52,7 @@ describe('Invalid View creation', () => {
 			order: 1,
 			icon: '',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
-		).toThrowError('View icon is required and must be a valid svg string')
+		} as unknown as View)).toThrowError('View icon is required and must be a valid svg string')
 	})
 
 	test('Invalid hidden', () => {
@@ -66,8 +62,7 @@ describe('Invalid View creation', () => {
 			hidden: 'yes',
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as IView),
-		).toThrowError('View hidden must be a boolean')
+		} as unknown as IView)).toThrowError('View hidden must be a boolean')
 	})
 
 	test('Invalid order', () => {
@@ -77,8 +72,7 @@ describe('Invalid View creation', () => {
 			order: null,
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
-		} as unknown as View),
-		).toThrowError('View order must be a number')
+		} as unknown as View)).toThrowError('View order must be a number')
 	})
 	test('Invalid columns', () => {
 		expect(() => new View({
@@ -88,8 +82,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			columns: [{}],
-		} as unknown as View),
-		).toThrowError('A column id is required')
+		} as unknown as View)).toThrowError('A column id is required')
 	})
 	test('Invalid columns with null', () => {
 		expect(() => new View({
@@ -99,8 +92,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			columns: [null],
-		} as unknown as View),
-		).toThrowError('View column must be an object')
+		} as unknown as View)).toThrowError('View column must be an object')
 	})
 	test('Invalid emptyView', () => {
 		expect(() => new View({
@@ -110,8 +102,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			emptyView: true,
-		} as unknown as View),
-		).toThrowError('View emptyView must be a function')
+		} as unknown as View)).toThrowError('View emptyView must be a function')
 	})
 	test('Invalid parent', () => {
 		expect(() => new View({
@@ -121,8 +112,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			parent: 1,
-		} as unknown as View),
-		).toThrowError('View parent must be a string')
+		} as unknown as View)).toThrowError('View parent must be a string')
 	})
 	test('Invalid sticky', () => {
 		expect(() => new View({
@@ -132,8 +122,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			sticky: null,
-		} as unknown as View),
-		).toThrowError('View sticky must be a boolean')
+		} as unknown as View)).toThrowError('View sticky must be a boolean')
 	})
 	test('Invalid expanded', () => {
 		expect(() => new View({
@@ -143,8 +132,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			expanded: null,
-		} as unknown as View),
-		).toThrowError('View expanded must be a boolean')
+		} as unknown as View)).toThrowError('View expanded must be a boolean')
 	})
 	test('Invalid defaultSortKey', () => {
 		expect(() => new View({
@@ -154,8 +142,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			defaultSortKey: 1,
-		} as unknown as View),
-		).toThrowError('View defaultSortKey must be a string')
+		} as unknown as View)).toThrowError('View defaultSortKey must be a string')
 	})
 	test('Invalid loadChildViews', () => {
 		expect(() => new View({
@@ -165,8 +152,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			loadChildViews: true,
-		} as unknown as View),
-		).toThrowError('View loadChildViews must be a function')
+		} as unknown as View)).toThrowError('View loadChildViews must be a function')
 	})
 	test('Invalid params', () => {
 		expect(() => new View({
@@ -176,8 +162,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			params: [],
-		} as unknown as View),
-		).toThrowError('View params must be an object')
+		} as unknown as View)).toThrowError('View params must be an object')
 	})
 	test('Invalid params with null', () => {
 		expect(() => new View({
@@ -187,8 +172,7 @@ describe('Invalid View creation', () => {
 			icon: '<svg></svg>',
 			getContents: () => Promise.reject(new Error()),
 			params: null,
-		} as unknown as View),
-		).toThrowError('View params must be an object')
+		} as unknown as View)).toThrowError('View params must be an object')
 	})
 })
 

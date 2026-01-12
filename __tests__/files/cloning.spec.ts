@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { NodeData } from '../../lib/node/index.ts'
+
 import { describe, expect, test } from 'vitest'
-import { File, NodeData, NodeStatus } from '../../lib/node/index.ts'
+import { File, NodeStatus } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
 
 describe('File cloning', () => {

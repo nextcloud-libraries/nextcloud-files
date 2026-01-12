@@ -7,11 +7,11 @@ import type { IFolder, INode } from '../node/index.ts'
 import type { IColumn } from './column.ts'
 
 import isSvg from 'is-svg'
-import { validateColumn } from './column.ts'
 import { checkOptionalProperty } from '../utils/objectValidation.ts'
+import { validateColumn } from './column.ts'
 
 export type ContentsWithRoot = {
-	folder: IFolder,
+	folder: IFolder
 	contents: INode[]
 }
 
@@ -109,7 +109,6 @@ export interface IView {
 }
 
 export class View implements IView {
-
 	private _view: IView
 
 	constructor(view: IView) {
@@ -200,7 +199,6 @@ export class View implements IView {
 	get loadChildViews() {
 		return this._view.loadChildViews
 	}
-
 }
 
 /**
