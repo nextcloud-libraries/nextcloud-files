@@ -4,7 +4,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index'
+import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index.ts'
 
 const nextcloudCapabilities = vi.hoisted(() => ({ getCapabilities: vi.fn(() => ({ files: {} })) }))
 vi.mock('@nextcloud/capabilities', () => nextcloudCapabilities)

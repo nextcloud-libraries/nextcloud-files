@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { TNodeStatus } from './node'
+import type { TNodeStatus } from './node.ts'
 
 import { join } from '@nextcloud/paths'
-import { Permission } from '../permissions'
-import { NodeStatus } from './node'
+import { Permission } from '../permissions.ts'
+import { NodeStatus } from './node.ts'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Attribute { [key: string]: any }
@@ -91,7 +91,7 @@ export function validateData(data: NodeData, davService: RegExp) {
 
 	try {
 		new URL(data.source)
-	} catch (e) {
+	} catch {
 		throw new Error('Invalid source format, source must be a valid URL')
 	}
 

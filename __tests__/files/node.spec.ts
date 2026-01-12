@@ -4,6 +4,7 @@
  */
 
 import type { Attribute, NodeData } from '../../lib/node/index.ts'
+import type { TNodeStatus } from '../../lib/node/node.ts'
 
 import { describe, expect, test } from 'vitest'
 import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
@@ -343,8 +344,10 @@ describe('Sanity checks', () => {
 			displayname: 'test',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.displayname = true }).toThrowError('Invalid displayname')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.displayname = true
+		}).toThrowError('Invalid displayname')
 	})
 
 	test('Invalid mtime', () => {
@@ -360,8 +363,10 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.mtime = 'invalid' }).toThrowError('Invalid mtime type')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.mtime = 'invalid'
+		}).toThrowError('Invalid mtime type')
 	})
 
 	test('Invalid crtime', () => {
@@ -388,9 +393,13 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.mime = 1234 }).toThrowError('Missing or invalid mandatory mime')
-		expect(() => { file.mime = 'image' }).toThrowError('Missing or invalid mandatory mime')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.mime = 1234
+		}).toThrowError('Missing or invalid mandatory mime')
+		expect(() => {
+			file.mime = 'image'
+		}).toThrowError('Missing or invalid mandatory mime')
 	})
 
 	test('Invalid attributes', () => {
@@ -485,7 +494,7 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			status: 'invalid' as unknown as NodeStatus,
+			status: 'invalid' as unknown as TNodeStatus,
 		})).toThrowError('Status must be a valid NodeStatus')
 
 		const file = new File({

@@ -5,7 +5,7 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { View } from '../lib/index.ts'
-import { getNavigation, Navigation } from '../lib/navigation/navigation'
+import { getNavigation, Navigation } from '../lib/navigation/navigation.ts'
 import { mockView } from './fixtures/view.ts'
 
 describe('getNavigation', () => {

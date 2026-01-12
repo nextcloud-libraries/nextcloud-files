@@ -10,7 +10,7 @@ import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries } from '../l
 import { NewMenu, NewMenuEntryCategory } from '../lib/newMenu/NewMenu.ts'
 import { Folder } from '../lib/node/index.ts'
 import { Permission } from '../lib/permissions.ts'
-import logger from '../lib/utils/logger'
+import logger from '../lib/utils/logger.ts'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {

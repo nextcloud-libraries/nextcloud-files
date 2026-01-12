@@ -4,7 +4,7 @@
  */
 
 import { getCurrentUser } from '@nextcloud/auth'
-import logger from '../utils/logger'
+import logger from '../utils/logger.ts'
 
 export type DavProperty = { [key: string]: string }
 

@@ -4,11 +4,11 @@
  */
 
 import type { TFileType } from './fileType.ts'
-import type { Attribute, NodeData } from './nodeData'
+import type { Attribute, NodeData } from './nodeData.ts'
 
 import { basename, dirname, encodePath, extname } from '@nextcloud/paths'
-import { Permission } from '../permissions'
-import { fixDates, fixRegExp, isDavResource, validateData } from './nodeData'
+import { Permission } from '../permissions.ts'
+import { fixDates, fixRegExp, isDavResource, validateData } from './nodeData.ts'
 
 export const NodeStatus = Object.freeze({
 	/** This is a new node and it doesn't exists on the filesystem yet */

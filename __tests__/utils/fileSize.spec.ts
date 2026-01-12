@@ -5,7 +5,7 @@
 
 import { setLocale } from '@nextcloud/l10n'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { formatFileSize, parseFileSize } from '../../lib/index'
+import { formatFileSize, parseFileSize } from '../../lib/index.ts'
 
 describe('humanFileSize', () => {
 	beforeEach(() => setLocale('en'))

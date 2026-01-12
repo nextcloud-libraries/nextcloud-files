@@ -1,8 +1,9 @@
-import { XMLValidator } from 'fast-xml-parser'
 /**
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
+import { XMLValidator } from 'fast-xml-parser'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import {
 	defaultDavNamespaces,
@@ -13,15 +14,8 @@ import {
 	getFavoritesReport,
 	getRecentSearch,
 	registerDavProperty,
-} from '../../lib/dav/davProperties'
-import logger from '../../lib/utils/logger'
-
-declare global {
-	interface Window {
-		_nc_dav_namespaces?: string[]
-		_nc_dav_properties?: string[]
-	}
-}
+} from '../../lib/dav/davProperties.ts'
+import logger from '../../lib/utils/logger.ts'
 
 describe('DAV Properties', () => {
 	beforeEach(() => {

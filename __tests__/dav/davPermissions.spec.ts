@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { describe, expect, it } from 'vitest'
-import { parsePermissions } from '../../lib/dav/davPermissions'
-import { Permission } from '../../lib/permissions'
+import { parsePermissions } from '../../lib/dav/davPermissions.ts'
+import { Permission } from '../../lib/permissions.ts'
 
 const dataSet = [
 	{ input: undefined, permissions: Permission.NONE },

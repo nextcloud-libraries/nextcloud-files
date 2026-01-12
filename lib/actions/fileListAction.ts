@@ -30,7 +30,7 @@ interface FileListActionData {
 	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
-	 * @throws Error if the action failed
+	 * @throws {Error} If the action failed
 	 */
 	exec: (context: ViewActionContext) => Promise<boolean | null>
 }
@@ -95,8 +95,9 @@ export class FileListAction {
 }
 
 /**
+ * Register a new file list action.
  *
- * @param action
+ * @param action - The file list action to register
  */
 export function registerFileListAction(action: FileListAction) {
 	if (typeof window._nc_filelistactions === 'undefined') {
@@ -112,7 +113,7 @@ export function registerFileListAction(action: FileListAction) {
 }
 
 /**
- *
+ * Get all currently registered file list actions.
  */
 export function getFileListActions(): FileListAction[] {
 	if (typeof window._nc_filelistactions === 'undefined') {

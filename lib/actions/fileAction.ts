@@ -63,7 +63,7 @@ export interface FileActionData {
 	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
-	 * @throws Error if the action failed
+	 * @throws {Error} If the action failed
 	 */
 	exec: (context: ActionContextSingle) => Promise<boolean | null>
 	/**
@@ -71,7 +71,7 @@ export interface FileActionData {
 	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
-	 * @throws Error if the action failed
+	 * @throws {Error} If the action failed
 	 */
 	execBatch?: (context: ActionContext) => Promise<(boolean | null)[]>
 
@@ -254,8 +254,9 @@ export class FileAction {
 }
 
 /**
+ * Register a new file action.
  *
- * @param action
+ * @param action - The file list action to register
  */
 export function registerFileAction(action: FileAction): void {
 	if (typeof window._nc_fileactions === 'undefined') {

@@ -60,7 +60,7 @@ export function formatFileSize(size: number | string, skipSmallSizes = false, bi
 export function parseFileSize(value: string, forceBinary = false) {
 	try {
 		value = `${value}`.toLocaleLowerCase().replaceAll(/\s+/g, '').replaceAll(',', '.')
-	} catch (e) {
+	} catch {
 		return null
 	}
 

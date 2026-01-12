@@ -6,7 +6,7 @@
 import type { Attribute } from '../../lib/node/index.ts'
 
 import { describe, expect, test } from 'vitest'
-import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib'
+import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib/index.ts'
 
 function file(name: string, size?: number, modified?: number, favorite = false, attributes: Attribute = {}) {
 	return new File({

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IView } from './view'
+import type { IView } from './view.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
-import logger from '../utils/logger'
-import { validateView } from './view'
+import logger from '../utils/logger.ts'
+import { validateView } from './view.ts'
 
 /**
  * The event is emitted when the navigation view was updated.

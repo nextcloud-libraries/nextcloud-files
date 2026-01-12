@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileListFilterChip } from '../lib'
+import type { IFileListFilterChip } from '../lib/fileListFilters.ts'
 
 import { subscribe } from '@nextcloud/event-bus'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { FileListFilter, getFileListFilters, registerFileListFilter, unregisterFileListFilter } from '../lib'
+import { FileListFilter, getFileListFilters, registerFileListFilter, unregisterFileListFilter } from '../lib/fileListFilters.ts'
 
 class TestFilter extends FileListFilter {
 	public testUpdated() {

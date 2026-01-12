@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { Permission } from '../permissions'
+import { Permission } from '../permissions.ts'
 
 /**
  * Parse the WebDAV permission string to a permission enum

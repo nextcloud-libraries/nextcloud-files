@@ -52,9 +52,8 @@ export interface IView {
 	 * This method _must_ also return the current directory
 	 * information alongside with its content.
 	 *
-	 * An abort signal is provided to be able to
-	 * cancel the request if the user change directory
-	 * {@see https://developer.mozilla.org/en-US/docs/Web/API/AbortController }.
+	 * An [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) is provided
+	 * to be able to cancel the request if the user change directory.
 	 */
 	getContents(path: string, options: IGetContentsOptions): Promise<ContentsWithRoot>
 

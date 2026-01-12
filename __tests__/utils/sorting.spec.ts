@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, test } from 'vitest'
-import { orderBy } from '../../lib/utils/sorting'
+import { orderBy } from '../../lib/utils/sorting.ts'
 
 describe('orderBy', () => {
 	test('By default the identify and ascending order is used', () => {

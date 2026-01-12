@@ -73,8 +73,9 @@ export class Header {
 }
 
 /**
+ * Register a new file list header.
  *
- * @param header
+ * @param header - The header to register
  */
 export function registerFileListHeaders(header: Header): void {
 	if (typeof window._nc_filelistheader === 'undefined') {
@@ -92,7 +93,7 @@ export function registerFileListHeaders(header: Header): void {
 }
 
 /**
- *
+ * Get all currently registered file list headers.
  */
 export function getFileListHeaders(): Header[] {
 	if (typeof window._nc_filelistheader === 'undefined') {

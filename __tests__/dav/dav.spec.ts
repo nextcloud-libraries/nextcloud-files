@@ -10,14 +10,14 @@ import { readFile } from 'node:fs/promises'
 // required as default URL will be the DOM URL class which will use the window.location
 import { URL as FileURL } from 'node:url'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { File, Folder, NodeStatus } from '../../lib'
 import {
 	defaultRemoteURL,
 	defaultRootPath,
 	getFavoriteNodes,
 	getFavoritesReport,
 	resultToNode,
-} from '../../lib/dav/index'
+} from '../../lib/dav/index.ts'
+import { File, Folder, NodeStatus } from '../../lib/index.ts'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
