@@ -437,8 +437,10 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.size = 'test' }).toThrowError('Invalid size type')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.size = 'test'
+		}).toThrowError('Invalid size type')
 	})
 
 	test('Invalid owner', () => {
@@ -504,8 +506,10 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			status: NodeStatus.LOCKED,
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.status = 'invalid' }).toThrowError('Status must be a valid NodeStatus')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.status = 'invalid'
+		}).toThrowError('Status must be a valid NodeStatus')
 	})
 })
 
@@ -908,8 +912,10 @@ describe('Attributes update', () => {
 		})
 
 		// We can not update the owner
-		// @ts-expect-error owner is a read-only property
-		expect(() => { file.owner = 'admin' }).toThrowError()
+		expect(() => {
+			// @ts-expect-error owner is a read-only property
+			file.owner = 'admin'
+		}).toThrowError()
 		// The owner is still the original one
 		expect(file?.owner).toBe('emma')
 	})
