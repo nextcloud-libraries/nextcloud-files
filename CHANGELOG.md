@@ -48,6 +48,25 @@ type ActionContext = {
 + action.exec({ nodes, view, folder, contents }): Promise<boolean>
 ```
 
+#### Node permissions
+To make work with nodes easier a new constant has been introduced:
+
+`Permission.WRITE` is set for files where the content can be changed
+(whereas `Permission.UPDATE` only indicates the file can be updates as in renamed or moved).
+This is similar to the `Permission.CREATE` for folders.
+
+## 4.0.0-beta.9 - 2026-01-13
+### 🚀 Enhancements
+* feat: add separate permission to check for writable files [\#1455](https://github.com/nextcloud-libraries/nextcloud-files/pull/1455) \([susnux](https://github.com/susnux)\)
+* feat: allow file list filers with display names [\#1456](https://github.com/nextcloud-libraries/nextcloud-files/pull/1456) \([susnux](https://github.com/susnux)\)
+
+### Other changes
+* chore(deps-dev): Bump qs from 6.14.0 to 6.14.1 [\#1448](https://github.com/nextcloud-libraries/nextcloud-files/pull/1448) \([dependabot[bot]](https://github.com/dependabot[bot])\)
+* chore(deps): Bump typescript-event-target from 1.1.1 to 1.1.2 [\#1450](https://github.com/nextcloud-libraries/nextcloud-files/pull/1450) \([dependabot[bot]](https://github.com/dependabot[bot])\)
+* chore(deps-dev): Bump @types/node from 25.0.3 to 25.0.5 [\#1451](https://github.com/nextcloud-libraries/nextcloud-files/pull/1451) \([dependabot[bot]](https://github.com/dependabot[bot])\)
+* chore(deps-dev): Bump vite from 7.3.0 to 7.3.1 [\#1452](https://github.com/nextcloud-libraries/nextcloud-files/pull/1452) \([dependabot[bot]](https://github.com/dependabot[bot])\)
+* chore: update to ESLint v9 [\#1457](https://github.com/nextcloud-libraries/nextcloud-files/pull/1457) \([susnux](https://github.com/susnux)\)
+
 ## 4.0.0-beta.8 - 2025-12-29
 ### 🚀 Enhancements
 * feat(sidebar): properly implement sidebar Proxy for Nextcloud 33+ [\#1447](https://github.com/nextcloud-libraries/nextcloud-files/pull/1447) \([susnux](https://github.com/susnux)\)
