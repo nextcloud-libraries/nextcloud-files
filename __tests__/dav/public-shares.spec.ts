@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { ArgumentsType } from 'vitest'
 import type { FileStat } from 'webdav'
-import type { resultToNode as IResultToNode } from '../../lib/dav/dav'
+import type { resultToNode as IResultToNode } from '../../lib/dav/dav.ts'
+
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 const auth = vi.hoisted(() => ({ getCurrentUser: vi.fn() }))
@@ -16,19 +16,18 @@ vi.mock('@nextcloud/auth', () => auth)
 vi.mock('@nextcloud/router', () => router)
 vi.mock('@nextcloud/sharing/public', () => sharing)
 
-const restoreMocks = () => {
+function restoreMocks() {
 	vi.resetAllMocks()
 	router.generateRemoteUrl.mockImplementation((service) => `https://example.com/remote.php/${service}`)
 }
 
-const mockPublicShare = () => {
+function mockPublicShare() {
 	auth.getCurrentUser.mockImplementationOnce(() => null)
 	sharing.isPublicShare.mockImplementation(() => true)
 	sharing.getSharingToken.mockImplementation(() => 'token-1234')
 }
 
 describe('DAV path functions', () => {
-
 	beforeEach(() => {
 		vi.resetModules()
 		restoreMocks()
@@ -37,14 +36,14 @@ describe('DAV path functions', () => {
 	test('root path is correct on public shares', async () => {
 		mockPublicShare()
 
-		const { getRootPath } = await import('../../lib/dav/dav')
+		const { getRootPath } = await import('../../lib/dav/dav.ts')
 		expect(getRootPath()).toBe('/files/token-1234')
 	})
 
 	test('remote URL is correct on public shares', async () => {
 		mockPublicShare()
 
-		const { getRemoteURL } = await import('../../lib/dav/dav')
+		const { getRemoteURL } = await import('../../lib/dav/dav.ts')
 		expect(getRemoteURL()).toBe('https://example.com/public.php/dav')
 	})
 })
@@ -56,8 +55,8 @@ describe('on public shares', () => {
 	})
 
 	// Wrapper function as we can not static import the function to allow mocking the modules
-	const resultToNode = async (...rest: ArgumentsType<typeof IResultToNode>) => {
-		const { resultToNode } = await import('../../lib/dav/dav')
+	const resultToNode = async (...rest: Parameters<typeof IResultToNode>) => {
+		const { resultToNode } = await import('../../lib/dav/dav.ts')
 		return resultToNode(...rest)
 	}
 

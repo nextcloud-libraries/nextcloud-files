@@ -2,6 +2,7 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { ActionContext, ActionContextSingle } from '../types.ts'
 
 import logger from '../utils/logger.ts'
@@ -22,6 +23,7 @@ export interface IHotkeyConfig {
 
 	/**
 	 * The key to be pressed.
+	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
 	 */
 	key: string
@@ -58,18 +60,20 @@ export interface FileActionData {
 
 	/**
 	 * Function executed on single file action
+	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
-	 * @throws Error if the action failed
+	 * @throws {Error} If the action failed
 	 */
-	exec: (context: ActionContextSingle) => Promise<boolean|null>,
+	exec: (context: ActionContextSingle) => Promise<boolean | null>
 	/**
 	 * Function executed on multiple files action
+	 *
 	 * @return true if the action was executed successfully,
 	 * false otherwise and null if the action is silent/undefined.
-	 * @throws Error if the action failed
+	 * @throws {Error} If the action failed
 	 */
-	execBatch?: (context: ActionContext) => Promise<(boolean|null)[]>
+	execBatch?: (context: ActionContext) => Promise<(boolean | null)[]>
 
 	/** This action order in the list */
 	order?: number
@@ -89,7 +93,7 @@ export interface FileActionData {
 	 * This action's parent id in the list.
 	 * If none found, will be displayed as a top-level action.
 	 */
-	parent?: string,
+	parent?: string
 
 	/**
 	 * Make this action the default.
@@ -103,20 +107,19 @@ export interface FileActionData {
 	 *
 	 * @see DefaultType
 	 */
-	default?: TDefaultType,
+	default?: TDefaultType
 	/**
 	 * If true, the renderInline function will be called
 	 */
-	inline?: (context: ActionContextSingle) => boolean,
+	inline?: (context: ActionContextSingle) => boolean
 	/**
 	 * If defined, the returned html element will be
 	 * appended before the actions menu.
 	 */
-	renderInline?: (context: ActionContextSingle) => Promise<HTMLElement | null>,
+	renderInline?: (context: ActionContextSingle) => Promise<HTMLElement | null>
 }
 
 export class FileAction {
-
 	private _action: FileActionData
 
 	constructor(action: FileActionData) {
@@ -248,17 +251,21 @@ export class FileAction {
 			}
 		}
 	}
-
 }
 
-export const registerFileAction = function(action: FileAction): void {
+/**
+ * Register a new file action.
+ *
+ * @param action - The file list action to register
+ */
+export function registerFileAction(action: FileAction): void {
 	if (typeof window._nc_fileactions === 'undefined') {
 		window._nc_fileactions = []
 		logger.debug('FileActions initialized')
 	}
 
 	// Check duplicates
-	if (window._nc_fileactions.find(search => search.id === action.id)) {
+	if (window._nc_fileactions.find((search) => search.id === action.id)) {
 		logger.error(`FileAction ${action.id} already registered`, { action })
 		return
 	}
@@ -266,7 +273,10 @@ export const registerFileAction = function(action: FileAction): void {
 	window._nc_fileactions.push(action)
 }
 
-export const getFileActions = function(): FileAction[] {
+/**
+ *
+ */
+export function getFileActions(): FileAction[] {
 	if (typeof window._nc_fileactions === 'undefined') {
 		window._nc_fileactions = []
 		logger.debug('FileActions initialized')

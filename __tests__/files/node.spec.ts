@@ -4,6 +4,7 @@
  */
 
 import type { Attribute, NodeData } from '../../lib/node/index.ts'
+import type { TNodeStatus } from '../../lib/node/node.ts'
 
 import { describe, expect, test } from 'vitest'
 import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
@@ -150,7 +151,7 @@ describe('Mtime attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update mtime
 		file.mtime = new Date()
@@ -172,7 +173,7 @@ describe('Mtime attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update mtime
 		file.updateMtime()
@@ -209,7 +210,7 @@ describe('Size attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update size
 		file.size = 5678
@@ -247,7 +248,7 @@ describe('Permissions attribute', () => {
 		expect(file.mtime?.toISOString()).toBe(mtime?.toISOString())
 
 		// Wait for 10ms to ensure mtime is updated
-		await new Promise(resolve => setTimeout(resolve, 10))
+		await new Promise((resolve) => setTimeout(resolve, 10))
 
 		// Update permissions
 		file.permissions = Permission.ALL
@@ -343,8 +344,10 @@ describe('Sanity checks', () => {
 			displayname: 'test',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.displayname = true }).toThrowError('Invalid displayname')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.displayname = true
+		}).toThrowError('Invalid displayname')
 	})
 
 	test('Invalid mtime', () => {
@@ -360,8 +363,10 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.mtime = 'invalid' }).toThrowError('Invalid mtime type')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.mtime = 'invalid'
+		}).toThrowError('Invalid mtime type')
 	})
 
 	test('Invalid crtime', () => {
@@ -388,9 +393,13 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.mime = 1234 }).toThrowError('Missing or invalid mandatory mime')
-		expect(() => { file.mime = 'image' }).toThrowError('Missing or invalid mandatory mime')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.mime = 1234
+		}).toThrowError('Missing or invalid mandatory mime')
+		expect(() => {
+			file.mime = 'image'
+		}).toThrowError('Missing or invalid mandatory mime')
 	})
 
 	test('Invalid attributes', () => {
@@ -428,8 +437,10 @@ describe('Sanity checks', () => {
 			mime: 'image/jpeg',
 			owner: 'emma',
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.size = 'test' }).toThrowError('Invalid size type')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.size = 'test'
+		}).toThrowError('Invalid size type')
 	})
 
 	test('Invalid owner', () => {
@@ -485,7 +496,7 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			status: 'invalid' as unknown as NodeStatus,
+			status: 'invalid' as unknown as TNodeStatus,
 		})).toThrowError('Status must be a valid NodeStatus')
 
 		const file = new File({
@@ -495,8 +506,10 @@ describe('Sanity checks', () => {
 			owner: 'emma',
 			status: NodeStatus.LOCKED,
 		})
-		// @ts-expect-error wrong type error check
-		expect(() => { file.status = 'invalid' }).toThrowError('Status must be a valid NodeStatus')
+		expect(() => {
+			// @ts-expect-error wrong type error check
+			file.status = 'invalid'
+		}).toThrowError('Status must be a valid NodeStatus')
 	})
 })
 
@@ -899,10 +912,11 @@ describe('Attributes update', () => {
 		})
 
 		// We can not update the owner
-		// @ts-expect-error owner is a read-only property
-		expect(() => { file.owner = 'admin' }).toThrowError()
+		expect(() => {
+			// @ts-expect-error owner is a read-only property
+			file.owner = 'admin'
+		}).toThrowError()
 		// The owner is still the original one
 		expect(file?.owner).toBe('emma')
 	})
-
 })

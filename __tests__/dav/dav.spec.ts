@@ -2,22 +2,22 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { readFile } from 'node:fs/promises'
 
+import type { FileStat, WebDAVClient } from 'webdav'
+
+import * as auth from '@nextcloud/auth'
+import { readFile } from 'node:fs/promises'
+// required as default URL will be the DOM URL class which will use the window.location
+import { URL as FileURL } from 'node:url'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import {
 	defaultRemoteURL,
 	defaultRootPath,
-	getFavoritesReport,
 	getFavoriteNodes,
+	getFavoritesReport,
 	resultToNode,
-} from '../../lib/dav/index'
-import { File, Folder, NodeStatus } from '../../lib'
-import { FileStat, WebDAVClient } from 'webdav'
-import * as auth from '@nextcloud/auth'
-
-// required as default URL will be the DOM URL class which will use the window.location
-import { URL as FileURL } from 'node:url'
+} from '../../lib/dav/index.ts'
+import { File, Folder, NodeStatus } from '../../lib/index.ts'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
@@ -185,7 +185,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
@@ -218,7 +218,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {

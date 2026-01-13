@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder } from './node/folder.ts'
 import type { IView } from './navigation/view.ts'
+import type { IFolder } from './node/folder.ts'
 
 import logger from './utils/logger.ts'
 
@@ -22,7 +22,6 @@ export interface HeaderData {
 }
 
 export class Header {
-
 	private _header: HeaderData
 
 	constructor(header: HeaderData) {
@@ -71,17 +70,21 @@ export class Header {
 			throw new Error('Invalid updated property')
 		}
 	}
-
 }
 
-export const registerFileListHeaders = function(header: Header): void {
+/**
+ * Register a new file list header.
+ *
+ * @param header - The header to register
+ */
+export function registerFileListHeaders(header: Header): void {
 	if (typeof window._nc_filelistheader === 'undefined') {
 		window._nc_filelistheader = []
 		logger.debug('FileListHeaders initialized')
 	}
 
 	// Check duplicates
-	if (window._nc_filelistheader.find(search => search.id === header.id)) {
+	if (window._nc_filelistheader.find((search) => search.id === header.id)) {
 		logger.error(`Header ${header.id} already registered`, { header })
 		return
 	}
@@ -89,7 +92,10 @@ export const registerFileListHeaders = function(header: Header): void {
 	window._nc_filelistheader.push(header)
 }
 
-export const getFileListHeaders = function(): Header[] {
+/**
+ * Get all currently registered file list headers.
+ */
+export function getFileListHeaders(): Header[] {
 	if (typeof window._nc_filelistheader === 'undefined') {
 		window._nc_filelistheader = []
 		logger.debug('FileListHeaders initialized')

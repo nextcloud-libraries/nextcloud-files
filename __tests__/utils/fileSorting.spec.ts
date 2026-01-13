@@ -2,37 +2,42 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { Attribute } from '../../lib/node/index.ts'
 
 import { describe, expect, test } from 'vitest'
-import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib'
+import { File, FilesSortingMode, Folder, sortNodes as originalSortNodes } from '../../lib/index.ts'
 
-const file = (name: string, size?: number, modified?: number, favorite = false, attributes: Attribute = {}) => new File({
-	source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
-	root: '/files/emma',
-	mime: 'text/plain',
-	owner: 'jdoe',
-	mtime: new Date(modified ?? Date.now()),
-	size,
-	attributes: favorite
-		? {
-			favorite: 1,
-		}
-		: attributes,
-})
+function file(name: string, size?: number, modified?: number, favorite = false, attributes: Attribute = {}) {
+	return new File({
+		source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
+		root: '/files/emma',
+		mime: 'text/plain',
+		owner: 'jdoe',
+		mtime: new Date(modified ?? Date.now()),
+		size,
+		attributes: favorite
+			? {
+					favorite: 1,
+				}
+			: attributes,
+	})
+}
 
-const folder = (name: string, size?: number, modified?: number, favorite = false) => new Folder({
-	source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
-	root: '/files/emma',
-	owner: 'jdoe',
-	mtime: new Date(modified ?? Date.now()),
-	size,
-	attributes: favorite
-		? {
-			favorite: 1,
-		}
-		: undefined,
-})
+function folder(name: string, size?: number, modified?: number, favorite = false) {
+	return new Folder({
+		source: `https://cloud.domain.com/remote.php/dav/files/emma/${name}`,
+		root: '/files/emma',
+		owner: 'jdoe',
+		mtime: new Date(modified ?? Date.now()),
+		size,
+		attributes: favorite
+			? {
+					favorite: 1,
+				}
+			: undefined,
+	})
+}
 
 const sortNodes = (...args: Parameters<typeof originalSortNodes>) => originalSortNodes(...args).map((node) => node.basename)
 
@@ -254,15 +259,13 @@ describe('sortNodes', () => {
 			file('file_2.txt'),
 		] as const
 
-		expect(
-			sortNodes(
-				array,
-				{
-					sortingMode: FilesSortingMode.Name,
-					sortingOrder: 'asc',
-				},
-			),
-		).toEqual(['file.txt', 'file_1.txt', 'file_2.txt', 'file_3.txt'])
+		expect(sortNodes(
+			array,
+			{
+				sortingMode: FilesSortingMode.Name,
+				sortingOrder: 'asc',
+			},
+		)).toEqual(['file.txt', 'file_1.txt', 'file_2.txt', 'file_3.txt'])
 	})
 
 	/**
@@ -277,15 +280,13 @@ describe('sortNodes', () => {
 			file('file_2'),
 		] as const
 
-		expect(
-			sortNodes(
-				array,
-				{
-					sortingMode: FilesSortingMode.Name,
-					sortingOrder: 'asc',
-				},
-			),
-		).toEqual(['file', 'file_1', 'file_2', 'file_3'])
+		expect(sortNodes(
+			array,
+			{
+				sortingMode: FilesSortingMode.Name,
+				sortingOrder: 'asc',
+			},
+		)).toEqual(['file', 'file_1', 'file_2', 'file_3'])
 	})
 
 	/**
@@ -299,15 +300,13 @@ describe('sortNodes', () => {
 			file('file.d'),
 		] as const
 
-		expect(
-			sortNodes(
-				array,
-				{
-					sortingMode: FilesSortingMode.Name,
-					sortingOrder: 'asc',
-				},
-			),
-		).toEqual(['file.a', 'file.b', 'file.c', 'file.d'])
+		expect(sortNodes(
+			array,
+			{
+				sortingMode: FilesSortingMode.Name,
+				sortingOrder: 'asc',
+			},
+		)).toEqual(['file.a', 'file.b', 'file.c', 'file.d'])
 	})
 
 	test('Can sort by random attribute', () => {

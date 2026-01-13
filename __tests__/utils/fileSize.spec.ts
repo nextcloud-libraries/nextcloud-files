@@ -2,10 +2,10 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { beforeEach, describe, expect, it } from 'vitest'
 
-import { formatFileSize, parseFileSize } from '../../lib/index'
 import { setLocale } from '@nextcloud/l10n'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { formatFileSize, parseFileSize } from '../../lib/index.ts'
 
 describe('humanFileSize', () => {
 	beforeEach(() => setLocale('en'))

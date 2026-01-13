@@ -56,7 +56,7 @@ export interface ISidebarAction {
  * Register a new sidebar action.
  *
  * @param action - The sidebar action to register
- * @throws If the provided action is not a valid sidebar action and thus cannot be registered.
+ * @throws {Error} If the provided action is not a valid sidebar action and thus cannot be registered.
  */
 export function registerSidebarAction(action: ISidebarAction): void {
 	validateSidebarAction(action)

@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { NodeConstructorData } from './node'
+import type { NodeConstructorData } from './node.ts'
 
-import { FileType } from './fileType'
-import { Node } from './node'
+import { FileType } from './fileType.ts'
+import { Node } from './node.ts'
 
 export class Folder extends Node {
-
 	constructor(...[data, davService]: NodeConstructorData) {
 		// enforcing mimes
 		super({
@@ -29,7 +28,6 @@ export class Folder extends Node {
 	get mime(): 'httpd/unix-directory' {
 		return 'httpd/unix-directory'
 	}
-
 }
 
 /**

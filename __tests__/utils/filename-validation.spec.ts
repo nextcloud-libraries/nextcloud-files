@@ -2,8 +2,9 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
  */
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index'
+
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index.ts'
 
 const nextcloudCapabilities = vi.hoisted(() => ({ getCapabilities: vi.fn(() => ({ files: {} })) }))
 vi.mock('@nextcloud/capabilities', () => nextcloudCapabilities)
@@ -30,7 +31,6 @@ describe('isFilenameValid', () => {
 })
 
 describe('validateFilename', () => {
-
 	beforeEach(() => {
 		vi.resetAllMocks()
 		delete window._oc_config
@@ -163,7 +163,6 @@ describe('validateFilename', () => {
 })
 
 describe('InvalidFilenameError', () => {
-
 	it('sets the filename', () => {
 		const error = new InvalidFilenameError({ filename: 'file', segment: 'fi', reason: InvalidFilenameErrorReason.Extension })
 		expect(error.filename).toBe('file')

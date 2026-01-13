@@ -5,5 +5,5 @@
 
 export type { FileActionData, IHotkeyConfig } from './fileAction.ts'
 
-export { FileAction, getFileActions, registerFileAction, DefaultType } from './fileAction.ts'
-export { getFileListActions, registerFileListAction, FileListAction } from './fileListAction.ts'
+export { DefaultType, FileAction, getFileActions, registerFileAction } from './fileAction.ts'
+export { FileListAction, getFileListActions, registerFileListAction } from './fileListAction.ts'

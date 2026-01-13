@@ -2,10 +2,9 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, it, expect } from 'vitest'
-
-import { parsePermissions } from '../../lib/dav/davPermissions'
-import { Permission } from '../../lib/permissions'
+import { describe, expect, it } from 'vitest'
+import { parsePermissions } from '../../lib/dav/davPermissions.ts'
+import { Permission } from '../../lib/permissions.ts'
 
 const dataSet = [
 	{ input: undefined, permissions: Permission.NONE },
@@ -29,7 +28,6 @@ const dataSet = [
 describe('davParsePermissions', () => {
 	dataSet.forEach(({ input, permissions }) => {
 		it(`expect ${input} to be ${permissions}`, () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			expect(parsePermissions(input as any as string)).toBe(permissions)
 		})
 	})

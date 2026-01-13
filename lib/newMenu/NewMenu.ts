@@ -45,6 +45,7 @@ export interface NewMenuEntry {
 
 	/**
 	 * Condition wether this entry is shown or not
+	 *
 	 * @param context the creation context. Usually the current folder
 	 */
 	enabled?: (context: IFolder) => boolean
@@ -60,6 +61,7 @@ export interface NewMenuEntry {
 
 	/**
 	 * Function to be run after creation
+	 *
 	 * @param context - The creation context. Usually the current folder
 	 * @param content - List of file/folders present in the context folder
 	 */
@@ -67,7 +69,6 @@ export interface NewMenuEntry {
 }
 
 export class NewMenu {
-
 	private _entries: Array<NewMenuEntry> = []
 
 	public registerEntry(entry: NewMenuEntry) {
@@ -97,13 +98,13 @@ export class NewMenu {
 	public getEntries(context?: IFolder): Array<NewMenuEntry> {
 		if (context) {
 			return this._entries
-				.filter(entry => typeof entry.enabled === 'function' ? entry.enabled(context) : true)
+				.filter((entry) => typeof entry.enabled === 'function' ? entry.enabled(context) : true)
 		}
 		return this._entries
 	}
 
 	private getEntryIndex(id: string): number {
-		return this._entries.findIndex(entry => entry.id === id)
+		return this._entries.findIndex((entry) => entry.id === id)
 	}
 
 	private validateEntry(entry: NewMenuEntry) {
@@ -136,5 +137,4 @@ export class NewMenu {
 			throw new Error('Duplicate entry')
 		}
 	}
-
 }

@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder, Node } from '../../lib/node/index.ts'
+import type { FileActionData } from '../../lib/actions/index.ts'
 import type { View } from '../../lib/navigation/view.ts'
+import type { Folder, Node } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileActions, registerFileAction, FileAction, DefaultType, FileActionData } from '../../lib/actions/index.ts'
+import { DefaultType, FileAction, getFileActions, registerFileAction } from '../../lib/actions/index.ts'
 import logger from '../../lib/utils/logger.ts'
 
 const folder = {} as Folder
 const view = {} as View
 describe('FileActions init', () => {
-
 	beforeEach(() => {
 		delete window._nc_fileactions
 	})
@@ -101,8 +101,7 @@ describe('Invalid FileAction creation', () => {
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid id')
+		} as unknown as FileAction)).toThrowError('Invalid id')
 	})
 	test('Invalid displayName', () => {
 		expect(() => new FileAction({
@@ -110,8 +109,7 @@ describe('Invalid FileAction creation', () => {
 			displayName: 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid displayName function')
+		} as unknown as FileAction)).toThrowError('Invalid displayName function')
 	})
 	test('Invalid title', () => {
 		expect(() => new FileAction({
@@ -120,8 +118,7 @@ describe('Invalid FileAction creation', () => {
 			title: 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid title function')
+		} as unknown as FileAction)).toThrowError('Invalid title function')
 	})
 	test('Invalid iconSvgInline', () => {
 		expect(() => new FileAction({
@@ -129,8 +126,7 @@ describe('Invalid FileAction creation', () => {
 			displayName: () => 'Test',
 			iconSvgInline: '<svg></svg>',
 			exec: async () => true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid iconSvgInline function')
+		} as unknown as FileAction)).toThrowError('Invalid iconSvgInline function')
 	})
 	test('Invalid exec', () => {
 		expect(() => new FileAction({
@@ -138,8 +134,7 @@ describe('Invalid FileAction creation', () => {
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: false,
-		} as unknown as FileAction),
-		).toThrowError('Invalid exec function')
+		} as unknown as FileAction)).toThrowError('Invalid exec function')
 	})
 	test('Invalid enabled', () => {
 		expect(() => new FileAction({
@@ -148,8 +143,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			enabled: false,
-		} as unknown as FileAction),
-		).toThrowError('Invalid enabled function')
+		} as unknown as FileAction)).toThrowError('Invalid enabled function')
 	})
 	test('Invalid execBatch', () => {
 		expect(() => new FileAction({
@@ -158,8 +152,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			execBatch: false,
-		} as unknown as FileAction),
-		).toThrowError('Invalid execBatch function')
+		} as unknown as FileAction)).toThrowError('Invalid execBatch function')
 	})
 	test('Invalid order', () => {
 		expect(() => new FileAction({
@@ -168,8 +161,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			order: 'invalid',
-		} as unknown as FileAction),
-		).toThrowError('Invalid order')
+		} as unknown as FileAction)).toThrowError('Invalid order')
 	})
 	test('Invalid parent', () => {
 		expect(() => new FileAction({
@@ -178,8 +170,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			parent: true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid parent')
+		} as unknown as FileAction)).toThrowError('Invalid parent')
 	})
 	test('Invalid default', () => {
 		expect(() => new FileAction({
@@ -188,8 +179,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			default: 'invalid',
-		} as unknown as FileAction),
-		).toThrowError('Invalid default')
+		} as unknown as FileAction)).toThrowError('Invalid default')
 	})
 	test('Invalid destructives', () => {
 		expect(() => new FileAction({
@@ -198,8 +188,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			destructive: 'false',
-		} as unknown as FileActionData),
-		).toThrowError('Invalid destructive')
+		} as unknown as FileActionData)).toThrowError('Invalid destructive')
 	})
 	test('Invalid inline', () => {
 		expect(() => new FileAction({
@@ -208,8 +197,7 @@ describe('Invalid FileAction creation', () => {
 			iconSvgInline: () => '<svg></svg>',
 			exec: async () => true,
 			inline: true,
-		} as unknown as FileAction),
-		).toThrowError('Invalid inline function')
+		} as unknown as FileAction)).toThrowError('Invalid inline function')
 
 		expect(() => new FileAction({
 			id: 'test',
@@ -218,8 +206,7 @@ describe('Invalid FileAction creation', () => {
 			exec: async () => true,
 			inline: () => true,
 			renderInline: false,
-		} as unknown as FileAction),
-		).toThrowError('Invalid renderInline function')
+		} as unknown as FileAction)).toThrowError('Invalid renderInline function')
 	})
 })
 

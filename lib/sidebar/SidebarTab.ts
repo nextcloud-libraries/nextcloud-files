@@ -88,7 +88,7 @@ export interface ISidebarTab {
  * Register a new sidebar tab for the files app.
  *
  * @param tab - The sidebar tab to register
- * @throws If the provided tab is not a valid sidebar tab and thus cannot be registered.
+ * @throws {Error} If the provided tab is not a valid sidebar tab and thus cannot be registered.
  */
 export function registerSidebarTab(tab: ISidebarTab): void {
 	validateSidebarTab(tab)
@@ -116,6 +116,7 @@ export function getSidebarTabs(): ISidebarTab[] {
  * Check if a given sidebar tab objects implements all necessary fields.
  *
  * @param tab - The sidebar tab to validate
+ * @throws {Error} If the provided tab is not valid
  */
 function validateSidebarTab(tab: ISidebarTab): void {
 	if (typeof tab !== 'object') {

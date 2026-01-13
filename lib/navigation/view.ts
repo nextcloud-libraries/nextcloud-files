@@ -7,11 +7,11 @@ import type { IFolder, INode } from '../node/index.ts'
 import type { IColumn } from './column.ts'
 
 import isSvg from 'is-svg'
-import { validateColumn } from './column.ts'
 import { checkOptionalProperty } from '../utils/objectValidation.ts'
+import { validateColumn } from './column.ts'
 
 export type ContentsWithRoot = {
-	folder: IFolder,
+	folder: IFolder
 	contents: INode[]
 }
 
@@ -52,9 +52,8 @@ export interface IView {
 	 * This method _must_ also return the current directory
 	 * information alongside with its content.
 	 *
-	 * An abort signal is provided to be able to
-	 * cancel the request if the user change directory
-	 * {@see https://developer.mozilla.org/en-US/docs/Web/API/AbortController }.
+	 * An [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) is provided
+	 * to be able to cancel the request if the user change directory.
 	 */
 	getContents(path: string, options: IGetContentsOptions): Promise<ContentsWithRoot>
 
@@ -109,7 +108,6 @@ export interface IView {
 }
 
 export class View implements IView {
-
 	private _view: IView
 
 	constructor(view: IView) {
@@ -200,7 +198,6 @@ export class View implements IView {
 	get loadChildViews() {
 		return this._view.loadChildViews
 	}
-
 }
 
 /**

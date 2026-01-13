@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { describe, it, expect, vi } from 'vitest'
-import { Navigation, getNavigation } from '../lib/navigation/navigation'
-import { mockView } from './fixtures/view.ts'
+import { describe, expect, it, vi } from 'vitest'
 import { View } from '../lib/index.ts'
+import { getNavigation, Navigation } from '../lib/navigation/navigation.ts'
+import { mockView } from './fixtures/view.ts'
 
 describe('getNavigation', () => {
 	it('creates a new navigation if needed', () => {

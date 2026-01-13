@@ -21,7 +21,6 @@ export function checkOptionalProperty<T extends object>(
 			if (!Array.isArray(obj[property])) {
 				throw new Error(`View ${property} must be an array`)
 			}
-		// eslint-disable-next-line valid-typeof
 		} else if (typeof obj[property] !== type) {
 			throw new Error(`View ${property} must be a ${type}`)
 		} else if (type === 'object' && (obj[property] === null || Array.isArray(obj[property]))) {

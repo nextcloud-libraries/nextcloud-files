@@ -256,7 +256,6 @@ describe('Altering attributes does NOT updates mtime', () => {
 		expect(file.mtime).toBeUndefined()
 		expect(file.permissions).toBe(Permission.ALL)
 	})
-
 })
 
 describe('Altering top-level properties updates mtime', () => {
@@ -295,5 +294,4 @@ describe('Altering top-level properties updates mtime', () => {
 		expect(file.mtime?.getDate()).toBe(new Date().getDate())
 		expect(file.size).toBe(200)
 	})
-
 })

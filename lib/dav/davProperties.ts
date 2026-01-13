@@ -2,8 +2,9 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { getCurrentUser } from '@nextcloud/auth'
-import logger from '../utils/logger'
+import logger from '../utils/logger.ts'
 
 export type DavProperty = { [key: string]: string }
 
@@ -43,7 +44,7 @@ export const defaultDavNamespaces = {
  * @param prop The property
  * @param namespace The namespace of the property
  */
-export const registerDavProperty = function(prop: string, namespace: DavProperty = { nc: 'http://nextcloud.org/ns' }): boolean {
+export function registerDavProperty(prop: string, namespace: DavProperty = { nc: 'http://nextcloud.org/ns' }): boolean {
 	if (typeof window._nc_dav_properties === 'undefined') {
 		window._nc_dav_properties = [...defaultDavProperties]
 		window._nc_dav_namespaces = { ...defaultDavNamespaces }
@@ -76,7 +77,7 @@ export const registerDavProperty = function(prop: string, namespace: DavProperty
 /**
  * Get the registered dav properties
  */
-export const getDavProperties = function(): string {
+export function getDavProperties(): string {
 	if (typeof window._nc_dav_properties === 'undefined') {
 		window._nc_dav_properties = [...defaultDavProperties]
 	}
@@ -87,7 +88,7 @@ export const getDavProperties = function(): string {
 /**
  * Get the registered dav namespaces
  */
-export const getDavNameSpaces = function(): string {
+export function getDavNameSpaces(): string {
 	if (typeof window._nc_dav_namespaces === 'undefined') {
 		window._nc_dav_namespaces = { ...defaultDavNamespaces }
 	}
@@ -100,7 +101,7 @@ export const getDavNameSpaces = function(): string {
 /**
  * Get the default PROPFIND request body
  */
-export const getDefaultPropfind = function(): string {
+export function getDefaultPropfind(): string {
 	return `<?xml version="1.0"?>
 		<d:propfind ${getDavNameSpaces()}>
 			<d:prop>
@@ -112,7 +113,7 @@ export const getDefaultPropfind = function(): string {
 /**
  * Get the REPORT body to filter for favorite nodes
  */
-export const getFavoritesReport = function(): string {
+export function getFavoritesReport(): string {
 	return `<?xml version="1.0"?>
 		<oc:filter-files ${getDavNameSpaces()}>
 			<d:prop>
@@ -145,7 +146,7 @@ export const getFavoritesReport = function(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export const getRecentSearch = function(lastModified: number): string {
+export function getRecentSearch(lastModified: number): string {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">

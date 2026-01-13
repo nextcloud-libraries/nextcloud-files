@@ -4,10 +4,11 @@
  */
 
 import type { TFileType } from './fileType.ts'
+import type { Attribute, NodeData } from './nodeData.ts'
 
 import { basename, dirname, encodePath, extname } from '@nextcloud/paths'
-import { Permission } from '../permissions'
-import { Attribute, fixDates, fixRegExp, isDavResource, NodeData, validateData } from './nodeData'
+import { Permission } from '../permissions.ts'
+import { fixDates, fixRegExp, isDavResource, validateData } from './nodeData.ts'
 
 export const NodeStatus = Object.freeze({
 	/** This is a new node and it doesn't exists on the filesystem yet */
@@ -25,15 +26,14 @@ export type TNodeStatus = typeof NodeStatus[keyof typeof NodeStatus]
 export type NodeConstructorData = [NodeData, RegExp?]
 
 export abstract class Node {
-
 	private _attributes: Attribute
 
 	protected _data: NodeData
 	protected _knownDavService = /(remote|public)\.php\/(web)?dav/i
 
 	private readonlyAttributes = Object.entries(Object.getOwnPropertyDescriptors(Node.prototype))
-		.filter(e => typeof e[1].get === 'function' && e[0] !== '__proto__')
-		.map(e => e[0])
+		.filter((e) => typeof e[1].get === 'function' && e[0] !== '__proto__')
+		.map((e) => e[0])
 
 	private handler = {
 		set: (target: Attribute, prop: string, value: unknown): boolean => {
@@ -132,7 +132,7 @@ export abstract class Node {
 	 * There is no setter as the source is not meant to be changed manually.
 	 * You can use the rename or move method to change the source.
 	 */
-	get extension(): string|null {
+	get extension(): string | null {
 		return extname(this.source)
 	}
 
@@ -163,7 +163,7 @@ export abstract class Node {
 	 * Set the file mime
 	 * Removing the mime type will set it to `application/octet-stream`
 	 */
-	set mime(mime: string|undefined) {
+	set mime(mime: string | undefined) {
 		mime ??= 'application/octet-stream'
 
 		validateData({ ...this._data, mime }, this._knownDavService)
@@ -173,14 +173,14 @@ export abstract class Node {
 	/**
 	 * Get the file modification time
 	 */
-	get mtime(): Date|undefined {
+	get mtime(): Date | undefined {
 		return this._data.mtime
 	}
 
 	/**
 	 * Set the file modification time
 	 */
-	set mtime(mtime: Date|undefined) {
+	set mtime(mtime: Date | undefined) {
 		validateData({ ...this._data, mtime }, this._knownDavService)
 		this._data.mtime = mtime
 	}
@@ -189,21 +189,21 @@ export abstract class Node {
 	 * Get the file creation time
 	 * There is no setter as the creation time is not meant to be changed
 	 */
-	get crtime(): Date|undefined {
+	get crtime(): Date | undefined {
 		return this._data.crtime
 	}
 
 	/**
 	 * Get the file size
 	 */
-	get size(): number|undefined {
+	get size(): number | undefined {
 		return this._data.size
 	}
 
 	/**
 	 * Set the file size
 	 */
-	set size(size: number|undefined) {
+	set size(size: number | undefined) {
 		validateData({ ...this._data, size }, this._knownDavService)
 		this.updateMtime()
 		this._data.size = size
@@ -245,7 +245,7 @@ export abstract class Node {
 	 * Get the file owner
 	 * There is no setter as the owner is not meant to be changed
 	 */
-	get owner(): string|null {
+	get owner(): string | null {
 		// Remote resources have no owner
 		if (!this.isDavResource) {
 			return null
@@ -303,21 +303,21 @@ export abstract class Node {
 	 * Get the node id if defined.
 	 * There is no setter as the fileid is not meant to be changed
 	 */
-	get fileid(): number|undefined {
+	get fileid(): number | undefined {
 		return this._data?.id
 	}
 
 	/**
 	 * Get the node status.
 	 */
-	get status(): TNodeStatus|undefined {
+	get status(): TNodeStatus | undefined {
 		return this._data?.status
 	}
 
 	/**
 	 * Set the node status.
 	 */
-	set status(status: TNodeStatus|undefined) {
+	set status(status: TNodeStatus | undefined) {
 		validateData({ ...this._data, status }, this._knownDavService)
 		this._data.status = status
 	}
@@ -325,7 +325,7 @@ export abstract class Node {
 	/**
 	 * Move the node to a new destination
 	 *
-	 * @param {string} destination the new source.
+	 * @param destination the new source.
 	 * e.g. https://cloud.domain.com/remote.php/dav/files/emma/Photos/picture.jpg
 	 */
 	move(destination: string) {
@@ -404,7 +404,6 @@ export abstract class Node {
 	toJSON(): string {
 		return JSON.stringify([structuredClone(this._data), this._knownDavService.toString()])
 	}
-
 }
 
 /**

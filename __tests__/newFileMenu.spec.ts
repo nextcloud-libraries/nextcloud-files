@@ -5,12 +5,12 @@
 
 import type { NewMenuEntry } from '../lib/newMenu/index.ts'
 
-import { describe, expect, test, vi, afterEach } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries } from '../lib/newMenu/index.ts'
 import { NewMenu, NewMenuEntryCategory } from '../lib/newMenu/NewMenu.ts'
 import { Folder } from '../lib/node/index.ts'
 import { Permission } from '../lib/permissions.ts'
-import logger from '../lib/utils/logger'
+import logger from '../lib/utils/logger.ts'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
@@ -296,7 +296,7 @@ describe('NewMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconSvgInline: '<svg></svg>',
-			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: (folder) => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -306,7 +306,7 @@ describe('NewMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconSvgInline: '<svg></svg>',
-			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: (folder) => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -333,7 +333,7 @@ describe('NewMenu getEntries filter', () => {
 			displayName: 'Create empty file',
 			templateName: 'New file',
 			iconSvgInline: '<svg></svg>',
-			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: (folder) => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry1)
@@ -343,7 +343,7 @@ describe('NewMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconSvgInline: '<svg></svg>',
-			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: (folder) => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)
@@ -377,7 +377,7 @@ describe('NewMenu getEntries filter', () => {
 			displayName: 'Create new markdown file',
 			templateName: 'New text.md',
 			iconSvgInline: '<svg></svg>',
-			enabled: folder => (folder.permissions & Permission.CREATE) !== 0,
+			enabled: (folder) => (folder.permissions & Permission.CREATE) !== 0,
 			handler: () => {},
 		}
 		newFileMenu.registerEntry(entry2)

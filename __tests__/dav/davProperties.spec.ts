@@ -2,9 +2,9 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { XMLValidator } from 'fast-xml-parser'
 
+import { XMLValidator } from 'fast-xml-parser'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 import {
 	defaultDavNamespaces,
 	defaultDavProperties,
@@ -14,19 +14,10 @@ import {
 	getFavoritesReport,
 	getRecentSearch,
 	registerDavProperty,
-} from '../../lib/dav/davProperties'
-
-import logger from '../../lib/utils/logger'
-
-declare global {
-	interface Window {
-		_nc_dav_namespaces?: string[]
-		_nc_dav_properties?: string[]
-	}
-}
+} from '../../lib/dav/davProperties.ts'
+import logger from '../../lib/utils/logger.ts'
 
 describe('DAV Properties', () => {
-
 	beforeEach(() => {
 		delete window._nc_dav_properties
 		delete window._nc_dav_namespaces
@@ -39,14 +30,14 @@ describe('DAV Properties', () => {
 		expect(window._nc_dav_namespaces).toBeUndefined()
 		const namespace = getDavNameSpaces()
 		expect(namespace).toBeTruthy()
-		Object.keys(defaultDavNamespaces).forEach(n => expect(namespace.includes(n) && namespace.includes(defaultDavNamespaces[n])).toBe(true))
+		Object.keys(defaultDavNamespaces).forEach((n) => expect(namespace.includes(n) && namespace.includes(defaultDavNamespaces[n])).toBe(true))
 	})
 
 	test('getDavProperties fall back to defaults', () => {
 		expect(window._nc_dav_properties).toBeUndefined()
 		const props = getDavProperties()
 		expect(props).toBeTruthy()
-		defaultDavProperties.forEach(p => expect(props.includes(p)).toBe(true))
+		defaultDavProperties.forEach((p) => expect(props.includes(p)).toBe(true))
 	})
 
 	test('getDefaultPropfind', () => {

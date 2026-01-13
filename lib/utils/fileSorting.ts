@@ -20,6 +20,7 @@ export type TFilesSortingMode = typeof FilesSortingMode[keyof typeof FilesSortin
 export interface FilesSortingOptions {
 	/**
 	 * They key to order the files by
+	 *
 	 * @default FilesSortingMode.Name
 	 */
 	sortingMode?: TFilesSortingMode | string
@@ -31,12 +32,14 @@ export interface FilesSortingOptions {
 
 	/**
 	 * If set to true nodes marked as favorites are ordered on top of all other nodes
+	 *
 	 * @default false
 	 */
 	sortFavoritesFirst?: boolean
 
 	/**
 	 * If set to true folders are ordered on top of files
+	 *
 	 * @default false
 	 */
 	sortFoldersFirst?: boolean
@@ -44,6 +47,7 @@ export interface FilesSortingOptions {
 
 /**
  * Sort files and folders according to the sorting options
+ *
  * @param nodes Nodes to sort
  * @param options Sorting options
  */
@@ -97,7 +101,7 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		sortingOptions.sortingOrder,
 		// for 5: use configured sorting direction
 		sortingOptions.sortingOrder,
-	] as ('asc'|'desc')[]
+	] as ('asc' | 'desc')[]
 
 	return orderBy(nodes, identifiers, orders)
 }

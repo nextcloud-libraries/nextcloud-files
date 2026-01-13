@@ -2,8 +2,9 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { describe, expect, test } from 'vitest'
-import { orderBy } from '../../lib/utils/sorting'
+import { orderBy } from '../../lib/utils/sorting.ts'
 
 describe('orderBy', () => {
 	test('By default the identify and ascending order is used', () => {
@@ -41,13 +42,11 @@ describe('orderBy', () => {
 			{ text: 'b', order: 2, secondOrder: 1 },
 		] as const
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.order, (v) => v.secondOrder],
-				['desc'],
-			).map((v) => v.text),
-		).toEqual(['b', 'a', 'z'])
+		expect(orderBy(
+			array,
+			[(v) => v.order, (v) => v.secondOrder],
+			['desc'],
+		).map((v) => v.text)).toEqual(['b', 'a', 'z'])
 	})
 
 	test('Can set order array', () => {
@@ -57,13 +56,11 @@ describe('orderBy', () => {
 			{ text: 'b', order: 2, secondOrder: 1 },
 		] as const
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.order, (v) => v.secondOrder],
-				['desc', 'desc'],
-			).map((v) => v.text),
-		).toEqual(['a', 'b', 'z'])
+		expect(orderBy(
+			array,
+			[(v) => v.order, (v) => v.secondOrder],
+			['desc', 'desc'],
+		).map((v) => v.text)).toEqual(['a', 'b', 'z'])
 	})
 
 	test('Numbers are handled correctly', () => {
@@ -74,12 +71,10 @@ describe('orderBy', () => {
 			{ text: '2.2' },
 		] as const
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.text],
-			).map((v) => v.text),
-		).toEqual(['2.0', '2.2', '2.3', '2.10'])
+		expect(orderBy(
+			array,
+			[(v) => v.text],
+		).map((v) => v.text)).toEqual(['2.0', '2.2', '2.3', '2.10'])
 	})
 
 	test('Numbers with suffixes are handled correctly', () => {
@@ -90,12 +85,10 @@ describe('orderBy', () => {
 			{ text: '2024-01-05 Foo' },
 		] as const
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.text],
-			).map((v) => v.text),
-		).toEqual(['2024-01-05', '2024-01-05 Foo', '2024-01-10', '2024-05-01'])
+		expect(orderBy(
+			array,
+			[(v) => v.text],
+		).map((v) => v.text)).toEqual(['2024-01-05', '2024-01-05 Foo', '2024-01-10', '2024-05-01'])
 	})
 
 	test('Numbers with multiple dots are handled correctly', () => {
@@ -105,12 +98,10 @@ describe('orderBy', () => {
 			{ text: '2.10.1' },
 		] as const
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.text],
-			).map((v) => v.text),
-		).toEqual(['2.10', '2.10.1', '2.11'])
+		expect(orderBy(
+			array,
+			[(v) => v.text],
+		).map((v) => v.text)).toEqual(['2.10', '2.10.1', '2.11'])
 	})
 
 	test('Dates are handled correctly', () => {
@@ -120,12 +111,10 @@ describe('orderBy', () => {
 			{ text: 'tuesday', date: new Date(1716298766 * 1000) },
 		]
 
-		expect(
-			orderBy(
-				array,
-				[(v) => v.date],
-			).map((v) => v.text),
-		).toEqual(['monday', 'tuesday', 'wednesday'])
+		expect(orderBy(
+			array,
+			[(v) => v.date],
+		).map((v) => v.text)).toEqual(['monday', 'tuesday', 'wednesday'])
 	})
 
 	test('sort with equal values', () => {
