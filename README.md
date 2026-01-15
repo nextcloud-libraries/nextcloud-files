@@ -53,6 +53,123 @@ const myEntry: Entry = {
 addNewFileMenuEntry(myEntry)
 ```
 
+#### Register a sidebar tab
+
+It is possible to provide your own sidebar tabs for the files app.
+For this you need to create a [custom web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components),
+which can either be done without any framework by using vanilla JavaScript but is also [possible with Vue](https://vuejs.org/guide/extras/web-components#building-custom-elements-with-vue).
+
+This example will make use of the Vue framework for building a sidebar tab as this is the official UI framework for Nextcloud apps.
+
+The sidebar tab consists of two parts:
+1. The web component which will be rendered within the sidebar.
+2. A definition object that provides all information needed by the files app.
+
+##### SidebarTab definition object
+
+This object provides the requires information such as:
+- The order (to ensure a consistent tabs order)
+- The display name for the tab navigation
+- An icon, to be used in the tab navigation
+- A callback to check if the sidebar tab is enabled for the current node shown in the sidebar.
+- The web component tag name
+
+The registration must happen in an `initScript`.
+
+```ts
+import type { ISidebarTab } from '@nextcloud/files'
+
+import { getSidebar } from '@nextcloud/files'
+import { t } from '@nextcloud/l10n'
+
+const MyTab: ISidebarTab = {
+	// Unique ID of the tab
+	id: 'my_app',
+
+	// The display name in the tab list
+	displayName: t('my_app', 'Sharing'),
+
+	// Pass an SVG (string) to be used as the tab button icon
+	iconSvgInline: '<svg>...</svg>',
+
+	// Lower values mean a more prominent position
+	order: 50,
+
+	// The tag name of the web component
+	tagName: 'my_app-files_sidebar_tab',
+
+	// Optional callback to check if the tab should be shown
+	enabled({ node, folder, view }) {  
+		// you can disable this tab for some cased based on:  
+		// - node: The node the sidebar was opened for  
+		// - folder: The folder currently shown in the files app  
+		// - view: The currently active files view  
+		return true  
+	},
+
+	// Optional, recommended to large tabs  
+	async onInit() {
+		// This is called when the tab is about to be activated the first time.  
+		// So this can be used to do some initialization or even to define the web component.  
+	},
+}
+
+// the you need to register it in the sidebar
+getSidebar()
+	.registerTab(MyTab)
+```
+
+##### SidebarTab web component
+
+The web component needs to have those properties:
+- node of type `INode`
+- folder of type `IFolder`
+- view of type `IView`
+- active of type `boolean`
+
+When using Vue you need to first create the Vue component:
+
+```vue
+<script setup lang="ts">
+import type { IFolder, INode, IView } from '@nextcloud/files'
+
+defineProps<{
+	node: INode
+	folder: IFolder
+	view: IView
+	active: boolean
+}>()
+</script>
+
+<template>
+	<div>
+		<div>Showing node: {{ node.source }}</div>
+		<div>... in folder: {{ folder.source }}</div>
+		<div>... with view: {{ view.id }}</div>
+	</div>
+</template>
+```
+
+Which then can be wrapped in a web component and registered.
+
+```ts
+import { getSidebar } from '@nextcloud/files'
+import { defineAsyncComponent, defineCustomElement } from 'vue'
+
+getSidebar().registerTab({
+	// ...
+
+	tagName: `my_app-files_sidebar_tab`,
+
+	onInit() {
+		const MySidebarTab = defineAsyncComponent(() => import('./views/MySidebarTab.vue'))
+		// make sure to disable the shadow root to allow theming with Nextcloud provided global styles.
+		const MySidebarTabWebComponent = defineCustomElement(MySidebarTab, { shadowRoot: false })
+		customElements.define('my_app-files_sidebar_tab', MySidebarTabWebComponent)
+	},
+})
+```
+
 ### WebDAV
 The `getClient` exported function returns a webDAV client that's a wrapper around [webdav's webDAV client](https://www.npmjs.com/package/webdav).
 All its methods are available here.
