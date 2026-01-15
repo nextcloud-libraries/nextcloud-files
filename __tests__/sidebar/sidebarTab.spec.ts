@@ -77,7 +77,7 @@ describe('Sidebar tabs', () => {
 
 		it('fails with invalid tagName name', () => {
 			expect(() => registerSidebarTab({ ...getExampleTab(), tagName: 'MyAppSidebarTab' }))
-				.toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs tagName name is invalid]')
+				.toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab "tagName" is invalid]')
 		})
 
 		it('fails with missing name', () => {
@@ -119,11 +119,18 @@ describe('Sidebar tabs', () => {
 			}).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have a numeric order set]')
 		})
 
-		it('fails with missing "enabled" method', () => {
+		it('fails with invalid "enabled" method', () => {
 			expect(() => {
 				// @ts-expect-error mocking for testing
-				registerSidebarTab({ ...getExampleTab(), enabled: undefined })
-			}).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tabs need to have an "enabled" method]')
+				registerSidebarTab({ ...getExampleTab(), enabled: 'true' })
+			}).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab "enabled" is not a function]')
+		})
+
+		it('fails with invalid "onInit" method', () => {
+			expect(() => {
+				// @ts-expect-error mocking for testing
+				registerSidebarTab({ ...getExampleTab(), onInit: 'not a method' })
+			}).toThrowErrorMatchingInlineSnapshot('[Error: Sidebar tab "onInit" is not a function]')
 		})
 	})
 })

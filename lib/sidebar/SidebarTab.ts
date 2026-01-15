@@ -32,14 +32,18 @@ export interface ISidebarContext {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_components
  * @see https://vuejs.org/guide/extras/web-components#building-custom-elements-with-vue
  */
-export interface SidebarComponent extends HTMLElement, ISidebarContext {
+export interface SidebarTabComponent extends ISidebarContext {
 	/**
-	 * This method is called by the files app if the sidebar tab state changes.
-	 *
-	 * @param active - The new active state
+	 * The active state of the sidebar tab.
+	 * It will be set to true if this component is the currently active tab.
 	 */
-	setActive(active: boolean): Promise<void>
+	active: boolean
 }
+
+/**
+ * The instance type of a sidebar tab web component.
+ */
+export type SidebarTabComponentInstance = SidebarTabComponent & HTMLElement
 
 /**
  * Implementation of a custom sidebar tab within the files app.
@@ -69,7 +73,10 @@ export interface ISidebarTab {
 
 	/**
 	 * The tag name of the web component.
-	 * The web component must already be registered under that tag name with `CustomElementRegistry.define()`.
+	 *
+	 * The web component must be defined using this name with `CustomElementRegistry.define()`,
+	 * either on initialization or within the `onInit` callback (preferred).
+	 * When rendering the sidebar tab, the files app will wait for the component to be defined in the registry (`customElements.whenDefined()`).
 	 *
 	 * To avoid name clashes the name has to start with your appid (e.g. `your_app`).
 	 * So in addition with the web component naming rules a good name would be `your_app-files-sidebar-tab`.
@@ -79,9 +86,20 @@ export interface ISidebarTab {
 	/**
 	 * Callback to check if the sidebar tab should be shown for the selected node.
 	 *
+	 * If not provided, the tab will always be shown.
+	 *
 	 * @param context - The current context of the files app
 	 */
-	enabled: (context: ISidebarContext) => boolean
+	enabled?: (context: ISidebarContext) => boolean
+
+	/**
+	 * Called when the sidebar tab is active and rendered the first time in the sidebar.
+	 * This should be used to register the web componen (`CustomElementRegistry.define()`).
+	 *
+	 * The sidebar itself will anyways wait for the component to be defined in the registry (`customElements.whenDefined()`).
+	 * But also will wait for the promise returned by this method to resolve before rendering the tab.
+	 */
+	onInit?: () => Promise<void>
 }
 
 /**
@@ -132,7 +150,7 @@ function validateSidebarTab(tab: ISidebarTab): void {
 	}
 
 	if (!tab.tagName.match(/^[a-z][a-z0-9-_]+$/)) {
-		throw new Error('Sidebar tabs tagName name is invalid')
+		throw new Error('Sidebar tab "tagName" is invalid')
 	}
 
 	if (!tab.displayName || typeof tab.displayName !== 'string') {
@@ -147,7 +165,11 @@ function validateSidebarTab(tab: ISidebarTab): void {
 		throw new Error('Sidebar tabs need to have a numeric order set')
 	}
 
-	if (typeof tab.enabled !== 'function') {
-		throw new Error('Sidebar tabs need to have an "enabled" method')
+	if (tab.enabled && typeof tab.enabled !== 'function') {
+		throw new Error('Sidebar tab "enabled" is not a function')
+	}
+
+	if (tab.onInit && typeof tab.onInit !== 'function') {
+		throw new Error('Sidebar tab "onInit" is not a function')
 	}
 }
