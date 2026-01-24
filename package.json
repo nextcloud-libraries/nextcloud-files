@@ -67,7 +67,7 @@
     "@nextcloud/typings": "^1.10.0",
     "@nextcloud/vite-config": "^2.5.2",
     "@types/node": "^25.0.9",
-    "@vitest/coverage-istanbul": "^4.0.16",
+    "@vitest/coverage-istanbul": "^4.0.18",
     "css.escape": "^1.5.1",
     "fast-xml-parser": "^5.3.3",
     "jsdom": "^27.4.0",
