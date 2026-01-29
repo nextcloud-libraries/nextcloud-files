@@ -6,7 +6,7 @@
 import type { NewMenuEntry } from '../lib/newMenu/NewMenu.ts'
 
 import { describe, expect, test } from 'vitest'
-import { FileAction, getFileActions, registerFileAction } from '../lib/actions/fileAction.ts'
+import { getFileActions, registerFileAction } from '../lib/actions/fileAction.ts'
 import {
 	addNewFileMenuEntry,
 	File,
@@ -64,11 +64,6 @@ describe('Exports checks', () => {
 	test('Node', () => {
 		expect(Node).toBeTruthy()
 		expect(typeof Node).toBe('function')
-	})
-
-	test('FileAction', () => {
-		expect(FileAction).toBeTruthy()
-		expect(typeof FileAction).toBe('function')
 	})
 
 	test('registerFileAction', () => {

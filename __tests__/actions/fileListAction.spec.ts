@@ -3,25 +3,26 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { IFileListAction } from '../../lib/actions/index.ts'
 import type { View } from '../../lib/navigation/view.ts'
 import type { Folder } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { FileListAction, getFileListActions, registerFileListAction } from '../../lib/actions/fileListAction.ts'
+import { getFileListActions, registerFileListAction } from '../../lib/actions/fileListAction.ts'
 import logger from '../../lib/utils/logger.ts'
 
 const folder = {} as Folder
 const view = {} as View
 
-function mockAction(id: string) {
-	return new FileListAction({
+function mockAction(id: string): IFileListAction {
+	return {
 		id,
 		displayName: () => 'Test',
 		iconSvgInline: () => '<svg></svg>',
 		order: 0,
 		// @ts-expect-error mocking for tests
 		exec: async () => {},
-	})
+	}
 }
 
 describe('FileListActions init', () => {
@@ -36,8 +37,7 @@ describe('FileListActions init', () => {
 	})
 
 	test('Register a single file list action', () => {
-		const actions = getFileListActions()
-		expect(actions).toHaveLength(0)
+		expect(getFileListActions()).toHaveLength(0)
 
 		const testAction = mockAction('test')
 
@@ -46,13 +46,13 @@ describe('FileListActions init', () => {
 		expect(testAction.iconSvgInline!({ view, folder, contents: [] })).toBe('<svg></svg>')
 
 		registerFileListAction(testAction)
+		const actions = getFileListActions()
 		expect(actions).toHaveLength(1)
 		expect(actions.at(0)).toStrictEqual(testAction)
 	})
 
 	test('Register multiple file list actions', () => {
-		const actions = getFileListActions()
-		expect(actions).toHaveLength(0)
+		expect(getFileListActions()).toHaveLength(0)
 
 		const fooAction = mockAction('foo')
 		const barAction = mockAction('bar')
@@ -61,8 +61,9 @@ describe('FileListActions init', () => {
 		registerFileListAction(fooAction)
 		registerFileListAction(barAction)
 		registerFileListAction(bazAction)
-		expect(actions).toHaveLength(3)
+		expect(getFileListActions()).toHaveLength(3)
 
+		const actions = getFileListActions()
 		expect(actions.find((action) => action.id === 'foo')).toStrictEqual(fooAction)
 		expect(actions.find((action) => action.id === 'bar')).toStrictEqual(barAction)
 		expect(actions.find((action) => action.id === 'baz')).toStrictEqual(bazAction)
@@ -71,87 +72,86 @@ describe('FileListActions init', () => {
 	test('Register an action with a duplicate id', () => {
 		logger.error = vi.fn()
 
-		const actions = getFileListActions()
-		expect(actions).toHaveLength(0)
+		expect(getFileListActions()).toHaveLength(0)
 
 		const testActionA = mockAction('test')
 		const testActionB = mockAction('test')
 
 		registerFileListAction(testActionA)
-		expect(actions).toHaveLength(1)
+		expect(getFileListActions()).toHaveLength(1)
 
 		registerFileListAction(testActionB)
 		expect(logger.error).toHaveBeenCalledWith('FileListAction with id "test" is already registered', { action: testActionB })
-		expect(actions).toHaveLength(1)
+		expect(getFileListActions()).toHaveLength(1)
 	})
 })
 
-describe('Invalid FileListAction creation', () => {
+describe('Invalid IFileListAction registraction', () => {
 	test('Invalid id', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction)).toThrowError('Invalid id')
+		} as unknown as IFileListAction)).toThrowError('Invalid id')
 	})
 	test('Invalid displayName', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			id: 'test',
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction)).toThrowError('Invalid displayName function')
+		} as unknown as IFileListAction)).toThrowError('Invalid displayName function')
 	})
 	test('Invalid iconSvgInline', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			id: 'test',
 			iconSvgInline: null,
 			displayName: () => 'Test',
 			order: 0,
 			exec: async () => {},
-		} as unknown as FileListAction)).toThrowError('Invalid iconSvgInline function')
+		} as unknown as IFileListAction)).toThrowError('Invalid iconSvgInline function')
 	})
 	test('Invalid order', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			id: 'test',
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			order: null,
 			exec: async () => {},
-		} as unknown as FileListAction)).toThrowError('Invalid order')
+		} as unknown as IFileListAction)).toThrowError('Invalid order')
 	})
 	test('Invalid enabled', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			id: 'test',
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			enabled: null,
 			exec: async () => {},
-		} as unknown as FileListAction)).toThrowError('Invalid enabled function')
+		} as unknown as IFileListAction)).toThrowError('Invalid enabled function')
 	})
 	test('Invalid exec', () => {
-		expect(() => new FileListAction({
+		expect(() => registerFileListAction({
 			id: 'test',
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			exec: null,
-		} as unknown as FileListAction)).toThrowError('Invalid exec function')
+		} as unknown as IFileListAction)).toThrowError('Invalid exec function')
 	})
 })
 
-describe('FileListAction creation', () => {
-	test('Create a FileListAction', async () => {
-		const testAction = new FileListAction({
+describe('IFileListAction creation', () => {
+	test('Create a IFileListAction', async () => {
+		const testAction: IFileListAction = {
 			id: 'test',
 			displayName: () => 'Test',
 			iconSvgInline: () => '<svg></svg>',
 			order: 0,
 			enabled: () => true,
-			// @ts-expect-error mocking for tests
+			// @ts-expect-error -- mocking for tests
 			exec: async () => {},
-		})
+		}
 
 		expect(testAction.id).toBe('test')
 		expect(testAction.displayName({ view, folder, contents: [] })).toBe('Test')
