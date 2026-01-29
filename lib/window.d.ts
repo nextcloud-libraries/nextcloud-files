@@ -4,10 +4,9 @@
  */
 /// <reference types="@nextcloud/typings" />
 
+import type { IFileAction, IFileListAction } from './actions/index.ts'
 import type { DavProperty } from './dav/index.ts'
 import type {
-	FileAction,
-	FileListAction,
 	Header,
 	IFileListFilter,
 	Navigation,
@@ -25,8 +24,8 @@ declare global {
 		OCA: any
 		_nc_dav_namespaces?: DavProperty
 		_nc_dav_properties?: string[]
-		_nc_fileactions?: FileAction[]
-		_nc_filelistactions?: FileListAction[]
+		_nc_fileactions?: IFileAction[]
+		_nc_filelistactions?: IFileListAction[]
 		_nc_filelistheader?: Header[]
 		_nc_newfilemenu?: NewMenu
 		_nc_navigation?: Navigation

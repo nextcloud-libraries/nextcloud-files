@@ -46,7 +46,7 @@ export interface IHotkeyConfig {
 	alt?: true
 }
 
-export interface FileActionData {
+export interface IFileAction {
 	/** Unique ID */
 	id: string
 	/** Translatable string displayed in the menu */
@@ -119,152 +119,15 @@ export interface FileActionData {
 	renderInline?: (context: ActionContextSingle) => Promise<HTMLElement | null>
 }
 
-export class FileAction {
-	private _action: FileActionData
-
-	constructor(action: FileActionData) {
-		this.validateAction(action)
-		this._action = action
-	}
-
-	get id() {
-		return this._action.id
-	}
-
-	get displayName() {
-		return this._action.displayName
-	}
-
-	get title() {
-		return this._action.title
-	}
-
-	get iconSvgInline() {
-		return this._action.iconSvgInline
-	}
-
-	get enabled() {
-		return this._action.enabled
-	}
-
-	get exec() {
-		return this._action.exec
-	}
-
-	get execBatch() {
-		return this._action.execBatch
-	}
-
-	get hotkey() {
-		return this._action.hotkey
-	}
-
-	get order() {
-		return this._action.order
-	}
-
-	get parent() {
-		return this._action.parent
-	}
-
-	get default() {
-		return this._action.default
-	}
-
-	get destructive() {
-		return this._action.destructive
-	}
-
-	get inline() {
-		return this._action.inline
-	}
-
-	get renderInline() {
-		return this._action.renderInline
-	}
-
-	private validateAction(action: FileActionData) {
-		if (!action.id || typeof action.id !== 'string') {
-			throw new Error('Invalid id')
-		}
-
-		if (!action.displayName || typeof action.displayName !== 'function') {
-			throw new Error('Invalid displayName function')
-		}
-
-		if ('title' in action && typeof action.title !== 'function') {
-			throw new Error('Invalid title function')
-		}
-
-		if (!action.iconSvgInline || typeof action.iconSvgInline !== 'function') {
-			throw new Error('Invalid iconSvgInline function')
-		}
-
-		if (!action.exec || typeof action.exec !== 'function') {
-			throw new Error('Invalid exec function')
-		}
-
-		// Optional properties --------------------------------------------
-		if ('enabled' in action && typeof action.enabled !== 'function') {
-			throw new Error('Invalid enabled function')
-		}
-
-		if ('execBatch' in action && typeof action.execBatch !== 'function') {
-			throw new Error('Invalid execBatch function')
-		}
-
-		if ('order' in action && typeof action.order !== 'number') {
-			throw new Error('Invalid order')
-		}
-
-		if (action.destructive !== undefined && typeof action.destructive !== 'boolean') {
-			throw new Error('Invalid destructive flag')
-		}
-
-		if ('parent' in action && typeof action.parent !== 'string') {
-			throw new Error('Invalid parent')
-		}
-
-		if (action.default && !Object.values(DefaultType).includes(action.default)) {
-			throw new Error('Invalid default')
-		}
-
-		if ('inline' in action && typeof action.inline !== 'function') {
-			throw new Error('Invalid inline function')
-		}
-
-		if ('renderInline' in action && typeof action.renderInline !== 'function') {
-			throw new Error('Invalid renderInline function')
-		}
-
-		if ('hotkey' in action && action.hotkey !== undefined) {
-			if (typeof action.hotkey !== 'object') {
-				throw new Error('Invalid hotkey configuration')
-			}
-
-			if (typeof action.hotkey.key !== 'string' || !action.hotkey.key) {
-				throw new Error('Missing or invalid hotkey key')
-			}
-
-			if (typeof action.hotkey.description !== 'string' || !action.hotkey.description) {
-				throw new Error('Missing or invalid hotkey description')
-			}
-		}
-	}
-}
-
 /**
  * Register a new file action.
  *
  * @param action - The file list action to register
  */
-export function registerFileAction(action: FileAction): void {
-	if (typeof window._nc_fileactions === 'undefined') {
-		window._nc_fileactions = []
-		logger.debug('FileActions initialized')
-	}
+export function registerFileAction(action: IFileAction): void {
+	validateAction(action)
 
-	// Check duplicates
+	window._nc_fileactions ??= []
 	if (window._nc_fileactions.find((search) => search.id === action.id)) {
 		logger.error(`FileAction ${action.id} already registered`, { action })
 		return
@@ -274,13 +137,82 @@ export function registerFileAction(action: FileAction): void {
 }
 
 /**
- *
+ * Get all registered file actions.
  */
-export function getFileActions(): FileAction[] {
-	if (typeof window._nc_fileactions === 'undefined') {
-		window._nc_fileactions = []
-		logger.debug('FileActions initialized')
+export function getFileActions(): IFileAction[] {
+	return window._nc_fileactions ?? []
+}
+
+/**
+ * Validate a file action.
+ *
+ * @param action - The action to validate
+ */
+function validateAction(action: IFileAction) {
+	if (!action.id || typeof action.id !== 'string') {
+		throw new Error('Invalid id')
 	}
 
-	return window._nc_fileactions
+	if (!action.displayName || typeof action.displayName !== 'function') {
+		throw new Error('Invalid displayName function')
+	}
+
+	if ('title' in action && typeof action.title !== 'function') {
+		throw new Error('Invalid title function')
+	}
+
+	if (!action.iconSvgInline || typeof action.iconSvgInline !== 'function') {
+		throw new Error('Invalid iconSvgInline function')
+	}
+
+	if (!action.exec || typeof action.exec !== 'function') {
+		throw new Error('Invalid exec function')
+	}
+
+	// Optional properties --------------------------------------------
+	if ('enabled' in action && typeof action.enabled !== 'function') {
+		throw new Error('Invalid enabled function')
+	}
+
+	if ('execBatch' in action && typeof action.execBatch !== 'function') {
+		throw new Error('Invalid execBatch function')
+	}
+
+	if ('order' in action && typeof action.order !== 'number') {
+		throw new Error('Invalid order')
+	}
+
+	if (action.destructive !== undefined && typeof action.destructive !== 'boolean') {
+		throw new Error('Invalid destructive flag')
+	}
+
+	if ('parent' in action && typeof action.parent !== 'string') {
+		throw new Error('Invalid parent')
+	}
+
+	if (action.default && !Object.values(DefaultType).includes(action.default)) {
+		throw new Error('Invalid default')
+	}
+
+	if ('inline' in action && typeof action.inline !== 'function') {
+		throw new Error('Invalid inline function')
+	}
+
+	if ('renderInline' in action && typeof action.renderInline !== 'function') {
+		throw new Error('Invalid renderInline function')
+	}
+
+	if ('hotkey' in action && action.hotkey !== undefined) {
+		if (typeof action.hotkey !== 'object') {
+			throw new Error('Invalid hotkey configuration')
+		}
+
+		if (typeof action.hotkey.key !== 'string' || !action.hotkey.key) {
+			throw new Error('Missing or invalid hotkey key')
+		}
+
+		if (typeof action.hotkey.description !== 'string' || !action.hotkey.description) {
+			throw new Error('Missing or invalid hotkey description')
+		}
+	}
 }
