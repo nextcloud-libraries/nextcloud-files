@@ -53,18 +53,19 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
 	/**
 	 * Register a new view on the navigation
 	 *
-	 * @param view The view to register
+	 * @param views The views to register
 	 * @throws {Error} if a view with the same id is already registered
 	 * @throws {Error} if the registered view is invalid
 	 */
-	register(view: IView): void {
-		if (this._views.find((search) => search.id === view.id)) {
-			throw new Error(`IView id ${view.id} is already registered`)
+	register(...views: IView[]): void {
+		for (const view of views) {
+			if (this._views.find((search) => search.id === view.id)) {
+				throw new Error(`IView id ${view.id} is already registered`)
+			}
+			validateView(view)
 		}
 
-		validateView(view)
-
-		this._views.push(view)
+		this._views.push(...views)
 		this.dispatchTypedEvent('update', new CustomEvent<never>('update') as UpdateViewsEvent)
 	}
 
