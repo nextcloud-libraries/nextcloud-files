@@ -55,6 +55,9 @@ To make work with nodes easier a new constant has been introduced:
 (whereas `Permission.UPDATE` only indicates the file can be updates as in renamed or moved).
 This is similar to the `Permission.CREATE` for folders.
 
+#### Navigation view registration
+* Allow to register multiple views at once.
+
 ## 4.0.0-rc.0 - 2026-01-15
 ### 🚀 Enhancements
 * feat(sidebar): allow to postpone definition of sidebar tabs [\#1459](https://github.com/nextcloud-libraries/nextcloud-files/pull/1459) \([susnux](https://github.com/susnux)\)
@@ -232,11 +235,11 @@ This is similar to the `Permission.CREATE` for folders.
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.9.2...v3.10.0)
 
 ### Added
-* Scope package into modules [\#1025](https://github.com/nextcloud-libraries/nextcloud-files/pull/1025) \([susnux](https://github.com/susnux)\)  
+* Scope package into modules [\#1025](https://github.com/nextcloud-libraries/nextcloud-files/pull/1025) \([susnux](https://github.com/susnux)\)
   All DAV related functions are now moved to the `@nextcloud/files/dav` module.
   You can still import them from the main entrypoint, but this is now deprecated.
   New functions will only be available in the `@nextcloud/files/dav` entrypoint.
-* feat: Add reset method to file list filters [\#1116](https://github.com/nextcloud-libraries/nextcloud-files/pull/1116) \([susnux](https://github.com/susnux)\)  
+* feat: Add reset method to file list filters [\#1116](https://github.com/nextcloud-libraries/nextcloud-files/pull/1116) \([susnux](https://github.com/susnux)\)
 * feat: Add current folder context for file list actions [\#1113](https://github.com/nextcloud-libraries/nextcloud-files/pull/1113) \([Pytal](https://github.com/Pytal)\)
 * feat: Allow cloning a node [\#1077](https://github.com/nextcloud-libraries/nextcloud-files/pull/1077) \([Pytal](https://github.com/Pytal)\)
 * feat(FileAction): Allow to set `destructive` flag [\#1076](https://github.com/nextcloud-libraries/nextcloud-files/pull/1076) \([susnux](https://github.com/susnux)\)
