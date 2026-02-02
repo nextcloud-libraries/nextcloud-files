@@ -24,35 +24,6 @@ export interface IColumn {
 	summary?: (node: INode[], view: IView) => string
 }
 
-export class Column implements IColumn {
-	private _column: IColumn
-
-	constructor(column: IColumn) {
-		validateColumn(column)
-		this._column = column
-	}
-
-	get id() {
-		return this._column.id
-	}
-
-	get title() {
-		return this._column.title
-	}
-
-	get render() {
-		return this._column.render
-	}
-
-	get sort() {
-		return this._column.sort
-	}
-
-	get summary() {
-		return this._column.summary
-	}
-}
-
 /**
  * Validate a column definition
  *
