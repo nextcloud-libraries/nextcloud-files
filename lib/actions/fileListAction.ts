@@ -5,6 +5,7 @@
 
 import type { ViewActionContext } from '../types.ts'
 
+import { emit } from '@nextcloud/event-bus'
 import logger from '../utils/logger.ts'
 
 export interface IFileListAction {
@@ -50,6 +51,7 @@ export function registerFileListAction(action: IFileListAction) {
 	}
 
 	window._nc_filelistactions.push(action)
+	emit('file:list-action:added', action)
 }
 
 /**

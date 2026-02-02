@@ -22,6 +22,16 @@ This library provides three kinds of utils:
 |                        2.x |        ❌ |             23-25 |
 |                        1.x |        ❌ |             20-22 |
 
+## Events
+
+This library emits some `@nextcloud/event-bus` events:
+- Files list filters:
+- `files:filter:added` is emitted with a `FileListFilter` as payload when a new filter is registered
+- `files:filter:removed` is emitted with a `FileListFilter` as payload when a new filter is unregistered
+- `files:header:added` is emitted with a `IFileListHeader` as payload when a new file list header is registered
+- `files:action:added` is emitted with a `IFileAction` as payload when a new file action is registered
+- `files:list-action:added` is emitted with a `IFileListAction` as payload when a new file list action is registered
+
 ## Usage examples
 
 ### Files app

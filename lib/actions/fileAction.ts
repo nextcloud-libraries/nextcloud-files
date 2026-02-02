@@ -5,6 +5,7 @@
 
 import type { ActionContext, ActionContextSingle } from '../types.ts'
 
+import { emit } from '@nextcloud/event-bus'
 import logger from '../utils/logger.ts'
 
 export const DefaultType = Object.freeze({
@@ -134,13 +135,14 @@ export function registerFileAction(action: IFileAction): void {
 	}
 
 	window._nc_fileactions.push(action)
+	emit('file:action:added', action)
 }
 
 /**
  * Get all registered file actions.
  */
 export function getFileActions(): IFileAction[] {
-	return window._nc_fileactions ?? []
+	return [...(window._nc_fileactions ?? [])]
 }
 
 /**
