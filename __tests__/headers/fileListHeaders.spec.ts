@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from '../lib/node/index.ts'
+import type { IFolder, IView } from '../../lib/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileListHeaders, Header, registerFileListHeaders } from '../lib/fileListHeaders.ts'
-import logger from '../lib/utils/logger.ts'
+import { getFileListHeaders, Header, registerFileListHeaders } from '../../lib/index.ts'
+import logger from '../../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
 	beforeEach(() => {
@@ -34,7 +34,7 @@ describe('FileListHeader init', () => {
 
 		expect(header.id).toBe('test')
 		expect(header.order).toBe(1)
-		expect(header.enabled!({} as Folder, {})).toBe(true)
+		expect(header.enabled!({} as IFolder, {} as IView)).toBe(true)
 
 		registerFileListHeaders(header)
 
@@ -178,9 +178,9 @@ describe('FileListHeader exec', () => {
 		expect(header.render).toBe(render)
 		expect(header.updated).toBe(updated)
 
-		header.enabled!({} as Folder, {})
-		header.render(null as any as HTMLElement, {} as Folder, {})
-		header.updated({} as Folder, {})
+		header.enabled!({} as IFolder, {} as IView)
+		header.render(null as any as HTMLElement, {} as IFolder, {} as IView)
+		header.updated({} as IFolder, {} as IView)
 
 		expect(enabled).toHaveBeenCalled()
 		expect(render).toHaveBeenCalled()
