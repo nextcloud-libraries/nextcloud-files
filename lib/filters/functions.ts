@@ -5,7 +5,7 @@
 
 import type { IFileListFilter } from './listFilters.ts'
 
-import { emit } from '@nextcloud/event-bus'
+import { getRegistry } from '../registry.ts'
 
 /**
  * Register a new filter on the file list
@@ -16,14 +16,14 @@ import { emit } from '@nextcloud/event-bus'
  * @param filter The filter to register on the file list
  */
 export function registerFileListFilter(filter: IFileListFilter): void {
-	if (!window._nc_filelist_filters) {
-		window._nc_filelist_filters = new Map<string, IFileListFilter>()
-	}
+	window._nc_filelist_filters ??= new Map<string, IFileListFilter>()
 	if (window._nc_filelist_filters.has(filter.id)) {
 		throw new Error(`File list filter "${filter.id}" already registered`)
 	}
+
 	window._nc_filelist_filters.set(filter.id, filter)
-	emit('files:filter:added', filter)
+	getRegistry()
+		.dispatchTypedEvent('register:listFilter', new CustomEvent('register:listFilter', { detail: filter }))
 }
 
 /**
@@ -33,8 +33,10 @@ export function registerFileListFilter(filter: IFileListFilter): void {
  */
 export function unregisterFileListFilter(filterId: string): void {
 	if (window._nc_filelist_filters && window._nc_filelist_filters.has(filterId)) {
+		const filter = window._nc_filelist_filters.get(filterId)!
 		window._nc_filelist_filters.delete(filterId)
-		emit('files:filter:removed', filterId)
+		getRegistry()
+			.dispatchTypedEvent('unregister:listFilter', new CustomEvent('unregister:listFilter', { detail: filter }))
 	}
 }
 

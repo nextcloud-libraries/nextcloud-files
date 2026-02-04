@@ -14,9 +14,9 @@ export interface HeaderData {
 	/** Condition wether this header is shown or not */
 	enabled?: (folder: IFolder, view: IView) => boolean
 	/** Executed when file list is initialized */
-	render: (el: HTMLElement, folder: IFolder, view: IView) => void
+	render(el: HTMLElement, folder: IFolder, view: IView): void
 	/** Executed when root folder changed */
-	updated(folder: IFolder, view: IView)
+	updated(folder: IFolder, view: IView): void
 }
 
 export class Header {

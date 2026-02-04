@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileListFilterChip } from '../../lib/filters/listFilters.ts'
+import type { IFileListFilterChip } from '../../lib/filters/index.ts'
 
-import { subscribe } from '@nextcloud/event-bus'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { FileListFilter, getFileListFilters, registerFileListFilter, unregisterFileListFilter } from '../../lib/filters/index.ts'
+import { getRegistry } from '../../lib/registry.ts'
 
 class TestFilter extends FileListFilter {
 	public testUpdated() {
@@ -99,13 +99,14 @@ describe('File list filter functions', () => {
 		const filter = new FileListFilter('my:id')
 		const spy = vi.fn()
 
-		subscribe('files:filter:added', spy)
+		getRegistry().addEventListener('register:listFilter', spy)
 
 		expect(window._nc_filelist_filters).toBe(undefined)
 
 		registerFileListFilter(filter)
 		expect(spy).toHaveBeenCalled()
-		expect(spy).toHaveBeenCalledWith(filter)
+		expect(spy.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(spy.mock.calls[0][0].detail).toBe(filter)
 	})
 
 	test('cannot register a filter twice', () => {
@@ -144,11 +145,12 @@ describe('File list filter functions', () => {
 		const spy = vi.fn()
 
 		registerFileListFilter(filter)
-		subscribe('files:filter:removed', spy)
+		getRegistry().addEventListener('unregister:listFilter', spy)
 
 		unregisterFileListFilter(filter.id)
 		expect(spy).toHaveBeenCalled()
-		expect(spy).toHaveBeenCalledWith(filter.id)
+		expect(spy.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(spy.mock.calls[0][0].detail).toBe(filter)
 	})
 
 	test('can get registered filters', () => {

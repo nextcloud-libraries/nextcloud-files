@@ -5,5 +5,9 @@
 
 export type * from './listFilters.ts'
 
+export {
+	getFileListFilters,
+	registerFileListFilter,
+	unregisterFileListFilter,
+} from './functions.ts'
 export { FileListFilter } from './listFilters.ts'
-export { getFileListFilters, registerFileListFilter, unregisterFileListFilter } from './functions.ts'

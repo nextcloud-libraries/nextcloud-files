@@ -5,6 +5,7 @@
 
 import type { Header } from './listHeaders.ts'
 
+import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
 /**
@@ -25,6 +26,8 @@ export function registerFileListHeaders(header: Header): void {
 	}
 
 	window._nc_filelistheader.push(header)
+	getRegistry()
+		.dispatchTypedEvent('register:listHeader', new CustomEvent('register:listHeader', { detail: header }))
 }
 
 /**

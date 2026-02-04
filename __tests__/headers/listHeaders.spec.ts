@@ -6,7 +6,8 @@
 import type { IFolder, IView } from '../../lib/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileListHeaders, Header, registerFileListHeaders } from '../../lib/index.ts'
+import { getFileListHeaders, Header, registerFileListHeaders } from '../../lib/headers/index.ts'
+import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
@@ -22,7 +23,7 @@ describe('FileListHeader init', () => {
 		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
-	test('Initializing FileListHeader', () => {
+	test('register FileListHeader', () => {
 		logger.debug = vi.fn()
 		const header = new Header({
 			id: 'test',
@@ -42,6 +43,25 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.debug).toHaveBeenCalled()
+	})
+
+	test('register FileListHeader emits registry event', () => {
+		logger.debug = vi.fn()
+		const callback = vi.fn()
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled: () => true,
+			render: () => {},
+			updated: () => {},
+		})
+
+		getRegistry().addEventListener('register:listHeader', callback)
+		registerFileListHeaders(header)
+		expect(callback).toHaveBeenCalled()
+		expect(callback.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(callback.mock.calls[0][0].type).toBe('register:listHeader')
+		expect(callback.mock.calls[0][0].detail).toBe(header)
 	})
 
 	test('getFileListHeaders() returned array is reactive', () => {

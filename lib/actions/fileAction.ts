@@ -5,6 +5,7 @@
 
 import type { ActionContext, ActionContextSingle } from '../types.ts'
 
+import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
 export const DefaultType = Object.freeze({
@@ -134,6 +135,8 @@ export function registerFileAction(action: IFileAction): void {
 	}
 
 	window._nc_fileactions.push(action)
+	getRegistry()
+		.dispatchTypedEvent('register:action', new CustomEvent('register:action', { detail: action }))
 }
 
 /**

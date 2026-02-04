@@ -14,3 +14,5 @@ export * from './node/index.ts'
 export * from './permissions.ts'
 export * from './sidebar/index.ts'
 export * from './utils/index.ts'
+
+export { getFilesRegistry } from './registry.ts'

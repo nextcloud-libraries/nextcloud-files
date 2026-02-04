@@ -12,6 +12,7 @@ import type {
 	Navigation,
 	NewMenu,
 } from './index.ts'
+import type { FilesRegistryV4 } from './registry.ts'
 import type { ISidebarTab } from './sidebar/index.ts'
 import type { ISidebarAction } from './sidebar/SidebarAction.ts'
 
@@ -32,6 +33,8 @@ declare global {
 		_nc_filelist_filters?: Map<string, IFileListFilter>
 		_nc_files_sidebar_actions?: Map<string, ISidebarAction>
 		_nc_files_sidebar_tabs?: Map<string, ISidebarTab>
+
+		_nc_files_registry_v4?: FilesRegistryV4
 
 		_oc_config?: {
 			forbidden_filenames_characters: string[]
