@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Folder } from '../lib/node/index.ts'
+import type { IFolder, IView } from '../../lib/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { getFileListHeaders, Header, registerFileListHeaders } from '../lib/fileListHeaders.ts'
-import logger from '../lib/utils/logger.ts'
+import { getFileListHeaders, Header, registerFileListHeaders } from '../../lib/headers/index.ts'
+import { getRegistry } from '../../lib/registry.ts'
+import logger from '../../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
 	beforeEach(() => {
@@ -22,7 +23,7 @@ describe('FileListHeader init', () => {
 		expect(logger.debug).toHaveBeenCalledTimes(1)
 	})
 
-	test('Initializing FileListHeader', () => {
+	test('register FileListHeader', () => {
 		logger.debug = vi.fn()
 		const header = new Header({
 			id: 'test',
@@ -34,7 +35,7 @@ describe('FileListHeader init', () => {
 
 		expect(header.id).toBe('test')
 		expect(header.order).toBe(1)
-		expect(header.enabled!({} as Folder, {})).toBe(true)
+		expect(header.enabled!({} as IFolder, {} as IView)).toBe(true)
 
 		registerFileListHeaders(header)
 
@@ -42,6 +43,25 @@ describe('FileListHeader init', () => {
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 		expect(logger.debug).toHaveBeenCalled()
+	})
+
+	test('register FileListHeader emits registry event', () => {
+		logger.debug = vi.fn()
+		const callback = vi.fn()
+		const header = new Header({
+			id: 'test',
+			order: 1,
+			enabled: () => true,
+			render: () => {},
+			updated: () => {},
+		})
+
+		getRegistry().addEventListener('register:listHeader', callback)
+		registerFileListHeaders(header)
+		expect(callback).toHaveBeenCalled()
+		expect(callback.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(callback.mock.calls[0][0].type).toBe('register:listHeader')
+		expect(callback.mock.calls[0][0].detail).toBe(header)
 	})
 
 	test('getFileListHeaders() returned array is reactive', () => {
@@ -178,9 +198,9 @@ describe('FileListHeader exec', () => {
 		expect(header.render).toBe(render)
 		expect(header.updated).toBe(updated)
 
-		header.enabled!({} as Folder, {})
-		header.render(null as any as HTMLElement, {} as Folder, {})
-		header.updated({} as Folder, {})
+		header.enabled!({} as IFolder, {} as IView)
+		header.render(null as any as HTMLElement, {} as IFolder, {} as IView)
+		header.updated({} as IFolder, {} as IView)
 
 		expect(enabled).toHaveBeenCalled()
 		expect(render).toHaveBeenCalled()

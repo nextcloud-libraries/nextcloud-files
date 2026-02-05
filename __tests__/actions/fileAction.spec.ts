@@ -9,6 +9,7 @@ import type { Folder, Node } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { DefaultType, getFileActions, registerFileAction } from '../../lib/actions/index.ts'
+import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
 const folder = {} as Folder
@@ -41,6 +42,24 @@ describe('FileActions init', () => {
 		expect(window._nc_fileactions).toHaveLength(1)
 		expect(getFileActions()).toHaveLength(1)
 		expect(getFileActions()[0]).toStrictEqual(action)
+	})
+
+	test('register FileAction emits registry event', () => {
+		const callback = vi.fn()
+		const action: IFileAction = {
+			id: 'test',
+			displayName: () => 'Test',
+			iconSvgInline: () => '<svg></svg>',
+			exec: async () => true,
+		}
+
+		getRegistry().addEventListener('register:action', callback)
+		registerFileAction(action)
+
+		expect(callback).toHaveBeenCalled()
+		expect(callback.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(callback.mock.calls[0][0].type).toBe('register:action')
+		expect(callback.mock.calls[0][0].detail).toBe(action)
 	})
 
 	test('getFileActions() returned array is reactive', () => {

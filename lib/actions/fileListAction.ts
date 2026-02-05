@@ -5,6 +5,7 @@
 
 import type { ViewActionContext } from '../types.ts'
 
+import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
 export interface IFileListAction {
@@ -50,6 +51,8 @@ export function registerFileListAction(action: IFileListAction) {
 	}
 
 	window._nc_filelistactions.push(action)
+	getRegistry()
+		.dispatchTypedEvent('register:listAction', new CustomEvent('register:listAction', { detail: action }))
 }
 
 /**

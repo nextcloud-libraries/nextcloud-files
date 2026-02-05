@@ -9,6 +9,7 @@ import type { Folder } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { getFileListActions, registerFileListAction } from '../../lib/actions/fileListAction.ts'
+import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
 const folder = {} as Folder
@@ -83,6 +84,19 @@ describe('FileListActions init', () => {
 		registerFileListAction(testActionB)
 		expect(logger.error).toHaveBeenCalledWith('FileListAction with id "test" is already registered', { action: testActionB })
 		expect(getFileListActions()).toHaveLength(1)
+	})
+
+	test('register FileAction emits registry event', () => {
+		const callback = vi.fn()
+		const testAction = mockAction('test')
+
+		getRegistry().addEventListener('register:listAction', callback)
+		registerFileListAction(testAction)
+
+		expect(callback).toHaveBeenCalled()
+		expect(callback.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
+		expect(callback.mock.calls[0][0].type).toBe('register:listAction')
+		expect(callback.mock.calls[0][0].detail).toBe(testAction)
 	})
 })
 

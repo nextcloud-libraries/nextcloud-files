@@ -1,0 +1,51 @@
+/*!
+ * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+import type { IFileListFilter } from './listFilters.ts'
+
+import { getRegistry } from '../registry.ts'
+
+/**
+ * Register a new filter on the file list
+ *
+ * This only must be called once to register the filter,
+ * when the filter state changes you need to call `filterUpdated` on the filter instead.
+ *
+ * @param filter The filter to register on the file list
+ */
+export function registerFileListFilter(filter: IFileListFilter): void {
+	window._nc_filelist_filters ??= new Map<string, IFileListFilter>()
+	if (window._nc_filelist_filters.has(filter.id)) {
+		throw new Error(`File list filter "${filter.id}" already registered`)
+	}
+
+	window._nc_filelist_filters.set(filter.id, filter)
+	getRegistry()
+		.dispatchTypedEvent('register:listFilter', new CustomEvent('register:listFilter', { detail: filter }))
+}
+
+/**
+ * Remove a registered filter from the file list
+ *
+ * @param filterId The unique ID of the filter to remove
+ */
+export function unregisterFileListFilter(filterId: string): void {
+	if (window._nc_filelist_filters && window._nc_filelist_filters.has(filterId)) {
+		const filter = window._nc_filelist_filters.get(filterId)!
+		window._nc_filelist_filters.delete(filterId)
+		getRegistry()
+			.dispatchTypedEvent('unregister:listFilter', new CustomEvent('unregister:listFilter', { detail: filter }))
+	}
+}
+
+/**
+ * Get all registered file list filters
+ */
+export function getFileListFilters(): IFileListFilter[] {
+	if (!window._nc_filelist_filters) {
+		return []
+	}
+	return [...window._nc_filelist_filters.values()]
+}
