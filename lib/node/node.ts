@@ -3,25 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { TFileType } from './fileType.ts'
-import type { Attribute, NodeData } from './nodeData.ts'
+import type { IFileType } from './fileType.ts'
+import type { Attribute, INodeStatus, NodeData } from './nodeData.ts'
 
 import { basename, dirname, encodePath, extname } from '@nextcloud/paths'
 import { Permission } from '../permissions.ts'
 import { fixDates, fixRegExp, isDavResource, validateData } from './nodeData.ts'
-
-export const NodeStatus = Object.freeze({
-	/** This is a new node and it doesn't exists on the filesystem yet */
-	NEW: 'new',
-	/** This node has failed and is unavailable  */
-	FAILED: 'failed',
-	/** This node is currently loading or have an operation in progress */
-	LOADING: 'loading',
-	/** This node is locked and cannot be modified */
-	LOCKED: 'locked',
-})
-
-export type TNodeStatus = typeof NodeStatus[keyof typeof NodeStatus]
 
 export type NodeConstructorData = [NodeData, RegExp?]
 
@@ -150,7 +137,7 @@ export abstract class Node {
 	/**
 	 * Is it a file or a folder ?
 	 */
-	abstract get type(): TFileType
+	abstract get type(): IFileType
 
 	/**
 	 * Get the file mime
@@ -310,14 +297,14 @@ export abstract class Node {
 	/**
 	 * Get the node status.
 	 */
-	get status(): TNodeStatus | undefined {
+	get status(): INodeStatus | undefined {
 		return this._data?.status
 	}
 
 	/**
 	 * Set the node status.
 	 */
-	set status(status: TNodeStatus | undefined) {
+	set status(status: INodeStatus | undefined) {
 		validateData({ ...this._data, status }, this._knownDavService)
 		this._data.status = status
 	}

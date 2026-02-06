@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { Attribute, NodeData } from '../../lib/node/index.ts'
-import type { TNodeStatus } from '../../lib/node/node.ts'
+import type { Attribute, INodeStatus, NodeData } from '../../lib/node/index.ts'
 
 import { describe, expect, test } from 'vitest'
 import { File, Folder, NodeStatus } from '../../lib/node/index.ts'
@@ -496,7 +495,7 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			status: 'invalid' as unknown as TNodeStatus,
+			status: 'invalid' as unknown as INodeStatus,
 		})).toThrowError('Status must be a valid NodeStatus')
 
 		const file = new File({

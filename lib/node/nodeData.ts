@@ -3,11 +3,21 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { TNodeStatus } from './node.ts'
-
 import { join } from '@nextcloud/paths'
 import { Permission } from '../permissions.ts'
-import { NodeStatus } from './node.ts'
+
+export const NodeStatus = Object.freeze({
+	/** This is a new node and it doesn't exists on the filesystem yet */
+	NEW: 'new',
+	/** This node has failed and is unavailable  */
+	FAILED: 'failed',
+	/** This node is currently loading or have an operation in progress */
+	LOADING: 'loading',
+	/** This node is locked and cannot be modified */
+	LOCKED: 'locked',
+})
+
+export type INodeStatus = typeof NodeStatus[keyof typeof NodeStatus]
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Attribute { [key: string]: any }
@@ -61,7 +71,7 @@ export interface NodeData {
 	attributes?: Attribute
 
 	/** The node status */
-	status?: TNodeStatus
+	status?: INodeStatus
 }
 
 /**
