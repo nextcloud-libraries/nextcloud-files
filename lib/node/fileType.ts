@@ -8,4 +8,4 @@ export const FileType = Object.freeze({
 	File: 'file',
 })
 
-export type TFileType = typeof FileType[keyof typeof FileType]
+export type IFileType = typeof FileType[keyof typeof FileType]
