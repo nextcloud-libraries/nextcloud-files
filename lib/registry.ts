@@ -5,7 +5,7 @@
 
 import type { IFileAction, IFileListAction } from './actions/index.ts'
 import type { IFileListFilter } from './filters/index.ts'
-import type { Header } from './headers/index.ts'
+import type { IFileListHeader } from './headers/index.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
 
@@ -14,7 +14,7 @@ interface FilesRegistryEvents {
 	'register:listAction': CustomEvent<IFileListAction>
 	'register:listFilter': CustomEvent<IFileListFilter>
 	'unregister:listFilter': CustomEvent<IFileListFilter>
-	'register:listHeader': CustomEvent<Header>
+	'register:listHeader': CustomEvent<IFileListHeader>
 }
 
 export class FilesRegistryV4 extends TypedEventTarget<FilesRegistryEvents> {}

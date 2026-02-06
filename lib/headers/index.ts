@@ -5,5 +5,4 @@
 
 export type * from './listHeaders.ts'
 
-export { Header } from './listHeaders.ts'
-export { getFileListHeaders, registerFileListHeaders } from './functions.ts'
+export { getFileListHeaders, registerFileListHeader } from './listHeaders.ts'
