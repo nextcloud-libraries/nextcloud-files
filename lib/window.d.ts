@@ -7,8 +7,8 @@
 import type { IFileAction, IFileListAction } from './actions/index.ts'
 import type { DavProperty } from './dav/index.ts'
 import type {
-	Header,
 	IFileListFilter,
+	IFileListHeader,
 	Navigation,
 	NewMenu,
 } from './index.ts'
@@ -27,7 +27,7 @@ declare global {
 		_nc_dav_properties?: string[]
 		_nc_fileactions?: IFileAction[]
 		_nc_filelistactions?: IFileListAction[]
-		_nc_filelistheader?: Header[]
+		_nc_filelistheader?: IFileListHeader[]
 		_nc_newfilemenu?: NewMenu
 		_nc_navigation?: Navigation
 		_nc_filelist_filters?: Map<string, IFileListFilter>

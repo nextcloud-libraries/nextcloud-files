@@ -6,7 +6,10 @@
 import type { IView } from '../navigation/view.ts'
 import type { IFolder } from '../node/folder.ts'
 
-export interface HeaderData {
+import { getRegistry } from '../registry.ts'
+import logger from '../utils/logger.ts'
+
+export interface IFileListHeader {
 	/** Unique ID */
 	id: string
 	/** Order */
@@ -19,53 +22,54 @@ export interface HeaderData {
 	updated(folder: IFolder, view: IView): void
 }
 
-export class Header {
-	private _header: HeaderData
+/**
+ * Register a new file list header.
+ *
+ * @param header - The header to register
+ */
+export function registerFileListHeader(header: IFileListHeader): void {
+	validateHeader(header)
 
-	constructor(header: HeaderData) {
-		this.validateHeader(header)
-		this._header = header
+	window._nc_filelistheader ??= []
+	if (window._nc_filelistheader.find((search) => search.id === header.id)) {
+		logger.error(`Header ${header.id} already registered`, { header })
+		return
 	}
 
-	get id() {
-		return this._header.id
+	window._nc_filelistheader.push(header)
+	getRegistry()
+		.dispatchTypedEvent('register:listHeader', new CustomEvent('register:listHeader', { detail: header }))
+}
+
+/**
+ * Get all currently registered file list headers.
+ */
+export function getFileListHeaders(): IFileListHeader[] {
+	window._nc_filelistheader ??= []
+	return [...window._nc_filelistheader]
+}
+
+/**
+ * @param header - The header to validate
+ */
+function validateHeader(header: IFileListHeader) {
+	if (!header.id || !header.render || !header.updated) {
+		throw new Error('Invalid header: id, render and updated are required')
 	}
 
-	get order() {
-		return this._header.order
+	if (typeof header.id !== 'string') {
+		throw new Error('Invalid id property')
 	}
 
-	get enabled() {
-		return this._header.enabled
+	if (header.enabled !== undefined && typeof header.enabled !== 'function') {
+		throw new Error('Invalid enabled property')
 	}
 
-	get render() {
-		return this._header.render
+	if (header.render && typeof header.render !== 'function') {
+		throw new Error('Invalid render property')
 	}
 
-	get updated() {
-		return this._header.updated
-	}
-
-	private validateHeader(header: HeaderData) {
-		if (!header.id || !header.render || !header.updated) {
-			throw new Error('Invalid header: id, render and updated are required')
-		}
-
-		if (typeof header.id !== 'string') {
-			throw new Error('Invalid id property')
-		}
-
-		if (header.enabled !== undefined && typeof header.enabled !== 'function') {
-			throw new Error('Invalid enabled property')
-		}
-
-		if (header.render && typeof header.render !== 'function') {
-			throw new Error('Invalid render property')
-		}
-
-		if (header.updated && typeof header.updated !== 'function') {
-			throw new Error('Invalid updated property')
-		}
+	if (header.updated && typeof header.updated !== 'function') {
+		throw new Error('Invalid updated property')
 	}
 }
