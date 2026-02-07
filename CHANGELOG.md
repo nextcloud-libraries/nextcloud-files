@@ -55,8 +55,55 @@ To make work with nodes easier a new constant has been introduced:
 (whereas `Permission.UPDATE` only indicates the file can be updates as in renamed or moved).
 This is similar to the `Permission.CREATE` for folders.
 
-#### Navigation view registration
-* Allow to register multiple views at once.
+Note that this is only valid for WebDAV nodes, for other APIs that are using the permissions
+it depends how they interpret them.
+
+#### Interfaces
+Where feasible this library now only requires using objects
+matching a given interface and not instantiating a class.
+The reason here is that this allows for easier extending,
+which can be used to keep track of some internal state.
+
+Moreover classes could never be verified because
+the prototypes were not globally shared thus every applicaton would create different class instances.
+Meaning e.g. a `FileAction` of app A would not satisfy `instanceof FileAction` in app B.
+
+So with v4 of this library those classes have been removed,
+instead just make sure to implement the provided interfaces.
+
+```diff
+- import { FileAction } from '@nextcloud/files'
++ import type { IFileAction } from '@nextcloud/files'
+ 
+- const action = new FileAction({ ... })
++ const action: IFileAction = { ... }
+```
+
+```diff
+- import { FileAction, registerFileAction } from '@nextcloud/files'
++ import { registerFileAction } from '@nextcloud/files'
+ 
+- registerFileAction(new FileAction({ ... }))
++ registerFileAction({ ... })
+```
+
+## 4.0.0-rc.2 - 2026-02-06
+### 🐛 Fixed bugs
+* fix: properly export all public API [\#1485](https://github.com/nextcloud-libraries/nextcloud-files/pull/1485)
+
+### Other changes
+* refactor(headers): use interfaces where possible [\#1484](https://github.com/nextcloud-libraries/nextcloud-files/pull/1484)
+
+## 4.0.0-rc.1 - 2026-02-05
+### 🚀 Enhancements
+* feat(navigation): allow to register multiple views in one batch [\#1476](https://github.com/nextcloud-libraries/nextcloud-files/pull/1476)
+* feat(registry): Add new registry to listen for registration events [\#1483](https://github.com/nextcloud-libraries/nextcloud-files/pull/1483)
+  This allows to listen for changes on registered objects (views, filters, etc).
+  So you can react when something new was registered.
+  This allows to creates a reactive state with any framework (e.g. Vue 3).
+
+### Changes
+* More classes are replaces with interfaces where real class instances are not needed [\#1475](https://github.com/nextcloud-libraries/nextcloud-files/pull/1475)
 
 ## 4.0.0-rc.0 - 2026-01-15
 ### 🚀 Enhancements
