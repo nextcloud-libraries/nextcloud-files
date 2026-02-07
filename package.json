@@ -63,7 +63,7 @@
     "cancelable-promise": "^4.3.1",
     "is-svg": "^6.1.0",
     "typescript-event-target": "^1.1.2",
-    "webdav": "^5.8.0"
+    "webdav": "^5.9.0"
   },
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
