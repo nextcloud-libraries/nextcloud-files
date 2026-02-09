@@ -87,6 +87,13 @@ instead just make sure to implement the provided interfaces.
 + registerFileAction({ ... })
 ```
 
+## 4.0.0-rc.3 - 2026-02-09
+### Other changes
+* refactor: scope global state to major version of library [\#1492](https://github.com/nextcloud-libraries/nextcloud-files/pull/1492)
+  To prevent apps breaking the files app with outdated library versions, all registered actions, views etc are now scoped.
+  Meaning you have to use a compatible library version, e.g. its required to use the `@nextcloud/files` library v4 for Nextcloud 33+.
+  Otherwise the registered entities are not picked up by the files app.
+
 ## 4.0.0-rc.2 - 2026-02-06
 ### 🐛 Fixed bugs
 * fix: properly export all public API [\#1485](https://github.com/nextcloud-libraries/nextcloud-files/pull/1485)
