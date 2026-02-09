@@ -6,6 +6,7 @@
 import type { ISidebarTab } from '../../lib/sidebar/SidebarTab.ts'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import { getSidebarTabs, registerSidebarTab } from '../../lib/sidebar/SidebarTab.ts'
 
 // missing in JSDom but supported by every browser!
@@ -14,16 +15,16 @@ import 'css.escape'
 describe('Sidebar tabs', () => {
 	beforeEach(() => {
 		vi.restoreAllMocks()
-		delete window._nc_files_sidebar_tabs
+		delete scopedGlobals.filesSidebarTabs
 	})
 
 	it('can register a tab', () => {
 		const tab = getExampleTab()
 
 		registerSidebarTab(tab)
-		expect(window._nc_files_sidebar_tabs).toBeInstanceOf(Map)
-		expect(window._nc_files_sidebar_tabs!.has(tab.id)).toBe(true)
-		expect(window._nc_files_sidebar_tabs!.get(tab.id)).toBe(tab)
+		expect(scopedGlobals.filesSidebarTabs).toBeInstanceOf(Map)
+		expect(scopedGlobals.filesSidebarTabs!.has(tab.id)).toBe(true)
+		expect(scopedGlobals.filesSidebarTabs!.get(tab.id)).toBe(tab)
 	})
 
 	it('can fetch empty list of sidebar tabs', () => {

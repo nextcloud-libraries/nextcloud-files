@@ -8,31 +8,59 @@ import type { IFileListFilter } from './filters/index.ts'
 import type { IFileListHeader } from './headers/index.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
+import { scopedGlobals } from './globalScope.ts'
 
 interface FilesRegistryEvents {
-	'register:action': CustomEvent<IFileAction>
-	'register:listAction': CustomEvent<IFileListAction>
-	'register:listFilter': CustomEvent<IFileListFilter>
-	'unregister:listFilter': CustomEvent<IFileListFilter>
-	'register:listHeader': CustomEvent<IFileListHeader>
+	'register:action': RegistrationEvent<IFileAction>
+	'register:listAction': RegistrationEvent<IFileListAction>
+	'register:listFilter': RegistrationEvent<IFileListFilter>
+	'register:listHeader': RegistrationEvent<IFileListHeader>
+	'unregister:listFilter': UnregisterEvent
 }
 
-export class FilesRegistryV4 extends TypedEventTarget<FilesRegistryEvents> {}
-
-export type PublicFilesRegistry = Pick<FilesRegistryV4, 'addEventListener' | 'removeEventListener'>
+/**
+ * Custom event for registry events.
+ * The detail is the registered item.
+ */
+class RegistrationEvent<T> extends CustomEvent<T> {}
 
 /**
- * Get the global files registry
+ * Custom event for unregistering items from the registry.
+ * The detail is the id of the unregistered item.
+ */
+class UnregisterEvent extends RegistrationEvent<string> {}
+
+/**
+ * The registry for files app.
+ * This is used to keep track of registered actions, filters, headers, etc. and to emit events when new items are registered.
+ * Allowing to keep a reactive state of the registered items in the UI without being coupled to one specific reactivity framework.
+ *
+ * This is an internal implementation detail and should not be used directly.
+ *
+ * @internal
+ * @see PublicFilesRegistry - for the public API to listen to registry events.
+ */
+export class FilesRegistry extends TypedEventTarget<FilesRegistryEvents> {}
+
+/**
+ * The registry for files app.
+ * This is used to keep track of registered actions, filters, headers, etc. and to emit events when new items are registered.
+ * Allowing to keep a reactive state of the registered items in the UI without being coupled to one specific reactivity framework.
+ */
+export type PublicFilesRegistry = Pick<FilesRegistry, 'addEventListener' | 'removeEventListener'>
+
+/**
+ * Get the global files registry.
  *
  * @internal
  */
 export function getRegistry() {
-	window._nc_files_registry_v4 ??= new FilesRegistryV4()
-	return window._nc_files_registry_v4
+	scopedGlobals.registry ??= new FilesRegistry()
+	return scopedGlobals.registry
 }
 
 /**
- * Get the global files registry
+ * Get the global files registry.
  *
  * This allows to listen for new registrations of actions, filters, headers, etc.
  * Events are dispatched by the respective registration functions.

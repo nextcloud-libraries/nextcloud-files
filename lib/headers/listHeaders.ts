@@ -6,6 +6,7 @@
 import type { IView } from '../navigation/view.ts'
 import type { IFolder } from '../node/folder.ts'
 
+import { scopedGlobals } from '../globalScope.ts'
 import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
@@ -30,13 +31,13 @@ export interface IFileListHeader {
 export function registerFileListHeader(header: IFileListHeader): void {
 	validateHeader(header)
 
-	window._nc_filelistheader ??= []
-	if (window._nc_filelistheader.find((search) => search.id === header.id)) {
+	scopedGlobals.fileListHeaders ??= new Map<string, IFileListHeader>()
+	if (scopedGlobals.fileListHeaders.has(header.id)) {
 		logger.error(`Header ${header.id} already registered`, { header })
 		return
 	}
 
-	window._nc_filelistheader.push(header)
+	scopedGlobals.fileListHeaders.set(header.id, header)
 	getRegistry()
 		.dispatchTypedEvent('register:listHeader', new CustomEvent('register:listHeader', { detail: header }))
 }
@@ -45,8 +46,10 @@ export function registerFileListHeader(header: IFileListHeader): void {
  * Get all currently registered file list headers.
  */
 export function getFileListHeaders(): IFileListHeader[] {
-	window._nc_filelistheader ??= []
-	return [...window._nc_filelistheader]
+	if (!scopedGlobals.fileListHeaders) {
+		return []
+	}
+	return [...scopedGlobals.fileListHeaders.values()]
 }
 
 /**

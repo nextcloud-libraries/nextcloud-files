@@ -9,6 +9,7 @@ import type { Folder } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { getFileListActions, registerFileListAction } from '../../lib/actions/fileListAction.ts'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
@@ -28,11 +29,11 @@ function mockAction(id: string): IFileListAction {
 
 describe('FileListActions init', () => {
 	beforeEach(() => {
-		delete window._nc_filelistactions
+		delete scopedGlobals.fileListActions
 	})
 
 	test('Uninitialized file list actions', () => {
-		expect(window._nc_filelistactions).toBe(undefined)
+		expect(scopedGlobals.fileListActions).toBe(undefined)
 		const actions = getFileListActions()
 		expect(actions).toHaveLength(0)
 	})

@@ -1,4 +1,4 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -6,18 +6,19 @@
 import type { IFileListHeader, IFolder, IView } from '../../lib/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import { getFileListHeaders, registerFileListHeader } from '../../lib/headers/index.ts'
 import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
 describe('FileListHeader init', () => {
 	beforeEach(() => {
-		delete window._nc_filelistheader
+		delete scopedGlobals.fileListHeaders
 	})
 
 	test('Getting empty uninitialized FileListHeader', () => {
 		const headers = getFileListHeaders()
-		expect(window._nc_filelistheader).toBeDefined()
+		expect(Array.isArray(headers)).toBe(true)
 		expect(headers).toHaveLength(0)
 	})
 
@@ -29,14 +30,9 @@ describe('FileListHeader init', () => {
 			render: () => {},
 			updated: () => {},
 		}
-
-		expect(header.id).toBe('test')
-		expect(header.order).toBe(1)
-		expect(header.enabled!({} as IFolder, {} as IView)).toBe(true)
-
 		registerFileListHeader(header)
 
-		expect(window._nc_filelistheader).toHaveLength(1)
+		expect(scopedGlobals.fileListHeaders).toHaveLength(1)
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
 	})
@@ -58,6 +54,25 @@ describe('FileListHeader init', () => {
 		expect(callback.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
 		expect(callback.mock.calls[0][0].type).toBe('register:listHeader')
 		expect(callback.mock.calls[0][0].detail).toBe(header)
+	})
+
+	test('getFileListHeaders() returns array', () => {
+		expect(getFileListHeaders()).toHaveLength(0)
+
+		const header: IFileListHeader = {
+			id: 'test',
+			order: 1,
+			enabled: () => true,
+			render: () => {},
+			updated: () => {},
+		}
+
+		registerFileListHeader(header)
+
+		const headers = getFileListHeaders()
+		expect(Array.isArray(headers)).toBe(true)
+		expect(headers).toHaveLength(1)
+		expect(headers[0]).toStrictEqual(header)
 	})
 
 	test('Duplicate Header gets rejected', () => {

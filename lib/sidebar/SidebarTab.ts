@@ -7,6 +7,7 @@ import type { IView } from '../navigation/view.ts'
 import type { IFolder, INode } from '../node/index.ts'
 
 import isSvg from 'is-svg'
+import { scopedGlobals } from '../globalScope.ts'
 import logger from '../utils/logger.ts'
 
 export interface ISidebarContext {
@@ -111,12 +112,12 @@ export interface ISidebarTab {
 export function registerSidebarTab(tab: ISidebarTab): void {
 	validateSidebarTab(tab)
 
-	window._nc_files_sidebar_tabs ??= new Map<string, ISidebarTab>()
-	if (window._nc_files_sidebar_tabs.has(tab.id)) {
+	scopedGlobals.filesSidebarTabs ??= new Map<string, ISidebarTab>()
+	if (scopedGlobals.filesSidebarTabs.has(tab.id)) {
 		logger.warn(`Sidebar tab with id "${tab.id}" already registered. Skipping.`)
 		return
 	}
-	window._nc_files_sidebar_tabs.set(tab.id, tab)
+	scopedGlobals.filesSidebarTabs.set(tab.id, tab)
 	logger.debug(`New sidebar tab with id "${tab.id}" registered.`)
 }
 
@@ -124,8 +125,8 @@ export function registerSidebarTab(tab: ISidebarTab): void {
  * Get all currently registered sidebar tabs.
  */
 export function getSidebarTabs(): ISidebarTab[] {
-	if (window._nc_files_sidebar_tabs) {
-		return [...window._nc_files_sidebar_tabs.values()]
+	if (scopedGlobals.filesSidebarTabs) {
+		return [...scopedGlobals.filesSidebarTabs.values()]
 	}
 	return []
 }

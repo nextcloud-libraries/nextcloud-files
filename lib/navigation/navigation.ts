@@ -6,7 +6,7 @@
 import type { IView } from './view.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
-import logger from '../utils/logger.ts'
+import { scopedGlobals } from '../globalScope.ts'
 import { validateView } from './view.ts'
 
 /**
@@ -123,10 +123,6 @@ export class Navigation extends TypedEventTarget<{ updateActive: UpdateActiveVie
  * Get the current files navigation
  */
 export function getNavigation(): Navigation {
-	if (typeof window._nc_navigation === 'undefined') {
-		window._nc_navigation = new Navigation()
-		logger.debug('Navigation service initialized')
-	}
-
-	return window._nc_navigation
+	scopedGlobals.navigation ??= new Navigation()
+	return scopedGlobals.navigation
 }

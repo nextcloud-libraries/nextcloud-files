@@ -9,6 +9,7 @@ import type { Folder, Node } from '../../lib/node/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { DefaultType, getFileActions, registerFileAction } from '../../lib/actions/index.ts'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import { getRegistry } from '../../lib/registry.ts'
 import logger from '../../lib/utils/logger.ts'
 
@@ -16,7 +17,7 @@ const folder = {} as Folder
 const view = {} as View
 describe('FileActions init', () => {
 	beforeEach(() => {
-		delete window._nc_fileactions
+		delete scopedGlobals.fileActions
 	})
 
 	test('Getting empty uninitialized FileActions', () => {
@@ -39,7 +40,7 @@ describe('FileActions init', () => {
 
 		registerFileAction(action)
 
-		expect(window._nc_fileactions).toHaveLength(1)
+		expect(scopedGlobals.fileActions).toHaveLength(1)
 		expect(getFileActions()).toHaveLength(1)
 		expect(getFileActions()[0]).toStrictEqual(action)
 	})

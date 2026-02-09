@@ -6,18 +6,15 @@
 import type { IFolder } from '../node/index.ts'
 import type { NewMenuEntry } from './NewMenu.ts'
 
-import logger from '../utils/logger.ts'
+import { scopedGlobals } from '../globalScope.ts'
 import { NewMenu } from './NewMenu.ts'
 
 /**
  * Get the NewMenu instance used by the files app.
  */
 export function getNewFileMenu(): NewMenu {
-	if (typeof window._nc_newfilemenu === 'undefined') {
-		window._nc_newfilemenu = new NewMenu()
-		logger.debug('NewFileMenu initialized')
-	}
-	return window._nc_newfilemenu
+	scopedGlobals.newFileMenu ??= new NewMenu()
+	return scopedGlobals.newFileMenu
 }
 
 /**

@@ -5,6 +5,7 @@
 
 import type { ActionContext, ActionContextSingle } from '../types.ts'
 
+import { scopedGlobals } from '../globalScope.ts'
 import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
@@ -128,13 +129,13 @@ export interface IFileAction {
 export function registerFileAction(action: IFileAction): void {
 	validateAction(action)
 
-	window._nc_fileactions ??= []
-	if (window._nc_fileactions.find((search) => search.id === action.id)) {
+	scopedGlobals.fileActions ??= new Map<string, IFileAction>()
+	if (scopedGlobals.fileActions.has(action.id)) {
 		logger.error(`FileAction ${action.id} already registered`, { action })
 		return
 	}
 
-	window._nc_fileactions.push(action)
+	scopedGlobals.fileActions.set(action.id, action)
 	getRegistry()
 		.dispatchTypedEvent('register:action', new CustomEvent('register:action', { detail: action }))
 }
@@ -143,7 +144,10 @@ export function registerFileAction(action: IFileAction): void {
  * Get all registered file actions.
  */
 export function getFileActions(): IFileAction[] {
-	return window._nc_fileactions ?? []
+	if (scopedGlobals.fileActions) {
+		return [...scopedGlobals.fileActions.values()]
+	}
+	return []
 }
 
 /**
