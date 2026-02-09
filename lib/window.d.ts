@@ -4,40 +4,16 @@
  */
 /// <reference types="@nextcloud/typings" />
 
-import type { IFileAction, IFileListAction } from './actions/index.ts'
-import type { DavProperty } from './dav/index.ts'
-import type {
-	IFileListFilter,
-	IFileListHeader,
-	Navigation,
-	NewMenu,
-} from './index.ts'
-import type { FilesRegistryV4 } from './registry.ts'
-import type { ISidebarTab } from './sidebar/index.ts'
-import type { ISidebarAction } from './sidebar/SidebarAction.ts'
-
-export {}
-
 declare global {
 	interface Window {
 		OC: Nextcloud.v32.OC
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		OCA: any
-		_nc_dav_namespaces?: DavProperty
-		_nc_dav_properties?: string[]
-		_nc_fileactions?: IFileAction[]
-		_nc_filelistactions?: IFileListAction[]
-		_nc_filelistheader?: IFileListHeader[]
-		_nc_newfilemenu?: NewMenu
-		_nc_navigation?: Navigation
-		_nc_filelist_filters?: Map<string, IFileListFilter>
-		_nc_files_sidebar_actions?: Map<string, ISidebarAction>
-		_nc_files_sidebar_tabs?: Map<string, ISidebarTab>
-
-		_nc_files_registry_v4?: FilesRegistryV4
-
+		_nc_files_scope?: Record<string, Record<string, unknown>>
 		_oc_config?: {
 			forbidden_filenames_characters: string[]
 		}
 	}
 }
+
+export {}

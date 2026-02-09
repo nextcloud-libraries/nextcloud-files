@@ -1,9 +1,10 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 import { describe, expect, it, vi } from 'vitest'
+import { scopedGlobals } from '../lib/globalScope.ts'
 import { View } from '../lib/index.ts'
 import { getNavigation, Navigation } from '../lib/navigation/navigation.ts'
 import { mockView } from './fixtures/view.ts'
@@ -18,21 +19,15 @@ describe('getNavigation', () => {
 	})
 
 	it('stores the navigation globally', () => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		delete window._nc_navigation
+		delete scopedGlobals.navigation
 		const navigation = getNavigation()
 		expect(navigation).toBeInstanceOf(Navigation)
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		expect(window._nc_navigation).toBeInstanceOf(Navigation)
+		expect(scopedGlobals.navigation).toBeInstanceOf(Navigation)
 	})
 
 	it('reuses an existing navigation', () => {
 		const navigation = new Navigation()
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		window._nc_navigation = navigation
+		scopedGlobals.navigation = navigation
 		expect(getNavigation()).toBe(navigation)
 	})
 })

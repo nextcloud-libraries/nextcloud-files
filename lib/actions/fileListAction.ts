@@ -5,6 +5,7 @@
 
 import type { ViewActionContext } from '../types.ts'
 
+import { scopedGlobals } from '../globalScope.ts'
 import { getRegistry } from '../registry.ts'
 import logger from '../utils/logger.ts'
 
@@ -44,13 +45,13 @@ export interface IFileListAction {
 export function registerFileListAction(action: IFileListAction) {
 	validateAction(action)
 
-	window._nc_filelistactions ??= []
-	if (window._nc_filelistactions.find((listAction) => listAction.id === action.id)) {
+	scopedGlobals.fileListActions ??= new Map<string, IFileListAction>()
+	if (scopedGlobals.fileListActions.has(action.id)) {
 		logger.error(`FileListAction with id "${action.id}" is already registered`, { action })
 		return
 	}
 
-	window._nc_filelistactions.push(action)
+	scopedGlobals.fileListActions.set(action.id, action)
 	getRegistry()
 		.dispatchTypedEvent('register:listAction', new CustomEvent('register:listAction', { detail: action }))
 }
@@ -59,7 +60,10 @@ export function registerFileListAction(action: IFileListAction) {
  * Get all currently registered file list actions.
  */
 export function getFileListActions(): IFileListAction[] {
-	return [...(window._nc_filelistactions ?? [])]
+	if (scopedGlobals.fileListActions) {
+		return [...scopedGlobals.fileListActions.values()]
+	}
+	return []
 }
 
 /**

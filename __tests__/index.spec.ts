@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { NewMenuEntry } from '../lib/newMenu/NewMenu.ts'
-
 import { describe, expect, test } from 'vitest'
 import { getFileActions, registerFileAction } from '../lib/actions/fileAction.ts'
 import {
@@ -18,7 +16,6 @@ import {
 	Permission,
 	removeNewFileMenuEntry,
 } from '../lib/index.ts'
-import { NewMenu } from '../lib/newMenu/NewMenu.ts'
 
 describe('Exports checks', () => {
 	test('formatFileSize', () => {
@@ -74,40 +71,5 @@ describe('Exports checks', () => {
 	test('getFileActions', () => {
 		expect(getFileActions).toBeTruthy()
 		expect(typeof Node).toBe('function')
-	})
-})
-
-describe('NewFileMenu methods', () => {
-	const entry = {
-		id: 'empty-file',
-		displayName: 'Create empty file',
-		templateName: 'New file.txt',
-		iconSvgInline: '<svg></svg>',
-		handler: () => {},
-	} as NewMenuEntry
-
-	test('Init NewFileMenu', () => {
-		expect(window._nc_newfilemenu).toBeUndefined()
-
-		const menuEntries = getNewFileMenuEntries()
-		expect(menuEntries).toHaveLength(0)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
-	})
-
-	test('Use existing initialized NewMenu', () => {
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
-
-		addNewFileMenuEntry(entry)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
-
-		removeNewFileMenuEntry(entry)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
 	})
 })

@@ -15,26 +15,27 @@ import {
 	getRecentSearch,
 	registerDavProperty,
 } from '../../lib/dav/davProperties.ts'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import logger from '../../lib/utils/logger.ts'
 
 describe('DAV Properties', () => {
 	beforeEach(() => {
-		delete window._nc_dav_properties
-		delete window._nc_dav_namespaces
+		delete scopedGlobals.davNamespaces
+		delete scopedGlobals.davProperties
 
 		logger.error = vi.fn()
 		logger.warn = vi.fn()
 	})
 
 	test('getDavNameSpaces fall back to defaults', () => {
-		expect(window._nc_dav_namespaces).toBeUndefined()
+		expect(scopedGlobals.davNamespaces).toBeUndefined()
 		const namespace = getDavNameSpaces()
 		expect(namespace).toBeTruthy()
 		Object.keys(defaultDavNamespaces).forEach((n) => expect(namespace.includes(n) && namespace.includes(defaultDavNamespaces[n])).toBe(true))
 	})
 
 	test('getDavProperties fall back to defaults', () => {
-		expect(window._nc_dav_properties).toBeUndefined()
+		expect(scopedGlobals.davProperties).toBeUndefined()
 		const props = getDavProperties()
 		expect(props).toBeTruthy()
 		defaultDavProperties.forEach((p) => expect(props.includes(p)).toBe(true))
@@ -56,8 +57,8 @@ describe('DAV Properties', () => {
 	})
 
 	test('registerDavProperty registers successfully', () => {
-		expect(window._nc_dav_namespaces).toBeUndefined()
-		expect(window._nc_dav_properties).toBeUndefined()
+		expect(scopedGlobals.davNamespaces).toBeUndefined()
+		expect(scopedGlobals.davProperties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { my: 'https://example.com/ns' })).toBe(true)
 		expect(logger.warn).not.toBeCalled()
@@ -67,8 +68,8 @@ describe('DAV Properties', () => {
 	})
 
 	test('registerDavProperty fails when registered multiple times', () => {
-		expect(window._nc_dav_namespaces).toBeUndefined()
-		expect(window._nc_dav_properties).toBeUndefined()
+		expect(scopedGlobals.davNamespaces).toBeUndefined()
+		expect(scopedGlobals.davProperties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { my: 'https://example.com/ns' })).toBe(true)
 		expect(registerDavProperty('my:prop')).toBe(false)
@@ -80,8 +81,8 @@ describe('DAV Properties', () => {
 	})
 
 	test('registerDavProperty fails with invalid props', () => {
-		expect(window._nc_dav_namespaces).toBeUndefined()
-		expect(window._nc_dav_properties).toBeUndefined()
+		expect(scopedGlobals.davNamespaces).toBeUndefined()
+		expect(scopedGlobals.davProperties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop:invalid', { my: 'https://example.com/ns' })).toBe(false)
 		expect(logger.error).toBeCalled()
@@ -95,8 +96,8 @@ describe('DAV Properties', () => {
 	})
 
 	test('registerDavProperty fails with missing namespace', () => {
-		expect(window._nc_dav_namespaces).toBeUndefined()
-		expect(window._nc_dav_properties).toBeUndefined()
+		expect(scopedGlobals.davNamespaces).toBeUndefined()
+		expect(scopedGlobals.davProperties).toBeUndefined()
 
 		expect(registerDavProperty('my:prop', { other: 'https://example.com/ns' })).toBe(false)
 		expect(logger.error).toBeCalled()

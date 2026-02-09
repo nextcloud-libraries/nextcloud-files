@@ -6,7 +6,8 @@
 import type { NewMenuEntry } from '../../lib/newMenu/index.ts'
 
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries } from '../../lib/newMenu/index.ts'
+import { scopedGlobals } from '../../lib/globalScope.ts'
+import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries, removeNewFileMenuEntry } from '../../lib/newMenu/index.ts'
 import { NewMenu, NewMenuEntryCategory } from '../../lib/newMenu/NewMenu.ts'
 import { Folder } from '../../lib/node/index.ts'
 import { Permission } from '../../lib/permissions.ts'
@@ -14,18 +15,16 @@ import logger from '../../lib/utils/logger.ts'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {
-		logger.debug = vi.fn()
 		const newFileMenu = getNewFileMenu()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewMenu)
-		expect(window._nc_newfilemenu).toBe(newFileMenu)
-		expect(logger.debug).toHaveBeenCalled()
+		expect(scopedGlobals.newFileMenu).toBeInstanceOf(NewMenu)
+		expect(scopedGlobals.newFileMenu).toBe(newFileMenu)
 	})
 
 	test('Getting existing NewMenu', () => {
 		const newFileMenu = new NewMenu()
-		Object.assign(window, { _nc_newfilemenu: newFileMenu })
+		Object.assign(scopedGlobals, { newFileMenu })
 
-		expect(window._nc_newfilemenu).toBe(newFileMenu)
+		expect(scopedGlobals.newFileMenu).toBe(newFileMenu)
 		expect(getNewFileMenu()).toBe(newFileMenu)
 	})
 })
@@ -399,7 +398,7 @@ describe('NewMenu getEntries filter', () => {
 
 describe('NewMenu sort test', () => {
 	afterEach(() => {
-		delete window._nc_newfilemenu
+		delete scopedGlobals.newFileMenu
 	})
 
 	test('Specified NewMenu order', () => {
@@ -488,5 +487,40 @@ describe('NewMenu sort test', () => {
 		expect(entries[1]).toBe(entry3)
 		expect(entries[2]).toBe(entry4)
 		expect(entries[3]).toBe(entry2)
+	})
+})
+
+describe('NewFileMenu methods', () => {
+	const entry = {
+		id: 'empty-file',
+		displayName: 'Create empty file',
+		templateName: 'New file.txt',
+		iconSvgInline: '<svg></svg>',
+		handler: () => {},
+	} as NewMenuEntry
+
+	test('Init NewFileMenu', () => {
+		expect(scopedGlobals.newFileMenu).toBeUndefined()
+
+		const menuEntries = getNewFileMenuEntries()
+		expect(menuEntries).toHaveLength(0)
+
+		expect(scopedGlobals.newFileMenu).toBeDefined()
+		expect(scopedGlobals.newFileMenu).toBeInstanceOf(NewMenu)
+	})
+
+	test('Use existing initialized NewMenu', () => {
+		expect(scopedGlobals.newFileMenu).toBeDefined()
+		expect(scopedGlobals.newFileMenu).toBeInstanceOf(NewMenu)
+
+		addNewFileMenuEntry(entry)
+
+		expect(scopedGlobals.newFileMenu).toBeDefined()
+		expect(scopedGlobals.newFileMenu).toBeInstanceOf(NewMenu)
+
+		removeNewFileMenuEntry(entry)
+
+		expect(scopedGlobals.newFileMenu).toBeDefined()
+		expect(scopedGlobals.newFileMenu).toBeInstanceOf(NewMenu)
 	})
 })

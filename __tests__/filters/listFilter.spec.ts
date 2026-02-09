@@ -1,4 +1,4 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -7,6 +7,7 @@ import type { IFileListFilterChip } from '../../lib/filters/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { FileListFilter, getFileListFilters, registerFileListFilter, unregisterFileListFilter } from '../../lib/filters/index.ts'
+import { scopedGlobals } from '../../lib/globalScope.ts'
 import { getRegistry } from '../../lib/registry.ts'
 
 class TestFilter extends FileListFilter {
@@ -83,16 +84,16 @@ describe('File list filter class', () => {
 
 describe('File list filter functions', () => {
 	beforeEach(() => {
-		delete window._nc_filelist_filters
+		delete scopedGlobals.fileListFilters
 	})
 
 	test('can register a filter', () => {
 		const filter = new FileListFilter('my:id', 50)
 
 		registerFileListFilter(filter)
-		expect(window._nc_filelist_filters).toBeTypeOf('object')
-		expect(window._nc_filelist_filters!.has(filter.id)).toBe(true)
-		expect(window._nc_filelist_filters!.get(filter.id)).toBe(filter)
+		expect(scopedGlobals.fileListFilters).toBeTypeOf('object')
+		expect(scopedGlobals.fileListFilters!.has(filter.id)).toBe(true)
+		expect(scopedGlobals.fileListFilters!.get(filter.id)).toBe(filter)
 	})
 
 	test('register a filter emits event', () => {
@@ -101,7 +102,7 @@ describe('File list filter functions', () => {
 
 		getRegistry().addEventListener('register:listFilter', spy)
 
-		expect(window._nc_filelist_filters).toBe(undefined)
+		expect(scopedGlobals.fileListFilters).toBe(undefined)
 
 		registerFileListFilter(filter)
 		expect(spy).toHaveBeenCalled()
@@ -121,22 +122,22 @@ describe('File list filter functions', () => {
 		const filter = new FileListFilter('my:id')
 
 		registerFileListFilter(filter)
-		expect(window._nc_filelist_filters!.has(filter.id)).toBe(true)
+		expect(scopedGlobals.fileListFilters!.has(filter.id)).toBe(true)
 
 		// test
 		unregisterFileListFilter(filter.id)
-		expect(window._nc_filelist_filters!.has(filter.id)).toBe(false)
+		expect(scopedGlobals.fileListFilters!.has(filter.id)).toBe(false)
 	})
 
 	test('unregister a filter twice does not throw', () => {
 		const filter = new FileListFilter('my:id')
 
 		registerFileListFilter(filter)
-		expect(window._nc_filelist_filters!.has(filter.id)).toBe(true)
+		expect(scopedGlobals.fileListFilters!.has(filter.id)).toBe(true)
 
 		// test
 		unregisterFileListFilter(filter.id)
-		expect(window._nc_filelist_filters!.has(filter.id)).toBe(false)
+		expect(scopedGlobals.fileListFilters!.has(filter.id)).toBe(false)
 		expect(() => unregisterFileListFilter(filter.id)).not.toThrow()
 	})
 
@@ -150,7 +151,7 @@ describe('File list filter functions', () => {
 		unregisterFileListFilter(filter.id)
 		expect(spy).toHaveBeenCalled()
 		expect(spy.mock.calls[0][0]).toBeInstanceOf(CustomEvent)
-		expect(spy.mock.calls[0][0].detail).toBe(filter)
+		expect(spy.mock.calls[0][0].detail).toBe(filter.id)
 	})
 
 	test('can get registered filters', () => {

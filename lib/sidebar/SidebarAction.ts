@@ -5,6 +5,7 @@
 
 import type { ISidebarContext } from './SidebarTab.ts'
 
+import { scopedGlobals } from '../globalScope.ts'
 import logger from '../utils/logger.ts'
 
 /**
@@ -61,12 +62,12 @@ export interface ISidebarAction {
 export function registerSidebarAction(action: ISidebarAction): void {
 	validateSidebarAction(action)
 
-	window._nc_files_sidebar_actions ??= new Map<string, ISidebarAction>()
-	if (window._nc_files_sidebar_actions.has(action.id)) {
+	scopedGlobals.filesSidebarActions ??= new Map<string, ISidebarAction>()
+	if (scopedGlobals.filesSidebarActions.has(action.id)) {
 		logger.warn(`Sidebar action with id "${action.id}" already registered. Skipping.`)
 		return
 	}
-	window._nc_files_sidebar_actions.set(action.id, action)
+	scopedGlobals.filesSidebarActions.set(action.id, action)
 	logger.debug(`New sidebar action with id "${action.id}" registered.`)
 }
 
@@ -74,8 +75,8 @@ export function registerSidebarAction(action: ISidebarAction): void {
  * Get all currently registered sidebar actions.
  */
 export function getSidebarActions(): ISidebarAction[] {
-	if (window._nc_files_sidebar_actions) {
-		return [...window._nc_files_sidebar_actions.values()]
+	if (scopedGlobals.filesSidebarActions) {
+		return [...scopedGlobals.filesSidebarActions.values()]
 	}
 	return []
 }

@@ -4,6 +4,7 @@
  */
 
 import { getCurrentUser } from '@nextcloud/auth'
+import { scopedGlobals } from '../globalScope.ts'
 import logger from '../utils/logger.ts'
 
 export type DavProperty = { [key: string]: string }
@@ -45,15 +46,13 @@ export const defaultDavNamespaces = {
  * @param namespace The namespace of the property
  */
 export function registerDavProperty(prop: string, namespace: DavProperty = { nc: 'http://nextcloud.org/ns' }): boolean {
-	if (typeof window._nc_dav_properties === 'undefined') {
-		window._nc_dav_properties = [...defaultDavProperties]
-		window._nc_dav_namespaces = { ...defaultDavNamespaces }
-	}
+	scopedGlobals.davNamespaces ??= { ...defaultDavNamespaces }
+	scopedGlobals.davProperties ??= [...defaultDavProperties]
 
-	const namespaces = { ...window._nc_dav_namespaces, ...namespace }
+	const namespaces = { ...scopedGlobals.davNamespaces, ...namespace }
 
 	// Check duplicates
-	if (window._nc_dav_properties.find((search) => search === prop)) {
+	if (scopedGlobals.davProperties.find((search) => search === prop)) {
 		logger.warn(`${prop} already registered`, { prop })
 		return false
 	}
@@ -69,8 +68,8 @@ export function registerDavProperty(prop: string, namespace: DavProperty = { nc:
 		return false
 	}
 
-	window._nc_dav_properties.push(prop)
-	window._nc_dav_namespaces = namespaces
+	scopedGlobals.davProperties.push(prop)
+	scopedGlobals.davNamespaces = namespaces
 	return true
 }
 
@@ -78,23 +77,17 @@ export function registerDavProperty(prop: string, namespace: DavProperty = { nc:
  * Get the registered dav properties
  */
 export function getDavProperties(): string {
-	if (typeof window._nc_dav_properties === 'undefined') {
-		window._nc_dav_properties = [...defaultDavProperties]
-	}
-
-	return window._nc_dav_properties.map((prop) => `<${prop} />`).join(' ')
+	scopedGlobals.davProperties ??= [...defaultDavProperties]
+	return scopedGlobals.davProperties.map((prop) => `<${prop} />`).join(' ')
 }
 
 /**
  * Get the registered dav namespaces
  */
 export function getDavNameSpaces(): string {
-	if (typeof window._nc_dav_namespaces === 'undefined') {
-		window._nc_dav_namespaces = { ...defaultDavNamespaces }
-	}
-
-	return Object.keys(window._nc_dav_namespaces)
-		.map((ns) => `xmlns:${ns}="${window._nc_dav_namespaces?.[ns]}"`)
+	scopedGlobals.davNamespaces ??= { ...defaultDavNamespaces }
+	return Object.keys(scopedGlobals.davNamespaces)
+		.map((ns) => `xmlns:${ns}="${scopedGlobals.davNamespaces?.[ns]}"`)
 		.join(' ')
 }
 
