@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { INode } from '../node/node.ts'
+import type { INode } from '../../node/node.ts'
 import type { ISidebarAction } from './SidebarAction.ts'
 import type { ISidebarContext, ISidebarTab } from './SidebarTab.ts'
 

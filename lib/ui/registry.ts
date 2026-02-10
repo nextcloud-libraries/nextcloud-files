@@ -8,7 +8,7 @@ import type { IFileListFilter } from './filters/index.ts'
 import type { IFileListHeader } from './headers/index.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
-import { scopedGlobals } from './globalScope.ts'
+import { scopedGlobals } from '../globalScope.ts'
 
 interface FilesRegistryEvents {
 	'register:action': RegistrationEvent<IFileAction>

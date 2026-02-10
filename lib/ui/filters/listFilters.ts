@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { INode } from '../node/index.ts'
+import type { INode } from '../../node/index.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
 

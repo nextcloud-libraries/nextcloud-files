@@ -1,10 +1,10 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { IFolder, INode } from '../node/index.ts'
 import type { IView } from './navigation/index.ts'
-import type { IFolder, INode } from './node/index.ts'
 
 export type ActionContextSingle = {
 	nodes: [INode]

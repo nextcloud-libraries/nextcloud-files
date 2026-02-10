@@ -5,8 +5,8 @@
 
 import type { ISidebarContext } from './SidebarTab.ts'
 
-import { scopedGlobals } from '../globalScope.ts'
-import logger from '../utils/logger.ts'
+import { scopedGlobals } from '../../globalScope.ts'
+import logger from '../../utils/logger.ts'
 
 /**
  * Implementation of a custom sidebar tab within the files app.

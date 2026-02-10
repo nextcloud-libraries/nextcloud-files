@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { INode } from '../node/node.ts'
+import type { INode } from '../../node/node.ts'
 import type { IView } from './view.ts'
 
-import { checkOptionalProperty } from '../utils/objectValidation.ts'
+import { checkOptionalProperty } from '../../utils/objectValidation.ts'
 
 export interface IColumn {
 	/** Unique column ID */
