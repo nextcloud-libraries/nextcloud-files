@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileAction, IFileListAction } from './actions/index.ts'
 import type { DavProperty } from './dav/index.ts'
 import type {
 	IFileListFilter,
@@ -11,9 +10,9 @@ import type {
 	Navigation,
 	NewMenu,
 } from './index.ts'
-import type { FilesRegistry } from './registry.ts'
-import type { ISidebarTab } from './sidebar/index.ts'
-import type { ISidebarAction } from './sidebar/SidebarAction.ts'
+import type { IFileAction, IFileListAction } from './ui/actions/index.ts'
+import type { FilesRegistry } from './ui/registry.ts'
+import type { ISidebarAction, ISidebarTab } from './ui/sidebar/index.ts'
 
 interface InternalGlobalScope {
 	davNamespaces?: DavProperty
