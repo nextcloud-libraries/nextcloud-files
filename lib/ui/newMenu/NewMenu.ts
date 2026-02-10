@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder, INode } from '../node/index.ts'
+import type { IFolder, INode } from '../../node/index.ts'
 
-import logger from '../utils/logger.ts'
+import logger from '../../utils/logger.ts'
 
 export const NewMenuEntryCategory = Object.freeze({
 	/**

@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder } from '../node/index.ts'
+import type { IFolder } from '../../node/index.ts'
 import type { NewMenuEntry } from './NewMenu.ts'
 
-import { scopedGlobals } from '../globalScope.ts'
+import { scopedGlobals } from '../../globalScope.ts'
 import { NewMenu } from './NewMenu.ts'
 
 /**

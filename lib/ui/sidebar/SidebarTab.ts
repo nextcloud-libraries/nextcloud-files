@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { IFolder, INode } from '../../node/index.ts'
 import type { IView } from '../navigation/view.ts'
-import type { IFolder, INode } from '../node/index.ts'
 
 import isSvg from 'is-svg'
-import { scopedGlobals } from '../globalScope.ts'
-import logger from '../utils/logger.ts'
+import { scopedGlobals } from '../../globalScope.ts'
+import logger from '../../utils/logger.ts'
 
 export interface ISidebarContext {
 	/**

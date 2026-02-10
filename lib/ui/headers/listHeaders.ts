@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { IFolder } from '../../node/folder.ts'
 import type { IView } from '../navigation/view.ts'
-import type { IFolder } from '../node/folder.ts'
 
-import { scopedGlobals } from '../globalScope.ts'
+import { scopedGlobals } from '../../globalScope.ts'
+import logger from '../../utils/logger.ts'
 import { getRegistry } from '../registry.ts'
-import logger from '../utils/logger.ts'
 
 export interface IFileListHeader {
 	/** Unique ID */

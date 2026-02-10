@@ -5,7 +5,7 @@
 
 import type { IFileListFilter } from './listFilters.ts'
 
-import { scopedGlobals } from '../globalScope.ts'
+import { scopedGlobals } from '../../globalScope.ts'
 import { getRegistry } from '../registry.ts'
 
 /**

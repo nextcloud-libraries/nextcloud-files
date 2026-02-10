@@ -6,7 +6,7 @@
 import type { IView } from './view.ts'
 
 import { TypedEventTarget } from 'typescript-event-target'
-import { scopedGlobals } from '../globalScope.ts'
+import { scopedGlobals } from '../../globalScope.ts'
 import { validateView } from './view.ts'
 
 /**

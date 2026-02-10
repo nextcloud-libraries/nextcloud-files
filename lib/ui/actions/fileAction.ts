@@ -5,9 +5,9 @@
 
 import type { ActionContext, ActionContextSingle } from '../types.ts'
 
-import { scopedGlobals } from '../globalScope.ts'
+import { scopedGlobals } from '../../globalScope.ts'
+import logger from '../../utils/logger.ts'
 import { getRegistry } from '../registry.ts'
-import logger from '../utils/logger.ts'
 
 export const DefaultType = Object.freeze({
 	DEFAULT: 'default',

@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder, INode } from '../node/index.ts'
+import type { IFolder, INode } from '../../node/index.ts'
 import type { IColumn } from './column.ts'
 
 import isSvg from 'is-svg'
-import { checkOptionalProperty } from '../utils/objectValidation.ts'
+import { checkOptionalProperty } from '../../utils/objectValidation.ts'
 import { validateColumn } from './column.ts'
 
 export type ContentsWithRoot = {
