@@ -37,8 +37,15 @@ export interface NodeData {
 	 */
 	root: string
 
-	/** Unique ID */
-	id?: number
+	/**
+	 * Unique ID
+	 *
+	 * This is usually the file id from the backend where this would be a number.
+	 * For some type of nodes this is already a snowflake id and thus as string.
+	 *
+	 * Note: Passing a number is deprecated.
+	 */
+	id?: number | string
 
 	/** Last modified time */
 	mtime?: Date
@@ -91,7 +98,7 @@ export function isDavResource(source: string, davService: RegExp): boolean {
  * @param davService Pattern to check if source is DAV ressource
  */
 export function validateData(data: NodeData, davService: RegExp) {
-	if (data.id && typeof data.id !== 'number') {
+	if (data.id && typeof data.id !== 'number' && typeof data.id !== 'string') {
 		throw new Error('Invalid id type of value')
 	}
 

@@ -287,11 +287,29 @@ export abstract class Node {
 	}
 
 	/**
-	 * Get the node id if defined.
-	 * There is no setter as the fileid is not meant to be changed
+	 * Get the nodes file id if defined.
+	 * There is no setter as the fileid is not meant to be changed.
+	 *
+	 * @deprecated Nextcloud is migrating to snowflake ids which are strings. Use the `id` attribute instead.
 	 */
 	get fileid(): number | undefined {
-		return this._data?.id
+		return typeof this._data?.id === 'number' ? this._data.id : undefined
+	}
+
+	/**
+	 * Get the nodes id - if defined.
+	 *
+	 * Note: As Nextcloud is migrating to snowflake ids the id has to be a string,
+	 * due to limitations of the JavaScript number type (snowflake ids are 64bit JavaScript numbers can only accurately represent integers up to 53 bit).
+	 */
+	get id(): string | undefined {
+		if (typeof this._data?.id === 'undefined'
+			|| (typeof this._data.id === 'number' && this._data.id < 0)) {
+			// legacy fileid < 0 means the node failed, this should be communicated via the `status` attribute
+			// so in that case there is no id available
+			return undefined
+		}
+		return String(this._data.id)
 	}
 
 	/**

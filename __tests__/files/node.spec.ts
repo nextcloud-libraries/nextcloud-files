@@ -77,6 +77,51 @@ describe('FileId attribute', () => {
 	})
 })
 
+describe('Id attribute', () => {
+	test('Id undefined', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+		})
+		expect(file.id).toBeUndefined()
+	})
+
+	test('id definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			id: '1234',
+		})
+		expect(file.id).toBe('1234')
+	})
+
+	test('Legacy id definition', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			id: 1234,
+		})
+		expect(file.id).toBe('1234')
+	})
+
+	test('Legacy failed node id', () => {
+		const file = new File({
+			source: 'https://cloud.domain.com/remote.php/dav/files/emma/picture.jpg',
+			root: '/files/emma',
+			mime: 'image/jpeg',
+			owner: 'emma',
+			id: -1,
+		})
+		expect(file.id).toBeUndefined()
+	})
+})
+
 describe('Mime attribute', () => {
 	test('Mime definition', () => {
 		const file = new File({
@@ -304,7 +349,7 @@ describe('Sanity checks', () => {
 			root: '/files/emma',
 			mime: 'image/jpeg',
 			owner: 'emma',
-			id: '1234' as unknown as number,
+			id: true as unknown as number,
 		})).toThrowError('Invalid id type of value')
 	})
 
