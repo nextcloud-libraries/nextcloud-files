@@ -5,16 +5,20 @@
 
 import type { AxiosError, AxiosResponse } from 'axios'
 import type { WebDAVClient } from 'webdav'
+import type { IFolder } from '../../node/folder.ts'
 import type { IDirectory } from '../utils/fileTree.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios, { isCancel } from '@nextcloud/axios'
 import { getCapabilities } from '@nextcloud/capabilities'
-import { davGetClient, davRemoteURL, davRootPath, FileType, Folder, Permission } from '@nextcloud/files'
 import { encodePath } from '@nextcloud/paths'
 import PCancelable from 'p-cancelable'
 import PQueue from 'p-queue'
 import { normalize } from 'path'
+import { defaultRemoteURL, defaultRootPath, getClient } from '../../dav/dav.ts'
+import { FileType } from '../../node/fileType.ts'
+import { Folder } from '../../node/folder.ts'
+import { Permission } from '../../permissions.ts'
 import logger from '../../utils/logger.ts'
 import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { getMaxChunksSize } from '../utils/config.ts'
@@ -33,7 +37,7 @@ export enum UploaderStatus {
 
 export class Uploader {
 	// Initialized via setter in the constructor
-	private _destinationFolder!: Folder
+	private _destinationFolder!: IFolder
 	private _isPublic: boolean
 	private _customHeaders: Record<string, string>
 
@@ -61,13 +65,13 @@ export class Uploader {
 	 */
 	constructor(
 		isPublic = false,
-		destinationFolder?: Folder,
+		destinationFolder?: IFolder,
 	) {
 		this._isPublic = isPublic
 		this._customHeaders = {}
 
 		if (!destinationFolder) {
-			const source = `${davRemoteURL}${davRootPath}`
+			const source = `${defaultRemoteURL}${defaultRootPath}`
 			let owner: string
 
 			if (isPublic) {
@@ -84,7 +88,7 @@ export class Uploader {
 				id: 0,
 				owner,
 				permissions: Permission.ALL,
-				root: davRootPath,
+				root: defaultRootPath,
 				source,
 			})
 		}
@@ -101,14 +105,14 @@ export class Uploader {
 	/**
 	 * Get the upload destination path relative to the root folder
 	 */
-	get destination(): Folder {
+	get destination(): IFolder {
 		return this._destinationFolder
 	}
 
 	/**
 	 * Set the upload destination path relative to the root folder
 	 */
-	set destination(folder: Folder) {
+	set destination(folder: IFolder) {
 		if (!folder || folder.type !== FileType.Folder || !folder.source) {
 			throw new Error('Invalid destination folder')
 		}
@@ -308,7 +312,7 @@ export class Uploader {
 			logger.debug('Starting new batch upload', { target })
 			try {
 				// setup client with root and custom header
-				const client = davGetClient(this.root, this._customHeaders)
+				const client = getClient(this.root, this._customHeaders)
 				// Create the promise for the virtual root directory
 				const promise = this.uploadDirectory(destination, rootFolder, callback, client)
 				// Make sure to cancel it when requested

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { formatFileSize } from '@nextcloud/files'
 import { TypedEventTarget } from 'typescript-event-target'
+import { formatFileSize } from '../../utils/fileSize.ts'
 import { n, t } from '../utils/l10n.ts'
 
 export enum EtaStatus {
