@@ -14,10 +14,9 @@ import { isFileSystemDirectoryEntry, isFileSystemFileEntry } from './filesystem.
  * It allows to create virtual directories
  */
 export class Directory extends File {
-
 	private _originalName: string
 	private _path: string
-	private _children: Map<string, File|this>
+	private _children: Map<string, File | this>
 
 	constructor(path: string) {
 		super([], basename(path), { type: 'httpd/unix-directory', lastModified: 0 })
@@ -39,7 +38,7 @@ export class Directory extends File {
 		return this._originalName
 	}
 
-	get children(): Array<File|Directory> {
+	get children(): Array<File | Directory> {
 		return Array.from(this._children.values())
 	}
 
@@ -47,15 +46,16 @@ export class Directory extends File {
 		return this._path
 	}
 
-	getChild(name: string): File|Directory|null {
+	getChild(name: string): File | Directory | null {
 		return this._children.get(name) ?? null
 	}
 
 	/**
 	 * Add multiple children at once
+	 *
 	 * @param files The files to add
 	 */
-	async addChildren(files: Array<File|FileSystemEntry>): Promise<void> {
+	async addChildren(files: Array<File | FileSystemEntry>): Promise<void> {
 		for (const file of files) {
 			await this.addChild(file)
 		}
@@ -64,9 +64,10 @@ export class Directory extends File {
 	/**
 	 * Add a child to the directory.
 	 * If it is a nested child the parents will be created if not already exist.
+	 *
 	 * @param file The child to add
 	 */
-	async addChild(file: File|FileSystemEntry) {
+	async addChild(file: File | FileSystemEntry) {
 		const rootPath = this._path && `${this._path}/`
 		if (isFileSystemFileEntry(file)) {
 			file = await new Promise<File>((resolve, reject) => (file as FileSystemFileEntry).file(resolve, reject))
@@ -118,7 +119,6 @@ export class Directory extends File {
 			}
 		}
 	}
-
 }
 
 /**

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import type { AxiosResponse } from 'axios'
+
 import { getMaxChunksSize } from './utils/config.js'
 
 export enum Status {
@@ -14,7 +15,6 @@ export enum Status {
 	FAILED = 5,
 }
 export class Upload {
-
 	private _source: string
 	private _file: File
 	private _isChunked: boolean
@@ -26,7 +26,7 @@ export class Upload {
 
 	private _status: Status = Status.INITIALIZED
 	private _controller: AbortController
-	private _response: AxiosResponse|null = null
+	private _response: AxiosResponse | null = null
 
 	constructor(source: string, chunked = false, size: number, file: File) {
 		const chunks = Math.min(getMaxChunksSize() > 0 ? Math.ceil(size / getMaxChunksSize()) : 1, 10000)
@@ -62,11 +62,11 @@ export class Upload {
 		return this._startTime
 	}
 
-	set response(response: AxiosResponse|null) {
+	set response(response: AxiosResponse | null) {
 		this._response = response
 	}
 
-	get response(): AxiosResponse|null {
+	get response(): AxiosResponse | null {
 		return this._response
 	}
 
@@ -120,5 +120,4 @@ export class Upload {
 		this._controller.abort()
 		this._status = Status.CANCELLED
 	}
-
 }

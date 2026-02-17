@@ -8,7 +8,7 @@ const gtBuilder = getGettextBuilder()
 	.detectLocale()
 
 // @ts-expect-error __TRANSLATIONS__ is replaced by vite
-__TRANSLATIONS__.map(data => gtBuilder.addTranslation(data.locale, data.json))
+__TRANSLATIONS__.map((data) => gtBuilder.addTranslation(data.locale, data.json))
 
 interface Gettext {
 	/**

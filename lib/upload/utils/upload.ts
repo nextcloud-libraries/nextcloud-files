@@ -1,4 +1,4 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
@@ -7,6 +7,7 @@ import type { AxiosError, AxiosProgressEvent, AxiosResponse } from 'axios'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
+import { generateRemoteUrl, getBaseUrl } from '@nextcloud/router'
 import { getSharingToken } from '@nextcloud/sharing/public'
 import axiosRetry, { exponentialDelay, isNetworkOrIdempotentRequestError } from 'axios-retry'
 import logger from './logger.ts'
@@ -25,13 +26,14 @@ interface UploadDataOptions {
 	/** The final destination file (for chunked uploads) */
 	destinationFile?: string
 	/** Additional headers */
-	headers?: Record<string, string|number>
+	headers?: Record<string, string | number>
 	/** Number of retries */
-	retries?: number,
+	retries?: number
 }
 
 /**
  * Upload some data to a given path
+ *
  * @param url the url to upload to
  * @param uploadData the data to upload
  * @param uploadOptions upload options
@@ -99,11 +101,12 @@ export async function uploadData(
 /**
  * Get chunk of the file.
  * Doing this on the fly give us a big performance boost and proper garbage collection
+ *
  * @param file File to upload
  * @param start Offset to start upload
  * @param length Size of chunk to upload
  */
-export const getChunk = function(file: File, start: number, length: number): Promise<Blob> {
+export function getChunk(file: File, start: number, length: number): Promise<Blob> {
 	if (start === 0 && file.size <= length) {
 		return Promise.resolve(new Blob([file], { type: file.type || 'application/octet-stream' }))
 	}
@@ -113,12 +116,13 @@ export const getChunk = function(file: File, start: number, length: number): Pro
 
 /**
  * Create a temporary upload workspace to upload the chunks to
+ *
  * @param destinationFile The file name after finishing the chunked upload
  * @param retries number of retries
  * @param isPublic whether this upload is in a public share or not
  * @param customHeaders Custom HTTP headers used when creating the workspace (e.g. X-NC-Nickname for file drops)
  */
-export const initChunkWorkspace = async function(destinationFile: string | undefined = undefined, retries: number = 5, isPublic: boolean = false, customHeaders: Record<string, string> = {}): Promise<string> {
+export async function initChunkWorkspace(destinationFile: string | undefined = undefined, retries: number = 5, isPublic: boolean = false, customHeaders: Record<string, string> = {}): Promise<string> {
 	let chunksWorkspace: string
 	if (isPublic) {
 		chunksWorkspace = `${getBaseUrl()}/public.php/dav/uploads/${getSharingToken()}`

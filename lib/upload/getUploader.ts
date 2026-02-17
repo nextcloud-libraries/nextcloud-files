@@ -4,7 +4,6 @@
  */
 
 import { isPublicShare } from '@nextcloud/sharing/public'
-
 import { Uploader } from './uploader/uploader.ts'
 
 /**
