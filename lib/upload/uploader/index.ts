@@ -8,9 +8,9 @@ export {
 	type EtaEventsMap,
 
 	EtaStatus,
-} from './eta.ts'
+} from './Eta.ts'
 
 export {
 	Uploader,
 	UploaderStatus,
-} from './uploader.ts'
+} from './Uploader.ts'
