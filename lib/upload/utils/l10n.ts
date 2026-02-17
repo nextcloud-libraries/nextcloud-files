@@ -5,7 +5,7 @@
 import { getGettextBuilder } from '@nextcloud/l10n/gettext'
 
 const gtBuilder = getGettextBuilder()
-	.detectLocale()
+	.detectLanguage()
 
 // @ts-expect-error __TRANSLATIONS__ is replaced by vite
 __TRANSLATIONS__.map((data) => gtBuilder.addTranslation(data.locale, data.json))
