@@ -4,7 +4,8 @@
  */
 
 import { isPublicShare } from '@nextcloud/sharing/public'
-import { Uploader } from './uploader/uploader.ts'
+import { scopedGlobals } from '../globalScope.ts'
+import { Uploader } from './uploader/Uploader.ts'
 
 /**
  * Get the global Uploader instance.

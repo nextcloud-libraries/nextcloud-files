@@ -1,7 +1,8 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { AxiosError, AxiosResponse } from 'axios'
 import type { WebDAVClient } from 'webdav'
 import type { IDirectory } from '../utils/fileTree.ts'
@@ -16,13 +17,13 @@ import PQueue from 'p-queue'
 import { normalize } from 'path'
 import logger from '../../utils/logger.ts'
 import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
-import { Upload, Status as UploadStatus } from '../upload.ts'
 import { getMaxChunksSize } from '../utils/config.ts'
 import { isFileSystemFileEntry } from '../utils/filesystem.ts'
 import { Directory } from '../utils/fileTree.ts'
 import { t } from '../utils/l10n.ts'
 import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
-import { Eta } from './eta.ts'
+import { Eta } from './Eta.ts'
+import { Upload, Status as UploadStatus } from './Upload.ts'
 
 export enum UploaderStatus {
 	IDLE = 0,

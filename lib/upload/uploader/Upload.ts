@@ -1,10 +1,11 @@
-/**
+/*!
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import type { AxiosResponse } from 'axios'
 
-import { getMaxChunksSize } from './utils/config.js'
+import { getMaxChunksSize } from '../utils/config.ts'
 
 export enum Status {
 	INITIALIZED = 0,
@@ -14,6 +15,7 @@ export enum Status {
 	CANCELLED = 4,
 	FAILED = 5,
 }
+
 export class Upload {
 	private _source: string
 	private _file: File

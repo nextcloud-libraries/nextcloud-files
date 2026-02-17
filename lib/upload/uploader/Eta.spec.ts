@@ -2,8 +2,9 @@
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { afterAll, beforeAll, describe, expect, it, test, vi } from 'vitest'
-import { Eta, EtaStatus } from './eta.ts'
+import { Eta, EtaStatus } from './Eta.ts'
 
 describe('ETA - status', () => {
 	it('has default set', () => {
