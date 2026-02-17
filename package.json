@@ -50,13 +50,16 @@
   },
   "dependencies": {
     "@nextcloud/auth": "^2.5.3",
+    "@nextcloud/axios": "^2.5.2",
     "@nextcloud/capabilities": "^1.2.1",
     "@nextcloud/l10n": "^3.4.1",
     "@nextcloud/logger": "^3.0.3",
     "@nextcloud/paths": "^3.0.0",
     "@nextcloud/router": "^3.1.0",
     "@nextcloud/sharing": "^0.4.0",
+    "axios-retry": "^4.5.0",
     "is-svg": "^6.1.0",
+    "p-queue": "^9.1.0",
     "typescript-event-target": "^1.1.2",
     "webdav": "^5.9.0"
   },
