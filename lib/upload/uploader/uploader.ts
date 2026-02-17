@@ -7,33 +7,30 @@ import type { WebDAVClient } from 'webdav'
 import type { IDirectory } from '../utils/fileTree.ts'
 
 import { getCurrentUser } from '@nextcloud/auth'
-import { FileType, Folder, Permission, davGetClient, davRemoteURL, davRootPath } from '@nextcloud/files'
-import { encodePath } from '@nextcloud/paths'
-import { normalize } from 'path'
-import { getCapabilities } from '@nextcloud/capabilities'
-
 import axios, { isCancel } from '@nextcloud/axios'
+import { getCapabilities } from '@nextcloud/capabilities'
+import { davGetClient, davRemoteURL, davRootPath, FileType, Folder, Permission } from '@nextcloud/files'
+import { encodePath } from '@nextcloud/paths'
 import PCancelable from 'p-cancelable'
 import PQueue from 'p-queue'
-
+import { normalize } from 'path'
 import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
-import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
+import { Upload, Status as UploadStatus } from '../upload.ts'
 import { getMaxChunksSize } from '../utils/config.ts'
-import { Status as UploadStatus, Upload } from '../upload.ts'
 import { isFileSystemFileEntry } from '../utils/filesystem.ts'
 import { Directory } from '../utils/fileTree.ts'
 import { t } from '../utils/l10n.ts'
 import logger from '../utils/logger.ts'
+import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
 import { Eta } from './eta.ts'
 
 export enum UploaderStatus {
 	IDLE = 0,
 	UPLOADING = 1,
-	PAUSED = 2
+	PAUSED = 2,
 }
 
 export class Uploader {
-
 	// Initialized via setter in the constructor
 	private _destinationFolder!: Folder
 	private _isPublic: boolean
@@ -58,8 +55,8 @@ export class Uploader {
 	/**
 	 * Initialize uploader
 	 *
-	 * @param {boolean} isPublic are we in public mode ?
-	 * @param {Folder} destinationFolder the context folder to operate, relative to the root folder
+	 * @param isPublic are we in public mode ?
+	 * @param destinationFolder the context folder to operate, relative to the root folder
 	 */
 	constructor(
 		isPublic = false,
@@ -135,6 +132,7 @@ export class Uploader {
 
 	/**
 	 * Set a custom header
+	 *
 	 * @param name The header to set
 	 * @param value The string value
 	 */
@@ -144,6 +142,7 @@ export class Uploader {
 
 	/**
 	 * Unset a custom header
+	 *
 	 * @param name The header to unset
 	 */
 	deleteCustomerHeader(name: string): void {
@@ -215,9 +214,9 @@ export class Uploader {
 	}
 
 	private updateStats() {
-		const size = this._uploadQueue.map(upload => upload.size)
+		const size = this._uploadQueue.map((upload) => upload.size)
 			.reduce((partialSum, a) => partialSum + a, 0)
-		const uploaded = this._uploadQueue.map(upload => upload.uploaded)
+		const uploaded = this._uploadQueue.map((upload) => upload.uploaded)
 			.reduce((partialSum, a) => partialSum + a, 0)
 
 		this._eta.update(uploaded, size)
@@ -242,6 +241,7 @@ export class Uploader {
 
 	/**
 	 * Notify listeners of the upload completion
+	 *
 	 * @param upload The upload that finished
 	 */
 	private _notifyAll(upload: Upload): void {
@@ -256,9 +256,10 @@ export class Uploader {
 
 	/**
 	 * Uploads multiple files or folders while preserving the relative path (if available)
-	 * @param {string} destination The destination path relative to the root folder. e.g. /foo/bar (a file "a.txt" will be uploaded then to "/foo/bar/a.txt")
-	 * @param {Array<File|FileSystemEntry>} files The files and/or folders to upload
-	 * @param {Function} callback Callback that receives the nodes in the current folder and the current path to allow resolving conflicts, all nodes that are returned will be uploaded (if a folder does not exist it will be created)
+	 *
+	 * @param destination The destination path relative to the root folder. e.g. /foo/bar (a file "a.txt" will be uploaded then to "/foo/bar/a.txt")
+	 * @param files The files and/or folders to upload
+	 * @param callback Callback that receives the nodes in the current folder and the current path to allow resolving conflicts, all nodes that are returned will be uploaded (if a folder does not exist it will be created)
 	 * @return Cancelable promise that resolves to an array of uploads
 	 *
 	 * @example
@@ -287,11 +288,11 @@ export class Uploader {
 	 */
 	batchUpload(
 		destination: string,
-		files: (File|FileSystemEntry)[],
-		callback?: (nodes: Array<File|IDirectory>, currentPath: string) => Promise<Array<File|IDirectory>|false>,
+		files: (File | FileSystemEntry)[],
+		callback?: (nodes: Array<File | IDirectory>, currentPath: string) => Promise<Array<File | IDirectory> | false>,
 	): PCancelable<Upload[]> {
 		if (!callback) {
-			callback = async (files: Array<File|Directory>) => files
+			callback = async (files: Array<File | Directory>) => files
 		}
 
 		return new PCancelable(async (resolve, reject, onCancel) => {
@@ -338,6 +339,7 @@ export class Uploader {
 
 	/**
 	 * Helper to create a directory wrapped inside an Upload class
+	 *
 	 * @param destination Destination where to create the directory
 	 * @param directory The directory to create
 	 * @param client The cached WebDAV client
@@ -393,7 +395,7 @@ export class Uploader {
 	private uploadDirectory(
 		destination: string,
 		directory: Directory,
-		callback: (nodes: Array<File|Directory>, currentPath: string) => Promise<Array<File|Directory>|false>,
+		callback: (nodes: Array<File | Directory>, currentPath: string) => Promise<Array<File | Directory> | false>,
 		// client as parameter to cache it for performance
 		client: WebDAVClient,
 	): PCancelable<Upload[]> {
@@ -454,12 +456,13 @@ export class Uploader {
 
 	/**
 	 * Upload a file to the given path
-	 * @param {string} destination the destination path relative to the root folder. e.g. /foo/bar.txt
-	 * @param {File|FileSystemFileEntry} fileHandle the file to upload
-	 * @param {string} root the root folder to upload to
+	 *
+	 * @param destination the destination path relative to the root folder. e.g. /foo/bar.txt
+	 * @param fileHandle the file to upload
+	 * @param root the root folder to upload to
 	 * @param retries number of retries
 	 */
-	upload(destination: string, fileHandle: File|FileSystemFileEntry, root?: string, retries: number = 5): PCancelable<Upload> {
+	upload(destination: string, fileHandle: File | FileSystemFileEntry, root?: string, retries: number = 5): PCancelable<Upload> {
 		root = root || this.root
 		const destinationPath = `${root.replace(/\/$/, '')}/${destination.replace(/^\//, '')}`
 
@@ -704,5 +707,4 @@ export class Uploader {
 		}
 		return {}
 	}
-
 }

@@ -5,9 +5,7 @@
 import { t } from '../utils/l10n.ts'
 
 export class UploadCancelledError extends Error {
-
 	public constructor(cause?: unknown) {
 		super(t('Upload has been cancelled'), { cause })
 	}
-
 }

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { formatFileSize } from '@nextcloud/files'
 import { TypedEventTarget } from 'typescript-event-target'
 import { n, t } from '../utils/l10n.ts'
-import { formatFileSize } from '@nextcloud/files'
 
 export enum EtaStatus {
 	Idle = 0,
@@ -30,7 +30,6 @@ export interface EtaEventsMap {
 }
 
 export class Eta extends TypedEventTarget<EtaEventsMap> {
-
 	/** Bytes done */
 	private _done: number = 0
 	/** Total bytes to do */
@@ -69,6 +68,7 @@ export class Eta extends TypedEventTarget<EtaEventsMap> {
 
 	/**
 	 * Add more transferred bytes.
+	 *
 	 * @param done Additional bytes done.
 	 */
 	public add(done: number): void {
@@ -221,5 +221,4 @@ export class Eta extends TypedEventTarget<EtaEventsMap> {
 			? `${formatFileSize(this._speed, true)}∕s`
 			: ''
 	}
-
 }

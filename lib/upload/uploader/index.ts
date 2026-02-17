@@ -6,6 +6,7 @@
 export {
 	type Eta,
 	type EtaEventsMap,
+
 	EtaStatus,
 } from './eta.ts'
 
