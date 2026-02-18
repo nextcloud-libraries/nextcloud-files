@@ -27,13 +27,15 @@ import { Directory } from '../utils/fileTree.ts'
 import { t } from '../utils/l10n.ts'
 import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
 import { Eta } from './Eta.ts'
-import { Upload, Status as UploadStatus } from './Upload.ts'
+import { Upload, UploadStatus } from './Upload.ts'
 
-export enum UploaderStatus {
-	IDLE = 0,
-	UPLOADING = 1,
-	PAUSED = 2,
-}
+export const UploaderStatus = Object.freeze({
+	IDLE: 0,
+	UPLOADING: 1,
+	PAUSED: 2,
+})
+
+type TUploaderStatus = typeof UploaderStatus[keyof typeof UploaderStatus]
 
 export class Uploader {
 	// Initialized via setter in the constructor
@@ -51,7 +53,7 @@ export class Uploader {
 
 	private _queueSize = 0
 	private _queueProgress = 0
-	private _queueStatus: UploaderStatus = UploaderStatus.IDLE
+	private _queueStatus: TUploaderStatus = UploaderStatus.IDLE
 
 	private _eta = new Eta()
 
@@ -230,7 +232,7 @@ export class Uploader {
 
 		// If already paused keep it that way
 		if (this._queueStatus !== UploaderStatus.PAUSED) {
-			const pending = this._uploadQueue.find(({ status }) => [UploadStatus.INITIALIZED, UploadStatus.UPLOADING, UploadStatus.ASSEMBLING].includes(status))
+			const pending = this._uploadQueue.find(({ status }) => ([UploadStatus.INITIALIZED, UploadStatus.UPLOADING, UploadStatus.ASSEMBLING] as number[]).includes(status))
 			if (this._jobQueue.size > 0 || pending) {
 				this._queueStatus = UploaderStatus.UPLOADING
 			} else {

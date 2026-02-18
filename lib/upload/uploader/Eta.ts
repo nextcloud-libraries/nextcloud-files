@@ -7,11 +7,13 @@ import { TypedEventTarget } from 'typescript-event-target'
 import { formatFileSize } from '../../utils/fileSize.ts'
 import { n, t } from '../utils/l10n.ts'
 
-export enum EtaStatus {
-	Idle = 0,
-	Paused = 1,
-	Running = 2,
-}
+export const EtaStatus = Object.freeze({
+	Idle: 0,
+	Paused: 1,
+	Running: 2,
+})
+
+type TEtaStatus = typeof EtaStatus[keyof typeof EtaStatus]
 
 interface EtaOptions {
 	/** Low pass filter cutoff time for smoothing the speed */
@@ -37,7 +39,7 @@ export class Eta extends TypedEventTarget<EtaEventsMap> {
 	/** Current progress (cached) as interval [0,1] */
 	private _progress: number = 0
 	/** Status of the ETA */
-	private _status: EtaStatus = EtaStatus.Idle
+	private _status: TEtaStatus = EtaStatus.Idle
 	/** Time of the last update */
 	private _startTime: number = -1
 	/** Total elapsed time for current ETA */
@@ -168,7 +170,7 @@ export class Eta extends TypedEventTarget<EtaEventsMap> {
 	/**
 	 * Status of the Eta (paused, active, idle).
 	 */
-	public get status(): EtaStatus {
+	public get status(): TEtaStatus {
 		return this._status
 	}
 

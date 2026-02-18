@@ -7,14 +7,16 @@ import type { AxiosResponse } from 'axios'
 
 import { getMaxChunksSize } from '../utils/config.ts'
 
-export enum Status {
-	INITIALIZED = 0,
-	UPLOADING = 1,
-	ASSEMBLING = 2,
-	FINISHED = 3,
-	CANCELLED = 4,
-	FAILED = 5,
-}
+export const UploadStatus = Object.freeze({
+	INITIALIZED: 0,
+	UPLOADING: 1,
+	ASSEMBLING: 2,
+	FINISHED: 3,
+	CANCELLED: 4,
+	FAILED: 5,
+})
+
+type TUploadStatus = typeof UploadStatus[keyof typeof UploadStatus]
 
 export class Upload {
 	private _source: string
@@ -26,7 +28,7 @@ export class Upload {
 	private _uploaded = 0
 	private _startTime = 0
 
-	private _status: Status = Status.INITIALIZED
+	private _status: TUploadStatus = UploadStatus.INITIALIZED
 	private _controller: AbortController
 	private _response: AxiosResponse | null = null
 
@@ -82,13 +84,13 @@ export class Upload {
 	set uploaded(length: number) {
 		if (length >= this._size) {
 			this._status = this._isChunked
-				? Status.ASSEMBLING
-				: Status.FINISHED
+				? UploadStatus.ASSEMBLING
+				: UploadStatus.FINISHED
 			this._uploaded = this._size
 			return
 		}
 
-		this._status = Status.UPLOADING
+		this._status = UploadStatus.UPLOADING
 		this._uploaded = length
 
 		// If first progress, let's log the start time
@@ -97,14 +99,14 @@ export class Upload {
 		}
 	}
 
-	get status(): number {
+	get status(): TUploadStatus {
 		return this._status
 	}
 
 	/**
 	 * Update this upload status
 	 */
-	set status(status: Status) {
+	set status(status: TUploadStatus) {
 		this._status = status
 	}
 
@@ -120,6 +122,6 @@ export class Upload {
 	 */
 	cancel() {
 		this._controller.abort()
-		this._status = Status.CANCELLED
+		this._status = UploadStatus.CANCELLED
 	}
 }
