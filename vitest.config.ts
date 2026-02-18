@@ -3,12 +3,20 @@
  * SPDX-License-Identifier: CC0-1.0
  */
 
-import { defineConfig } from 'vite'
-import config from './vite.config'
+import { resolve } from 'node:path'
+import { defineConfig, mergeConfig } from 'vite'
+import config from './vite.config.ts'
 
 export default defineConfig(async (env) => {
-	const cfg = await config(env)
-	delete cfg.define
+	let cfg = await config(env)
+	cfg = mergeConfig(cfg, defineConfig({
+		resolve: {
+			alias: {
+				'~': resolve(__dirname, 'lib'),
+			},
+		},
+	}))
+	// delete cfg.define
 
 	return {
 		...cfg,

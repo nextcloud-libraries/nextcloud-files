@@ -4,7 +4,6 @@
  */
 
 import { describe, expect, test } from 'vitest'
-import { getFileActions, registerFileAction } from '../lib/actions/fileAction.ts'
 import {
 	addNewFileMenuEntry,
 	File,
@@ -16,6 +15,7 @@ import {
 	Permission,
 	removeNewFileMenuEntry,
 } from '../lib/index.ts'
+import { getFileActions, registerFileAction } from '~/ui/actions/fileAction.ts'
 
 describe('Exports checks', () => {
 	test('formatFileSize', () => {
