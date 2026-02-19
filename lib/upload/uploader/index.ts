@@ -3,14 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-export {
-	type Eta,
-	type EtaEventsMap,
+export type { Eta } from './Eta.ts'
+export type { IUpload } from './Upload.ts'
 
-	EtaStatus,
-} from './Eta.ts'
-
-export {
-	Uploader,
-	UploaderStatus,
-} from './Uploader.ts'
+export { EtaStatus } from './Eta.ts'
+export { UploadStatus } from './Upload.ts'
+export { Uploader, UploaderStatus } from './Uploader.ts'
