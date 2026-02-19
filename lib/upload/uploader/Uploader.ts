@@ -56,10 +56,31 @@ interface BatchUploadOptions extends UploadOptions {
 }
 
 interface UploaderEventsMap {
+	/**
+	 * Dispatched when the uploader is paused
+	 */
 	paused: CustomEvent
+	/**
+	 * Dispatched when the uploader is resumed
+	 */
 	resumed: CustomEvent
-	progress: CustomEvent
+	/**
+	 * Dispatched when the uploader has finished all uploads (successfully, failed or cancelled)
+	 */
 	finished: CustomEvent
+
+	/**
+	 * Dispatched when a new upload has been started.
+	 */
+	uploadStarted: CustomEvent<IUpload>
+	/**
+	 * Dispatched when an upload has made progress (e.g. a chunk has been uploaded).
+	 */
+	uploadProgress: CustomEvent<IUpload>
+	/**
+	 * Dispatched when an upload has finished (successfully, failed or cancelled).
+	 */
+	uploadFinished: CustomEvent<IUpload>
 }
 
 export class Uploader extends TypedEventTarget<UploaderEventsMap> {
@@ -262,6 +283,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 			this.#attachEventListeners(upload)
 		}
 		this.#uploadQueue.push(...uploads)
+		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return uploads
 	}
@@ -283,6 +305,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 
 		this.#attachEventListeners(upload)
 		this.#uploadQueue.push(upload)
+		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return upload
 	}
@@ -290,12 +313,14 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	/**
 	 * Handle the progress event of an upload.
 	 * Update the ETA and dispatch a progress event for the uploader.
+	 *
+	 * @param event - The progress event of an upload
 	 */
-	#onProgress() {
+	#onProgress(event: CustomEvent<IUpload>) {
 		const totalBytes = this.#uploadQueue.reduce((acc, upload) => acc + upload.totalBytes, 0)
 		const uploadedBytes = this.#uploadQueue.reduce((acc, upload) => acc + upload.uploadedBytes, 0)
 		this.#eta.update(uploadedBytes, totalBytes)
-		this.dispatchTypedEvent('progress', new CustomEvent('progress'))
+		this.dispatchTypedEvent('uploadProgress', new CustomEvent('uploadProgress', { detail: event.detail }))
 	}
 
 	/**
@@ -303,9 +328,12 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	 *
 	 * 1. Update the progress
 	 * 2. if all uploads are finished dispatch a finished event for the uploader and clear the queue
+	 *
+	 * @param event - The finished event of an upload
 	 */
-	async #onFinished() {
-		this.#onProgress()
+	async #onFinished(event: CustomEvent<IUpload>) {
+		this.#onProgress(event)
+		this.dispatchTypedEvent('uploadFinished', new CustomEvent('uploadFinished', { detail: event.detail }))
 
 		const finalStates = [
 			UploadStatus.FINISHED,
