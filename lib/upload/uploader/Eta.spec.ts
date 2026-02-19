@@ -11,7 +11,6 @@ describe('ETA - status', () => {
 		const eta = new Eta()
 		expect(eta.progress).toBe(0)
 		expect(eta.time).toBe(Infinity)
-		expect(eta.timeReadable).toBe('estimating time left')
 		expect(eta.speed).toBe(-1)
 		expect(eta.status).toBe(EtaStatus.Idle)
 	})
@@ -21,7 +20,6 @@ describe('ETA - status', () => {
 		expect(eta.status).toBe(EtaStatus.Running)
 		expect(eta.progress).toBe(0)
 		expect(eta.time).toBe(Infinity)
-		expect(eta.timeReadable).toBe('estimating time left')
 		expect(eta.speed).toBe(-1)
 	})
 
@@ -82,12 +80,11 @@ describe('ETA - progress', () => {
 			eta.add(2.5 * 1024 * 1024)
 			expect(eta.progress).toBe(i * 2.5)
 			expect(eta.speed).toBe(-1)
-			expect(eta.speedReadable).toBe('')
 			expect(eta.time).toBe(Infinity)
 		}
 
 		// this is reached after (virtual) 3s with 6 * 2.5MiB (=15MiB) data of 100MiB total
-		expect(eta.timeReadable).toBe('estimating time left')
+		expect(eta.time).toBe(Infinity)
 
 		// Adding another 500ms with 5MiB/s will result in enough information for estimating
 		vi.advanceTimersByTime(500)
@@ -96,7 +93,6 @@ describe('ETA - progress', () => {
 		expect(eta.speed).toMatchInlineSnapshot('4826778')
 		expect(eta.speedReadable).toMatchInlineSnapshot('"4.6 MB∕s"')
 		expect(eta.time).toMatchInlineSnapshot('18')
-		expect(eta.timeReadable).toMatchInlineSnapshot('"18 seconds left"')
 
 		// Skip forward another 4.5seconds
 		for (let i = 0; i < 9; i++) {
@@ -109,7 +105,6 @@ describe('ETA - progress', () => {
 		expect(eta.speed).toMatchInlineSnapshot('5060836')
 		expect(eta.speedReadable).toMatchInlineSnapshot('"4.8 MB∕s"')
 		expect(eta.time).toMatchInlineSnapshot('12')
-		expect(eta.timeReadable).toMatchInlineSnapshot('"12 seconds left"')
 
 		// Having a spike of 10MiB/s will not result in halfing the eta
 		vi.advanceTimersByTime(500)
@@ -120,7 +115,6 @@ describe('ETA - progress', () => {
 		expect(eta.speedReadable).toMatchInlineSnapshot('"5 MB∕s"')
 		// And the time has not halved
 		expect(eta.time).toMatchInlineSnapshot('11')
-		expect(eta.timeReadable).toMatchInlineSnapshot('"11 seconds left"')
 
 		// Add another 3 seconds so we should see 'few seconds left'
 		for (let i = 0; i < 6; i++) {
@@ -130,7 +124,6 @@ describe('ETA - progress', () => {
 		expect(eta.progress).toBe(60)
 		expect(eta.speed).toMatchInlineSnapshot('5344192')
 		expect(eta.time).toMatchInlineSnapshot('8')
-		expect(eta.timeReadable).toMatchInlineSnapshot('"a few seconds left"')
 	})
 
 	test('long running progress', () => {
@@ -151,8 +144,6 @@ describe('ETA - progress', () => {
 		eta.add(512 * 1024)
 		expect(eta.progress).toBe(3.5)
 		expect(eta.time).toBe(105)
-		// time is over 1 minute so we see the formatted output
-		expect(eta.timeReadable).toMatchInlineSnapshot('"00:01:45 left"')
 
 		// Add another minute and we should see only seconds:
 		for (let i = 0; i < 120; i++) {
@@ -164,7 +155,6 @@ describe('ETA - progress', () => {
 		// Now we have uploaded 63.5 MiB - so 36.5 MiB missing by having 1MiB/s upload speed we expect 37 seconds left:
 		expect(eta.progress).toBe(63.5)
 		expect(eta.time).toBe(37)
-		expect(eta.timeReadable).toMatchInlineSnapshot('"37 seconds left"')
 	})
 
 	test('progress calculation for fast uploads', () => {
@@ -180,7 +170,6 @@ describe('ETA - progress', () => {
 		expect(eta.progress).toBe(20)
 		expect(eta.speed).toBe(-1)
 		expect(eta.time).toBe(Infinity)
-		expect(eta.timeReadable).toBe('estimating time left')
 
 		// Now we have some information but not enough for normal estimation
 		// yet we show some information as the upload is very fast (40% per second)
@@ -188,7 +177,6 @@ describe('ETA - progress', () => {
 		eta.add(20 * 1024 * 1024)
 		expect(eta.progress).toBe(40)
 		expect(eta.time).toBe(1.5)
-		expect(eta.timeReadable).toBe('a few seconds left')
 		// still no speed information
 		expect(eta.speed).toBe(-1)
 
@@ -198,7 +186,6 @@ describe('ETA - progress', () => {
 			eta.add(20 * 1024 * 1024)
 			expect(eta.progress).toBe(40 + i * 20)
 			expect(eta.time).toBe(1.5 - (i / 2))
-			expect(eta.timeReadable).toBe('a few seconds left')
 			// still no speed information
 			expect(eta.speed).toBe(-1)
 		}
@@ -210,7 +197,6 @@ describe('ETA - progress', () => {
 		expect(eta.status).toBe(EtaStatus.Running)
 		expect(eta.progress).toBe(0)
 		expect(eta.time).toBe(Infinity)
-		expect(eta.timeReadable).toBe('estimating time left')
 		expect(eta.speed).toBe(-1)
 	})
 

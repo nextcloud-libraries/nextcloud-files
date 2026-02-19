@@ -5,7 +5,6 @@
 
 import { TypedEventTarget } from 'typescript-event-target'
 import { formatFileSize } from '../../utils/fileSize.ts'
-import { n, t } from '../utils/l10n.ts'
 
 export const EtaStatus = Object.freeze({
 	Idle: 0,
@@ -183,27 +182,10 @@ export class Eta extends TypedEventTarget<EtaEventsMap> {
 
 	/**
 	 * Estimated time in seconds.
+	 * If the time is not yet estimated, it will return `Infinity`.
 	 */
 	public get time(): number {
 		return this._eta
-	}
-
-	/**
-	 * Human readable version of the estimated time.
-	 */
-	public get timeReadable(): string {
-		if (this._eta === Infinity) {
-			return t('estimating time left')
-		} else if (this._eta < 10) {
-			return t('a few seconds left')
-		} else if (this._eta < 60) {
-			return n('{seconds} seconds left', '{seconds} seconds left', this._eta, { seconds: this._eta })
-		}
-
-		const hours = String(Math.floor(this._eta / 3600)).padStart(2, '0')
-		const minutes = String(Math.floor((this._eta % 3600) / 60)).padStart(2, '0')
-		const seconds = String(this._eta % 60).padStart(2, '0')
-		return t('{time} left', { time: `${hours}:${minutes}:${seconds}` }) // TRANSLATORS time has the format 00:00:00
 	}
 
 	/**
