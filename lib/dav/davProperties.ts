@@ -119,9 +119,9 @@ export function getFavoritesReport(): string {
 }
 
 /**
- * Get the SEARCH body to search for recently modified files
+ * Get the SEARCH body to search for recently modified/uploaded files
  *
- * @param lastModified Oldest timestamp to include (Unix timestamp)
+ * @param timestamp Oldest timestamp to include (Unix timestamp)
  * @example
  * ```ts
  * // SEARCH for recent files need a different DAV endpoint
@@ -139,7 +139,11 @@ export function getFavoritesReport(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export function getRecentSearch(lastModified: number): string {
+export function getRecentSearch(timestamp: number): string {
+	const major = Number.parseInt((window.OC?.config?.version ?? '0').split('.')[0])
+	const patch = Number.parseInt((window.OC?.config?.version ?? '0').split('.')[2])
+	const supportsUploadTime = major > 33 || (major === 33 && patch > 0)
+
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
@@ -173,12 +177,31 @@ export function getRecentSearch(lastModified: number): string {
 						<d:literal>0</d:literal>
 					</d:eq>
 				</d:or>
-				<d:gt>
-					<d:prop>
-						<d:getlastmodified/>
-					</d:prop>
-					<d:literal>${lastModified}</d:literal>
-				</d:gt>
+				${supportsUploadTime
+					? `
+						<d:or>
+							<d:gt>
+								<d:prop>
+									<d:getlastmodified/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+							<d:gt>
+								<d:prop>
+									<nc:upload_time/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+						</d:or>
+				`
+					: `
+					<d:gt>
+						<d:prop>
+							<d:getlastmodified/>
+						</d:prop>
+						<d:literal>${timestamp}</d:literal>
+					</d:gt>
+				`}
 			</d:and>
 		</d:where>
 		<d:orderby>
