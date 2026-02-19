@@ -6,7 +6,7 @@
 export type { Eta, EtaEventsMap } from './uploader/index.ts'
 export type { Directory, IDirectory } from './utils/fileTree.ts'
 
-export { getUploader, upload } from './getUploader.ts'
+export { getUploader } from './getUploader.ts'
 export { Upload, UploadStatus } from './uploader/Upload.ts'
 export { EtaStatus, Uploader, UploaderStatus } from './uploader/index.ts'
 export { getConflicts, hasConflict } from './utils/conflicts.ts'

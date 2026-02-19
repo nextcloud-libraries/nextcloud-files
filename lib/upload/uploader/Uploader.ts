@@ -22,7 +22,6 @@ import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { getMaxChunksSize } from '../utils/config.ts'
 import { isFileSystemFileEntry } from '../utils/filesystem.ts'
 import { Directory } from '../utils/fileTree.ts'
-import { t } from '../utils/l10n.ts'
 import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
 import { Eta } from './Eta.ts'
 import { Upload, UploadStatus } from './Upload.ts'
@@ -630,7 +629,7 @@ export class Uploader {
 						throw new UploadCancelledError(error)
 					} else {
 						upload.status = UploadStatus.FAILED
-						throw new Error(t('Failed to assemble the chunks together'))
+						throw new Error('Failed to assemble the chunks together')
 					}
 				} finally {
 					// Notify listeners of the upload completion
@@ -689,7 +688,7 @@ export class Uploader {
 
 					upload.status = UploadStatus.FAILED
 					logger.error(`Failed uploading ${file.name}`, { error, file, upload })
-					throw new Error(t('Failed to upload the file'))
+					throw new Error('Failed to upload the file')
 				} finally {
 					// Notify listeners of the upload completion
 					this._notifyAll(upload)
