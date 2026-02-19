@@ -7,20 +7,14 @@ import type PQueue from 'p-queue'
 import type { IUpload, TUploadStatus } from './Upload.ts'
 
 import axios from '@nextcloud/axios'
-import { getCapabilities } from '@nextcloud/capabilities'
 import { join } from '@nextcloud/paths'
 import { isPublicShare } from '@nextcloud/sharing/public'
 import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { UploadFailedError } from '../errors/UploadFailedError.ts'
-import { getMaxChunksSize } from '../utils/config.ts'
+import { getMaxChunksSize, supportsPublicChunking } from '../utils/config.ts'
 import { getMtimeHeader, isRequestAborted } from '../utils/requests.ts'
 import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
 import { Upload, UploadStatus } from './Upload.ts'
-
-/**
- * Shared state to determine if the server supports chunking for public shares.
- */
-let supportsPublicChunking: boolean | undefined
 
 /**
  * A class representing a single file to be uploaded
@@ -65,16 +59,11 @@ export class UploadFile extends Upload implements IUpload {
 	}
 
 	get isChunked(): boolean {
-		if (supportsPublicChunking === undefined) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			supportsPublicChunking = (getCapabilities() as Record<string, any>).dav?.public_shares_chunking ?? false
-		}
-
 		const maxChunkSize = getMaxChunksSize('size' in this.#fileHandle ? this.#fileHandle.size : undefined)
 		return !this.#noChunking
 			&& maxChunkSize > 0
-			&& this.totalBytes >= maxChunkSize
-			&& (supportsPublicChunking || !isPublicShare())
+			&& this.totalBytes > maxChunkSize
+			&& (!isPublicShare() || supportsPublicChunking())
 	}
 
 	async start(queue: PQueue): Promise<void> {
@@ -90,6 +79,7 @@ export class UploadFile extends Upload implements IUpload {
 
 		try {
 			if (this.isChunked) {
+				this.numberOfChunks = Math.ceil(this.totalBytes / getMaxChunksSize(this.totalBytes))
 				await this.#uploadChunked(queue)
 			} else {
 				queue.add(() => this.#upload())
@@ -127,7 +117,6 @@ export class UploadFile extends Upload implements IUpload {
 		const temporaryUrl = await initChunkWorkspace(this.source, 5, isPublicShare(), this.#customHeaders)
 
 		const promises: Promise<void>[] = []
-		this.numberOfChunks = Math.ceil(this.totalBytes / getMaxChunksSize(this.totalBytes))
 		for (let i = 0; i < this.numberOfChunks; i++) {
 			const chunk = await getChunk(this.#file!, i * getMaxChunksSize(this.totalBytes), (i + 1) * getMaxChunksSize(this.totalBytes))
 			promises.push(queue.add(() => this.#uploadChunk(chunk, join(temporaryUrl, String(i)))))
