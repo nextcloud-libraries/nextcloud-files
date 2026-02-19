@@ -3,125 +3,89 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { AxiosResponse } from 'axios'
+import type PQueue from 'p-queue'
 
-import { getMaxChunksSize } from '../utils/config.ts'
+import { TypedEventTarget } from 'typescript-event-target'
 
 export const UploadStatus = Object.freeze({
+	/** The upload was initialized */
 	INITIALIZED: 0,
-	UPLOADING: 1,
-	ASSEMBLING: 2,
-	FINISHED: 3,
-	CANCELLED: 4,
-	FAILED: 5,
+	/** The upload was scheduled but is not yet uploading */
+	SCHEDULED: 1,
+	/** The upload itself is running */
+	UPLOADING: 2,
+	/** Chunks are being assembled */
+	ASSEMBLING: 3,
+	/** The upload finished successfully */
+	FINISHED: 4,
+	/** The upload was cancelled by the user */
+	CANCELLED: 5,
+	/** The upload failed */
+	FAILED: 6,
 })
 
-type TUploadStatus = typeof UploadStatus[keyof typeof UploadStatus]
+export type TUploadStatus = typeof UploadStatus[keyof typeof UploadStatus]
 
-export class Upload {
-	private _source: string
-	private _file: File
-	private _isChunked: boolean
-	private _chunks: number
+interface UploadEvents {
+	finished: CustomEvent<IUpload>
+	progress: CustomEvent<IUpload>
+}
 
-	private _size: number
-	private _uploaded = 0
-	private _startTime = 0
-
-	private _status: TUploadStatus = UploadStatus.INITIALIZED
-	private _controller: AbortController
-	private _response: AxiosResponse | null = null
-
-	constructor(source: string, chunked = false, size: number, file: File) {
-		const chunks = Math.min(getMaxChunksSize() > 0 ? Math.ceil(size / getMaxChunksSize()) : 1, 10000)
-		this._source = source
-		this._isChunked = chunked && getMaxChunksSize() > 0 && chunks > 1
-		this._chunks = this._isChunked ? chunks : 1
-		this._size = size
-		this._file = file
-		this._controller = new AbortController()
-	}
-
-	get source(): string {
-		return this._source
-	}
-
-	get file(): File {
-		return this._file
-	}
-
-	get isChunked(): boolean {
-		return this._isChunked
-	}
-
-	get chunks(): number {
-		return this._chunks
-	}
-
-	get size(): number {
-		return this._size
-	}
-
-	get startTime(): number {
-		return this._startTime
-	}
-
-	set response(response: AxiosResponse | null) {
-		this._response = response
-	}
-
-	get response(): AxiosResponse | null {
-		return this._response
-	}
-
-	get uploaded(): number {
-		return this._uploaded
-	}
+export interface IUpload extends TypedEventTarget<UploadEvents> {
+	/**
+	 * The source of the upload
+	 */
+	readonly source: string
+	/**
+	 * Whether the upload is chunked or not
+	 */
+	readonly isChunked: boolean
+	/**
+	 * The total size of the upload in bytes
+	 */
+	readonly totalBytes: number
+	/**
+	 * Timestamp of when the upload started.
+	 * Will return `undefined` if the upload has not started yet.
+	 */
+	readonly startTime?: number
+	/**
+	 * The number of bytes that have been uploaded so far
+	 */
+	readonly uploadedBytes: number
+	/**
+	 * The current status of the upload
+	 */
+	readonly status: TUploadStatus
+	/**
+	 * The internal abort signal
+	 */
+	readonly signal: AbortSignal
 
 	/**
-	 * Update the uploaded bytes of this upload
+	 * Cancels the upload
 	 */
-	set uploaded(length: number) {
-		if (length >= this._size) {
-			this._status = this._isChunked
-				? UploadStatus.ASSEMBLING
-				: UploadStatus.FINISHED
-			this._uploaded = this._size
-			return
-		}
+	cancel(): void
+}
 
-		this._status = UploadStatus.UPLOADING
-		this._uploaded = length
+export abstract class Upload extends TypedEventTarget<UploadEvents> implements Partial<IUpload> {
+	#abortController = new AbortController()
 
-		// If first progress, let's log the start time
-		if (this._startTime === 0) {
-			this._startTime = new Date().getTime()
-		}
-	}
-
-	get status(): TUploadStatus {
-		return this._status
-	}
-
-	/**
-	 * Update this upload status
-	 */
-	set status(status: TUploadStatus) {
-		this._status = status
-	}
-
-	/**
-	 * Returns the axios cancel token source
-	 */
 	get signal(): AbortSignal {
-		return this._controller.signal
+		return this.#abortController.signal
 	}
 
 	/**
-	 * Cancel any ongoing requests linked to this upload
+	 * Cancels the upload
 	 */
-	cancel() {
-		this._controller.abort()
-		this._status = UploadStatus.CANCELLED
+	public cancel(): void {
+		this.#abortController.abort()
 	}
+
+	/**
+	 * Start the upload
+	 *
+	 * @param queue - The job queue. It is used to limit the number of concurrent upload jobs.
+	 */
+	public abstract start(queue: PQueue): Promise<void>
 }
