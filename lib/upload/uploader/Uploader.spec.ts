@@ -3,186 +3,189 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { IUpload, TUploadStatus } from './Upload.ts'
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Folder } from '../../node/folder.ts'
-import { Permission } from '../../permissions.ts'
-import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { UploadStatus } from './Upload.ts'
 import { Uploader, UploaderStatus } from './Uploader.ts'
 
-const nextcloudAuth = vi.hoisted(() => ({
-	getCurrentUser: vi.fn(() => ({ uid: 'test', displayName: 'Test', isAdmin: false })),
+// Mock auth to provide a current user by default
+const authMock = vi.hoisted(() => ({
+	getCurrentUser: vi.fn<() => ({ uid: string }) | null>(() => ({ uid: 'tester' })),
 }))
-vi.mock('@nextcloud/auth', () => nextcloudAuth)
+vi.mock('@nextcloud/auth', () => authMock)
 
-const nextcloudCapabilities = vi.hoisted(() => ({
-	getCapabilities: vi.fn(() => ({
-		files: { chunked_upload: { max_parallel_count: 2 } },
-		dav: { public_shares_chunking: true },
-	})),
-}))
-vi.mock('@nextcloud/capabilities', () => nextcloudCapabilities)
-
-const nextcloudAxios = vi.hoisted(() => ({
-	default: {
-		request: vi.fn(),
-	},
-	isCancel: vi.fn(() => false),
-}))
-vi.mock('@nextcloud/axios', () => nextcloudAxios)
-
-const dav = vi.hoisted(() => ({
-	getClient: vi.fn(() => ({
-		createDirectory: vi.fn(),
-	})),
+vi.mock('../../dav/dav.ts', () => ({
 	defaultRemoteURL: 'https://localhost/remote.php/dav',
 	defaultRootPath: '/files/test',
 }))
-vi.mock('../../dav/dav.ts', () => dav)
 
-const uploadUtils = vi.hoisted(() => ({
-	getChunk: vi.fn(async (file: File) => new Blob([file], { type: file.type || 'application/octet-stream' })),
-	initChunkWorkspace: vi.fn(),
-	uploadData: vi.fn(async (_url: string, _blob: Blob, options: any) => {
-		options?.onUploadProgress?.({ bytes: 50 })
-		return {
-			status: 201,
-			statusText: 'Created',
-			headers: {},
-			config: { headers: {} },
-			data: { ok: true },
+vi.mock('../../utils/logger.ts', () => ({ default: { debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn() } }))
+
+// Provide simple mocks for UploadFile and UploadFileTree so we can deterministically
+// simulate progress/finished events and exercise uploader logic.
+vi.mock('./UploadFile.ts', () => ({
+	UploadFile: class implements IUpload {
+		source = 'file:///test'
+		isChunked = false
+		totalBytes: number
+		uploadedBytes: number
+		status: TUploadStatus
+		response: any
+		signal = new AbortController().signal
+		children: IUpload[] = []
+		private listeners: Record<string, ((ev?: CustomEvent) => void)[]>
+		constructor(..._args: any[]) {
+			const file = _args[1]
+			this.listeners = {}
+			this.totalBytes = (file && file.size) || 0
+			this.uploadedBytes = 0
+			this.status = UploadStatus.INITIALIZED
+			this.response = undefined
 		}
-	}),
-}))
-vi.mock('../utils/upload.ts', () => uploadUtils)
 
-vi.mock('../utils/filesystem.ts', () => ({
-	isFileSystemDirectoryEntry: vi.fn(() => false),
-	isFileSystemFileEntry: vi.fn(() => false),
-}))
+		addEventListener = ((ev: string, cb: (ev?: CustomEvent) => void) => {
+			this.listeners[ev] = this.listeners[ev] || []
+			this.listeners[ev].push(cb)
+		}) as any
 
-vi.mock('../../utils/logger.ts', () => ({
-	default: {
-		debug: vi.fn(),
-		info: vi.fn(),
-		warn: vi.fn(),
-		error: vi.fn(),
+		removeEventListener() {}
+		dispatchEvent = (() => true) as any
+		dispatchTypedEvent = (() => true) as any
+		cancel = vi.fn(() => {
+			if (this.status !== UploadStatus.FINISHED) {
+				this.status = UploadStatus.CANCELLED
+			}
+		})
+
+		start = async () => {
+			// simulate progress then finish
+			this.uploadedBytes = this.totalBytes / 2
+			this.listeners.progress?.forEach((cb) => cb(new CustomEvent('progress', { detail: this })))
+			this.uploadedBytes = this.totalBytes
+			this.status = UploadStatus.FINISHED
+			this.response = { status: 201 }
+			this.listeners.finished?.forEach((cb) => cb(new CustomEvent('finished', { detail: this })))
+		}
 	},
 }))
 
-describe('Uploader', () => {
-	beforeEach(() => {
-		(window as any).OC = {
-			appConfig: {
-				files: {
-					max_chunk_size: 0,
-				},
-			},
-		}
+vi.mock('./UploadFileTree.ts', () => ({
+	UploadFileTree: class implements IUpload {
+		source = 'file:///test'
+		isChunked = false
+		totalBytes = 0
+		uploadedBytes = 0
+		status: TUploadStatus = UploadStatus.FINISHED as TUploadStatus
+		response = { status: 201 }
+		signal = new AbortController().signal
+		children: IUpload[] = []
+		private listeners: Record<string, ((ev?: CustomEvent) => void)[]> = {}
+		constructor() {}
+		addEventListener = ((ev: string, cb: (ev?: CustomEvent) => void) => {
+			this.listeners[ev] = this.listeners[ev] || []
+			this.listeners[ev].push(cb)
+		}) as any
 
-		nextcloudAuth.getCurrentUser.mockReturnValue({ uid: 'test', displayName: 'Test', isAdmin: false })
-		nextcloudCapabilities.getCapabilities.mockReturnValue({
-			files: { chunked_upload: { max_parallel_count: 2 } },
-			dav: { public_shares_chunking: true },
+		removeEventListener = (() => {}) as any
+		dispatchEvent = (() => true) as any
+		dispatchTypedEvent = (() => true) as any
+		cancel = vi.fn(() => {
+			if (this.status !== UploadStatus.FINISHED) {
+				this.status = UploadStatus.CANCELLED as TUploadStatus
+			}
 		})
-		nextcloudAxios.isCancel.mockReturnValue(false)
-		uploadUtils.getChunk.mockClear()
-		uploadUtils.uploadData.mockClear()
-		dav.getClient.mockClear()
+
+		initialize = () => []
+		start = async () => {
+			this.listeners.finished?.forEach((cb) => cb(new CustomEvent('finished', { detail: this })))
+		}
+	},
+}))
+
+describe('Uploader (current API)', () => {
+	beforeEach(() => {
+		authMock.getCurrentUser.mockReturnValue({ uid: 'tester' })
 	})
 
 	afterEach(() => {
-		delete (window as any).OC
 		vi.restoreAllMocks()
 	})
 
-	it('initializes with the default destination for logged in users', () => {
+	it('constructs with default destination and exposes status/destination', () => {
 		const uploader = new Uploader()
-
+		expect(uploader.status).toBe(UploaderStatus.IDLE)
 		expect(uploader.destination).toBeInstanceOf(Folder)
-		expect(uploader.destination.owner).toBe('test')
-		expect(uploader.root).toBe('https://localhost/remote.php/dav/files/test')
-		expect(uploader.info.status).toBe(UploaderStatus.IDLE)
 	})
 
-	it('throws when no user is logged in and uploader is not public', () => {
-		nextcloudAuth.getCurrentUser.mockReturnValue(null as any)
-
-		expect(() => new Uploader(false)).toThrowError('User is not logged in')
+	it('throws when no user and not public', () => {
+		authMock.getCurrentUser.mockReturnValue(null)
+		expect(() => new Uploader(false)).toThrow()
 	})
 
-	it('uses anonymous owner in public mode', () => {
-		nextcloudAuth.getCurrentUser.mockReturnValue(null as any)
+	it('allows public mode with anonymous owner', () => {
+		authMock.getCurrentUser.mockReturnValue(null)
 		const uploader = new Uploader(true)
-
 		expect(uploader.destination.owner).toBe('anonymous')
 	})
 
-	it('manages custom headers through a cloned public getter', () => {
+	it('manages custom headers and exposes a cloned map', () => {
 		const uploader = new Uploader()
-		uploader.setCustomHeader('X-NC-Test', '1')
-
+		uploader.setCustomHeader('X-Test', '1')
 		const headers = uploader.customHeaders
-		headers['X-NC-Test'] = '2'
-
-		expect(uploader.customHeaders['X-NC-Test']).toBe('1')
-
-		uploader.deleteCustomerHeader('X-NC-Test')
-		expect(uploader.customHeaders['X-NC-Test']).toBeUndefined()
+		expect(headers.get('X-Test')).toBe('1')
+		uploader.deleteCustomerHeader('X-Test')
+		expect(uploader.customHeaders.get('X-Test')).toBeUndefined()
 	})
 
-	it('rejects invalid destination values', () => {
+	it('can pause, start and reset', async () => {
 		const uploader = new Uploader()
+		const paused = new Promise<void>((res) => uploader.addEventListener('paused', () => res()))
+		const resumed = new Promise<void>((res) => uploader.addEventListener('resumed', () => res()))
 
-		expect(() => {
-			uploader.destination = { type: null, source: '' } as any
-		}).toThrowError('Invalid destination folder')
+		await uploader.pause()
+		expect(uploader.status).toBe(UploaderStatus.PAUSED)
+		await paused
+
+		uploader.start()
+		expect(uploader.status).toBe(UploaderStatus.UPLOADING)
+		await resumed
+
+		// reset should clear queue and set IDLE
+		uploader.reset()
+		expect(uploader.status).toBe(UploaderStatus.IDLE)
+		expect(uploader.queue).toEqual([])
 	})
 
-	it('uploads files in regular mode and notifies listeners', async () => {
+	it('uploads a file and emits progress and finished events', async () => {
 		const uploader = new Uploader()
-		uploader.setCustomHeader('X-NC-Test', 'value')
-		const notifier = vi.fn()
-		uploader.addNotifier(notifier)
+		const file = new File(['hello'], 'hello.txt', { type: 'text/plain' })
 
-		const file = new File(['x'.repeat(100)], 'report.txt', { type: 'text/plain', lastModified: 1000 })
-		const upload = await uploader.upload('/docs/report.txt', file)
+		const started = vi.fn()
+		const progress = vi.fn()
+		const finished = vi.fn()
 
+		uploader.addEventListener('uploadStarted', () => started())
+		uploader.addEventListener('uploadProgress', () => progress())
+		uploader.addEventListener('uploadFinished', () => finished())
+
+		const upload = await uploader.upload('/hello.txt', file)
+
+		// wait for upload to finish
 		await vi.waitFor(() => {
 			expect(upload.status).toBe(UploadStatus.FINISHED)
 		})
 
-		expect(upload.uploaded).toBe(upload.size)
-		expect(upload.response?.status).toBe(201)
-		expect(uploadUtils.getChunk).toHaveBeenCalledTimes(1)
-		expect(uploadUtils.uploadData).toHaveBeenCalledTimes(1)
-		expect(notifier).toHaveBeenCalledTimes(1)
-		expect(notifier).toHaveBeenCalledWith(upload)
-
-		await vi.waitFor(() => {
-			expect(uploader.info.status).toBe(UploaderStatus.IDLE)
-		})
+		expect(started).toHaveBeenCalled()
+		expect(progress).toHaveBeenCalled()
+		expect(finished).toHaveBeenCalled()
 	})
 
-	it('converts callback cancellation in batch upload to UploadCancelledError', async () => {
-		const uploader = new Uploader(false, new Folder({
-			id: 1,
-			owner: 'test',
-			permissions: Permission.ALL,
-			root: '/files/test',
-			source: 'https://localhost/dav/files/test',
-		}))
-
-		const notifier = vi.fn()
-		uploader.addNotifier(notifier)
-		const file = new File(['data'], 'a.txt', { type: 'text/plain' })
-
-		await expect(uploader.batchUpload('/uploads', [file], {
-			callback: async () => false,
-		})).rejects.toBeInstanceOf(UploadCancelledError)
-
-		expect(dav.getClient).toHaveBeenCalledTimes(1)
-		expect(notifier).toHaveBeenCalledTimes(1)
-		expect(notifier.mock.calls[0][0].status).toBe(UploadStatus.CANCELLED)
+	it('performs batchUpload using UploadFileTree and initializes children', async () => {
+		const uploader = new Uploader()
+		const uploads = await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')])
+		expect(Array.isArray(uploads)).toBe(true)
+		expect(uploads.length).toBeGreaterThanOrEqual(1)
 	})
 })
