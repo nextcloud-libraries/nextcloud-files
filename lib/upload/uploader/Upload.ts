@@ -63,6 +63,13 @@ export interface IUpload extends TypedEventTarget<UploadEvents> {
 	readonly signal: AbortSignal
 
 	/**
+	 * The children of this upload.
+	 * - For a file upload, this will be an empty array.
+	 * - For a folder upload, this will be the uploads of the children files and folders.
+	 */
+	readonly children: IUpload[]
+
+	/**
 	 * Cancels the upload
 	 */
 	cancel(): void
@@ -80,6 +87,14 @@ export abstract class Upload extends TypedEventTarget<UploadEvents> implements P
 	 */
 	public cancel(): void {
 		this.#abortController.abort()
+	}
+
+	/**
+	 * Get the children of this upload.
+	 * For a file upload, this will be an empty array, for a folder upload, this will be the uploads of the children files and folders.
+	 */
+	public get children(): IUpload[] {
+		return []
 	}
 
 	/**
