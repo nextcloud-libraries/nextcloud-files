@@ -141,8 +141,7 @@ export function getFavoritesReport(): string {
  * ```
  */
 export function getRecentSearch(timestamp: number): string {
-	const capabilities = getCapabilities() as { dav?: { search_supports_creation_time?: boolean, search_supports_upload_time?: boolean } }
-	const supportsCreationTime = capabilities.dav?.search_supports_creation_time
+	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
 	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
 
 	return `<?xml version="1.0" encoding="UTF-8"?>
@@ -152,7 +151,6 @@ export function getRecentSearch(timestamp: number): string {
 		<d:select>
 			<d:prop>
 				${getDavProperties()}
-				${supportsCreationTime ? '<nc:creation_time/>' : ''}
 			</d:prop>
 		</d:select>
 		<d:from>
