@@ -196,7 +196,7 @@ export const getRecentSearch = function(lastModified: number): string {
 			</d:order>
 		</d:orderby>
 		<d:limit>
-			<d:nresults>100</d:nresults>
+			<d:nresults>${limit}</d:nresults>
 			<ns:firstresult>0</ns:firstresult>
 		</d:limit>
 	</d:basicsearch>
