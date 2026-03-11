@@ -1,88 +1,95 @@
 {
   "name": "@nextcloud/files",
-  "version": "3.10.1",
+  "version": "4.0.0",
   "description": "Nextcloud files utils",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./dav": {
-      "types": "./dist/dav/index.d.ts",
-      "import": "./dist/dav.mjs",
-      "require": "./dist/dav.cjs"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "author": "Christoph Wurst <christoph@winzerhof-wurst.at>",
-  "contributors": [
-    "John Molakvoæ <skjnldsv@protonmail.com>",
-    "Ferdinand Thiessen <opensource@fthiessen.de>"
-  ],
-  "license": "AGPL-3.0-or-later",
   "keywords": [
     "nextcloud",
     "files",
     "library"
   ],
-  "scripts": {
-    "build": "vite --mode production build",
-    "build:doc": "typedoc --out dist/doc lib/dav/index.ts lib/index.ts && touch dist/doc/.nojekyll",
-    "dev": "vite --mode development build",
-    "watch": "vite --mode development build --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
-    "test:coverage": "vitest run --coverage"
+  "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
+  "bugs": {
+    "url": "https://github.com/nextcloud-libraries/nextcloud-files/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nextcloud-libraries/nextcloud-files.git"
   },
-  "bugs": {
-    "url": "https://github.com/nextcloud-libraries/nextcloud-files/issues"
+  "license": "AGPL-3.0-or-later",
+  "author": "Nextcloud GmbH and Nextcloud contributors",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./dav": {
+      "types": "./dist/dav/index.d.ts",
+      "import": "./dist/dav.mjs"
+    }
   },
-  "engines": {
-    "node": "^20.0.0",
-    "npm": "^10.0.0"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite --mode production build",
+    "build:doc": "typedoc --out dist/doc lib/dav/index.ts lib/index.ts && touch dist/doc/.nojekyll",
+    "dev": "vite --mode development build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "ts:check": "tsc --noEmit",
+    "watch": "vite --mode development build --watch"
   },
-  "homepage": "https://github.com/nextcloud-libraries/nextcloud-files",
-  "devDependencies": {
-    "@codecov/vite-plugin": "^1.8.0",
-    "@nextcloud/eslint-config": "^8.4.1",
-    "@nextcloud/event-bus": "^3.3.1",
-    "@nextcloud/typings": "^1.9.1",
-    "@nextcloud/vite-config": "^2.3.1",
-    "@types/node": "^22.13.1",
-    "@vitest/coverage-istanbul": "^3.0.5",
-    "fast-xml-parser": "^4.5.1",
-    "jsdom": "^26.0.0",
-    "tslib": "^2.8.1",
-    "typedoc": "^0.27.6",
-    "typedoc-plugin-missing-exports": "^3.1.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.0",
-    "vitest": "^3.0.4"
+  "overrides": {
+    "@codecov/vite-plugin": {
+      "vite": "^7.0"
+    }
   },
   "dependencies": {
-    "@nextcloud/auth": "^2.4.0",
-    "@nextcloud/capabilities": "^1.2.0",
-    "@nextcloud/l10n": "^3.1.0",
-    "@nextcloud/logger": "^3.0.2",
-    "@nextcloud/paths": "^2.2.1",
-    "@nextcloud/router": "^3.0.1",
-    "@nextcloud/sharing": "^0.2.4",
-    "cancelable-promise": "^4.3.1",
-    "is-svg": "^5.1.0",
-    "typescript-event-target": "^1.1.1",
-    "webdav": "^5.7.1"
+    "@nextcloud/auth": "^2.5.3",
+    "@nextcloud/capabilities": "^1.2.1",
+    "@nextcloud/l10n": "^3.4.1",
+    "@nextcloud/logger": "^3.0.3",
+    "@nextcloud/paths": "^3.1.0",
+    "@nextcloud/router": "^3.1.0",
+    "@nextcloud/sharing": "^0.4.0",
+    "is-svg": "^6.1.0",
+    "typescript-event-target": "^1.1.2",
+    "webdav": "^5.9.0"
+  },
+  "devDependencies": {
+    "@codecov/vite-plugin": "^1.9.1",
+    "@nextcloud/eslint-config": "^9.0.0-rc.8",
+    "@nextcloud/typings": "^1.10.0",
+    "@nextcloud/vite-config": "^2.5.2",
+    "@types/node": "^25.3.5",
+    "@vitest/coverage-istanbul": "^4.0.18",
+    "css.escape": "^1.5.1",
+    "fast-xml-parser": "^5.4.2",
+    "jsdom": "^28.1.0",
+    "tslib": "^2.8.1",
+    "typedoc": "^0.28.17",
+    "typedoc-plugin-missing-exports": "^4.1.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.14"
+  },
+  "engines": {
+    "node": "^24.0.0"
+  },
+  "devEngines": {
+    "packageManager": [
+      {
+        "name": "npm",
+        "version": "^11.3.0"
+      }
+    ],
+    "runtime": {
+      "name": "node",
+      "version": "^24.0.0"
+    }
   }
 }

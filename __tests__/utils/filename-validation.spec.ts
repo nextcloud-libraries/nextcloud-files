@@ -2,8 +2,9 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
  */
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index'
+
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index.ts'
 
 const nextcloudCapabilities = vi.hoisted(() => ({ getCapabilities: vi.fn(() => ({ files: {} })) }))
 vi.mock('@nextcloud/capabilities', () => nextcloudCapabilities)
@@ -30,9 +31,8 @@ describe('isFilenameValid', () => {
 })
 
 describe('validateFilename', () => {
-
 	beforeEach(() => {
-		vi.restoreAllMocks()
+		vi.resetAllMocks()
 		delete window._oc_config
 	})
 
@@ -47,19 +47,6 @@ describe('validateFilename', () => {
 
 	it('has fallback invalid names', async () => {
 		expect(() => validateFilename('.htaccess')).toThrowError(InvalidFilenameError)
-	})
-
-	it('has fallback invalid extension', async () => {
-		expect(() => validateFilename('file.txt.part')).toThrowError(InvalidFilenameError)
-		expect(() => validateFilename('file.txt.filepart')).toThrowError(InvalidFilenameError)
-	})
-
-	// Nextcloud 29
-	it('fallback fetching forbidden characters from oc config', async () => {
-		window._oc_config = { forbidden_filenames_characters: ['=', '?'] }
-		expect(() => validateFilename('foo.bar')).not.toThrow()
-		expect(() => validateFilename('foo=bar')).toThrowError(InvalidFilenameError)
-		expect(() => validateFilename('foo?bar')).toThrowError(InvalidFilenameError)
 	})
 
 	// Nextcloud 30+
@@ -136,14 +123,16 @@ describe('validateFilename', () => {
 	})
 
 	it('sets error properties correctly on invalid extension', async () => {
+		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_extensions: ['.txt'] } }))
+
 		try {
-			validateFilename('file.part')
+			validateFilename('file.txt')
 			expect(true, 'should not be reached').toBeFalsy()
 		} catch (error) {
 			expect(error).toBeInstanceOf(InvalidFilenameError)
 			expect((error as InvalidFilenameError).reason).toBe(InvalidFilenameErrorReason.Extension)
-			expect((error as InvalidFilenameError).segment).toBe('.part')
-			expect((error as InvalidFilenameError).filename).toBe('file.part')
+			expect((error as InvalidFilenameError).segment).toBe('.txt')
+			expect((error as InvalidFilenameError).filename).toBe('file.txt')
 		}
 	})
 
@@ -174,7 +163,6 @@ describe('validateFilename', () => {
 })
 
 describe('InvalidFilenameError', () => {
-
 	it('sets the filename', () => {
 		const error = new InvalidFilenameError({ filename: 'file', segment: 'fi', reason: InvalidFilenameErrorReason.Extension })
 		expect(error.filename).toBe('file')

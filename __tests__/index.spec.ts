@@ -1,24 +1,21 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, expect, test } from 'vitest'
 
+import { describe, expect, test } from 'vitest'
 import {
-	formatFileSize,
 	addNewFileMenuEntry,
-	removeNewFileMenuEntry,
-	getNewFileMenuEntries,
-	FileType,
 	File,
+	FileType,
 	Folder,
+	formatFileSize,
+	getNewFileMenuEntries,
 	Node,
 	Permission,
-	davParsePermissions,
-} from '../lib/index'
-
-import { Entry, NewFileMenu } from '../lib/newFileMenu'
-import { FileAction, registerFileAction, getFileActions } from '../lib/fileAction'
+	removeNewFileMenuEntry,
+} from '../lib/index.ts'
+import { getFileActions, registerFileAction } from '~/ui/actions/fileAction.ts'
 
 describe('Exports checks', () => {
 	test('formatFileSize', () => {
@@ -51,11 +48,6 @@ describe('Exports checks', () => {
 		expect(typeof Permission).toBe('object')
 	})
 
-	test('davParsePermissions', () => {
-		expect(davParsePermissions).toBeTruthy()
-		expect(typeof davParsePermissions).toBe('function')
-	})
-
 	test('File', () => {
 		expect(File).toBeTruthy()
 		expect(typeof File).toBe('function')
@@ -71,11 +63,6 @@ describe('Exports checks', () => {
 		expect(typeof Node).toBe('function')
 	})
 
-	test('FileAction', () => {
-		expect(FileAction).toBeTruthy()
-		expect(typeof FileAction).toBe('function')
-	})
-
 	test('registerFileAction', () => {
 		expect(registerFileAction).toBeTruthy()
 		expect(typeof Node).toBe('function')
@@ -84,40 +71,5 @@ describe('Exports checks', () => {
 	test('getFileActions', () => {
 		expect(getFileActions).toBeTruthy()
 		expect(typeof Node).toBe('function')
-	})
-})
-
-describe('NewFileMenu methods', () => {
-	const entry = {
-		id: 'empty-file',
-		displayName: 'Create empty file',
-		templateName: 'New file.txt',
-		iconClass: 'icon-filetype-text',
-		handler: () => {},
-	} as Entry
-
-	test('Init NewFileMenu', () => {
-		expect(window._nc_newfilemenu).toBeUndefined()
-
-		const menuEntries = getNewFileMenuEntries()
-		expect(menuEntries).toHaveLength(0)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
-	})
-
-	test('Use existing initialized NewFileMenu', () => {
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
-
-		addNewFileMenuEntry(entry)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
-
-		removeNewFileMenuEntry(entry)
-
-		expect(window._nc_newfilemenu).toBeDefined()
-		expect(window._nc_newfilemenu).toBeInstanceOf(NewFileMenu)
 	})
 })

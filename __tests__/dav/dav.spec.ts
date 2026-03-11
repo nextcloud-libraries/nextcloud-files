@@ -2,22 +2,22 @@
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { readFile } from 'node:fs/promises'
 
+import type { FileStat, WebDAVClient } from 'webdav'
+
+import * as auth from '@nextcloud/auth'
+import { readFile } from 'node:fs/promises'
+// required as default URL will be the DOM URL class which will use the window.location
+import { URL as FileURL } from 'node:url'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import {
 	defaultRemoteURL,
 	defaultRootPath,
-	getFavoritesReport,
 	getFavoriteNodes,
+	getFavoritesReport,
 	resultToNode,
-} from '../../lib/dav/index'
-import { File, Folder, NodeStatus } from '../../lib'
-import { FileStat } from 'webdav'
-import * as auth from '@nextcloud/auth'
-
-// required as default URL will be the DOM URL class which will use the window.location
-import { URL as FileURL } from 'node:url'
+} from '../../lib/dav/index.ts'
+import { File, Folder, NodeStatus } from '../../lib/index.ts'
 
 vi.mock('@nextcloud/auth')
 vi.mock('@nextcloud/router')
@@ -185,7 +185,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
@@ -197,7 +197,7 @@ describe('DAV requests', () => {
 		}
 
 		// Get the favorite nodes
-		const nodes = await getFavoriteNodes(client as never)
+		const nodes = await getFavoriteNodes({ client: client as unknown as WebDAVClient })
 
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()
@@ -218,7 +218,7 @@ describe('DAV requests', () => {
 
 		// Mock the WebDAV client
 		const client = {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
@@ -230,7 +230,7 @@ describe('DAV requests', () => {
 		}
 
 		// Get the favorite nodes
-		const nodes = await getFavoriteNodes(client as never, '/Neuer Ordner')
+		const nodes = await getFavoriteNodes({ client: client as unknown as WebDAVClient, path: '/Neuer Ordner' })
 
 		// Check client was called correctly
 		expect(client.getDirectoryContents).toBeCalled()

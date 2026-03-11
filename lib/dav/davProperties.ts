@@ -2,8 +2,11 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { getCurrentUser } from '@nextcloud/auth'
-import logger from '../utils/logger'
+import { getCapabilities } from '@nextcloud/capabilities'
+import { scopedGlobals } from '../globalScope.ts'
+import logger from '../utils/logger.ts'
 
 export type DavProperty = { [key: string]: string }
 
@@ -43,16 +46,14 @@ export const defaultDavNamespaces = {
  * @param prop The property
  * @param namespace The namespace of the property
  */
-export const registerDavProperty = function(prop: string, namespace: DavProperty = { nc: 'http://nextcloud.org/ns' }): boolean {
-	if (typeof window._nc_dav_properties === 'undefined') {
-		window._nc_dav_properties = [...defaultDavProperties]
-		window._nc_dav_namespaces = { ...defaultDavNamespaces }
-	}
+export function registerDavProperty(prop: string, namespace: DavProperty = { nc: 'http://nextcloud.org/ns' }): boolean {
+	scopedGlobals.davNamespaces ??= { ...defaultDavNamespaces }
+	scopedGlobals.davProperties ??= [...defaultDavProperties]
 
-	const namespaces = { ...window._nc_dav_namespaces, ...namespace }
+	const namespaces = { ...scopedGlobals.davNamespaces, ...namespace }
 
 	// Check duplicates
-	if (window._nc_dav_properties.find((search) => search === prop)) {
+	if (scopedGlobals.davProperties.find((search) => search === prop)) {
 		logger.warn(`${prop} already registered`, { prop })
 		return false
 	}
@@ -68,39 +69,33 @@ export const registerDavProperty = function(prop: string, namespace: DavProperty
 		return false
 	}
 
-	window._nc_dav_properties.push(prop)
-	window._nc_dav_namespaces = namespaces
+	scopedGlobals.davProperties.push(prop)
+	scopedGlobals.davNamespaces = namespaces
 	return true
 }
 
 /**
  * Get the registered dav properties
  */
-export const getDavProperties = function(): string {
-	if (typeof window._nc_dav_properties === 'undefined') {
-		window._nc_dav_properties = [...defaultDavProperties]
-	}
-
-	return window._nc_dav_properties.map((prop) => `<${prop} />`).join(' ')
+export function getDavProperties(): string {
+	scopedGlobals.davProperties ??= [...defaultDavProperties]
+	return scopedGlobals.davProperties.map((prop) => `<${prop} />`).join(' ')
 }
 
 /**
  * Get the registered dav namespaces
  */
-export const getDavNameSpaces = function(): string {
-	if (typeof window._nc_dav_namespaces === 'undefined') {
-		window._nc_dav_namespaces = { ...defaultDavNamespaces }
-	}
-
-	return Object.keys(window._nc_dav_namespaces)
-		.map((ns) => `xmlns:${ns}="${window._nc_dav_namespaces?.[ns]}"`)
+export function getDavNameSpaces(): string {
+	scopedGlobals.davNamespaces ??= { ...defaultDavNamespaces }
+	return Object.keys(scopedGlobals.davNamespaces)
+		.map((ns) => `xmlns:${ns}="${scopedGlobals.davNamespaces?.[ns]}"`)
 		.join(' ')
 }
 
 /**
  * Get the default PROPFIND request body
  */
-export const getDefaultPropfind = function(): string {
+export function getDefaultPropfind(): string {
 	return `<?xml version="1.0"?>
 		<d:propfind ${getDavNameSpaces()}>
 			<d:prop>
@@ -112,7 +107,7 @@ export const getDefaultPropfind = function(): string {
 /**
  * Get the REPORT body to filter for favorite nodes
  */
-export const getFavoritesReport = function(): string {
+export function getFavoritesReport(): string {
 	return `<?xml version="1.0"?>
 		<oc:filter-files ${getDavNameSpaces()}>
 			<d:prop>
@@ -125,9 +120,9 @@ export const getFavoritesReport = function(): string {
 }
 
 /**
- * Get the SEARCH body to search for recently modified files
+ * Get the SEARCH body to search for recently modified/uploaded files
  *
- * @param lastModified Oldest timestamp to include (Unix timestamp)
+ * @param timestamp Oldest timestamp to include (Unix timestamp)
  * @example
  * ```ts
  * // SEARCH for recent files need a different DAV endpoint
@@ -145,7 +140,10 @@ export const getFavoritesReport = function(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export const getRecentSearch = function(lastModified: number): string {
+export function getRecentSearch(timestamp: number): string {
+	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
+	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
+
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
@@ -179,12 +177,31 @@ export const getRecentSearch = function(lastModified: number): string {
 						<d:literal>0</d:literal>
 					</d:eq>
 				</d:or>
-				<d:gt>
-					<d:prop>
-						<d:getlastmodified/>
-					</d:prop>
-					<d:literal>${lastModified}</d:literal>
-				</d:gt>
+				${supportsUploadTime
+					? `
+						<d:or>
+							<d:gt>
+								<d:prop>
+									<d:getlastmodified/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+							<d:gt>
+								<d:prop>
+									<nc:upload_time/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+						</d:or>
+				`
+					: `
+					<d:gt>
+						<d:prop>
+							<d:getlastmodified/>
+						</d:prop>
+						<d:literal>${timestamp}</d:literal>
+					</d:gt>
+				`}
 			</d:and>
 		</d:where>
 		<d:orderby>

@@ -7,20 +7,22 @@ import { getCapabilities } from '@nextcloud/capabilities'
 
 interface NextcloudCapabilities extends Record<string, unknown> {
 	files: {
-		'bigfilechunking': boolean
+		bigfilechunking: boolean
 		// those are new in Nextcloud 30
-		'forbidden_filenames'?: string[]
-		'forbidden_filename_basenames'?: string[]
-		'forbidden_filename_characters'?: string[]
-		'forbidden_filename_extensions'?: string[]
+		forbidden_filenames?: string[]
+		forbidden_filename_basenames?: string[]
+		forbidden_filename_characters?: string[]
+		forbidden_filename_extensions?: string[]
 	}
 }
 
-export enum InvalidFilenameErrorReason {
-	ReservedName = 'reserved name',
-	Character = 'character',
-	Extension = 'extension',
-}
+export const InvalidFilenameErrorReason = Object.freeze({
+	ReservedName: 'reserved name',
+	Character: 'character',
+	Extension: 'extension',
+})
+
+export type TInvalidFilenameErrorReason = typeof InvalidFilenameErrorReason[keyof typeof InvalidFilenameErrorReason]
 
 interface InvalidFilenameErrorOptions {
 	/**
@@ -31,7 +33,7 @@ interface InvalidFilenameErrorOptions {
 	/**
 	 * Reason why the validation failed
 	 */
-	reason: InvalidFilenameErrorReason
+	reason: TInvalidFilenameErrorReason
 
 	/**
 	 * Part of the filename that caused this error
@@ -40,7 +42,6 @@ interface InvalidFilenameErrorOptions {
 }
 
 export class InvalidFilenameError extends Error {
-
 	public constructor(options: InvalidFilenameErrorOptions) {
 		super(`Invalid ${options.reason} '${options.segment}' in filename '${options.filename}'`, { cause: options })
 	}
@@ -65,11 +66,11 @@ export class InvalidFilenameError extends Error {
 	public get segment() {
 		return (this.cause as InvalidFilenameErrorOptions).segment
 	}
-
 }
 
 /**
  * Validate a given filename
+ *
  * @param filename The filename to check
  * @throws {InvalidFilenameError}
  */
@@ -78,7 +79,7 @@ export function validateFilename(filename: string): void {
 
 	// Handle forbidden characters
 	// This needs to be done first as the other checks are case insensitive!
-	const forbiddenCharacters = capabilities.forbidden_filename_characters ?? window._oc_config?.forbidden_filenames_characters ?? ['/', '\\']
+	const forbiddenCharacters = capabilities.forbidden_filename_characters ?? ['/', '\\']
 	for (const character of forbiddenCharacters) {
 		if (filename.includes(character)) {
 			throw new InvalidFilenameError({ segment: character, reason: InvalidFilenameErrorReason.Character, filename })
@@ -102,9 +103,7 @@ export function validateFilename(filename: string): void {
 		throw new InvalidFilenameError({ filename, segment: basename, reason: InvalidFilenameErrorReason.ReservedName })
 	}
 
-	// The legacy 'blacklist_files_regex' was hardcoded to the extension '.part' and '.filepart'
-	// So if the new (Nextcloud 30) capability is not awailable then we fallback to that
-	const forbiddenFilenameExtensions = capabilities.forbidden_filename_extensions ?? ['.part', '.filepart']
+	const forbiddenFilenameExtensions = capabilities.forbidden_filename_extensions ?? []
 	for (const extension of forbiddenFilenameExtensions) {
 		if (filename.length > extension.length && filename.endsWith(extension)) {
 			throw new InvalidFilenameError({ segment: extension, reason: InvalidFilenameErrorReason.Extension, filename })
@@ -114,7 +113,8 @@ export function validateFilename(filename: string): void {
 
 /**
  * Check the validity of a filename
- * This is a convinient wrapper for `checkFilenameValidity` to only return a boolean for the valid
+ * This is a convenient wrapper for `checkFilenameValidity` to only return a boolean for the valid
+ *
  * @param filename Filename to check validity
  */
 export function isFilenameValid(filename: string): boolean {

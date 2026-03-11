@@ -19,7 +19,7 @@ const humanListBinary = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
  * @param binaryPrefixes True if size binary prefixes like `KiB` should be used as per IEC 80000-13
  * @param base1000 Set to true to use base 1000 as per SI or used by Apple (default is base 1024 like Linux or Windows)
  */
-export function formatFileSize(size: number|string, skipSmallSizes = false, binaryPrefixes = false, base1000 = false): string {
+export function formatFileSize(size: number | string, skipSmallSizes = false, binaryPrefixes = false, base1000 = false): string {
 	// Binary prefixes only work with base 1024
 	binaryPrefixes = binaryPrefixes && !base1000
 
@@ -53,14 +53,14 @@ export function formatFileSize(size: number|string, skipSmallSizes = false, bina
  * Returns a file size in bytes from a humanly readable string
  * Note: `b` and `B` are both parsed as bytes and not as bit or byte.
  *
- * @param  {string} value file size in human-readable format
- * @param  {boolean} forceBinary for backwards compatibility this allows values to be base 2 (so 2KB means 2048 bytes instead of 2000 bytes)
- * @return {number} or null if string could not be parsed
+ * @param value file size in human-readable format
+ * @param forceBinary for backwards compatibility this allows values to be base 2 (so 2KB means 2048 bytes instead of 2000 bytes)
+ * @return or null if string could not be parsed
  */
 export function parseFileSize(value: string, forceBinary = false) {
 	try {
 		value = `${value}`.toLocaleLowerCase().replaceAll(/\s+/g, '').replaceAll(',', '.')
-	} catch (e) {
+	} catch {
 		return null
 	}
 

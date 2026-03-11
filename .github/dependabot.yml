@@ -1,18 +1,58 @@
-# SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: CC0-1.0
 
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "03:00"
-    timezone: Europe/Paris
-  labels:
-    - "type: dependencies"
-  reviewers:
-    - "nextcloud-libraries/files"
-  open-pull-requests-limit: 10
-  versioning-strategy: increase
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "03:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    labels:
+      - 3. to review
+      - "type: dependencies"
+
+  - package-ecosystem: npm
+    target-branch: main
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "03:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    versioning-strategy: "increase"
+    labels:
+      - "type: dependencies"
+      - 3. to review
+    groups:
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+
+  - package-ecosystem: npm
+    target-branch: stable3
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "03:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    versioning-strategy: "increase"
+    labels:
+      - 3. to review
+      - "type: dependencies"
+    ignore:
+      - dependency-name: "*"
+        # ignore all major updates
+        update-types: ["version-update:semver-major"]
+    groups:
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"

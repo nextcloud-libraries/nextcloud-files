@@ -4,7 +4,10 @@
   "compilerOptions": {
   // Allow us to pass js files to ts-jest without babel
     "allowJs": true,
-    "rootDir": ".."
+    "rootDir": "..",
+    "paths": {
+      "~/*": ["../lib/*"]
+    }
   }
 }
   

@@ -2,8 +2,8 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
  */
-import { describe, it, expect, vi } from 'vitest'
-import { getUniqueName } from '../../lib/index'
+import { describe, expect, it, vi } from 'vitest'
+import { getUniqueName } from '../../lib/index.ts'
 
 describe('getUniqueName', () => {
 	it('returns the same name if unique', () => {

@@ -1,23 +1,29 @@
-/**
+/*
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import type { INode } from '../files/node'
-import type { SortingOrder } from './sorting'
-import { orderBy } from './sorting'
 
-export enum FilesSortingMode {
-	Name = 'basename',
-	Modified = 'mtime',
-	Size = 'size',
-}
+import type { INode } from '../node/node.ts'
+import type { SortingOrder } from './sorting.ts'
+
+import { FileType } from '../node/fileType.ts'
+import { orderBy } from './sorting.ts'
+
+export const FilesSortingMode = Object.freeze({
+	Name: 'basename',
+	Modified: 'mtime',
+	Size: 'size',
+})
+
+export type TFilesSortingMode = typeof FilesSortingMode[keyof typeof FilesSortingMode]
 
 export interface FilesSortingOptions {
 	/**
 	 * They key to order the files by
+	 *
 	 * @default FilesSortingMode.Name
 	 */
-	sortingMode?: FilesSortingMode
+	sortingMode?: TFilesSortingMode | string
 
 	/**
 	 * @default 'asc'
@@ -26,12 +32,14 @@ export interface FilesSortingOptions {
 
 	/**
 	 * If set to true nodes marked as favorites are ordered on top of all other nodes
+	 *
 	 * @default false
 	 */
 	sortFavoritesFirst?: boolean
 
 	/**
 	 * If set to true folders are ordered on top of files
+	 *
 	 * @default false
 	 */
 	sortFoldersFirst?: boolean
@@ -39,6 +47,7 @@ export interface FilesSortingOptions {
 
 /**
  * Sort files and folders according to the sorting options
+ *
  * @param nodes Nodes to sort
  * @param options Sorting options
  */
@@ -52,10 +61,20 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 	}
 
 	/**
-	 * Get the basename without any extension
-	 * @param name The filename to extract the basename from
+	 * Get the basename without any extension if the current node is a file
+	 *
+	 * @param node - The node to get the basename of
 	 */
-	const basename = (name: string) => name.lastIndexOf('.') > 0 ? name.slice(0, name.lastIndexOf('.')) : name
+	function basename(node: INode): string {
+		const name = node.displayname || node.attributes?.displayname || node.basename || ''
+		if (node.type === FileType.Folder) {
+			return name
+		}
+
+		return name.lastIndexOf('.') > 0
+			? name.slice(0, name.lastIndexOf('.'))
+			: name
+	}
 
 	const identifiers = [
 		// 1: Sort favorites first if enabled
@@ -63,9 +82,9 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		// 2: Sort folders first if sorting by name
 		...(sortingOptions.sortFoldersFirst ? [(v: INode) => v.type !== 'folder'] : []),
 		// 3: Use sorting mode if NOT basename (to be able to use display name too)
-		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode]] : []),
+		...(sortingOptions.sortingMode !== FilesSortingMode.Name ? [(v: INode) => v[sortingOptions.sortingMode] ?? v.attributes[sortingOptions.sortingMode]] : []),
 		// 4: Use display name if available, fallback to name
-		(v: INode) => basename(v.displayname || v.attributes?.displayname || v.basename),
+		(v: INode) => basename(v),
 		// 5: Finally, use basename if all previous sorting methods failed
 		(v: INode) => v.basename,
 	]
@@ -82,7 +101,7 @@ export function sortNodes(nodes: readonly INode[], options: FilesSortingOptions 
 		sortingOptions.sortingOrder,
 		// for 5: use configured sorting direction
 		sortingOptions.sortingOrder,
-	] as ('asc'|'desc')[]
+	] as ('asc' | 'desc')[]
 
 	return orderBy(nodes, identifiers, orders)
 }

@@ -2,13 +2,15 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+
 import { getCanonicalLocale, getLanguage } from '@nextcloud/l10n'
 
 type IdentifierFn<T> = (v: T) => unknown
-export type SortingOrder = 'asc'|'desc'
+export type SortingOrder = 'asc' | 'desc'
 
 /**
  * Helper to create string representation
+ *
  * @param value Value to stringify
  */
 function stringify(value: unknown) {

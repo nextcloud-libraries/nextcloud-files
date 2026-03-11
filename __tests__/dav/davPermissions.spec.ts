@@ -2,34 +2,32 @@
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import { describe, it, expect } from 'vitest'
-
-import { parsePermissions } from '../../lib/dav/davPermissions'
-import { Permission } from '../../lib/permissions'
+import { describe, expect, it } from 'vitest'
+import { parsePermissions } from '../../lib/dav/davPermissions.ts'
+import { Permission } from '../../lib/permissions.ts'
 
 const dataSet = [
 	{ input: undefined, permissions: Permission.NONE },
 	{ input: null, permissions: Permission.NONE },
 	{ input: '-', permissions: Permission.NONE },
-	{ input: 'C', permissions: Permission.CREATE },
-	{ input: 'K', permissions: Permission.CREATE },
+	{ input: 'CK', permissions: Permission.CREATE },
 	{ input: 'G', permissions: Permission.READ },
-	{ input: 'W', permissions: Permission.UPDATE },
-	{ input: 'N', permissions: Permission.UPDATE },
-	{ input: 'V', permissions: Permission.UPDATE },
+	{ input: 'W', permissions: Permission.WRITE },
+	{ input: 'NV', permissions: Permission.UPDATE },
 	{ input: 'D', permissions: Permission.DELETE },
 	{ input: 'R', permissions: Permission.SHARE },
-	{ input: 'CKGW', permissions: Permission.CREATE | Permission.READ | Permission.UPDATE },
+	{ input: 'GCK', permissions: Permission.READ | Permission.CREATE },
+	{ input: 'GNV', permissions: Permission.READ | Permission.UPDATE },
+	{ input: 'GNVCK', permissions: Permission.READ | Permission.CREATE | Permission.UPDATE },
 	{ input: 'GR', permissions: Permission.READ | Permission.SHARE },
 	{ input: 'GD', permissions: Permission.READ | Permission.DELETE },
-	{ input: 'RGDNVW', permissions: Permission.UPDATE | Permission.READ | Permission.DELETE | Permission.SHARE },
-	{ input: 'RGDNVCK', permissions: Permission.UPDATE | Permission.READ | Permission.DELETE | Permission.CREATE | Permission.SHARE },
+	{ input: 'RGDNVW', permissions: Permission.READ | Permission.UPDATE | Permission.WRITE | Permission.DELETE | Permission.SHARE },
+	{ input: 'RGDNVCK', permissions: Permission.READ | Permission.UPDATE | Permission.CREATE | Permission.DELETE | Permission.SHARE },
 ]
 
 describe('davParsePermissions', () => {
 	dataSet.forEach(({ input, permissions }) => {
 		it(`expect ${input} to be ${permissions}`, () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			expect(parsePermissions(input as any as string)).toBe(permissions)
 		})
 	})
