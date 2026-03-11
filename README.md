@@ -226,14 +226,20 @@ const nodes = results.data.map((result) => resultToNode(r, myRoot, myRemoteURL))
 #### Using WebDAV to get a Node from a file's name
 
 ```ts
-	import { getClient, davGetDefaultPropfind, resultToNode, davRootPath } from '@nextcloud/files'
-	import { emit } from '@nextcloud/event-bus'
-	const client = getClient()
-	client.stat(`${davRootPath}${filename}`, {
-		details: true,
-		data: davGetDefaultPropfind(),
-	}).then((result) => {
-		const node = resultToNode(result.data)
-		emit('files:node:updated', node)
-	})
+import {
+	getClient,
+	getDefaultPropfind,
+	resultToNode,
+	defaultRootPath,
+} from '@nextcloud/files/dav'
+import { emit } from '@nextcloud/event-bus'
+
+const client = getClient()
+client.stat(`${defaultRootPath}${filename}`, {
+	details: true,
+	data: getDefaultPropfind(),
+}).then((result) => {
+	const node = resultToNode(result.data)
+	emit('files:node:updated', node)
+})
 ```
