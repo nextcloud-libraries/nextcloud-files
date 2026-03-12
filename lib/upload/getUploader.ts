@@ -1,0 +1,26 @@
+/*!
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+import { isPublicShare } from '@nextcloud/sharing/public'
+import { scopedGlobals } from '../globalScope.ts'
+import { Uploader } from './uploader/Uploader.ts'
+
+/**
+ * Get the global Uploader instance.
+ *
+ * Note: If you need a local uploader you can just create a new instance,
+ * this global instance will be shared with other apps and is mostly useful
+ * for the Files app web UI to keep track of all uploads and their progress.
+ *
+ * @param isPublic Set to true to use public upload endpoint (by default it is auto detected)
+ * @param forceRecreate Force a new uploader instance - main purpose is for testing
+ */
+export function getUploader(isPublic: boolean = isPublicShare(), forceRecreate = false): Uploader {
+	if (forceRecreate || scopedGlobals.uploader === undefined) {
+		scopedGlobals.uploader = new Uploader(isPublic)
+	}
+
+	return scopedGlobals.uploader
+}

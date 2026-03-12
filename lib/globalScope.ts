@@ -13,6 +13,7 @@ import type {
 import type { IFileAction, IFileListAction } from './ui/actions/index.ts'
 import type { FilesRegistry } from './ui/registry.ts'
 import type { ISidebarAction, ISidebarTab } from './ui/sidebar/index.ts'
+import type { Uploader } from './upload/index.ts'
 
 interface InternalGlobalScope {
 	davNamespaces?: DavProperty
@@ -21,6 +22,8 @@ interface InternalGlobalScope {
 	newFileMenu?: NewMenu
 	navigation?: Navigation
 	registry?: FilesRegistry
+
+	uploader?: Uploader
 
 	fileActions?: Map<string, IFileAction>
 	fileListActions?: Map<string, IFileListAction>
