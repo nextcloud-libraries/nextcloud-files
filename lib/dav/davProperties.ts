@@ -29,6 +29,7 @@ export const defaultDavProperties = [
 	'oc:owner-id',
 	'oc:permissions',
 	'oc:size',
+	'nc:upload_time',
 ]
 
 export const defaultDavNamespaces = {
@@ -151,7 +152,6 @@ export function getRecentSearch(timestamp: number): string {
 		<d:select>
 			<d:prop>
 				${getDavProperties()}
-				${supportsUploadTime ? '<nc:upload_time/>' : ''}
 			</d:prop>
 		</d:select>
 		<d:from>
