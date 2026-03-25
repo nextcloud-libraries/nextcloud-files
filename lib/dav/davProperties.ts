@@ -4,6 +4,7 @@
  */
 
 import { getCurrentUser } from '@nextcloud/auth'
+import { getCapabilities } from '@nextcloud/capabilities'
 import { scopedGlobals } from '../globalScope.ts'
 import logger from '../utils/logger.ts'
 
@@ -141,6 +142,9 @@ export function getFavoritesReport(): string {
  * ```
  */
 export function getRecentSearch(timestamp: number, limit: number = 100): string {
+	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
+	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
+
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
@@ -174,6 +178,31 @@ export function getRecentSearch(timestamp: number, limit: number = 100): string 
 						<d:literal>0</d:literal>
 					</d:eq>
 				</d:or>
+				${supportsUploadTime
+					? `
+						<d:or>
+							<d:gt>
+								<d:prop>
+									<d:getlastmodified/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+							<d:gt>
+								<d:prop>
+									<nc:upload_time/>
+								</d:prop>
+								<d:literal>${timestamp}</d:literal>
+							</d:gt>
+						</d:or>
+				`
+					: `
+					<d:gt>
+						<d:prop>
+							<d:getlastmodified/>
+						</d:prop>
+						<d:literal>${timestamp}</d:literal>
+					</d:gt>
+				`}
 			</d:and>
 		</d:where>
 		<d:orderby>
