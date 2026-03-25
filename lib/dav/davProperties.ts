@@ -128,6 +128,7 @@ export const getFavoritesReport = function(): string {
  * Get the SEARCH body to search for recently modified files
  *
  * @param lastModified Oldest timestamp to include (Unix timestamp)
+ * @param limit Maximum number of items to return
  * @example
  * ```ts
  * // SEARCH for recent files need a different DAV endpoint
@@ -145,7 +146,7 @@ export const getFavoritesReport = function(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export const getRecentSearch = function(lastModified: number): string {
+export const getRecentSearch = function(lastModified: number, limit: number = 100): string {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
