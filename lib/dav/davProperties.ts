@@ -142,8 +142,10 @@ export function getFavoritesReport(): string {
  * ```
  */
 export function getRecentSearch(timestamp: number, limit: number = 100): string {
-	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
+	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean, search_supports_last_activity?: boolean } }
 	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
+	const supportsLastActivity = capabilities.dav?.search_supports_last_activity
+	const orderByProp = supportsLastActivity ? '<nc:last_activity/>' : '<d:getlastmodified/>'
 
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
@@ -208,7 +210,7 @@ export function getRecentSearch(timestamp: number, limit: number = 100): string 
 		<d:orderby>
 			<d:order>
 				<d:prop>
-					<d:getlastmodified/>
+					${orderByProp}
 				</d:prop>
 				<d:descending/>
 			</d:order>
