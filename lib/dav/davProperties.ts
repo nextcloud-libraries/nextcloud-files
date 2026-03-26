@@ -129,6 +129,7 @@ export const getFavoritesReport = function(): string {
  * Get the SEARCH body to search for recently modified files
  *
  * @param lastModified Oldest timestamp to include (Unix timestamp)
+ * @param limit Maximum number of items to return
  * @example
  * ```ts
  * // SEARCH for recent files need a different DAV endpoint
@@ -146,7 +147,7 @@ export const getFavoritesReport = function(): string {
  * }) as ResponseDataDetailed<FileStat[]>
  * ```
  */
-export const getRecentSearch = function(lastModified: number): string {
+export const getRecentSearch = function(lastModified: number, limit: number = 100): string {
 	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
 	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
 
@@ -219,7 +220,7 @@ export const getRecentSearch = function(lastModified: number): string {
 			</d:order>
 		</d:orderby>
 		<d:limit>
-			<d:nresults>100</d:nresults>
+			<d:nresults>${limit}</d:nresults>
 			<ns:firstresult>0</ns:firstresult>
 		</d:limit>
 	</d:basicsearch>
