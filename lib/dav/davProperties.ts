@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import { getCurrentUser } from '@nextcloud/auth'
+import { getCapabilities } from '@nextcloud/capabilities'
 import logger from '../utils/logger'
 
 export type DavProperty = { [key: string]: string }
@@ -147,6 +148,9 @@ export const getFavoritesReport = function(): string {
  * ```
  */
 export const getRecentSearch = function(lastModified: number, limit: number = 100): string {
+	const capabilities = getCapabilities() as { dav?: { search_supports_upload_time?: boolean } }
+	const supportsUploadTime = capabilities.dav?.search_supports_upload_time
+
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <d:searchrequest ${getDavNameSpaces()}
 	xmlns:ns="https://github.com/icewind1991/SearchDAV/ns">
@@ -180,12 +184,31 @@ export const getRecentSearch = function(lastModified: number, limit: number = 10
 						<d:literal>0</d:literal>
 					</d:eq>
 				</d:or>
-				<d:gt>
-					<d:prop>
-						<d:getlastmodified/>
-					</d:prop>
-					<d:literal>${lastModified}</d:literal>
-				</d:gt>
+				${supportsUploadTime
+		? `
+						<d:or>
+							<d:gt>
+								<d:prop>
+									<d:getlastmodified/>
+								</d:prop>
+								<d:literal>${lastModified}</d:literal>
+							</d:gt>
+							<d:gt>
+								<d:prop>
+									<nc:upload_time/>
+								</d:prop>
+								<d:literal>${lastModified}</d:literal>
+							</d:gt>
+						</d:or>
+				`
+		: `
+					<d:gt>
+						<d:prop>
+							<d:getlastmodified/>
+						</d:prop>
+						<d:literal>${lastModified}</d:literal>
+					</d:gt>
+				`}
 			</d:and>
 		</d:where>
 		<d:orderby>
