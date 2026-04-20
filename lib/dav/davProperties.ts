@@ -29,6 +29,7 @@ export const defaultDavProperties = [
 	'oc:owner-id',
 	'oc:permissions',
 	'oc:size',
+	'nc:upload_time',
 ]
 
 export const defaultDavNamespaces = {
