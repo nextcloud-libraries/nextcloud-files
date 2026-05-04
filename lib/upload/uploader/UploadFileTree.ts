@@ -90,10 +90,15 @@ export class UploadFileTree extends Upload implements IUpload {
 		return false
 	}
 
+	get children(): IUpload[] {
+		return [...this.#children]
+	}
+
 	/**
 	 * Set up all child uploads for this upload tree.
 	 */
 	initialize(): (Upload & IUpload)[] {
+		const grandchildren: (Upload & IUpload)[] = []
 		for (const child of this.#directory.children) {
 			if (child instanceof FileTree) {
 				const upload = new UploadFileTree(
@@ -105,7 +110,8 @@ export class UploadFileTree extends Upload implements IUpload {
 						noChunking: this.#noChunking,
 					},
 				)
-				this.#children.push(upload, ...upload.initialize())
+				this.#children.push(upload)
+				grandchildren.push(...upload.initialize())
 			} else {
 				const upload = new UploadFile(
 					join(this.source, child.name),
@@ -115,7 +121,7 @@ export class UploadFileTree extends Upload implements IUpload {
 				this.#children.push(upload)
 			}
 		}
-		return this.#children
+		return [...this.#children, ...grandchildren]
 	}
 
 	async start(queue: PQueue): Promise<void> {
