@@ -26,6 +26,10 @@
     "./dav": {
       "types": "./dist/dav/index.d.ts",
       "import": "./dist/dav.mjs"
+    },
+    "./upload": {
+      "types": "./dist/upload/index.d.ts",
+      "import": "./dist/upload.mjs"
     }
   },
   "files": [

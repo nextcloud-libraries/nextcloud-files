@@ -8,6 +8,7 @@ import { createLibConfig } from '@nextcloud/vite-config'
 export default createLibConfig({
 	index: 'lib/index.ts',
 	dav: 'lib/dav/index.ts',
+	upload: 'lib/upload/index.ts',
 }, {
 	config: {
 		plugins: [
