@@ -629,7 +629,7 @@ export class Uploader {
 						throw new UploadCancelledError(error)
 					} else {
 						upload.status = UploadStatus.FAILED
-						throw new Error('Failed to assemble the chunks together')
+						throw new Error('Failed to assemble the chunks together', { cause: error })
 					}
 				} finally {
 					// Notify listeners of the upload completion
@@ -688,7 +688,7 @@ export class Uploader {
 
 					upload.status = UploadStatus.FAILED
 					logger.error(`Failed uploading ${file.name}`, { error, file, upload })
-					throw new Error('Failed to upload the file')
+					throw new Error('Failed to upload the file', { cause: error })
 				} finally {
 					// Notify listeners of the upload completion
 					this._notifyAll(upload)
