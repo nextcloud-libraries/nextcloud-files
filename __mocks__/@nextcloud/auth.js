@@ -13,3 +13,7 @@ export function getCurrentUser() {
 export function getRequestToken() {
 	return 'some-token-string'
 }
+
+export function onRequestTokenUpdate() {
+	// dummy
+}

@@ -11,7 +11,7 @@ import { UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
 
 const isPublicShareMock = vi.hoisted(() => vi.fn())
-vi.mock('@nextcloud/sharing/public', () => ({ isPublicShare: isPublicShareMock }))
+vi.mock('@nextcloud/sharing/public', async (original) => ({ ...await original(), isPublicShare: isPublicShareMock }))
 
 const initChunkWorkspaceMock = vi.hoisted(() => vi.fn())
 const uploadDataMock = vi.hoisted(() => vi.fn())

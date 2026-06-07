@@ -6,6 +6,13 @@
 import { afterAll, beforeAll, describe, expect, it, test, vi } from 'vitest'
 import { Eta, EtaStatus } from './Eta.ts'
 
+vi.mock('@nextcloud/l10n', async (original) => ({
+	...(await original()),
+	getCanonicalLocale() {
+		return 'en-US'
+	},
+}))
+
 describe('ETA - status', () => {
 	it('has default set', () => {
 		const eta = new Eta()
