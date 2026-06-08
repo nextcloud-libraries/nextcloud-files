@@ -216,7 +216,9 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 
 	public reset() {
 		for (const upload of this.#uploadQueue) {
-			upload.cancel()
+			if (upload.status !== UploadStatus.FINISHED && upload.status !== UploadStatus.FAILED) {
+				upload.cancel()
+			}
 		}
 
 		this.#uploadQueue = []

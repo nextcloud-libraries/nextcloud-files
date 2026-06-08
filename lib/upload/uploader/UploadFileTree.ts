@@ -7,11 +7,12 @@ import type PQueue from 'p-queue'
 import type { IUpload, TUploadStatus } from './Upload.ts'
 
 import axios, { isAxiosError } from '@nextcloud/axios'
-import { basename, join } from '@nextcloud/paths'
+import { basename } from '@nextcloud/paths'
 import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { UploadFailedError } from '../errors/UploadFailedError.ts'
 import { Directory as FileTree } from '../utils/fileTree.ts'
 import { getMtimeHeader, isRequestAborted } from '../utils/requests.ts'
+import { concatUrl } from '../utils/url.ts'
 import { Upload, UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
 
@@ -102,7 +103,7 @@ export class UploadFileTree extends Upload implements IUpload {
 		for (const child of this.#directory.children) {
 			if (child instanceof FileTree) {
 				const upload = new UploadFileTree(
-					join(this.source, child.originalName),
+					concatUrl(this.source, child.originalName),
 					child,
 					{
 						callback: this.#conflictsCallback,
@@ -114,7 +115,7 @@ export class UploadFileTree extends Upload implements IUpload {
 				grandchildren.push(...upload.initialize())
 			} else {
 				const upload = new UploadFile(
-					join(this.source, child.name),
+					concatUrl(this.source, child.name),
 					child,
 					{ headers: this.#customHeaders, noChunking: this.#noChunking },
 				)
@@ -147,18 +148,19 @@ export class UploadFileTree extends Upload implements IUpload {
 			for (const [originalName, newName] of Object.entries(nodes)) {
 				const upload = this.#children.find((child) => basename(child.source) === originalName)
 				if (upload) {
-					Object.defineProperty(upload, 'source', { value: join(this.source, newName) })
+					Object.defineProperty(upload, 'source', { value: concatUrl(this.source, newName) })
 				}
 			}
 		}
 
 		const uploads: Promise<void>[] = []
 		for (const upload of this.#children) {
-			uploads.push(upload.start(queue))
 			// for folder tree uploads store the conflict resolution state to prevent useless requests
 			if (upload instanceof UploadFileTree) {
 				upload.needConflictResolution = this.needConflictResolution
 			}
+
+			uploads.push(upload.start(queue))
 		}
 
 		try {

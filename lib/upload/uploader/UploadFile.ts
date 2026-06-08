@@ -102,6 +102,10 @@ export class UploadFile extends Upload implements IUpload {
 		const chunk = await getChunk(this.#file!, 0, this.#file!.size)
 		try {
 			await this.#uploadChunk(chunk, this.source)
+		} catch (error) {
+			if (!(error instanceof UploadCancelledError)) {
+				throw error
+			}
 		} finally {
 			this.dispatchTypedEvent('finished', new CustomEvent('finished', { detail: this }))
 		}
