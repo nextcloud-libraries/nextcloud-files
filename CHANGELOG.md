@@ -6,6 +6,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.1.0-beta.0 - 2026-06-12
+This is a first beta for version v4.1 which includes the new uploader logic.
+It is released as a beta to get some insights into potential issues with the uploader,
+so that API is allowed to still get breaking changes.
+
+### 🚀 Enhancements
+* feat(recent-search): include recently uploaded files in addition to modified files \([\#1498](https://github.com/nextcloud-libraries/nextcloud-files/pull/1498)\)
+* feat(recent-search): add creation_time property and use capatabilities to identify wheter creation_time and upload_time are supported \([\#1517](https://github.com/nextcloud-libraries/nextcloud-files/pull/1517)\)
+* feat(upload): merge upload related API from `@nextcloud/upload` \([\#1509](https://github.com/nextcloud-libraries/nextcloud-files/pull/1509)\)
+* feat(recent-search): add parameter to allow dynamic limit of returned items \([\#1527](https://github.com/nextcloud-libraries/nextcloud-files/pull/1527)\)
+* feat(recent-search): allow ordering by nc:last_activity when capability is true \([\#1547](https://github.com/nextcloud-libraries/nextcloud-files/pull/1547)\)
+* feat(recent-search): add nc:upload_time as a select prop \([\#1543](https://github.com/nextcloud-libraries/nextcloud-files/pull/1543)\)
+
+### Changes
+* refactor: group all UI integrations in folder structure \([\#1496](https://github.com/nextcloud-libraries/nextcloud-files/pull/1496)\)
+* refactor(upload): split uploader into separate classes for file and folder uploads \([\#1535](https://github.com/nextcloud-libraries/nextcloud-files/pull/1535)\)
+* ci: update all workflow templates from organization template repository \([\#1565](https://github.com/nextcloud-libraries/nextcloud-files/pull/1565)\)
+* ci: update all workflow templates from organization template repository \([\#1566](https://github.com/nextcloud-libraries/nextcloud-files/pull/1566)\)
+* chore(deps): Bump @nextcloud/sharing to 0.4.0
+* chore(deps): Bump @nextcloud/paths to 3.1.0
+* chore(deps): Bump @nextcloud/auth to 2.6.0
+* chore(deps): Bump @nextcloud/axios to 2.6.0
+
 ## 4.0.0 - 2026-02-10
 ℹ️ *The release does not contain any breaking changes compared to [v4.0.0-rc.3](https://github.com/nextcloud-libraries/nextcloud-files/blob/v4.0.0-rc.3/CHANGELOG.md#400-rc3---2026-02-09).*
 
@@ -141,7 +164,7 @@ instead just make sure to implement the provided interfaces.
 * chore: work around bug in `corepack` blocking dependency updates [\#1292](https://github.com/nextcloud-libraries/nextcloud-files/pull/1292)
 * chore(deps): align and update vitest dependencies [\#1389](https://github.com/nextcloud-libraries/nextcloud-files/pull/1389)
 * chore: adjust types to only use interfaces if possible [\#1440](https://github.com/nextcloud-libraries/nextcloud-files/pull/1440)
-* chore(deps): Bump typescript-event-target from 1.1.1 to 1.1.2 [\#1450](https://github.com/nextcloud-libraries/nextcloud-files/pull/1450)
+* chore(deps): Bump typescript-event-target to 1.1.2 [\#1450](https://github.com/nextcloud-libraries/nextcloud-files/pull/1450)
 * chore: update to ESLint v9 [\#1457](https://github.com/nextcloud-libraries/nextcloud-files/pull/1457)
 * refactor: drop dependency on Node modules [\#1421](https://github.com/nextcloud-libraries/nextcloud-files/pull/1421)
 * refactor: scope global state to major version of library [\#1492](https://github.com/nextcloud-libraries/nextcloud-files/pull/1492)\
@@ -254,22 +277,10 @@ Broken - do not use.
 * feat: Allow views to be naturally sorted [\#1053](https://github.com/nextcloud-libraries/nextcloud-files/pull/1053) \([@Pytal](https://github.com/Pytal)\)
 
 ### Changed
-* chore(deps-dev): Bump `@nextcloud/vite-config` to 2.2.2
-* chore(deps-dev): Bump `vite` to 5.4.0
 * chore(deps): Bump `webdav` to 5.7.1
-* chore(deps-dev): Bump `@types/node` to 22.2.0
 * chore(deps): Bump `is-svg` to 5.1.0
 * chore(deps): Bump `@nextcloud/auth` to 2.4.0
-* chore(deps-dev): Bump `vite` to 5.4.1
-* chore(deps-dev): Bump `@types/node` to 22.4.0
-* chore(deps-dev): Bump `elliptic` to 6.5.7
-* chore(deps-dev): Bump `tslib` to 2.7.0
-* chore(deps-dev): Bump `@types/node` to 22.5.0
-* chore(deps-dev): Bump `typedoc` to 0.26.6
-* chore(deps-dev): Bump `vite` to 5.4.2
-* chore(deps-dev): Bump `@types/node` to 22.5.1
 * Update dependabot-approve-merge.yml from main org [\#1066](https://github.com/nextcloud-libraries/nextcloud-files/pull/1066) \([@AndyScherzinger](https://github.com/AndyScherzinger)\)
-* chore(deps-dev): Bump ``jsdom`` to 25.0.0
 
 ## 3.8.0 - 2024-08-08
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.7.0...v3.8.0)
@@ -278,18 +289,9 @@ Broken - do not use.
 * feat: Allow registration of load child views callback on view [\#1046](https://github.com/nextcloud-libraries/nextcloud-files/pull/1046) \([@Pytal](https://github.com/Pytal)\)
 
 ### Changed
-* chore(deps-dev): Bump ``@vitest/coverage-istanbul`` to 2.0.4
-* chore(deps-dev): Bump ``typedoc`` to 0.26.5
 * chore(deps): Bump ``@nextcloud/paths`` to 2.2.1
 * chore(deps): Bump ``@nextcloud/sharing`` to 0.2.3
-* chore(deps-dev): Bump ``vite`` to 5.3.5
-* chore(deps-dev): Bump ``jsdom`` to 24.1.1
-* chore(deps-dev): Bump ``@types/node`` to 20.14.12
-* chore(deps-dev): Bump ``typescript`` to 5.5.4
-* chore(deps-dev): Bump ``fast-xml-parser`` to 4.4.1
-* chore(deps-dev): Bump ``@vitest/coverage-istanbul`` to 2.0.5
 * chore(deps): Bump ``webdav`` to 5.7.0
-* chore(deps-dev): Bump ``@types/node`` to 22.1.0
 
 ## 3.7.0 - 2024-07-25
 [Full changelog](https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.6.0...v3.7.0)
@@ -331,7 +333,6 @@ Broken - do not use.
 * fix(sorting): The display name attribute is called `displayname` not `displayName` for DAV \([\#992](https://github.com/nextcloud-libraries/nextcloud-files/pull/992)\)
 
 ### Changed
-* chore(deps-dev): Bump `ws` to 8.17.
 * chore: Update development dependencies
 
 ## 3.5.0 - 2024-06-17
@@ -357,9 +358,6 @@ Broken - do not use.
 * fix(node): remove auto mtime update on attributes change and allow mtime set [\#974](https://github.com/nextcloud-libraries/nextcloud-files/pull/974) \([@skjnldsv](https://github.com/skjnldsv)\)
 
 ### Changed
-* chore(deps-dev): Bump `vite` to 5.2.12
-* chore(deps-dev): Bump `@types/node` to 20.13.0
-* chore(deps-dev): Bump `jsdom` to 24.1.0
 
 ## 3.4.0 - 2024-05-29
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.3.1...v3.4.0
@@ -371,8 +369,6 @@ Broken - do not use.
 * fix(Node): Do not drop readonly attributes but only forbid updating them [\#967](https://github.com/nextcloud-libraries/nextcloud-files/pull/967) \([@susnux](https://github.com/susnux)\)
 
 ### Changed
-* chore(deps-dev): Bump @codecov/vite-plugin from 0.0.1-beta.6 to 0.0.1-beta.8 [\#965](https://github.com/nextcloud-libraries/nextcloud-files/pull/965) \([@dependabot](https://github.com/dependabot)\)
-* chore(deps-dev): Bump `fast-xml-parser` to 4.4.0
 
 ## 3.3.1 - 2024-05-23
 **Full Changelog**: https://github.com/nextcloud-libraries/nextcloud-files/compare/v3.3.0...v3.3.1
@@ -417,7 +413,7 @@ Broken - do not use.
 * feat(dav): Make getFavoriteNodes cancelable [\#923](https://github.com/nextcloud-libraries/nextcloud-files/pull/923) \([@Pytal](https://github.com/Pytal)\)
 
 ## Changed
-* Updated webdav from 5.4.0 to 5.5.0
+* Updated webdav to 5.5.0
 * Updated development dependencies
 
 ## 3.1.1 - 2024-03-24
@@ -426,8 +422,8 @@ Broken - do not use.
 * fix(dav): remove sharing attributes from default dav fetch and change duplicate registration from `error` to `warn` [\#902](https://github.com/nextcloud-libraries/nextcloud-files/pull/902) \([@skjnldsv](https://github.com/skjnldsv)\)
 
 ### Changed
-* Update `@nextcloud/router` from 2.2.1 to 3.0.0
-* Update `webdav` from 5.3.2 to 5.4.0
+* Update `@nextcloud/router` to 3.0.0
+* Update `webdav` to 5.4.0
 
 ## 3.1.0 - 2023-12-21
 ### Enhancements
@@ -438,7 +434,7 @@ Broken - do not use.
 * fix(dav): davResultToNode real owner [\#862](https://github.com/nextcloud-libraries/nextcloud-files/pull/862) \([@skjnldsv](https://github.com/skjnldsv)\)
 
 ## Changed
-* Update webdav from 5.3.0 to 5.3.1
+* Update webdav to 5.3.1
 * Update dev dependencies
 
 ## 3.0.0 - 2023-11-08
