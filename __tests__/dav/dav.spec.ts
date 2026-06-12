@@ -5,10 +5,6 @@
 
 import type { FileStat, WebDAVClient } from 'webdav'
 
-import * as auth from '@nextcloud/auth'
-import { readFile } from 'node:fs/promises'
-// required as default URL will be the DOM URL class which will use the window.location
-import { URL as FileURL } from 'node:url'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import {
 	defaultRemoteURL,
@@ -18,8 +14,16 @@ import {
 	resultToNode,
 } from '../../lib/dav/index.ts'
 import { File, Folder, NodeStatus } from '../../lib/index.ts'
+import FAVORITES_INNER_RESPONSE from '../fixtures/favorites-inner-response.json' with { type: 'json' }
+import FAVORITES_RESPONSE from '../fixtures/favorites-response.json' with { type: 'json' }
 
-vi.mock('@nextcloud/auth')
+const auth = vi.hoisted(() => ({
+	getCurrentUser: vi.fn(() => ({ uid: 'test', displayName: 'Test User', isAdmin: false })),
+	getRequestToken: vi.fn(() => 'test-token'),
+	onRequestTokenUpdate: vi.fn(),
+}))
+
+vi.mock('@nextcloud/auth', () => auth)
 vi.mock('@nextcloud/router')
 
 describe('DAV functions', () => {
@@ -102,7 +106,7 @@ describe('resultToNode', () => {
 
 	// If owner-id is set, it will be used as owner
 	test('has correct owner set', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
@@ -113,7 +117,7 @@ describe('resultToNode', () => {
 	})
 
 	test('has correct owner set if number', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'admin', displayName: 'admin', isAdmin: true })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'admin', displayName: 'admin', isAdmin: true })
 
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
@@ -124,7 +128,7 @@ describe('resultToNode', () => {
 	})
 
 	test('has correct owner set if not set on node', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
@@ -134,7 +138,7 @@ describe('resultToNode', () => {
 	})
 
 	test('by default no status is set', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = 1
@@ -143,7 +147,7 @@ describe('resultToNode', () => {
 	})
 
 	test('sets node status on invalid fileid', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = -1
@@ -152,7 +156,7 @@ describe('resultToNode', () => {
 	})
 
 	test('Ignore invalid times', () => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 
 		// Invalid dates
 		const remoteResult = { ...result }
@@ -173,7 +177,7 @@ describe('resultToNode', () => {
 
 describe('DAV requests', () => {
 	beforeEach(() => {
-		vi.spyOn(auth, 'getCurrentUser').mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
+		vi.mocked(auth).getCurrentUser!.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
 	})
 
 	afterEach(() => {
@@ -181,18 +185,16 @@ describe('DAV requests', () => {
 	})
 
 	test('request all favorite files', async () => {
-		const favoritesResponseJSON = JSON.parse((await readFile(new FileURL('../fixtures/favorites-response.json', import.meta.url))).toString())
-
 		// Mock the WebDAV client
 		const client = {
 
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
-						data: favoritesResponseJSON,
+						data: FAVORITES_RESPONSE,
 					}
 				}
-				return favoritesResponseJSON
+				return FAVORITES_RESPONSE
 			}),
 		}
 
@@ -214,18 +216,16 @@ describe('DAV requests', () => {
 	})
 
 	test('request inner favorites', async () => {
-		const favoritesResponseJSON = JSON.parse((await readFile(new FileURL('../fixtures/favorites-inner-response.json', import.meta.url))).toString())
-
 		// Mock the WebDAV client
 		const client = {
 
 			getDirectoryContents: vi.fn((path: string, options: any) => {
 				if (options?.details) {
 					return {
-						data: favoritesResponseJSON,
+						data: FAVORITES_INNER_RESPONSE,
 					}
 				}
-				return favoritesResponseJSON
+				return FAVORITES_INNER_RESPONSE
 			}),
 		}
 

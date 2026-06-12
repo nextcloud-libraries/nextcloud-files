@@ -3,35 +3,56 @@
  * SPDX-License-Identifier: CC0-1.0
  */
 
+import { playwright } from '@vitest/browser-playwright'
 import { resolve } from 'node:path'
-import { defineConfig, mergeConfig } from 'vite'
-import config from './vite.config.ts'
+import { defineConfig } from 'vitest/config'
 
-export default defineConfig(async (env) => {
-	let cfg = await config(env)
-	cfg = mergeConfig(cfg, defineConfig({
-		resolve: {
-			alias: {
-				'~': resolve(__dirname, 'lib'),
+export default defineConfig({
+	test: {
+		env: {
+			LANG: 'en-US',
+		},
+		browser: {
+			enabled: true,
+			headless: true,
+			provider: playwright(),
+			instances: [
+				{
+					name: 'unit',
+					browser: 'chromium',
+					screenshotFailures: false,
+					exclude: ['**/*.e2e.spec.ts', '**/node_modules/**', '**/.git/**'],
+				},
+				{
+					name: 'integration',
+					browser: 'chromium',
+					screenshotFailures: false,
+					include: ['**/*.e2e.spec.ts'],
+					globalSetup: '__tests__/start-nextcloud-server.js',
+				},
+			],
+		},
+		coverage: {
+			include: ['lib/**'],
+			exclude: ['lib/utils/logger.ts'],
+			provider: 'istanbul',
+			reporter: ['lcov', 'text'],
+		},
+		globalSetup: '__tests__/test-global-setup.ts',
+	},
+	resolve: {
+		alias: {
+			'~': resolve(__dirname, 'lib'),
+		},
+	},
+	server: {
+		proxy: {
+			'/nextcloud': {
+				target: 'http://localhost:8089',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/nextcloud/, ''),
+				auth: 'admin:admin',
 			},
 		},
-	}))
-	// delete cfg.define
-
-	return {
-		...cfg,
-		test: {
-			env: {
-				LANG: 'en-US',
-			},
-			environment: 'jsdom',
-			coverage: {
-				include: ['lib/**'],
-				exclude: ['lib/utils/logger.ts'],
-				provider: 'istanbul',
-				reporter: ['lcov', 'text'],
-			},
-			globalSetup: '__tests__/test-global-setup.ts',
-		},
-	}
+	},
 })

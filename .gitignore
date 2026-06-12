@@ -63,3 +63,7 @@ typings/
 .next
 
 /dist
+
+# vitest
+__screenshots__/
+.vitest*/

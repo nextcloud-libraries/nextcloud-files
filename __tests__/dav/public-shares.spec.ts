@@ -8,11 +8,15 @@ import type { resultToNode as IResultToNode } from '../../lib/dav/dav.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-const auth = vi.hoisted(() => ({ getCurrentUser: vi.fn() }))
+const getCurrentUser = vi.hoisted(() => (vi.fn()))
 const router = vi.hoisted(() => ({ generateRemoteUrl: vi.fn() }))
 const sharing = vi.hoisted(() => ({ isPublicShare: vi.fn(), getSharingToken: vi.fn() }))
 
-vi.mock('@nextcloud/auth', () => auth)
+vi.mock('@nextcloud/auth', async (original) => ({
+	...(await original()),
+	getCurrentUser,
+}))
+
 vi.mock('@nextcloud/router', () => router)
 vi.mock('@nextcloud/sharing/public', () => sharing)
 
@@ -22,7 +26,7 @@ function restoreMocks() {
 }
 
 function mockPublicShare() {
-	auth.getCurrentUser.mockImplementationOnce(() => null)
+	getCurrentUser.mockImplementationOnce(() => null)
 	sharing.isPublicShare.mockImplementation(() => true)
 	sharing.getSharingToken.mockImplementation(() => 'token-1234')
 }
