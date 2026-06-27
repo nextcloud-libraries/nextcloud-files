@@ -29,6 +29,25 @@ export const UploaderStatus = Object.freeze({
 
 type TUploaderStatus = typeof UploaderStatus[keyof typeof UploaderStatus]
 
+export interface IUploaderStatistics {
+	/**
+	 * Estimated time in seconds. If the time is not yet estimated, it will return `Infinity`.
+	 */
+	eta: number
+	/**
+	 * The progress in percentage (0-100) done.
+	 */
+	progress: number
+	/**
+	 * Transfer speed in bytes per second. Returns `-1` if not yet estimated.
+	 */
+	speed: number
+	/**
+	 * Get the speed in human readable format using file sizes like 10KB/s. Returns the empty string if not yet estimated.
+	 */
+	speedReadable: string
+}
+
 interface BaseOptions {
 	/**
 	 * Abort signal to cancel the upload
@@ -193,6 +212,18 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	 */
 	public get queue(): IUpload[] {
 		return [...this.#uploadQueue]
+	}
+
+	/**
+	 * Get current statistics of the uploader.
+	 */
+	public get statistics(): IUploaderStatistics {
+		return {
+			eta: this.#eta.time,
+			progress: this.#eta.progress,
+			speed: this.#eta.speed,
+			speedReadable: this.#eta.speedReadable,
+		}
 	}
 
 	/**
