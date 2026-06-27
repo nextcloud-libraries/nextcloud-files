@@ -68,6 +68,10 @@ interface UploaderEventsMap {
 	 * Dispatched when the uploader has finished all uploads (successfully, failed or cancelled)
 	 */
 	finished: CustomEvent
+	/**
+	 * Dispatched when the uploader has been reset
+	 */
+	reset: CustomEvent
 
 	/**
 	 * Dispatched when a new upload has been started.
@@ -225,6 +229,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		this.#jobQueue.clear()
 		this.#eta.reset()
 		this.#status = UploaderStatus.IDLE
+		this.dispatchTypedEvent('reset', new CustomEvent('reset'))
 		logger.debug('Uploader reset')
 	}
 
