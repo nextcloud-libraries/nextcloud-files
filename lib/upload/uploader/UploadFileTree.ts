@@ -20,14 +20,14 @@ import { UploadFile } from './UploadFile.ts'
  * Callback type for conflict resolution when uploading a folder tree.
  *
  * The callback receives the nodes in the current folder and the current path to upload to,
- * it should return a list of nodes that should be uploaded (e.g. after resolving conflicts by renaming or selecting which files to upload).
+ * it should return a mapping of nodes that should be uploaded (e.g. after resolving conflicts by renaming or selecting which files to upload).
  * In case the upload should be cancelled, it should return `false`.
  * The returned mapping allowes to resolve conflicts by renaming files or folders before upload,
  * the key is the original name of the node and the value is the name to upload it as.
  *
  * @param nodes - The nodes to upload (list of filenames)
  * @param currentPath - The current path to upload to
- * @return A promise that resolves to a list of nodes that should be uploaded or false if the upload should be cancelled
+ * @return A promise that resolves to a map of nodes that should be uploaded or false if the upload should be cancelled
  */
 export type ConflictsCallback = (nodes: string[], currentPath: string) => Promise<false | Record<string, string>>
 
