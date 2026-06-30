@@ -134,7 +134,10 @@ export class UploadFileTree extends Upload implements IUpload {
 		this.uploadedBytes = 0
 
 		this.status = UploadStatus.UPLOADING
-		await this.#createDirectory(queue)
+		// if this is not the root of a tree, we need to create the directory first before uploading the children
+		if (this.#directory.webkitRelativePath) {
+			await this.#createDirectory(queue)
+		}
 		if (this.needConflictResolution && this.#conflictsCallback) {
 			const nodes = await this.#conflictsCallback(
 				this.#directory.children.map((node) => basename(node.name)),
