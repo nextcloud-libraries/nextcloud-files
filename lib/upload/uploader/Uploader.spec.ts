@@ -188,4 +188,67 @@ describe('Uploader (current API)', () => {
 		expect(Array.isArray(uploads)).toBe(true)
 		expect(uploads.length).toBeGreaterThanOrEqual(1)
 	})
+
+	describe('statistics', () => {
+		it('exposes default statistics before any upload', () => {
+			const uploader = new Uploader()
+			expect(uploader.statistics).toEqual({
+				eta: Infinity,
+				progress: 0,
+				speed: -1,
+				speedReadable: '',
+			})
+		})
+
+		it('reflects the upload progress in the statistics', async () => {
+			const uploader = new Uploader()
+			// 'hello' has a size of 5 bytes, the mock reports half (2.5) before finishing
+			const file = new File(['hello'], 'hello.txt', { type: 'text/plain' })
+
+			const observedProgress: number[] = []
+			uploader.addEventListener('uploadProgress', () => {
+				observedProgress.push(uploader.statistics.progress)
+			})
+
+			await uploader.upload('/hello.txt', file)
+
+			// the mock emits progress at half (2.5 / 5 = 50%) and once more when finished (100%)
+			expect(observedProgress).toContain(50)
+			expect(observedProgress).toContain(100)
+		})
+
+		it('resets the statistics once all uploads are finished', async () => {
+			const uploader = new Uploader()
+			const file = new File(['hello'], 'hello.txt', { type: 'text/plain' })
+
+			await uploader.upload('/hello.txt', file)
+
+			// #onFinished resets the uploader (and its ETA) on the next tick
+			await vi.waitFor(() => {
+				expect(uploader.statistics).toEqual({
+					eta: Infinity,
+					progress: 0,
+					speed: -1,
+					speedReadable: '',
+				})
+			})
+		})
+
+		it('does not track statistics for uploads queued while paused', async () => {
+			const uploader = new Uploader()
+			const file = new File(['hello'], 'hello.txt', { type: 'text/plain' })
+
+			await uploader.pause()
+
+			const observedProgress: number[] = []
+			uploader.addEventListener('uploadProgress', () => {
+				observedProgress.push(uploader.statistics.progress)
+			})
+
+			await uploader.upload('/hello.txt', file)
+
+			// while paused the ETA stays idle, so no progress is accumulated
+			expect(observedProgress.every((progress) => progress === 0)).toBe(true)
+		})
+	})
 })

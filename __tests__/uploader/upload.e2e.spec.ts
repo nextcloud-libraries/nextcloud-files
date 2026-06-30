@@ -159,6 +159,61 @@ describe('Uploader (current API)', () => {
 		expect(events).toContain('finished')
 	})
 
+	it('should expose upload statistics', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-stats').catch(() => {})
+		await client.createDirectory('/files/admin/test-stats')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-stats`,
+		})
+		const uploader = new Uploader(false, folder)
+
+		// Before any upload the statistics are at their defaults
+		expect(uploader.statistics).toEqual({
+			eta: Infinity,
+			progress: 0,
+			speed: -1,
+			speedReadable: '',
+		})
+
+		// Capture the progress reported by the statistics while uploading
+		const observedProgress: number[] = []
+		uploader.addEventListener('uploadProgress', () => {
+			observedProgress.push(uploader.statistics.progress)
+		})
+
+		// Upload a 9 MiB file: large enough that the request body is streamed in several
+		// progress events, but below the default 10 MiB chunk size so it stays a single
+		// upload with monotonically increasing progress. This lets us assert that the
+		// statistics are updated *during* the upload, not only once it has finished.
+		const content = 'x'.repeat(9 * 1024 * 1024)
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		const upload = await uploader.upload('large.txt', new File([content], 'large.txt', { type: 'text/plain' }))
+		await finishedPromise
+
+		expect(upload.status).toBe(UploadStatus.FINISHED)
+
+		// The statistics were updated several times while uploading …
+		expect(observedProgress.length).toBeGreaterThan(1)
+		// … with at least one intermediate value reported during (not only at the end of) the upload …
+		expect(observedProgress.some((progress) => progress > 0 && progress < 100)).toBe(true)
+		// … and finally reached completion.
+		expect(Math.max(...observedProgress)).toBe(100)
+
+		// Once all uploads are finished the uploader resets its statistics back to the defaults
+		expect(uploader.statistics).toEqual({
+			eta: Infinity,
+			progress: 0,
+			speed: -1,
+			speedReadable: '',
+		})
+
+		await expect(client.getFileContents('/files/admin/test-stats/large.txt', { format: 'text' })).resolves.toBe(content)
+	})
+
 	it('should cancel a queued upload', async () => {
 		const client = getClient()
 		await client.deleteFile('/files/admin/test-cancel').catch(() => {})
