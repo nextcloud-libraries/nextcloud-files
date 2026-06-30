@@ -110,7 +110,6 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	#eta = new Eta()
 	#destinationFolder: IFolder
 	#customHeaders: Map<string, string> = new Map()
-	#status: TUploaderStatus = UploaderStatus.IDLE
 	#uploadQueue: IUpload[] = []
 	#jobQueue: PQueue = new PQueue({
 		concurrency: getMaxParallelUploads(),
@@ -159,7 +158,13 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	}
 
 	public get status(): TUploaderStatus {
-		return this.#status
+		if (this.#jobQueue.isPaused) {
+			return UploaderStatus.PAUSED
+		}
+		if (this.#jobQueue.pending > 0 || this.#jobQueue.size > 0) {
+			return UploaderStatus.UPLOADING
+		}
+		return UploaderStatus.IDLE
 	}
 
 	/**
@@ -234,7 +239,6 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	public async pause() {
 		this.#jobQueue.pause()
 		this.#eta.pause()
-		this.#status = UploaderStatus.PAUSED
 		await this.#jobQueue.onPendingZero()
 		this.dispatchTypedEvent('paused', new CustomEvent('paused'))
 		logger.debug('Uploader paused')
@@ -246,7 +250,6 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	public start() {
 		this.#jobQueue.start()
 		this.#eta.resume()
-		this.#status = UploaderStatus.UPLOADING
 		this.dispatchTypedEvent('resumed', new CustomEvent('resumed'))
 		logger.debug('Uploader resumed')
 	}
@@ -260,8 +263,11 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 
 		this.#uploadQueue = []
 		this.#jobQueue.clear()
+		// Resume the (now empty) job queue so a reset always returns to the IDLE
+		// state — otherwise a reset while paused would leave the uploader stuck
+		// reporting PAUSED and block any subsequent upload.
+		this.#jobQueue.start()
 		this.#eta.reset()
-		this.#status = UploaderStatus.IDLE
 		this.dispatchTypedEvent('reset', new CustomEvent('reset'))
 		logger.debug('Uploader reset')
 	}
@@ -358,7 +364,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	 * so that uploads added while paused do not skew the speed estimation.
 	 */
 	#startTracking() {
-		if (this.#status !== UploaderStatus.PAUSED) {
+		if (this.status !== UploaderStatus.PAUSED) {
 			this.#eta.resume()
 		}
 	}
