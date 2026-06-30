@@ -29,6 +29,25 @@ export const UploaderStatus = Object.freeze({
 
 type TUploaderStatus = typeof UploaderStatus[keyof typeof UploaderStatus]
 
+export interface IUploaderStatistics {
+	/**
+	 * Estimated time in seconds. If the time is not yet estimated, it will return `Infinity`.
+	 */
+	eta: number
+	/**
+	 * The progress in percentage (0-100) done.
+	 */
+	progress: number
+	/**
+	 * Transfer speed in bytes per second. Returns `-1` if not yet estimated.
+	 */
+	speed: number
+	/**
+	 * Get the speed in human readable format using file sizes like 10KB/s. Returns the empty string if not yet estimated.
+	 */
+	speedReadable: string
+}
+
 interface BaseOptions {
 	/**
 	 * Abort signal to cancel the upload
@@ -196,12 +215,25 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	}
 
 	/**
+	 * Get current statistics of the uploader.
+	 */
+	public get statistics(): IUploaderStatistics {
+		return {
+			eta: this.#eta.time,
+			progress: this.#eta.progress,
+			speed: this.#eta.speed,
+			speedReadable: this.#eta.speedReadable,
+		}
+	}
+
+	/**
 	 * Pause the uploader.
 	 * Already started uploads will continue, but all other (not yet started) uploads
 	 * will be paused until `start()` is called.
 	 */
 	public async pause() {
 		this.#jobQueue.pause()
+		this.#eta.pause()
 		this.#status = UploaderStatus.PAUSED
 		await this.#jobQueue.onPendingZero()
 		this.dispatchTypedEvent('paused', new CustomEvent('paused'))
@@ -213,6 +245,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	 */
 	public start() {
 		this.#jobQueue.start()
+		this.#eta.resume()
 		this.#status = UploaderStatus.UPLOADING
 		this.dispatchTypedEvent('resumed', new CustomEvent('resumed'))
 		logger.debug('Uploader resumed')
@@ -290,6 +323,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 			this.#attachEventListeners(upload)
 		}
 		this.#uploadQueue.push(...uploads)
+		this.#startTracking()
 		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return uploads
@@ -312,9 +346,21 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 
 		this.#attachEventListeners(upload)
 		this.#uploadQueue.push(upload)
+		this.#startTracking()
 		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return upload
+	}
+
+	/**
+	 * Start the statistics tracking for a newly queued upload.
+	 * The ETA is only resumed when the uploader is not paused,
+	 * so that uploads added while paused do not skew the speed estimation.
+	 */
+	#startTracking() {
+		if (this.#status !== UploaderStatus.PAUSED) {
+			this.#eta.resume()
+		}
 	}
 
 	/**
