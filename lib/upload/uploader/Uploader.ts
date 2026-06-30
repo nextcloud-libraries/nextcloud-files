@@ -309,10 +309,16 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		// create a meta upload to ensure all ongoing child requests are listed
 		const target = `${this.destination.source.replace(/\/$/, '')}/${destination.replace(/^\//, '')}`
 		const headers = Object.fromEntries(this.#customHeaders.entries())
+		const _callback = options?.callback
+		// The callback is adjusted to be called with the path relative to the upload target
+		// instead of the full absolute URL.
+		// We decode the path segments and strip a leading slash so the callback receives a
+		// clean relative path (e.g. '' for the target root, 'sub/deep' for a nested folder).
+		const callback = _callback && ((nodes: string[], path: string) => _callback(nodes, path.substring(target.length).replace(/^\//, '')))
 		const upload = new UploadFileTree(
 			target,
 			rootFolder,
-			{ ...options, headers },
+			{ ...options, callback, headers },
 		)
 		if (options?.signal) {
 			options.signal.addEventListener('abort', upload.cancel)

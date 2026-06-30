@@ -71,6 +71,12 @@ vi.mock('./UploadFile.ts', () => ({
 	},
 }))
 
+// Capture the arguments the Uploader passes to UploadFileTree so we can assert
+// on the (wrapped) conflicts callback.
+const uploadFileTreeMock = vi.hoisted(() => ({
+	instances: [] as Array<{ destination: string, options: Record<string, any> }>,
+}))
+
 vi.mock('./UploadFileTree.ts', () => ({
 	UploadFileTree: class implements IUpload {
 		source = 'file:///test'
@@ -82,7 +88,10 @@ vi.mock('./UploadFileTree.ts', () => ({
 		signal = new AbortController().signal
 		children: IUpload[] = []
 		private listeners: Record<string, ((ev?: CustomEvent) => void)[]> = {}
-		constructor() {}
+		constructor(destination: string, _directory: unknown, options: Record<string, any> = {}) {
+			uploadFileTreeMock.instances.push({ destination, options })
+		}
+
 		addEventListener = ((ev: string, cb: (ev?: CustomEvent) => void) => {
 			this.listeners[ev] = this.listeners[ev] || []
 			this.listeners[ev].push(cb)
@@ -107,6 +116,7 @@ vi.mock('./UploadFileTree.ts', () => ({
 describe('Uploader (current API)', () => {
 	beforeEach(() => {
 		authMock.getCurrentUser.mockReturnValue({ uid: 'tester' })
+		uploadFileTreeMock.instances.length = 0
 	})
 
 	afterEach(() => {
@@ -187,6 +197,55 @@ describe('Uploader (current API)', () => {
 		const uploads = await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')])
 		expect(Array.isArray(uploads)).toBe(true)
 		expect(uploads.length).toBeGreaterThanOrEqual(1)
+	})
+
+	describe('batchUpload conflicts callback', () => {
+		// destination folder source is mocked to https://localhost/remote.php/dav/files/test
+		const target = 'https://localhost/remote.php/dav/files/test/dir'
+
+		/** Run a batchUpload with the given callback and return the callback handed to UploadFileTree */
+		const getWrappedCallback = async (callback?: unknown) => {
+			uploadFileTreeMock.instances.length = 0
+			const uploader = new Uploader()
+			await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')], callback ? { callback } as any : undefined)
+			expect(uploadFileTreeMock.instances).toHaveLength(1)
+			expect(uploadFileTreeMock.instances[0].destination).toBe(target)
+			return uploadFileTreeMock.instances[0].options.callback as
+				| ((nodes: string[], path: string) => Promise<unknown>)
+				| undefined
+		}
+
+		it('passes no callback to UploadFileTree when none was given', async () => {
+			const wrapped = await getWrappedCallback()
+			expect(wrapped).toBeFalsy()
+		})
+
+		it('wraps the callback so it receives a clean relative path', async () => {
+			const userCallback = vi.fn(async () => ({}))
+			const wrapped = await getWrappedCallback(userCallback)
+			expect(wrapped).toBeTypeOf('function')
+
+			// the root of the batch upload maps to an empty relative path
+			await wrapped!(['file.txt'], target)
+			expect(userCallback).toHaveBeenLastCalledWith(['file.txt'], '')
+
+			// nested folder: the absolute upload prefix is stripped, no leading slash
+			await wrapped!(['file.txt'], `${target}/sub`)
+			expect(userCallback).toHaveBeenLastCalledWith(['file.txt'], 'sub')
+
+			// deeper nesting keeps the inner separators
+			await wrapped!(['file.txt'], `${target}/sub/deep`)
+			expect(userCallback).toHaveBeenLastCalledWith(['file.txt'], 'sub/deep')
+		})
+
+		it('forwards the callback result (rename map / false) unchanged', async () => {
+			const renameMap = { 'a.txt': 'b.txt' }
+			const wrapped = await getWrappedCallback(vi.fn(async () => renameMap))
+			await expect(wrapped!(['a.txt'], target)).resolves.toBe(renameMap)
+
+			const wrappedCancel = await getWrappedCallback(vi.fn(async () => false))
+			await expect(wrappedCancel!(['a.txt'], target)).resolves.toBe(false)
+		})
 	})
 
 	describe('statistics', () => {
