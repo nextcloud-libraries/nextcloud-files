@@ -121,9 +121,19 @@ export class UploadFile extends Upload implements IUpload {
 		const temporaryUrl = await initChunkWorkspace(this.source, 5, isPublicShare(), this.#customHeaders)
 
 		const promises: Promise<void>[] = []
+		const chunkSize = Math.floor(this.totalBytes / this.numberOfChunks)
 		for (let i = 0; i < this.numberOfChunks; i++) {
-			const chunk = await getChunk(this.#file!, i * getMaxChunksSize(this.totalBytes), (i + 1) * getMaxChunksSize(this.totalBytes))
-			promises.push(queue.add(() => this.#uploadChunk(chunk, join(temporaryUrl, String(i)))))
+			const offsetStart = i * chunkSize
+			const chunk = await getChunk(
+				this.#file!,
+				offsetStart,
+				i === this.numberOfChunks - 1
+					? (this.totalBytes - offsetStart) // last chunk = remaining bytes
+					: chunkSize, // all other chunks = chunkSize
+			)
+			promises.push(queue.add(async () => {
+				await this.#uploadChunk(chunk, join(temporaryUrl, String(i)))
+			}))
 		}
 		this.status = UploadStatus.UPLOADING
 
@@ -132,17 +142,15 @@ export class UploadFile extends Upload implements IUpload {
 				await Promise.all(promises)
 				// Send the assemble request
 				this.status = UploadStatus.ASSEMBLING
-				await queue.add(async () => {
-					await axios.request({
-						method: 'MOVE',
-						url: `${temporaryUrl}/.file`,
-						headers: {
-							...this.#customHeaders,
-							...getMtimeHeader(this.#file!),
-							'OC-Total-Length': this.#file!.size,
-							Destination: this.source,
-						},
-					})
+				await axios.request({
+					method: 'MOVE',
+					url: `${temporaryUrl}/.file`,
+					headers: {
+						...this.#customHeaders,
+						...getMtimeHeader(this.#file!),
+						'OC-Total-Length': this.totalBytes,
+						Destination: this.source,
+					},
 				})
 				this.status = UploadStatus.FINISHED
 			} catch (error) {
