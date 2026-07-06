@@ -50,6 +50,16 @@ export default defineConfig({
 			'/nextcloud': {
 				target: 'http://localhost:8089',
 				changeOrigin: true,
+				configure(proxy) {
+					// rewrite destination header to remove /nextcloud prefix, otherwise the MOVE request will fail
+					proxy.on('proxyReq', (proxyReq) => {
+						const header = proxyReq.getHeader('Destination')
+						if (header) {
+							proxyReq.removeHeader('Destination')
+							proxyReq.setHeader('Destination', header.toString().replace(/\/nextcloud\/remote\.php/, '/remote.php'))
+						}
+					})
+				},
 				rewrite: (path) => path.replace(/^\/nextcloud/, ''),
 				auth: 'admin:admin',
 			},
