@@ -63,10 +63,63 @@ describe('Uploader (current API)', () => {
 		await expect(client.getFileContents('/files/admin/test-multi/c.txt', { format: 'text' })).resolves.toBe('content-c')
 	})
 
-	it('should upload a folder structure', async () => {
+	it('should upload a new folder structure', async () => {
 		const client = getClient()
 		await client.deleteFile('/files/admin/test-folder').catch(() => {})
 		await client.createDirectory('/files/admin/test-folder')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-folder`,
+		})
+		const uploader = new Uploader(false, folder)
+
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		await uploader.batchUpload('', [
+			fileWithPath('root file', 'root.txt'),
+			fileWithPath('nested file', 'subdir/nested.txt'),
+			fileWithPath('deep file', 'subdir/deep/deep.txt'),
+		])
+		await finishedPromise
+
+		await expect(client.stat('/files/admin/test-folder')).resolves.toEqual(expect.objectContaining({ type: 'directory' }))
+		await expect(client.getFileContents('/files/admin/test-folder/root.txt', { format: 'text' })).resolves.toBe('root file')
+		await expect(client.getFileContents('/files/admin/test-folder/subdir/nested.txt', { format: 'text' })).resolves.toBe('nested file')
+		await expect(client.getFileContents('/files/admin/test-folder/subdir/deep/deep.txt', { format: 'text' })).resolves.toBe('deep file')
+	})
+
+	it('should upload a folder structure into a subfolder', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-folder').catch(() => {})
+		await client.createDirectory('/files/admin/test-folder')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-folder`,
+		})
+		const uploader = new Uploader(false, folder)
+
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		await uploader.batchUpload('upload', [
+			fileWithPath('root file', 'root.txt'),
+			fileWithPath('nested file', 'subdir/nested.txt'),
+			fileWithPath('deep file', 'subdir/deep/deep.txt'),
+		])
+		await finishedPromise
+
+		await expect(client.stat('/files/admin/test-folder/upload')).resolves.toEqual(expect.objectContaining({ type: 'directory' }))
+		await expect(client.getFileContents('/files/admin/test-folder/upload/root.txt', { format: 'text' })).resolves.toBe('root file')
+		await expect(client.getFileContents('/files/admin/test-folder/upload/subdir/nested.txt', { format: 'text' })).resolves.toBe('nested file')
+		await expect(client.getFileContents('/files/admin/test-folder/upload/subdir/deep/deep.txt', { format: 'text' })).resolves.toBe('deep file')
+	})
+
+	it('should upload a folder structure into an existing subfolder', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-folder').catch(() => {})
+		await client.createDirectory('/files/admin/test-folder')
+		await client.createDirectory('/files/admin/test-folder/upload')
 
 		const folder = new Folder({
 			owner: 'admin',
