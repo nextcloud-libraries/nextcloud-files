@@ -9,7 +9,7 @@ export async function setup(project) {
 	// Start the Nextcloud docker container
 	const ip = await start()
 	await waitOnNextcloud(ip)
-	await configureNextcloud(['end_to_end_encryption'])
+	await configureNextcloud([])
 
 	project.provide('ip', ip)
 
