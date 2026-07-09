@@ -35,6 +35,28 @@ describe('Uploader (current API)', () => {
 		expect(result).toBe('test')
 	})
 
+	it('should upload a file chunked', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test').catch(() => {})
+		await client.createDirectory('/files/admin/test')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test`,
+		})
+		const uploader = new Uploader(false, folder)
+		const finishedPromise = new Promise((resolve) => uploader.addEventListener('finished', resolve))
+
+		const content = 'x'.repeat(21 * 1024 * 1024) // 21 MiB
+		const upload = await uploader.upload('chunked.txt', new File([content], 'chunked.txt', { type: 'text/plain' }))
+		await finishedPromise
+		expect(upload.status).toBe(UploadStatus.FINISHED)
+
+		const result = await client.getFileContents('/files/admin/test/chunked.txt', { format: 'text' })
+		expect(result).toBe(content)
+	})
+
 	it('should upload multiple files', async () => {
 		const client = getClient()
 		await client.deleteFile('/files/admin/test-multi').catch(() => {})

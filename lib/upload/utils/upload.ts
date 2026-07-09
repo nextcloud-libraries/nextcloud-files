@@ -7,7 +7,8 @@ import type { AxiosError, AxiosProgressEvent, AxiosResponse } from 'axios'
 
 import { getCurrentUser } from '@nextcloud/auth'
 import axios from '@nextcloud/axios'
-import { generateRemoteUrl, getBaseUrl } from '@nextcloud/router'
+import { join } from '@nextcloud/paths'
+import { generateRemoteUrl, getRootUrl } from '@nextcloud/router'
 import { getSharingToken } from '@nextcloud/sharing/public'
 import axiosRetry, { exponentialDelay, isNetworkOrIdempotentRequestError } from 'axios-retry'
 import logger from '../../utils/logger.ts'
@@ -111,7 +112,7 @@ export function getChunk(file: File, start: number, length: number): Promise<Blo
 		return Promise.resolve(new Blob([file], { type: file.type || 'application/octet-stream' }))
 	}
 
-	return Promise.resolve(new Blob([file.slice(start, start + length)], { type: 'application/octet-stream' }))
+	return Promise.resolve(new Blob([file.slice(start, Math.min(start + length, file.size))], { type: 'application/octet-stream' }))
 }
 
 /**
@@ -123,16 +124,17 @@ export function getChunk(file: File, start: number, length: number): Promise<Blo
  * @param customHeaders Custom HTTP headers used when creating the workspace (e.g. X-NC-Nickname for file drops)
  */
 export async function initChunkWorkspace(destinationFile: string | undefined = undefined, retries: number = 5, isPublic: boolean = false, customHeaders: Record<string, string> = {}): Promise<string> {
-	let chunksWorkspace: string
+	let chunksWorkspace = generateRemoteUrl('/dav/uploads/', { baseURL: getRootUrl() })
 	if (isPublic) {
-		chunksWorkspace = `${getBaseUrl()}/public.php/dav/uploads/${getSharingToken()}`
+		chunksWorkspace = chunksWorkspace.replace('/remote.php/', '/public.php/')
+		chunksWorkspace = join(chunksWorkspace, getSharingToken()!)
 	} else {
-		chunksWorkspace = generateRemoteUrl(`dav/uploads/${getCurrentUser()?.uid}`)
+		chunksWorkspace = join(chunksWorkspace, getCurrentUser()!.uid)
 	}
 
 	const hash = [...Array(16)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
-	const tempWorkspace = `web-file-upload-${hash}`
-	const url = `${chunksWorkspace}/${tempWorkspace}`
+	chunksWorkspace = join(chunksWorkspace, `web-file-upload-${hash}`)
+
 	const headers = customHeaders
 	if (destinationFile) {
 		headers.Destination = destinationFile
@@ -140,7 +142,7 @@ export async function initChunkWorkspace(destinationFile: string | undefined = u
 
 	await axios.request({
 		method: 'MKCOL',
-		url,
+		url: chunksWorkspace,
 		headers,
 		'axios-retry': {
 			retries,
@@ -148,7 +150,7 @@ export async function initChunkWorkspace(destinationFile: string | undefined = u
 		},
 	})
 
-	logger.debug('Created temporary upload workspace', { url })
+	logger.debug('Created temporary upload workspace', { url: chunksWorkspace })
 
-	return url
+	return chunksWorkspace
 }
