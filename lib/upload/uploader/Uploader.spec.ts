@@ -5,6 +5,7 @@
 
 import type { IUpload, TUploadStatus } from './Upload.ts'
 
+import PQueue from 'p-queue'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Folder } from '../../node/folder.ts'
 import { UploadStatus } from './Upload.ts'
@@ -159,13 +160,63 @@ describe('Uploader (current API)', () => {
 		await paused
 
 		uploader.start()
-		expect(uploader.status).toBe(UploaderStatus.UPLOADING)
+		// The status is derived from the job queue: with no queued/running jobs
+		// a started (not paused) uploader is IDLE, not UPLOADING.
+		expect(uploader.status).toBe(UploaderStatus.IDLE)
 		await resumed
 
 		// reset should clear queue and set IDLE
 		uploader.reset()
 		expect(uploader.status).toBe(UploaderStatus.IDLE)
 		expect(uploader.queue).toEqual([])
+	})
+
+	it('returns to IDLE when reset while paused', async () => {
+		const uploader = new Uploader()
+
+		await uploader.pause()
+		expect(uploader.status).toBe(UploaderStatus.PAUSED)
+
+		// resetting must un-pause so the uploader is usable again afterwards
+		uploader.reset()
+		expect(uploader.status).toBe(UploaderStatus.IDLE)
+	})
+
+	describe('status (derived from the job queue)', () => {
+		// The status getter is pure logic over the underlying p-queue state,
+		// so we drive it by stubbing the queue's getters.
+		const stubQueue = (state: { isPaused: boolean, pending: number, size: number }) => {
+			vi.spyOn(PQueue.prototype, 'isPaused', 'get').mockReturnValue(state.isPaused)
+			vi.spyOn(PQueue.prototype, 'pending', 'get').mockReturnValue(state.pending)
+			vi.spyOn(PQueue.prototype, 'size', 'get').mockReturnValue(state.size)
+		}
+
+		it('is IDLE when the queue is running but empty', () => {
+			stubQueue({ isPaused: false, pending: 0, size: 0 })
+			expect(new Uploader().status).toBe(UploaderStatus.IDLE)
+		})
+
+		it('is PAUSED when the queue is paused', () => {
+			// Paused takes precedence even if jobs are still in flight
+			stubQueue({ isPaused: true, pending: 2, size: 3 })
+			expect(new Uploader().status).toBe(UploaderStatus.PAUSED)
+		})
+
+		it('is UPLOADING when a single upload is in flight (nothing queued behind it)', () => {
+			// Regression guard: a lone running job has pending === 1, size === 0
+			stubQueue({ isPaused: false, pending: 1, size: 0 })
+			expect(new Uploader().status).toBe(UploaderStatus.UPLOADING)
+		})
+
+		it('is UPLOADING when uploads are queued behind running ones', () => {
+			stubQueue({ isPaused: false, pending: 5, size: 3 })
+			expect(new Uploader().status).toBe(UploaderStatus.UPLOADING)
+		})
+
+		it('is UPLOADING when uploads are only waiting in the queue', () => {
+			stubQueue({ isPaused: false, pending: 0, size: 4 })
+			expect(new Uploader().status).toBe(UploaderStatus.UPLOADING)
+		})
 	})
 
 	it('uploads a file and emits progress and finished events', async () => {
