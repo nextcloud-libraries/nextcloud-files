@@ -74,7 +74,7 @@
     "@nextcloud/typings": "^1.10.0",
     "@nextcloud/vite-config": "^2.5.4",
     "@types/node": "^26.1.0",
-    "@vitest/browser-playwright": "^4.1.9",
+    "@vitest/browser-playwright": "^4.1.10",
     "@vitest/coverage-istanbul": "^4.1.9",
     "css.escape": "^1.5.1",
     "eslint": "^10.6.0",
