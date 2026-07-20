@@ -6,11 +6,30 @@
 
 All notable changes to this project will be documented in this file.
 
-## 4.1.0-beta.0 - 2026-06-12
-This is a first beta for version v4.1 which includes the new uploader logic.
+## 4.1.0-beta.1 - 2026-07-19
+This is a second beta for version v4.1 which includes the new uploader logic.
 It is released as a beta to get some insights into potential issues with the uploader,
 so that API is allowed to still get breaking changes.
 
+### 🚀 Enhancements
+* feat(uploader): add reset event \([\#1672](https://github.com/nextcloud-libraries/nextcloud-files/pull/1672)\)
+
+### 🐛 Fixed bugs
+* fix(upload): expose the current uploader statistics \([\#1673](https://github.com/nextcloud-libraries/nextcloud-files/pull/1673)\)
+* fix(uploader): the conflicts callback needs to get the relative path \([\#1676](https://github.com/nextcloud-libraries/nextcloud-files/pull/1676)\)
+* fix(upload): only create directory if needed \([\#1674](https://github.com/nextcloud-libraries/nextcloud-files/pull/1674)\)
+* fix(upload): check if we need to create a folder before creating it \([\#1687](https://github.com/nextcloud-libraries/nextcloud-files/pull/1687)\)
+* fix(uploader): properly handle chunked uploads \([\#1686](https://github.com/nextcloud-libraries/nextcloud-files/pull/1686)\)
+
+### Other changes
+* refactor(upload): remove duplicated uploader status information \([\#1675](https://github.com/nextcloud-libraries/nextcloud-files/pull/1675)\)
+* ci: update all workflow templates from organization template repository \([\#1671](https://github.com/nextcloud-libraries/nextcloud-files/pull/1671)\) \([\#1688](https://github.com/nextcloud-libraries/nextcloud-files/pull/1688)\)
+* Updated dependencies:
+  * Bump `dompurify` to 3.4.11
+  * Bump `form-data` to 4.0.6
+  * Bump `p-queue` to 9.3.1
+
+## 4.1.0-beta.0 - 2026-06-12
 ### 🚀 Enhancements
 * feat(recent-search): include recently uploaded files in addition to modified files \([\#1498](https://github.com/nextcloud-libraries/nextcloud-files/pull/1498)\)
 * feat(recent-search): add creation_time property and use capatabilities to identify wheter creation_time and upload_time are supported \([\#1517](https://github.com/nextcloud-libraries/nextcloud-files/pull/1517)\)
