@@ -19,6 +19,7 @@ const isCancelMock = vi.hoisted(() => vi.fn())
 const uploadFileMocks = vi.hoisted(() => {
 	const instances: Array<{
 		source: string
+		signal: AbortSignal
 		start: ReturnType<typeof vi.fn>
 		cancel: ReturnType<typeof vi.fn>
 		status: number
@@ -27,11 +28,19 @@ const uploadFileMocks = vi.hoisted(() => {
 	class MockUploadFile {
 		public source: string
 		public status: number = UploadStatus.INITIALIZED
+
+		#abortController = new AbortController()
+
+		public get signal(): AbortSignal {
+			return this.#abortController.signal
+		}
+
 		public start = vi.fn(async () => {
 			this.status = UploadStatus.FINISHED
 		})
 
 		public cancel = vi.fn(() => {
+			this.#abortController.abort()
 			this.status = UploadStatus.CANCELLED
 		})
 
@@ -179,6 +188,82 @@ describe('UploadFileTree', () => {
 		expect(conflictCallback).toHaveBeenCalledOnce()
 		expect(conflictCallback).toHaveBeenCalledWith(['root.txt'], '/destination')
 		expect(tree.children[0].source).toBe('/destination/root-renamed.txt')
+		expect(tree.status).toBe(UploadStatus.FINISHED)
+	})
+
+	it('skips children that the conflict callback did not return', async () => {
+		// MKCOL fails with 405 so the directory already exists and conflicts need to be resolved
+		axiosRequestMock.mockRejectedValueOnce({ response: { status: 405 } })
+		isAxiosErrorMock.mockReturnValue(true)
+
+		// The callback keeps the existing version of 'root.txt' by not returning it
+		const conflictCallback = vi.fn(async (nodes: string[]) => Object.fromEntries(nodes
+			.filter((node) => node !== 'root.txt')
+			.map((node) => [node, node])))
+
+		const directory = new Directory('/destination')
+		await directory.addChildren([
+			new File(['root'], 'root.txt'),
+			new File(['other'], 'other.txt'),
+		])
+
+		const tree = new UploadFileTree('/destination', directory, { callback: conflictCallback })
+		tree.initialize()
+
+		const queue = createQueue()
+
+		await tree.start(queue)
+
+		expect(conflictCallback).toHaveBeenCalledOnce()
+		expect(conflictCallback).toHaveBeenCalledWith(['root.txt', 'other.txt'], '/destination')
+
+		// the skipped upload is not started but cancelled, the other one is uploaded
+		expect(uploadFileMocks.instances[0].source).toBe('/destination/root.txt')
+		expect(uploadFileMocks.instances[0].start).not.toHaveBeenCalled()
+		expect(uploadFileMocks.instances[0].status).toBe(UploadStatus.CANCELLED)
+		expect(uploadFileMocks.instances[1].source).toBe('/destination/other.txt')
+		expect(uploadFileMocks.instances[1].start).toHaveBeenCalledOnce()
+
+		expect(tree.status).toBe(UploadStatus.FINISHED)
+	})
+
+	it('skips whole folders - including their children - that the conflict callback did not return', async () => {
+		// MKCOL fails with 405 so the directory already exists and conflicts need to be resolved
+		axiosRequestMock.mockRejectedValueOnce({ response: { status: 405 } })
+		axiosRequestMock.mockResolvedValue({})
+		isAxiosErrorMock.mockReturnValue(true)
+
+		// The callback keeps the existing version of the 'folder' directory by not returning it
+		const conflictCallback = vi.fn(async (nodes: string[]) => Object.fromEntries(nodes
+			.filter((node) => node !== 'folder')
+			.map((node) => [node, node])))
+
+		const directory = await createDirectoryTree()
+		const tree = new UploadFileTree('/destination', directory, { callback: conflictCallback })
+		tree.initialize()
+
+		const queue = createQueue()
+
+		await tree.start(queue)
+
+		// the conflict callback is only called for the root, the skipped folder is never entered
+		expect(conflictCallback).toHaveBeenCalledOnce()
+		expect(conflictCallback).toHaveBeenCalledWith(['folder', 'root.txt'], '/destination')
+
+		const folderUpload = tree.children[0]
+		expect(folderUpload.source).toBe('/destination/folder')
+		expect(folderUpload.status).toBe(UploadStatus.CANCELLED)
+
+		// no MKCOL for the skipped folder, only the root directory was created
+		expect(axiosRequestMock).toHaveBeenCalledOnce()
+
+		// the nested file of the skipped folder is not uploaded
+		expect(uploadFileMocks.instances[0].source).toBe('/destination/folder/nested.txt')
+		expect(uploadFileMocks.instances[0].start).not.toHaveBeenCalled()
+		// but the not skipped root file is
+		expect(uploadFileMocks.instances[1].source).toBe('/destination/root.txt')
+		expect(uploadFileMocks.instances[1].start).toHaveBeenCalledOnce()
+
 		expect(tree.status).toBe(UploadStatus.FINISHED)
 	})
 

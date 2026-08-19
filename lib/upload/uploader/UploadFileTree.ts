@@ -135,6 +135,7 @@ export class UploadFileTree extends Upload implements IUpload {
 
 		this.status = UploadStatus.UPLOADING
 		await this.#createDirectory(queue)
+
 		if (this.needConflictResolution && this.#conflictsCallback) {
 			const nodes = await this.#conflictsCallback(
 				this.#directory.children.map((node) => basename(node.name)),
@@ -145,16 +146,23 @@ export class UploadFileTree extends Upload implements IUpload {
 				return
 			}
 
-			for (const [originalName, newName] of Object.entries(nodes)) {
-				const upload = this.#children.find((child) => basename(child.source) === originalName)
-				if (upload) {
-					Object.defineProperty(upload, 'source', { value: concatUrl(this.source, newName) })
+			for (const childUpload of this.#children) {
+				const originalName = basename(childUpload.source)
+				const newName = nodes[originalName]
+				if (newName === undefined) {
+					childUpload.cancel()
+				} else if (newName !== originalName) {
+					Object.defineProperty(childUpload, 'source', { value: concatUrl(this.source, newName) })
 				}
 			}
 		}
 
 		const uploads: Promise<void>[] = []
 		for (const upload of this.#children) {
+			if (upload.signal.aborted) {
+				continue
+			}
+
 			// for folder tree uploads store the conflict resolution state to prevent useless requests
 			if (upload instanceof UploadFileTree) {
 				upload.needConflictResolution = this.needConflictResolution
