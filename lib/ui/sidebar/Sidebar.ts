@@ -7,12 +7,15 @@ import type { INode } from '../../node/node.ts'
 import type { ISidebarAction } from './SidebarAction.ts'
 import type { ISidebarContext, ISidebarTab } from './SidebarTab.ts'
 
+import logger from '../../utils/logger.ts'
 import { registerSidebarAction } from './SidebarAction.ts'
 import { registerSidebarTab } from './SidebarTab.ts'
 
 export interface ISidebar {
 	/**
-	 * If the files sidebar can currently be accessed.
+	 * If the files sidebar can currently be accessed,
+	 * meaning it is rendered on the current page either by the files app
+	 * or by an app rendering the sidebar within its own app.
 	 * Registering tabs also works if the sidebar is currently not available.
 	 */
 	readonly available: boolean
@@ -59,6 +62,29 @@ export interface ISidebar {
 	setActiveTab(tabId: string): void
 
 	/**
+	 * Render the sidebar as a fullscreen overlay of the current page.
+	 *
+	 * @param isFullScreen - Whether to render the sidebar fullscreen
+	 */
+	setFullScreenMode(isFullScreen: boolean): void
+
+	/**
+	 * Render the sidebar into an element of the current app.
+	 *
+	 * The sidebar is rendered into the app content element as soon as the page is loaded,
+	 * so this is only needed by apps that render the sidebar into a specific element
+	 * or that set up their own layout after the page was loaded.
+	 * Calling this again moves an already rendered sidebar into the requested element.
+	 *
+	 * Requires the app to request the sidebar for the current page,
+	 * by dispatching the `OCA\Files\Event\LoadSidebar` event while rendering it.
+	 * Within the files app the sidebar is part of the app layout, so this does nothing.
+	 *
+	 * @param target - The element to render the sidebar into
+	 */
+	mount(target: HTMLElement): void
+
+	/**
 	 * Register a new sidebar tab.
 	 * This should ideally be done on app initialization using Nextcloud init scripts.
 	 *
@@ -98,7 +124,7 @@ export interface ISidebar {
  * If we decide to do a breaking change we can either add compatibility wrappers in the implementation in the files app.
  */
 class SidebarProxy implements ISidebar {
-	get #impl(): Omit<ISidebar, 'available' | 'registerTab' | 'registerAction'> | undefined {
+	get #impl(): Omit<ISidebar, 'available' | 'mount' | 'registerTab' | 'registerAction'> | undefined {
 		return window.OCA?.Files?._sidebar?.()
 	}
 
@@ -128,6 +154,20 @@ class SidebarProxy implements ISidebar {
 
 	setActiveTab(tabId: string): void {
 		this.#impl?.setActiveTab(tabId)
+	}
+
+	setFullScreenMode(isFullScreen: boolean): void {
+		this.#impl?.setFullScreenMode(isFullScreen)
+	}
+
+	mount(target: HTMLElement): void {
+		const mountSidebar = window.OCA?.Files?._mountSidebar
+		if (mountSidebar === undefined) {
+			logger.error('Cannot render the sidebar as it was not loaded for this page, see the `LoadSidebar` event.')
+			return
+		}
+
+		mountSidebar(target)
 	}
 
 	registerTab(tab: ISidebarTab): void {
