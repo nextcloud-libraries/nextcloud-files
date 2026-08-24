@@ -12,7 +12,7 @@ import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { UploadFailedError } from '../errors/UploadFailedError.ts'
 import { Directory as FileTree } from '../utils/fileTree.ts'
 import { getMtimeHeader, isRequestAborted } from '../utils/requests.ts'
-import { concatUrl } from '../utils/url.ts'
+import { concatUrl, encodeUrl } from '../utils/url.ts'
 import { Upload, UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
 
@@ -199,7 +199,7 @@ export class UploadFileTree extends Upload implements IUpload {
 	async #createDirectory(queue: PQueue): Promise<void> {
 		await queue.add(async () => {
 			try {
-				await axios.head(this.source, {
+				await axios.head(encodeUrl(this.source), {
 					signal: this.signal,
 					headers: {
 						...this.#customHeaders,
@@ -217,7 +217,7 @@ export class UploadFileTree extends Upload implements IUpload {
 			try {
 				await axios.request({
 					method: 'MKCOL',
-					url: this.source,
+					url: encodeUrl(this.source),
 					headers: {
 						...this.#customHeaders,
 						...getMtimeHeader(this.#directory),

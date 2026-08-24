@@ -191,6 +191,41 @@ describe('UploadFileTree', () => {
 		expect(tree.status).toBe(UploadStatus.FINISHED)
 	})
 
+	it('keeps sources unencoded but encodes them for requests', async () => {
+		// MKCOL fails with 405 so the directories already exist and conflicts need to be resolved
+		axiosRequestMock.mockRejectedValue({ response: { status: 405 } })
+		isAxiosErrorMock.mockReturnValue(true)
+
+		const conflictCallback = vi.fn(async (nodes: string[]) => Object.fromEntries(nodes.map((node) => [node, node])))
+
+		const directory = new Directory('/destination')
+		const folder = new Directory('/destination/sub folder')
+		await folder.addChild(new File(['nested'], 'näme #1.txt'))
+		await directory.addChildren([folder, new File(['root'], 'a b&c.txt')])
+
+		const tree = new UploadFileTree('/destination', directory, { callback: conflictCallback })
+		const children = tree.initialize()
+
+		// the sources are the plain (unencoded) names so they can be matched by the conflict callback
+		expect(children.map((child) => child.source)).toEqual([
+			'/destination/sub folder',
+			'/destination/a b&c.txt',
+			'/destination/sub folder/näme #1.txt',
+		])
+
+		await tree.start(createQueue())
+
+		// the conflict callback receives plain names, not encoded ones
+		expect(conflictCallback).toHaveBeenCalledWith(['sub folder', 'a b&c.txt'], '/destination')
+		expect(conflictCallback).toHaveBeenCalledWith(['näme #1.txt'], '/destination/sub folder')
+		// … while the requests use the encoded URLs
+		expect(axiosRequestMock.mock.calls.map(([{ url }]) => url)).toEqual([
+			'/destination',
+			'/destination/sub%20folder',
+		])
+		expect(tree.status).toBe(UploadStatus.FINISHED)
+	})
+
 	it('skips children that the conflict callback did not return', async () => {
 		// MKCOL fails with 405 so the directory already exists and conflicts need to be resolved
 		axiosRequestMock.mockRejectedValueOnce({ response: { status: 405 } })
