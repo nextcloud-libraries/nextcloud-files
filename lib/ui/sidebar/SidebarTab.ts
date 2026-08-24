@@ -17,14 +17,20 @@ export interface ISidebarContext {
 	node: INode
 
 	/**
-	 * The current open folder in the files app
+	 * The current open folder in the files app.
+	 *
+	 * Only set if the sidebar is rendered within the files app,
+	 * apps rendering the sidebar within their own app have no open folder.
 	 */
-	folder: IFolder
+	folder?: IFolder
 
 	/**
-	 * The currently active view
+	 * The currently active view.
+	 *
+	 * Only set if the sidebar is rendered within the files app,
+	 * apps rendering the sidebar within their own app have no active view.
 	 */
-	view: IView
+	view?: IView
 }
 
 /**
