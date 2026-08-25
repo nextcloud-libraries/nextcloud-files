@@ -14,6 +14,7 @@ import { UploadFailedError } from '../errors/UploadFailedError.ts'
 import { getMaxChunksSize, supportsPublicChunking } from '../utils/config.ts'
 import { getMtimeHeader, isRequestAborted } from '../utils/requests.ts'
 import { getChunk, initChunkWorkspace, uploadData } from '../utils/upload.ts'
+import { encodeUrl } from '../utils/url.ts'
 import { Upload, UploadStatus } from './Upload.ts'
 
 /**
@@ -101,7 +102,7 @@ export class UploadFile extends Upload implements IUpload {
 		this.status = UploadStatus.UPLOADING
 		const chunk = await getChunk(this.#file!, 0, this.#file!.size)
 		try {
-			await this.#uploadChunk(chunk, this.source)
+			await this.#uploadChunk(chunk, encodeUrl(this.source))
 		} catch (error) {
 			if (!(error instanceof UploadCancelledError)) {
 				throw error
@@ -118,7 +119,9 @@ export class UploadFile extends Upload implements IUpload {
 	 */
 	async #uploadChunked(queue: PQueue) {
 		this.status = UploadStatus.UPLOADING
-		const temporaryUrl = await initChunkWorkspace(this.source, 5, isPublicShare(), this.#customHeaders)
+		// The `Destination` header must be a URI, so the source has to be encoded here
+		const destination = encodeUrl(this.source)
+		const temporaryUrl = await initChunkWorkspace(destination, 5, isPublicShare(), this.#customHeaders)
 
 		const promises: Promise<void>[] = []
 		const chunkSize = Math.floor(this.totalBytes / this.numberOfChunks)
@@ -149,7 +152,7 @@ export class UploadFile extends Upload implements IUpload {
 						...this.#customHeaders,
 						...getMtimeHeader(this.#file!),
 						'OC-Total-Length': this.totalBytes,
-						Destination: this.source,
+						Destination: destination,
 					},
 				})
 				this.status = UploadStatus.FINISHED

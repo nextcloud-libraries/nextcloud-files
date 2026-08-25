@@ -12,7 +12,7 @@ import { UploadCancelledError } from '../errors/UploadCancelledError.ts'
 import { UploadFailedError } from '../errors/UploadFailedError.ts'
 import { Directory as FileTree } from '../utils/fileTree.ts'
 import { getMtimeHeader, isRequestAborted } from '../utils/requests.ts'
-import { concatUrl } from '../utils/url.ts'
+import { concatUrl, encodeUrl } from '../utils/url.ts'
 import { Upload, UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
 
@@ -135,6 +135,7 @@ export class UploadFileTree extends Upload implements IUpload {
 
 		this.status = UploadStatus.UPLOADING
 		await this.#createDirectory(queue)
+
 		if (this.needConflictResolution && this.#conflictsCallback) {
 			const nodes = await this.#conflictsCallback(
 				this.#directory.children.map((node) => basename(node.name)),
@@ -145,16 +146,23 @@ export class UploadFileTree extends Upload implements IUpload {
 				return
 			}
 
-			for (const [originalName, newName] of Object.entries(nodes)) {
-				const upload = this.#children.find((child) => basename(child.source) === originalName)
-				if (upload) {
-					Object.defineProperty(upload, 'source', { value: concatUrl(this.source, newName) })
+			for (const childUpload of this.#children) {
+				const originalName = basename(childUpload.source)
+				const newName = nodes[originalName]
+				if (newName === undefined) {
+					childUpload.cancel()
+				} else if (newName !== originalName) {
+					Object.defineProperty(childUpload, 'source', { value: concatUrl(this.source, newName) })
 				}
 			}
 		}
 
 		const uploads: Promise<void>[] = []
 		for (const upload of this.#children) {
+			if (upload.signal.aborted) {
+				continue
+			}
+
 			// for folder tree uploads store the conflict resolution state to prevent useless requests
 			if (upload instanceof UploadFileTree) {
 				upload.needConflictResolution = this.needConflictResolution
@@ -191,7 +199,7 @@ export class UploadFileTree extends Upload implements IUpload {
 	async #createDirectory(queue: PQueue): Promise<void> {
 		await queue.add(async () => {
 			try {
-				await axios.head(this.source, {
+				await axios.head(encodeUrl(this.source), {
 					signal: this.signal,
 					headers: {
 						...this.#customHeaders,
@@ -209,7 +217,7 @@ export class UploadFileTree extends Upload implements IUpload {
 			try {
 				await axios.request({
 					method: 'MKCOL',
-					url: this.source,
+					url: encodeUrl(this.source),
 					headers: {
 						...this.#customHeaders,
 						...getMtimeHeader(this.#directory),

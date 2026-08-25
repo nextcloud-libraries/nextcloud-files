@@ -183,6 +183,41 @@ describe('upload status and events', () => {
 		expect(onFinish).toHaveBeenCalledOnce()
 	})
 
+	it('keeps the source unencoded but encodes the request URL', async () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(0)
+		uploadDataMock.mockImplementationOnce(() => Promise.resolve())
+
+		const uploadFile = new UploadFile('/destination/a b&c.txt', new File(['x'], 'a b&c.txt'), { noChunking: true })
+		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+
+		await uploadFile.start(queue as never)
+		await queue.add.mock.calls[0][0]()
+
+		expect(uploadFile.source).toBe('/destination/a b&c.txt')
+		expect(uploadDataMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', expect.anything(), expect.anything())
+	})
+
+	it('encodes the destination header of chunked uploads', async () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024)
+		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
+		uploadDataMock.mockImplementation(() => Promise.resolve())
+		const requestSpy = vi.spyOn(axios, 'request').mockResolvedValueOnce({} as never)
+
+		const uploadFile = new UploadFile('/destination/a b&c.txt', new File(['x'.repeat(4096)], 'a b&c.txt'), { noChunking: false })
+		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+
+		await uploadFile.start(queue as never)
+		await Promise.all(queue.add.mock.results.map((r) => r.value))
+
+		expect(uploadFile.source).toBe('/destination/a b&c.txt')
+		// the workspace is created with the encoded destination
+		expect(initChunkWorkspaceMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', 5, false, {})
+		// … and so is the assemble request
+		expect(requestSpy.mock.lastCall![0].headers!.Destination).toBe('/destination/a%20b%26c.txt')
+	})
+
 	it('scheduled', async () => {
 		isPublicShareMock.mockReturnValue(false)
 		getMaxChunksSizeMock.mockReturnValue(1024)
