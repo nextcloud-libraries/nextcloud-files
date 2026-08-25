@@ -6,11 +6,25 @@
 
 All notable changes to this project will be documented in this file.
 
-## 4.1.0-beta.1 - 2026-07-19
-This is a second beta for version v4.1 which includes the new uploader logic.
+## 4.1.0-beta.2 - 2026-08-24
+This is a third beta for version v4.1 which includes the new uploader logic.
 It is released as a beta to get some insights into potential issues with the uploader,
 so that API is allowed to still get breaking changes.
 
+### 🚀 Enhancements
+* feat(sidebar): add API for mounting the sidebar \([\#1728](https://github.com/nextcloud-libraries/nextcloud-files/pull/1728)\)
+
+### 🐛 Fixed bugs
+* fix(upload): properly handle skipped files \([\#1722](https://github.com/nextcloud-libraries/nextcloud-files/pull/1722)\)
+
+### Other changes
+* Updated dependencies
+  * Bump `axios` to 1.18.1
+  * Bump `dompurify` to 3.4.12
+  * Bump `p-queue` to 9.3.3
+  * Bump `dompurify` to 3.4.13
+
+## 4.1.0-beta.1 - 2026-07-19
 ### 🚀 Enhancements
 * feat(uploader): add reset event \([\#1672](https://github.com/nextcloud-libraries/nextcloud-files/pull/1672)\)
 
