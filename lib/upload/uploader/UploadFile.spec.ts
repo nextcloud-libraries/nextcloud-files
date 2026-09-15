@@ -192,7 +192,7 @@ describe('upload status and events', () => {
 		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
 
 		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]()
+		await Promise.all(queue.add.mock.results.map((r) => r.value))
 
 		expect(uploadFile.source).toBe('/destination/a b&c.txt')
 		expect(uploadDataMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', expect.anything(), expect.anything())
@@ -216,6 +216,15 @@ describe('upload status and events', () => {
 		expect(initChunkWorkspaceMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', 5, false, {})
 		// … and so is the assemble request
 		expect(requestSpy.mock.lastCall![0].headers!.Destination).toBe('/destination/a%20b%26c.txt')
+	})
+
+	it('rebases the upload to a new destination', () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024)
+
+		const uploadFile = new UploadFile('/destination/a.txt', new File(['x'], 'a.txt'), { noChunking: true })
+		uploadFile.rebase('/destination/folder (2)/a.txt')
+		expect(uploadFile.source).toBe('/destination/folder (2)/a.txt')
 	})
 
 	it('scheduled', async () => {
