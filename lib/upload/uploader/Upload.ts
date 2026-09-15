@@ -78,8 +78,26 @@ export interface IUpload extends TypedEventTarget<UploadEvents> {
 export abstract class Upload extends TypedEventTarget<UploadEvents> implements Partial<IUpload> {
 	#abortController = new AbortController()
 
+	/**
+	 * The destination of this upload.
+	 * This is *not* URL encoded, it is encoded when the upload requests are made.
+	 */
+	public abstract source: string
+
 	get signal(): AbortSignal {
 		return this.#abortController.signal
+	}
+
+	/**
+	 * Move this upload to a new destination.
+	 *
+	 * This is needed when a parent folder is renamed while resolving conflicts,
+	 * as the child uploads are already initialized with the previous destination.
+	 *
+	 * @param source - The new destination of this upload
+	 */
+	public rebase(source: string): void {
+		this.source = source
 	}
 
 	/**
