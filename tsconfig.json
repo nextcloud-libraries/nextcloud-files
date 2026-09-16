@@ -13,5 +13,9 @@
     "outDir": "./dist",
     "rootDir": "./lib",
     "noEmit": true,
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./lib/*"]
+    }
   }
 }
