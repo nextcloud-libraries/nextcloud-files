@@ -23,7 +23,7 @@ export function concatUrl(base: string, path: string): string {
 
 /**
  * URL encode the path of a decoded URL, leaving a potential origin untouched.
- * This must be used whenever a source is used for a request (URL or `Destination` header).
+ * This must be used whenever a source is used for a request (as URL or `Destination` header).
  *
  * @param url - The decoded URL, either absolute ("https://example.com/dav/a b.txt") or a path ("/dav/a b.txt")
  */

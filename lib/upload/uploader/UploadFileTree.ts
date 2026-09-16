@@ -96,6 +96,22 @@ export class UploadFileTree extends Upload implements IUpload {
 	}
 
 	/**
+	 * Move this upload - and all already initialized descendants - to a new destination.
+	 *
+	 * The whole tree is initialized upfront, so renaming a directory while resolving
+	 * conflicts also needs to re-base all of its children.
+	 *
+	 * @param source - The new destination of this upload
+	 */
+	public rebase(source: string): void {
+		for (const child of this.#children) {
+			// read the name before the parent source is updated
+			child.rebase(concatUrl(source, basename(child.source)))
+		}
+		super.rebase(source)
+	}
+
+	/**
 	 * Set up all child uploads for this upload tree.
 	 */
 	initialize(): (Upload & IUpload)[] {
@@ -152,7 +168,8 @@ export class UploadFileTree extends Upload implements IUpload {
 				if (newName === undefined) {
 					childUpload.cancel()
 				} else if (newName !== originalName) {
-					Object.defineProperty(childUpload, 'source', { value: concatUrl(this.source, newName) })
+					// for directories this also re-bases all of their children
+					childUpload.rebase(concatUrl(this.source, newName))
 				}
 			}
 		}

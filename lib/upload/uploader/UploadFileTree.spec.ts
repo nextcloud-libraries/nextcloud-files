@@ -22,6 +22,7 @@ const uploadFileMocks = vi.hoisted(() => {
 		signal: AbortSignal
 		start: ReturnType<typeof vi.fn>
 		cancel: ReturnType<typeof vi.fn>
+		rebase: ReturnType<typeof vi.fn>
 		status: number
 	}> = []
 
@@ -42,6 +43,10 @@ const uploadFileMocks = vi.hoisted(() => {
 		public cancel = vi.fn(() => {
 			this.#abortController.abort()
 			this.status = UploadStatus.CANCELLED
+		})
+
+		public rebase = vi.fn((source: string) => {
+			this.source = source
 		})
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -191,8 +196,35 @@ describe('UploadFileTree', () => {
 		expect(tree.status).toBe(UploadStatus.FINISHED)
 	})
 
+	it('rebases already initialized children when a folder is renamed', async () => {
+		// every MKCOL reports an existing directory so conflicts are resolved on all levels
+		axiosRequestMock.mockRejectedValue({ response: { status: 405 } })
+		isAxiosErrorMock.mockReturnValue(true)
+
+		const conflictCallback = vi.fn(async (nodes: string[]) => Object.fromEntries(nodes.map((node) => [node, node === 'folder' ? 'folder (2)' : node])))
+
+		const directory = await createDirectoryTree()
+		const tree = new UploadFileTree('/destination', directory, { callback: conflictCallback })
+		tree.initialize()
+
+		const nested = uploadFileMocks.instances[0]
+		expect(nested.source).toBe('/destination/folder/nested.txt')
+
+		await tree.start(createQueue())
+
+		expect(tree.children[0].source).toBe('/destination/folder (2)')
+		// the grandchild was already initialized, but still moved with its parent
+		expect(nested.source).toBe('/destination/folder (2)/nested.txt')
+		// so the renamed folder is created - and entered - under its new name
+		expect(axiosRequestMock.mock.calls.map(([{ url }]) => url)).toEqual([
+			'/destination',
+			'/destination/folder%20(2)',
+		])
+		expect(conflictCallback).toHaveBeenCalledWith(['nested.txt'], '/destination/folder (2)')
+		expect(tree.status).toBe(UploadStatus.FINISHED)
+	})
+
 	it('keeps sources unencoded but encodes them for requests', async () => {
-		// MKCOL fails with 405 so the directories already exist and conflicts need to be resolved
 		axiosRequestMock.mockRejectedValue({ response: { status: 405 } })
 		isAxiosErrorMock.mockReturnValue(true)
 
@@ -206,7 +238,7 @@ describe('UploadFileTree', () => {
 		const tree = new UploadFileTree('/destination', directory, { callback: conflictCallback })
 		const children = tree.initialize()
 
-		// the sources are the plain (unencoded) names so they can be matched by the conflict callback
+		// the sources are the plain names, so the conflict callback can match them
 		expect(children.map((child) => child.source)).toEqual([
 			'/destination/sub folder',
 			'/destination/a b&c.txt',
@@ -215,10 +247,9 @@ describe('UploadFileTree', () => {
 
 		await tree.start(createQueue())
 
-		// the conflict callback receives plain names, not encoded ones
 		expect(conflictCallback).toHaveBeenCalledWith(['sub folder', 'a b&c.txt'], '/destination')
 		expect(conflictCallback).toHaveBeenCalledWith(['näme #1.txt'], '/destination/sub folder')
-		// … while the requests use the encoded URLs
+		// … while the requests use encoded URLs
 		expect(axiosRequestMock.mock.calls.map(([{ url }]) => url)).toEqual([
 			'/destination',
 			'/destination/sub%20folder',
