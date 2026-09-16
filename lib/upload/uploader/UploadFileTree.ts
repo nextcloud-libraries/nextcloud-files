@@ -4,7 +4,7 @@
  */
 
 import type PQueue from 'p-queue'
-import type { IUpload, TUploadStatus } from './Upload.ts'
+import type { IUpload, IUploadOptions, TUploadStatus } from './Upload.ts'
 
 import axios, { isAxiosError } from '@nextcloud/axios'
 import { basename } from '@nextcloud/paths'
@@ -31,20 +31,19 @@ import { UploadFile } from './UploadFile.ts'
  */
 export type ConflictsCallback = (nodes: string[], currentPath: string) => Promise<false | Record<string, string>>
 
+interface IUploadFileTreeOptions {
+	/** The callback to handle conflicts */
+	callback?: ConflictsCallback
+}
+
 /**
  * A class representing a single file to be uploaded
  */
-export class UploadFileTree extends Upload implements IUpload {
-	/** Customer headers passed */
-	#customHeaders: Record<string, string>
+export class UploadFileTree extends Upload<IUploadFileTreeOptions> implements IUpload {
 	/** The current file tree to upload */
 	#directory: FileTree
-	/** Whether chunking is disabled */
-	#noChunking: boolean
 	/** Children uploads of this parent folder upload */
 	#children: (Upload & IUpload)[] = []
-	/** The callback to handle conflicts */
-	#conflictsCallback?: ConflictsCallback
 
 	/** Whether we need to check for conflicts or not (newly created parent folders = no conflict resolution needed) */
 	protected needConflictResolution = true
@@ -58,24 +57,13 @@ export class UploadFileTree extends Upload implements IUpload {
 	constructor(
 		destination: string,
 		directory: FileTree,
-		options: {
-			callback?: ConflictsCallback
-			headers?: Record<string, string>
-			noChunking?: boolean
-		},
+		options: Partial<IUploadOptions & IUploadFileTreeOptions> = {},
 	) {
-		super()
-		const {
-			headers = {},
-			noChunking = false,
-		} = options
+		super(options)
 
 		// exposed state
 		this.source = destination
 		this.#directory = directory
-		this.#customHeaders = headers
-		this.#noChunking = noChunking
-		this.#conflictsCallback = options.callback
 
 		this.signal.addEventListener('abort', () => {
 			for (const child of this.#children) {
@@ -121,11 +109,7 @@ export class UploadFileTree extends Upload implements IUpload {
 				const upload = new UploadFileTree(
 					concatUrl(this.source, child.originalName),
 					child,
-					{
-						callback: this.#conflictsCallback,
-						headers: this.#customHeaders,
-						noChunking: this.#noChunking,
-					},
+					this.options,
 				)
 				this.#children.push(upload)
 				grandchildren.push(...upload.initialize())
@@ -133,7 +117,7 @@ export class UploadFileTree extends Upload implements IUpload {
 				const upload = new UploadFile(
 					concatUrl(this.source, child.name),
 					child,
-					{ headers: this.#customHeaders, noChunking: this.#noChunking },
+					this.options,
 				)
 				this.#children.push(upload)
 			}
@@ -152,8 +136,8 @@ export class UploadFileTree extends Upload implements IUpload {
 		this.status = UploadStatus.UPLOADING
 		await this.#createDirectory(queue)
 
-		if (this.needConflictResolution && this.#conflictsCallback) {
-			const nodes = await this.#conflictsCallback(
+		if (this.needConflictResolution && this.options.callback) {
+			const nodes = await this.options.callback(
 				this.#directory.children.map((node) => basename(node.name)),
 				this.source,
 			)
@@ -219,7 +203,7 @@ export class UploadFileTree extends Upload implements IUpload {
 				await axios.head(encodeUrl(this.source), {
 					signal: this.signal,
 					headers: {
-						...this.#customHeaders,
+						...this.options.headers,
 					},
 				})
 				return // directory already exists, no need to create it
@@ -236,7 +220,7 @@ export class UploadFileTree extends Upload implements IUpload {
 					method: 'MKCOL',
 					url: encodeUrl(this.source),
 					headers: {
-						...this.#customHeaders,
+						...this.options.headers,
 						...getMtimeHeader(this.#directory),
 					},
 					signal: this.signal,

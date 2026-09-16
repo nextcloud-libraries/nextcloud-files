@@ -20,6 +20,7 @@ const uploadFileMocks = vi.hoisted(() => {
 	const instances: Array<{
 		source: string
 		signal: AbortSignal
+		options: unknown
 		start: ReturnType<typeof vi.fn>
 		cancel: ReturnType<typeof vi.fn>
 		rebase: ReturnType<typeof vi.fn>
@@ -28,6 +29,7 @@ const uploadFileMocks = vi.hoisted(() => {
 
 	class MockUploadFile {
 		public source: string
+		public options: unknown
 		public status: number = UploadStatus.INITIALIZED
 
 		#abortController = new AbortController()
@@ -49,9 +51,9 @@ const uploadFileMocks = vi.hoisted(() => {
 			this.source = source
 		})
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		public constructor(source: string, _file: File, _options: unknown) {
+		public constructor(source: string, _file: File, options: unknown) {
 			this.source = source
+			this.options = options
 			instances.push(this)
 		}
 	}
@@ -129,6 +131,26 @@ describe('UploadFileTree', () => {
 		expect(snapshot[0].source).toBe('/destination/folder')
 		expect(snapshot[1].source).toBe('/destination/root.txt')
 		expect(snapshot[2].source).toBe('/destination/folder/nested.txt')
+	})
+
+	it('passes the configured retries down to nested child uploads', async () => {
+		const directory = await createDirectoryTree()
+		const tree = new UploadFileTree('/destination', directory, { retries: 2 })
+		tree.initialize()
+
+		// both the direct child file and the one nested in a sub directory
+		expect(uploadFileMocks.instances).toHaveLength(2)
+		for (const instance of uploadFileMocks.instances) {
+			expect(instance.options).toMatchObject({ retries: 2 })
+		}
+	})
+
+	it('defaults to 5 retries for child uploads', async () => {
+		const directory = await createDirectoryTree()
+		const tree = new UploadFileTree('/destination', directory, {})
+		tree.initialize()
+
+		expect(uploadFileMocks.instances[0].options).toMatchObject({ retries: 5 })
 	})
 
 	it('cancels child uploads when aborted', async () => {

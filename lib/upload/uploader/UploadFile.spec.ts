@@ -96,6 +96,50 @@ describe('chunking', () => {
 	})
 })
 
+describe('retries', () => {
+	it('defaults to 5 retries for a plain upload', async () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
+		uploadDataMock.mockResolvedValue(undefined)
+
+		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), {})
+		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+		await uploadFile.start(queue as never)
+		await queue.add.mock.calls[0][0]()
+
+		expect(uploadDataMock).toHaveBeenLastCalledWith('/destination', expect.anything(), expect.objectContaining({ retries: 5 }))
+	})
+
+	it('forwards the configured retries to the upload request', async () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
+		uploadDataMock.mockResolvedValue(undefined)
+
+		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { retries: 2 })
+		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+		await uploadFile.start(queue as never)
+		await queue.add.mock.calls[0][0]()
+
+		expect(uploadDataMock).toHaveBeenLastCalledWith('/destination', expect.anything(), expect.objectContaining({ retries: 2 }))
+	})
+
+	it('forwards the configured retries to chunked uploads and the workspace creation', async () => {
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024)
+		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
+		uploadDataMock.mockResolvedValue(undefined)
+		vi.spyOn(axios, 'request').mockResolvedValueOnce({})
+
+		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(4096)], 'bigfile'), { retries: 2 })
+		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+		await uploadFile.start(queue as never)
+		await Promise.all(queue.add.mock.results.map((r) => r.value))
+
+		expect(initChunkWorkspaceMock).toHaveBeenLastCalledWith('/destination', 2, false, {})
+		expect(uploadDataMock).toHaveBeenLastCalledWith(expect.any(String), expect.anything(), expect.objectContaining({ retries: 2 }))
+	})
+})
+
 describe('upload status and events', () => {
 	it('initialized', () => {
 		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: false })

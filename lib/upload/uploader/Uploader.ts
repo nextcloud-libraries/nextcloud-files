@@ -57,8 +57,9 @@ interface BaseOptions {
 
 interface UploadOptions extends BaseOptions {
 	/**
-	 * The root folder where to upload.
-	 * Allows to override the current root of the uploader for this upload
+	 * The root folder where to upload, as an absolute WebDAV source URL.
+	 * Allows to override the current destination of the uploader for this upload,
+	 * without changing the destination for any other upload.
 	 */
 	root?: string
 
@@ -313,7 +314,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		const rootFolder = new Directory('')
 		await rootFolder.addChildren(files)
 		// create a meta upload to ensure all ongoing child requests are listed
-		const target = `${this.destination.source.replace(/\/$/, '')}/${destination.replace(/^\//, '')}`
+		const target = this.#resolveTarget(destination, options?.root)
 		const headers = Object.fromEntries(this.#customHeaders.entries())
 		const _callback = options?.callback
 		// The callback is adjusted to be called with the path relative to the upload target
@@ -347,7 +348,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 	 * @param options - Optional parameters
 	 */
 	public async upload(destination: string, fileHandle: File | FileSystemFileEntry, options?: UploadOptions): Promise<IUpload> {
-		const target = `${this.destination.source.replace(/\/$/, '')}/${destination.replace(/^\//, '')}`
+		const target = this.#resolveTarget(destination, options?.root)
 		const headers = Object.fromEntries(this.#customHeaders.entries())
 		const upload = new UploadFile(target, fileHandle, { ...options, headers })
 		if (options?.signal) {
@@ -360,6 +361,17 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return upload
+	}
+
+	/**
+	 * Resolve the absolute upload target for a destination relative to the root folder.
+	 *
+	 * @param destination - The destination path relative to the root folder
+	 * @param root - Optional root to use instead of the current uploader destination
+	 */
+	#resolveTarget(destination: string, root?: string): string {
+		const base = root ?? this.#destinationFolder.source
+		return `${base.replace(/\/$/, '')}/${destination.replace(/^\//, '')}`
 	}
 
 	/**
