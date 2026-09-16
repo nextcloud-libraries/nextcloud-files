@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileListHeader, IFolder, IView } from '~/index.ts'
+import type { IFileListHeader, IFolder, IView } from '@/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { scopedGlobals } from '~/globalScope.ts'
-import { getFileListHeaders, getFilesRegistry, registerFileListHeader } from '~/ui/index.ts'
-import logger from '~/utils/logger.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { getFileListHeaders, getFilesRegistry, registerFileListHeader } from '@/ui/index.ts'
+import logger from '@/utils/logger.ts'
 
 describe('FileListHeader init', () => {
 	beforeEach(() => {

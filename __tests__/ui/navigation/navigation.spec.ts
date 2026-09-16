@@ -5,9 +5,9 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { mockView } from '../../fixtures/view.ts'
-import { scopedGlobals } from '~/globalScope.ts'
-import { View } from '~/index.ts'
-import { getNavigation, Navigation } from '~/ui/navigation/navigation.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { View } from '@/index.ts'
+import { getNavigation, Navigation } from '@/ui/navigation/navigation.ts'
 
 describe('getNavigation', () => {
 	it('creates a new navigation if needed', () => {

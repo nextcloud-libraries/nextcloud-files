@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { NewMenuEntry } from '~/ui/index.ts'
+import type { NewMenuEntry } from '@/ui/index.ts'
 
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { scopedGlobals } from '~/globalScope.ts'
-import { Folder } from '~/node/index.ts'
-import { Permission } from '~/permissions.ts'
-import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries, removeNewFileMenuEntry } from '~/ui/index.ts'
-import { NewMenu, NewMenuEntryCategory } from '~/ui/newMenu/NewMenu.ts'
-import logger from '~/utils/logger.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { Folder } from '@/node/index.ts'
+import { Permission } from '@/permissions.ts'
+import { addNewFileMenuEntry, getNewFileMenu, getNewFileMenuEntries, removeNewFileMenuEntry } from '@/ui/index.ts'
+import { NewMenu, NewMenuEntryCategory } from '@/ui/newMenu/NewMenu.ts'
+import logger from '@/utils/logger.ts'
 
 describe('NewFileMenu init', () => {
 	test('Initializing NewFileMenu', () => {

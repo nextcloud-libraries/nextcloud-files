@@ -1,5 +1,6 @@
 {
   "include": ["lib"],
+  "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
