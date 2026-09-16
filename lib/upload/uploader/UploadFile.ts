@@ -95,6 +95,9 @@ export class UploadFile extends Upload implements IUpload {
 		const chunk = await getChunk(this.#file!, 0, this.#file!.size)
 		try {
 			await this.#uploadChunk(chunk, encodeUrl(this.source))
+			// Update progress - now we set the uploaded size to 100% of the file size
+			this.uploadedBytes = this.totalBytes
+			this.status = UploadStatus.FINISHED
 		} catch (error) {
 			if (!(error instanceof UploadCancelledError)) {
 				throw error
@@ -169,6 +172,12 @@ export class UploadFile extends Upload implements IUpload {
 	 * @param url - The target URL
 	 */
 	async #uploadChunk(chunk: Blob, url: string) {
+		// Bytes of this chunk that are already accounted for in `this.uploadedBytes`.
+		// This is tracked per chunk as other chunks might be uploaded in parallel.
+		let accountedBytes = 0
+		// Bytes of this chunk reported as sent by the current try
+		let sentBytes = 0
+
 		try {
 			await uploadData(
 				url,
@@ -177,13 +186,20 @@ export class UploadFile extends Upload implements IUpload {
 					signal: this.signal,
 					retries: this.options.retries,
 					onUploadProgress: ({ bytes }) => {
+						sentBytes += bytes
 						// As this is only the sent bytes not the processed ones we only count 90%.
-						// When the upload is finished (server acknowledged the upload) the remaining 10% will be correctly set.
-						this.uploadedBytes += bytes * 0.9
+						// When the chunk is uploaded (server acknowledged the upload) the remaining 10% will be correctly set.
+						// Rounding keeps `uploadedBytes` an integer so the accounting stays exact.
+						const accounted = Math.min(Math.round(sentBytes * 0.9), chunk.size)
+						this.uploadedBytes += accounted - accountedBytes
+						accountedBytes = accounted
 						this.dispatchTypedEvent('progress', new CustomEvent('progress', { detail: this }))
 					},
 					onUploadRetry: () => {
-						this.uploadedBytes = 0
+						// Only discard the progress of this chunk, any other chunk is not affected by this retry
+						this.uploadedBytes -= accountedBytes
+						accountedBytes = 0
+						sentBytes = 0
 					},
 					headers: {
 						...this.options.headers,
@@ -193,9 +209,9 @@ export class UploadFile extends Upload implements IUpload {
 				},
 			)
 
-			// Update progress - now we set the uploaded size to 100% of the file size
-			this.uploadedBytes = this.totalBytes
-			this.status = UploadStatus.FINISHED
+			// The server acknowledged this chunk, so account the remaining 10% of it
+			this.uploadedBytes += chunk.size - accountedBytes
+			this.dispatchTypedEvent('progress', new CustomEvent('progress', { detail: this }))
 		} catch (error) {
 			if (isRequestAborted(error)) {
 				this.status = UploadStatus.CANCELLED

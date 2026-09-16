@@ -6,7 +6,7 @@
 
 import axios from '@nextcloud/axios'
 import { CanceledError } from 'axios'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
 
@@ -364,5 +364,130 @@ describe('upload status and events', () => {
 		await queue.add.mock.calls[0][0]().catch(() => {})
 		expect(uploadFile.status).toBe(UploadStatus.FAILED)
 		expect(onFinish).toHaveBeenCalledOnce()
+	})
+})
+
+describe('chunked upload progress and status', () => {
+	// 4096 bytes with a maximum chunk size of 1024 bytes -> four chunks
+	const fileSize = 4096
+
+	/**
+	 * Create a queue stub that runs every task immediately and keeps the resulting promise.
+	 */
+	function immediateQueue() {
+		return { add: vi.fn((fn: () => Promise<void>) => fn()) }
+	}
+
+	/**
+	 * Create a chunked upload of `fileSize` bytes.
+	 */
+	function createUpload() {
+		return new UploadFile('/destination', new File(['x'.repeat(fileSize)], 'bigfile'), { noChunking: false })
+	}
+
+	beforeEach(() => {
+		vi.restoreAllMocks()
+		uploadDataMock.mockReset()
+		initChunkWorkspaceMock.mockReset()
+
+		isPublicShareMock.mockReturnValue(false)
+		getMaxChunksSizeMock.mockReturnValue(1024)
+		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
+	})
+
+	it('is not finished while other chunks are still uploading', async () => {
+		// the last of the four chunks never settles, all others succeed
+		const { promise: pendingChunk } = Promise.withResolvers<void>()
+		const delayed = () => new Promise((resolve) => setTimeout(resolve, 10))
+		uploadDataMock
+			.mockImplementationOnce(delayed)
+			.mockImplementationOnce(delayed)
+			.mockImplementationOnce(delayed)
+			.mockReturnValueOnce(pendingChunk)
+		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+
+		const uploadFile = createUpload()
+		const queue = immediateQueue()
+		await uploadFile.start(queue as never)
+
+		await vi.waitFor(() => expect(uploadDataMock).toHaveBeenCalledTimes(4))
+		// wait for the three succeeding chunks to settle
+		await new Promise((resolve) => setTimeout(resolve, 30))
+
+		expect(uploadFile.status).toBe(UploadStatus.UPLOADING)
+		expect(uploadFile.uploadedBytes).toBeLessThan(fileSize)
+	})
+
+	it('never reports more uploaded bytes than the file size', async () => {
+		uploadDataMock.mockImplementation((_url: string, chunk: Blob, options: any) => {
+			// the whole chunk was sent
+			options.onUploadProgress?.({ bytes: chunk.size })
+			return Promise.resolve()
+		})
+		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+
+		const uploadFile = createUpload()
+		const reported: number[] = []
+		uploadFile.addEventListener('progress', () => {
+			reported.push(uploadFile.uploadedBytes)
+		})
+
+		const queue = immediateQueue()
+		await uploadFile.start(queue as never)
+		await Promise.all(queue.add.mock.results.map((r) => r.value))
+
+		expect(Math.max(...reported)).toBeLessThanOrEqual(fileSize)
+		expect(uploadFile.uploadedBytes).toBe(fileSize)
+		expect(uploadFile.status).toBe(UploadStatus.FINISHED)
+	})
+
+	it('only discards the progress of the retried chunk', async () => {
+		uploadDataMock.mockImplementation((_url: string, chunk: Blob, options: any) => {
+			options.onUploadProgress?.({ bytes: chunk.size })
+			return Promise.resolve()
+		})
+		// the first chunk is uploaded without any retry …
+		uploadDataMock.mockImplementationOnce((_url: string, chunk: Blob, options: any) => {
+			options.onUploadProgress?.({ bytes: chunk.size })
+			return Promise.resolve()
+		})
+		// … while the second one has to be retried after it was already fully sent
+		uploadDataMock.mockImplementationOnce((_url: string, chunk: Blob, options: any) => {
+			options.onUploadProgress?.({ bytes: chunk.size })
+			options.onUploadRetry?.()
+			options.onUploadProgress?.({ bytes: chunk.size })
+			return Promise.resolve()
+		})
+		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+
+		const uploadFile = createUpload()
+		const reported: number[] = []
+		uploadFile.addEventListener('progress', () => {
+			reported.push(uploadFile.uploadedBytes)
+		})
+
+		const queue = immediateQueue()
+		await uploadFile.start(queue as never)
+		await Promise.all(queue.add.mock.results.map((r) => r.value))
+
+		// a retry of one chunk must not drop the progress of the other chunks
+		expect(Math.max(...reported)).toBeLessThanOrEqual(fileSize)
+		expect(uploadFile.uploadedBytes).toBe(fileSize)
+	})
+
+	it('does not overwrite a failed status with a later successful chunk', async () => {
+		// the first chunk fails, all other chunks succeed but only after the failure was handled
+		uploadDataMock.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 20)))
+		uploadDataMock.mockRejectedValueOnce(new Error('chunk failed'))
+		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+
+		const uploadFile = createUpload()
+		const queue = immediateQueue()
+		await uploadFile.start(queue as never)
+		await Promise.allSettled(queue.add.mock.results.map((r) => r.value))
+		// wait for the remaining chunks to settle
+		await new Promise((resolve) => setTimeout(resolve, 50))
+
+		expect(uploadFile.status).toBe(UploadStatus.FAILED)
 	})
 })

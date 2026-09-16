@@ -289,6 +289,87 @@ describe('Uploader (current API)', () => {
 		await expect(client.getFileContents('/files/admin/test-stats/large.txt', { format: 'text' })).resolves.toBe(content)
 	})
 
+	it('should report the progress of a chunked upload without exceeding the file size', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-chunked-progress').catch(() => {})
+		await client.createDirectory('/files/admin/test-chunked-progress')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-chunked-progress`,
+		})
+		const uploader = new Uploader(false, folder)
+
+		// Pause so all chunks are queued before the listeners are attached,
+		// this way no progress event can be missed.
+		await uploader.pause()
+
+		// 21 MiB exceeds the default 10 MiB chunk size, so this is uploaded in multiple chunks
+		const content = 'x'.repeat(21 * 1024 * 1024)
+		const upload = await uploader.upload('chunked.txt', new File([content], 'chunked.txt', { type: 'text/plain' }))
+		expect(upload.isChunked).toBe(true)
+
+		const observedBytes: number[] = []
+		upload.addEventListener('progress', () => {
+			observedBytes.push(upload.uploadedBytes)
+		})
+		const observedProgress: number[] = []
+		uploader.addEventListener('uploadProgress', () => {
+			observedProgress.push(uploader.statistics.progress)
+		})
+
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		uploader.start()
+		await finishedPromise
+
+		expect(upload.status).toBe(UploadStatus.FINISHED)
+		// Every chunk reported progress …
+		expect(observedBytes.length).toBeGreaterThan(1)
+		// … but no chunk ever accounted more than the total size of the file …
+		expect(Math.max(...observedBytes)).toBeLessThanOrEqual(upload.totalBytes)
+		expect(Math.max(...observedProgress)).toBeLessThanOrEqual(100)
+		// … and in the end all bytes are accounted for exactly once.
+		expect(upload.uploadedBytes).toBe(upload.totalBytes)
+		expect(Math.max(...observedProgress)).toBe(100)
+
+		await expect(client.getFileContents('/files/admin/test-chunked-progress/chunked.txt', { format: 'text' })).resolves.toBe(content)
+	})
+
+	it('should not report a chunked upload as finished before it is assembled', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-chunked-status').catch(() => {})
+		await client.createDirectory('/files/admin/test-chunked-status')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-chunked-status`,
+		})
+		const uploader = new Uploader(false, folder)
+		await uploader.pause()
+
+		const content = 'x'.repeat(21 * 1024 * 1024)
+		const upload = await uploader.upload('chunked.txt', new File([content], 'chunked.txt', { type: 'text/plain' }))
+		expect(upload.isChunked).toBe(true)
+
+		const observedStatuses: number[] = []
+		upload.addEventListener('progress', () => {
+			observedStatuses.push(upload.status)
+		})
+
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		uploader.start()
+		await finishedPromise
+
+		// While any chunk is still transferred the upload is uploading …
+		expect(observedStatuses).toContain(UploadStatus.UPLOADING)
+		// … a single finished chunk must not mark the whole file as finished …
+		expect(observedStatuses).not.toContain(UploadStatus.FINISHED)
+		// … only once the server assembled all chunks the upload is finished.
+		expect(upload.status).toBe(UploadStatus.FINISHED)
+	})
+
 	it('should cancel a queued upload', async () => {
 		const client = getClient()
 		await client.deleteFile('/files/admin/test-cancel').catch(() => {})
