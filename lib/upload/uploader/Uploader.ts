@@ -326,7 +326,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 			{ ...options, callback, headers },
 		)
 		if (options?.signal) {
-			options.signal.addEventListener('abort', upload.cancel)
+			this.#attachAbortSignal(options.signal, upload)
 		}
 
 		const uploads = [...upload.initialize(), upload]
@@ -352,7 +352,7 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		const headers = Object.fromEntries(this.#customHeaders.entries())
 		const upload = new UploadFile(target, fileHandle, { ...options, headers })
 		if (options?.signal) {
-			options.signal.addEventListener('abort', upload.cancel)
+			this.#attachAbortSignal(options.signal, upload)
 		}
 
 		this.#attachEventListeners(upload)
@@ -361,6 +361,20 @@ export class Uploader extends TypedEventTarget<UploaderEventsMap> {
 		this.dispatchTypedEvent('uploadStarted', new CustomEvent('uploadStarted', { detail: upload }))
 		await upload.start(this.#jobQueue)
 		return upload
+	}
+
+	/**
+	 * Cancel the upload when the caller provided abort signal is aborted.
+	 *
+	 * @param signal - The abort signal provided by the caller
+	 * @param upload - The upload to cancel when the signal is aborted
+	 */
+	#attachAbortSignal(signal: AbortSignal, upload: IUpload): void {
+		if (signal.aborted) {
+			upload.cancel()
+			return
+		}
+		signal.addEventListener('abort', () => upload.cancel(), { once: true })
 	}
 
 	/**
