@@ -6,44 +6,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 4.1.0-beta.2 - 2026-08-24
-This is a third beta for version v4.1 which includes the new uploader logic.
-It is released as a beta to get some insights into potential issues with the uploader,
-so that API is allowed to still get breaking changes.
-
-### 🚀 Enhancements
-* feat(sidebar): add API for mounting the sidebar \([\#1728](https://github.com/nextcloud-libraries/nextcloud-files/pull/1728)\)
-
-### 🐛 Fixed bugs
-* fix(upload): properly handle skipped files \([\#1722](https://github.com/nextcloud-libraries/nextcloud-files/pull/1722)\)
-
-### Other changes
-* Updated dependencies
-  * Bump `axios` to 1.18.1
-  * Bump `dompurify` to 3.4.12
-  * Bump `p-queue` to 9.3.3
-  * Bump `dompurify` to 3.4.13
-
-## 4.1.0-beta.1 - 2026-07-19
-### 🚀 Enhancements
-* feat(uploader): add reset event \([\#1672](https://github.com/nextcloud-libraries/nextcloud-files/pull/1672)\)
-
-### 🐛 Fixed bugs
-* fix(upload): expose the current uploader statistics \([\#1673](https://github.com/nextcloud-libraries/nextcloud-files/pull/1673)\)
-* fix(uploader): the conflicts callback needs to get the relative path \([\#1676](https://github.com/nextcloud-libraries/nextcloud-files/pull/1676)\)
-* fix(upload): only create directory if needed \([\#1674](https://github.com/nextcloud-libraries/nextcloud-files/pull/1674)\)
-* fix(upload): check if we need to create a folder before creating it \([\#1687](https://github.com/nextcloud-libraries/nextcloud-files/pull/1687)\)
-* fix(uploader): properly handle chunked uploads \([\#1686](https://github.com/nextcloud-libraries/nextcloud-files/pull/1686)\)
-
-### Other changes
-* refactor(upload): remove duplicated uploader status information \([\#1675](https://github.com/nextcloud-libraries/nextcloud-files/pull/1675)\)
-* ci: update all workflow templates from organization template repository \([\#1671](https://github.com/nextcloud-libraries/nextcloud-files/pull/1671)\) \([\#1688](https://github.com/nextcloud-libraries/nextcloud-files/pull/1688)\)
-* Updated dependencies:
-  * Bump `dompurify` to 3.4.11
-  * Bump `form-data` to 4.0.6
-  * Bump `p-queue` to 9.3.1
-
-## 4.1.0-beta.0 - 2026-06-12
+## 4.1.0 - 2026-09-16
 ### 🚀 Enhancements
 * feat(recent-search): include recently uploaded files in addition to modified files \([\#1498](https://github.com/nextcloud-libraries/nextcloud-files/pull/1498)\)
 * feat(recent-search): add creation_time property and use capatabilities to identify wheter creation_time and upload_time are supported \([\#1517](https://github.com/nextcloud-libraries/nextcloud-files/pull/1517)\)
@@ -51,16 +14,37 @@ so that API is allowed to still get breaking changes.
 * feat(recent-search): add parameter to allow dynamic limit of returned items \([\#1527](https://github.com/nextcloud-libraries/nextcloud-files/pull/1527)\)
 * feat(recent-search): allow ordering by nc:last_activity when capability is true \([\#1547](https://github.com/nextcloud-libraries/nextcloud-files/pull/1547)\)
 * feat(recent-search): add nc:upload_time as a select prop \([\#1543](https://github.com/nextcloud-libraries/nextcloud-files/pull/1543)\)
+* feat(uploader): add reset event \([\#1672](https://github.com/nextcloud-libraries/nextcloud-files/pull/1672)\)
+* feat(sidebar): add API for mounting the sidebar \([\#1728](https://github.com/nextcloud-libraries/nextcloud-files/pull/1728)\)
 
-### Changes
+### 🐛 Fixed bugs
+* fix(upload): expose the current uploader statistics \([\#1673](https://github.com/nextcloud-libraries/nextcloud-files/pull/1673)\)
+* fix(uploader): the conflicts callback needs to get the relative path \([\#1676](https://github.com/nextcloud-libraries/nextcloud-files/pull/1676)\)
+* fix(upload): only create directory if needed \([\#1674](https://github.com/nextcloud-libraries/nextcloud-files/pull/1674)\)
+* fix(upload): check if we need to create a folder before creating it \([\#1687](https://github.com/nextcloud-libraries/nextcloud-files/pull/1687)\)
+* fix(uploader): properly handle chunked uploads \([\#1686](https://github.com/nextcloud-libraries/nextcloud-files/pull/1686)\)
+* fix(upload): properly handle skipped files \([\#1722](https://github.com/nextcloud-libraries/nextcloud-files/pull/1722)\)
+* fix(upload): propagate folder renames to already initialized child uploads \([\#1744](https://github.com/nextcloud-libraries/nextcloud-files/pull/1744)\)
+* fix(upload): honor `root` and `retries` upload options \([\#1745](https://github.com/nextcloud-libraries/nextcloud-files/pull/1745)\)
+* fix(upload): do not finish chunked uploads after the first chunk \([\#1746](https://github.com/nextcloud-libraries/nextcloud-files/pull/1746)\)
+* fix(upload): make the `signal` upload option actually cancel the upload \([\#1747](https://github.com/nextcloud-libraries/nextcloud-files/pull/1747)\)
+
+### Other changes
 * refactor: group all UI integrations in folder structure \([\#1496](https://github.com/nextcloud-libraries/nextcloud-files/pull/1496)\)
 * refactor(upload): split uploader into separate classes for file and folder uploads \([\#1535](https://github.com/nextcloud-libraries/nextcloud-files/pull/1535)\)
-* ci: update all workflow templates from organization template repository \([\#1565](https://github.com/nextcloud-libraries/nextcloud-files/pull/1565)\)
-* ci: update all workflow templates from organization template repository \([\#1566](https://github.com/nextcloud-libraries/nextcloud-files/pull/1566)\)
-* chore(deps): Bump @nextcloud/sharing to 0.4.0
-* chore(deps): Bump @nextcloud/paths to 3.1.0
-* chore(deps): Bump @nextcloud/auth to 2.6.0
-* chore(deps): Bump @nextcloud/axios to 2.6.0
+* refactor(upload): remove duplicated uploader status information \([\#1675](https://github.com/nextcloud-libraries/nextcloud-files/pull/1675)\)
+* chore(docs): update last readme example syntax \([\#1533](https://github.com/nextcloud-libraries/nextcloud-files/pull/1533)\)
+* ci: update all workflow templates from organization template repository
+* Updated dependencies
+  * Bump `@nextcloud/auth` to 2.6.0
+  * Bump `@nextcloud/axios` to 2.6.0
+  * Bump `@nextcloud/sharing` to 0.4.0
+  * Bump `@nextcloud/paths` to 3.1.0
+  * Bump `axios` to 1.18.1
+  * Bump `dompurify` to 3.4.13
+  * Bump `fast-xml-builder` to 1.2.0
+  * Bump `immutable` to 5.1.5
+  * Bump `p-queue` to 9.3.3
 
 ## 4.0.0 - 2026-02-10
 ℹ️ *The release does not contain any breaking changes compared to [v4.0.0-rc.3](https://github.com/nextcloud-libraries/nextcloud-files/blob/v4.0.0-rc.3/CHANGELOG.md#400-rc3---2026-02-09).*
