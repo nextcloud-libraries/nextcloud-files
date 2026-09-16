@@ -60,11 +60,20 @@ vi.mock('./UploadFile.ts', () => ({
 		removeEventListener() {}
 		dispatchEvent = (() => true) as any
 		dispatchTypedEvent = (() => true) as any
-		cancel = vi.fn(() => {
+
+		// Mirrors the real `Upload.cancel`: a method that accesses private state,
+		// so calling it with a foreign `this` throws instead of silently working.
+		#cancelled = false
+		get cancelled(): boolean {
+			return this.#cancelled
+		}
+
+		cancel() {
+			this.#cancelled = true
 			if (this.status !== UploadStatus.FINISHED) {
 				this.status = UploadStatus.CANCELLED
 			}
-		})
+		}
 
 		start = async () => {
 			// simulate progress then finish
@@ -107,11 +116,20 @@ vi.mock('./UploadFileTree.ts', () => ({
 		removeEventListener = (() => {}) as any
 		dispatchEvent = (() => true) as any
 		dispatchTypedEvent = (() => true) as any
-		cancel = vi.fn(() => {
+
+		// Mirrors the real `Upload.cancel`: a method that accesses private state,
+		// so calling it with a foreign `this` throws instead of silently working.
+		#cancelled = false
+		get cancelled(): boolean {
+			return this.#cancelled
+		}
+
+		cancel() {
+			this.#cancelled = true
 			if (this.status !== UploadStatus.FINISHED) {
 				this.status = UploadStatus.CANCELLED as TUploadStatus
 			}
-		})
+		}
 
 		initialize = () => []
 		start = async () => {
@@ -248,6 +266,49 @@ describe('Uploader (current API)', () => {
 		expect(started).toHaveBeenCalled()
 		expect(progress).toHaveBeenCalled()
 		expect(finished).toHaveBeenCalled()
+	})
+
+	describe('abort signal', () => {
+		it('cancels a single upload when the signal is aborted', async () => {
+			const uploader = new Uploader()
+			const controller = new AbortController()
+
+			const upload = await uploader.upload('/hello.txt', new File(['a'], 'hello.txt'), { signal: controller.signal })
+			expect((upload as unknown as { cancelled: boolean }).cancelled).toBe(false)
+
+			controller.abort()
+			expect((upload as unknown as { cancelled: boolean }).cancelled).toBe(true)
+		})
+
+		it('cancels a batch upload when the signal is aborted', async () => {
+			const uploader = new Uploader()
+			const controller = new AbortController()
+
+			const uploads = await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')], { signal: controller.signal })
+			const root = uploads.at(-1) as unknown as { cancelled: boolean }
+			expect(root.cancelled).toBe(false)
+
+			controller.abort()
+			expect(root.cancelled).toBe(true)
+		})
+
+		it('cancels a single upload when the signal is already aborted', async () => {
+			const uploader = new Uploader()
+			const controller = new AbortController()
+			controller.abort()
+
+			const upload = await uploader.upload('/hello.txt', new File(['a'], 'hello.txt'), { signal: controller.signal })
+			expect((upload as unknown as { cancelled: boolean }).cancelled).toBe(true)
+		})
+
+		it('cancels a batch upload when the signal is already aborted', async () => {
+			const uploader = new Uploader()
+			const controller = new AbortController()
+			controller.abort()
+
+			const uploads = await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')], { signal: controller.signal })
+			expect((uploads.at(-1) as unknown as { cancelled: boolean }).cancelled).toBe(true)
+		})
 	})
 
 	describe('upload target resolution', () => {
