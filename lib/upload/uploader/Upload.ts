@@ -75,8 +75,25 @@ export interface IUpload extends TypedEventTarget<UploadEvents> {
 	cancel(): void
 }
 
-export abstract class Upload extends TypedEventTarget<UploadEvents> implements Partial<IUpload> {
+export interface IUploadOptions {
+	headers: Record<string, string>
+	noChunking: boolean
+	retries: number
+}
+
+export abstract class Upload<CustomOpts = object> extends TypedEventTarget<UploadEvents> implements Partial<IUpload> {
 	#abortController = new AbortController()
+	protected readonly options: IUploadOptions & CustomOpts
+
+	protected constructor(options: Partial<IUploadOptions> & CustomOpts) {
+		super()
+		this.options = {
+			headers: {},
+			noChunking: false,
+			retries: 5,
+			...options,
+		}
+	}
 
 	/**
 	 * The destination of this upload.

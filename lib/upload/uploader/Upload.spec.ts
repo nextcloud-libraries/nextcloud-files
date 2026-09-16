@@ -11,6 +11,10 @@ import { Upload } from './Upload.ts'
 class TestUpload extends Upload {
 	public source: string = '/destination/file.txt'
 
+	constructor() {
+		super({})
+	}
+
 	public async start(queue: PQueue): Promise<void> {
 		queue.add(() => Promise.resolve())
 	}

@@ -4,7 +4,7 @@
  */
 
 import type PQueue from 'p-queue'
-import type { IUpload, TUploadStatus } from './Upload.ts'
+import type { IUpload, IUploadOptions, TUploadStatus } from './Upload.ts'
 
 import axios from '@nextcloud/axios'
 import { join } from '@nextcloud/paths'
@@ -21,10 +21,8 @@ import { Upload, UploadStatus } from './Upload.ts'
  * A class representing a single file to be uploaded
  */
 export class UploadFile extends Upload implements IUpload {
-	#customHeaders: Record<string, string>
 	#fileHandle: File | FileSystemFileEntry
 	#file?: File
-	#noChunking: boolean
 
 	public source: string
 	public status: TUploadStatus = UploadStatus.INITIALIZED
@@ -36,13 +34,9 @@ export class UploadFile extends Upload implements IUpload {
 	constructor(
 		destination: string,
 		fileHandle: File | FileSystemFileEntry,
-		options: { headers?: Record<string, string>, noChunking?: boolean },
+		options: Partial<IUploadOptions> = {},
 	) {
-		super()
-		const {
-			headers = {},
-			noChunking = false,
-		} = options
+		super(options)
 
 		// exposed state
 		this.source = destination
@@ -50,8 +44,6 @@ export class UploadFile extends Upload implements IUpload {
 
 		// private state
 		this.#fileHandle = fileHandle
-		this.#customHeaders = headers
-		this.#noChunking = noChunking
 		this.signal.addEventListener('abort', () => {
 			if (this.status !== UploadStatus.FAILED) {
 				this.status = UploadStatus.CANCELLED
@@ -61,7 +53,7 @@ export class UploadFile extends Upload implements IUpload {
 
 	get isChunked(): boolean {
 		const maxChunkSize = getMaxChunksSize('size' in this.#fileHandle ? this.#fileHandle.size : undefined)
-		return !this.#noChunking
+		return !this.options.noChunking
 			&& maxChunkSize > 0
 			&& this.totalBytes > maxChunkSize
 			&& (!isPublicShare() || supportsPublicChunking())
@@ -121,7 +113,7 @@ export class UploadFile extends Upload implements IUpload {
 		this.status = UploadStatus.UPLOADING
 		// The `Destination` header must be a URI, so the source has to be encoded here
 		const destination = encodeUrl(this.source)
-		const temporaryUrl = await initChunkWorkspace(destination, 5, isPublicShare(), this.#customHeaders)
+		const temporaryUrl = await initChunkWorkspace(destination, this.options.retries, isPublicShare(), this.options.headers)
 
 		const promises: Promise<void>[] = []
 		const chunkSize = Math.floor(this.totalBytes / this.numberOfChunks)
@@ -149,7 +141,7 @@ export class UploadFile extends Upload implements IUpload {
 					method: 'MOVE',
 					url: `${temporaryUrl}/.file`,
 					headers: {
-						...this.#customHeaders,
+						...this.options.headers,
 						...getMtimeHeader(this.#file!),
 						'OC-Total-Length': this.totalBytes,
 						Destination: destination,
@@ -183,6 +175,7 @@ export class UploadFile extends Upload implements IUpload {
 				chunk,
 				{
 					signal: this.signal,
+					retries: this.options.retries,
 					onUploadProgress: ({ bytes }) => {
 						// As this is only the sent bytes not the processed ones we only count 90%.
 						// When the upload is finished (server acknowledged the upload) the remaining 10% will be correctly set.
@@ -193,7 +186,7 @@ export class UploadFile extends Upload implements IUpload {
 						this.uploadedBytes = 0
 					},
 					headers: {
-						...this.#customHeaders,
+						...this.options.headers,
 						...getMtimeHeader(this.#file!),
 						'Content-Type': this.#file!.type,
 					},

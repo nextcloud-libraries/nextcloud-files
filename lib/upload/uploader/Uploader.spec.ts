@@ -26,6 +26,11 @@ vi.mock('../../utils/logger.ts', () => ({ default: { debug: vi.fn(), info: vi.fn
 
 // Provide simple mocks for UploadFile and UploadFileTree so we can deterministically
 // simulate progress/finished events and exercise uploader logic.
+// The constructor arguments are captured so we can assert on the resolved upload target.
+const uploadFileMock = vi.hoisted(() => ({
+	instances: [] as Array<{ destination: string, options: Record<string, any> }>,
+}))
+
 vi.mock('./UploadFile.ts', () => ({
 	UploadFile: class implements IUpload {
 		source = 'file:///test'
@@ -39,6 +44,7 @@ vi.mock('./UploadFile.ts', () => ({
 		private listeners: Record<string, ((ev?: CustomEvent) => void)[]>
 		constructor(..._args: any[]) {
 			const file = _args[1]
+			uploadFileMock.instances.push({ destination: _args[0], options: _args[2] ?? {} })
 			this.listeners = {}
 			this.totalBytes = (file && file.size) || 0
 			this.uploadedBytes = 0
@@ -118,6 +124,7 @@ describe('Uploader (current API)', () => {
 	beforeEach(() => {
 		authMock.getCurrentUser.mockReturnValue({ uid: 'tester' })
 		uploadFileTreeMock.instances.length = 0
+		uploadFileMock.instances.length = 0
 	})
 
 	afterEach(() => {
@@ -241,6 +248,49 @@ describe('Uploader (current API)', () => {
 		expect(started).toHaveBeenCalled()
 		expect(progress).toHaveBeenCalled()
 		expect(finished).toHaveBeenCalled()
+	})
+
+	describe('upload target resolution', () => {
+		// destination folder source is mocked to https://localhost/remote.php/dav/files/test
+		const defaultRoot = 'https://localhost/remote.php/dav/files/test'
+		const otherRoot = 'https://localhost/remote.php/dav/files/test/subfolder'
+
+		it('uploads relative to the uploader destination by default', async () => {
+			const uploader = new Uploader()
+			await uploader.upload('/hello.txt', new File(['a'], 'hello.txt'))
+			expect(uploadFileMock.instances[0].destination).toBe(`${defaultRoot}/hello.txt`)
+		})
+
+		it('honours the root override for a single upload', async () => {
+			const uploader = new Uploader()
+			await uploader.upload('/hello.txt', new File(['a'], 'hello.txt'), { root: otherRoot })
+			expect(uploadFileMock.instances[0].destination).toBe(`${otherRoot}/hello.txt`)
+			// the override must not leak into the uploader state
+			expect(uploader.destination.source).toBe(defaultRoot)
+		})
+
+		it('honours the root override for a batch upload', async () => {
+			const uploader = new Uploader()
+			await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')], { root: otherRoot })
+			expect(uploadFileTreeMock.instances[0].destination).toBe(`${otherRoot}/dir`)
+			expect(uploader.destination.source).toBe(defaultRoot)
+		})
+
+		it('normalizes slashes between the root override and the destination', async () => {
+			const uploader = new Uploader()
+			await uploader.upload('hello.txt', new File(['a'], 'hello.txt'), { root: `${otherRoot}/` })
+			expect(uploadFileMock.instances[0].destination).toBe(`${otherRoot}/hello.txt`)
+		})
+
+		it('makes the batch upload conflicts callback relative to the overridden root', async () => {
+			const userCallback = vi.fn(async () => ({}))
+			const uploader = new Uploader()
+			await uploader.batchUpload('/dir', [new File(['a'], 'a.txt')], { root: otherRoot, callback: userCallback })
+
+			const wrapped = uploadFileTreeMock.instances[0].options.callback as (nodes: string[], path: string) => Promise<unknown>
+			await wrapped(['file.txt'], `${otherRoot}/dir/sub`)
+			expect(userCallback).toHaveBeenLastCalledWith(['file.txt'], 'sub')
+		})
 	})
 
 	it('performs batchUpload using UploadFileTree and initializes children', async () => {
