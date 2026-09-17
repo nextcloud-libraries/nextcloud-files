@@ -9,9 +9,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { scopedGlobals } from '@/globalScope.ts'
 import { getSidebarTabs, registerSidebarTab } from '@/ui/index.ts'
 
-// missing in JSDom but supported by every browser!
-import 'css.escape'
-
 describe('Sidebar tabs', () => {
 	beforeEach(() => {
 		vi.restoreAllMocks()

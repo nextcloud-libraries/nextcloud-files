@@ -10,19 +10,11 @@ import { View } from '@/index.ts'
 import { getNavigation, Navigation } from '@/ui/navigation/navigation.ts'
 
 describe('getNavigation', () => {
-	it('creates a new navigation if needed', () => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		delete window._nc_navigation
-		const navigation = getNavigation()
-		expect(navigation).toBeInstanceOf(Navigation)
-	})
-
-	it('stores the navigation globally', () => {
+	it('creates a new navigation if needed and stores it globally', () => {
 		delete scopedGlobals.navigation
 		const navigation = getNavigation()
 		expect(navigation).toBeInstanceOf(Navigation)
-		expect(scopedGlobals.navigation).toBeInstanceOf(Navigation)
+		expect(scopedGlobals.navigation).toBe(navigation)
 	})
 
 	it('reuses an existing navigation', () => {

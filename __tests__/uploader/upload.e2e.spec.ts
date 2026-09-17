@@ -7,16 +7,14 @@ import type { FileStat } from 'webdav'
 
 import { describe, expect, it, vi } from 'vitest'
 import { createDirectoryEntry } from '../fixtures/filesystem.ts'
+import { fileWithPath } from '../helpers.ts'
 import { defaultRemoteURL, getClient } from '@/dav/index.ts'
 import { Folder } from '@/node/index.ts'
 import { Uploader, UploaderStatus, UploadStatus } from '@/upload/index.ts'
 
-vi.mock('@nextcloud/auth', async (def) => ({
-	...(await def()),
-	getCurrentUser: () => ({ uid: 'admin' }),
-}))
-
+// The current user and the webroot are read on import to set up the DAV URLs
 vi.hoisted(() => {
+	document.head.dataset.user = 'admin'
 	window._oc_webroot = '/nextcloud'
 })
 
@@ -431,17 +429,3 @@ describe('Uploader (current API)', () => {
 		expect(await client.exists('/files/admin/test-cancel/cancel.txt')).toBe(false)
 	})
 })
-
-/**
- * Create a File with a custom webkitRelativePath for simulating folder-input uploads.
- * webkitRelativePath is a read-only prototype getter, so we shadow it with an own property.
- *
- * @param content - The file content
- * @param relativePath - The relative path to set on the file, e.g. 'subdir/file.txt'
- */
-function fileWithPath(content: string, relativePath: string): File {
-	const name = relativePath.split('/').at(-1)!
-	const file = new File([content], name)
-	Object.defineProperty(file, 'webkitRelativePath', { value: relativePath, configurable: true })
-	return file
-}
