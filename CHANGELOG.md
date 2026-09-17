@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 * fix(upload): honor `root` and `retries` upload options \([\#1745](https://github.com/nextcloud-libraries/nextcloud-files/pull/1745)\)
 * fix(upload): do not finish chunked uploads after the first chunk \([\#1746](https://github.com/nextcloud-libraries/nextcloud-files/pull/1746)\)
 * fix(upload): make the `signal` upload option actually cancel the upload \([\#1747](https://github.com/nextcloud-libraries/nextcloud-files/pull/1747)\)
+* fix(upload): read all entries of dropped folders \([\#1748](https://github.com/nextcloud-libraries/nextcloud-files/pull/1748)\)
 
 ### Other changes
 * refactor: group all UI integrations in folder structure \([\#1496](https://github.com/nextcloud-libraries/nextcloud-files/pull/1496)\)
