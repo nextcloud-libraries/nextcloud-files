@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { FileStat } from 'webdav'
+
 import { describe, expect, it, vi } from 'vitest'
-import { defaultRemoteURL, getClient } from '~/dav/index.ts'
-import { Folder } from '~/node/index.ts'
-import { Uploader, UploaderStatus, UploadStatus } from '~/upload/index.ts'
+import { createDirectoryEntry } from '../fixtures/filesystem.ts'
+import { defaultRemoteURL, getClient } from '@/dav/index.ts'
+import { Folder } from '@/node/index.ts'
+import { Uploader, UploaderStatus, UploadStatus } from '@/upload/index.ts'
 
 vi.mock('@nextcloud/auth', async (def) => ({
 	...(await def()),
@@ -163,6 +166,33 @@ describe('Uploader (current API)', () => {
 		await expect(client.getFileContents('/files/admin/test-folder/upload/subdir/nested.txt', { format: 'text' })).resolves.toBe('nested file')
 		await expect(client.getFileContents('/files/admin/test-folder/upload/subdir/deep/deep.txt', { format: 'text' })).resolves.toBe('deep file')
 	})
+
+	it('should upload all files of a dropped folder with more entries than one `readEntries` call returns', async () => {
+		const client = getClient()
+		await client.deleteFile('/files/admin/test-drop').catch(() => {})
+		await client.createDirectory('/files/admin/test-drop')
+
+		const folder = new Folder({
+			owner: 'admin',
+			root: '/files/admin',
+			source: `${defaultRemoteURL}/files/admin/test-drop`,
+		})
+		const uploader = new Uploader(false, folder)
+
+		// Chromium returns at most 100 entries per `readEntries` call,
+		// so a folder with more entries is only fully read if `readEntries` is called repeatedly.
+		const files = Object.fromEntries(Array.from({ length: 150 }, (_, index) => [`file-${index}.txt`, `content-${index}`]))
+		const entry = await createDirectoryEntry(files)
+
+		const finishedPromise = new Promise<void>((resolve) => uploader.addEventListener('finished', () => resolve()))
+		await uploader.batchUpload('', [entry])
+		await finishedPromise
+
+		const contents = await client.getDirectoryContents(`/files/admin/test-drop/${entry.name}`) as FileStat[]
+		const uploaded = contents.filter(({ type }) => type === 'file').map(({ basename }) => basename)
+		expect(uploaded.sort()).toEqual(Object.keys(files).sort())
+		await expect(client.getFileContents(`/files/admin/test-drop/${entry.name}/file-149.txt`, { format: 'text' })).resolves.toBe('content-149')
+	}, 120_000)
 
 	it('should track upload status transitions', async () => {
 		const client = getClient()

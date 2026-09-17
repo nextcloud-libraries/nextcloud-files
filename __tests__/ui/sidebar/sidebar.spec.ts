@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { ISidebar, ISidebarContext } from '~/ui/index.ts'
+import type { ISidebar, ISidebarContext } from '@/ui/index.ts'
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { File } from '~/node/index.ts'
-import { getSidebar } from '~/ui/index.ts'
+import { File } from '@/node/index.ts'
+import { getSidebar } from '@/ui/index.ts'
 
 const node = new File({
 	id: 1,

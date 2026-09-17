@@ -1,5 +1,6 @@
 {
   "include": ["lib"],
+  "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
@@ -13,5 +14,9 @@
     "outDir": "./dist",
     "rootDir": "./lib",
     "noEmit": true,
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./lib/*"]
+    }
   }
 }

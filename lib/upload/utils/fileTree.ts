@@ -73,7 +73,15 @@ export class Directory extends File {
 			file = await new Promise<File>((resolve, reject) => (file as FileSystemFileEntry).file(resolve, reject))
 		} else if (isFileSystemDirectoryEntry(file)) {
 			const reader = file.createReader()
-			const entries = await new Promise<FileSystemEntry[]>((resolve, reject) => reader.readEntries(resolve, reject))
+			// `readEntries` does not necessarily return all entries at once,
+			// e.g. Chromium returns at most 100 entries per call,
+			// so we need to call it until it returns an empty array.
+			const entries: FileSystemEntry[] = []
+			let batch: FileSystemEntry[]
+			do {
+				batch = await new Promise<FileSystemEntry[]>((resolve, reject) => reader.readEntries(resolve, reject))
+				entries.push(...batch)
+			} while (batch.length > 0)
 
 			// Create a new child directory and add the entries
 			const child = new Directory(`${rootPath}${file.name}`)

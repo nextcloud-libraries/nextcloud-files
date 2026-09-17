@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFolder } from '~/node/index.ts'
-import type { IFileListAction, View } from '~/ui/index.ts'
+import type { IFolder } from '@/node/index.ts'
+import type { IFileListAction, View } from '@/ui/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { scopedGlobals } from '~/globalScope.ts'
-import { getFileListActions, getFilesRegistry, registerFileListAction } from '~/ui/index.ts'
-import logger from '~/utils/logger.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { getFileListActions, getFilesRegistry, registerFileListAction } from '@/ui/index.ts'
+import logger from '@/utils/logger.ts'
 
 const folder = {} as IFolder
 const view = {} as View

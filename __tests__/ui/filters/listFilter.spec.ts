@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IFileListFilterChip } from '~/ui/index.ts'
+import type { IFileListFilterChip } from '@/ui/index.ts'
 
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { scopedGlobals } from '~/globalScope.ts'
-import { FileListFilter, getFileListFilters, getFilesRegistry, registerFileListFilter, unregisterFileListFilter } from '~/ui/index.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { FileListFilter, getFileListFilters, getFilesRegistry, registerFileListFilter, unregisterFileListFilter } from '@/ui/index.ts'
 
 class TestFilter extends FileListFilter {
 	public testUpdated() {

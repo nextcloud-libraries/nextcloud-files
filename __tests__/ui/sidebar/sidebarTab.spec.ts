@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { ISidebarTab } from '~/ui/index.ts'
+import type { ISidebarTab } from '@/ui/index.ts'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { scopedGlobals } from '~/globalScope.ts'
-import { getSidebarTabs, registerSidebarTab } from '~/ui/index.ts'
+import { scopedGlobals } from '@/globalScope.ts'
+import { getSidebarTabs, registerSidebarTab } from '@/ui/index.ts'
 
 // missing in JSDom but supported by every browser!
 import 'css.escape'

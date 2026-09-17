@@ -15,7 +15,7 @@ import {
 	Permission,
 	removeNewFileMenuEntry,
 } from '../lib/index.ts'
-import { getFileActions, registerFileAction } from '~/ui/actions/fileAction.ts'
+import { getFileActions, registerFileAction } from '@/ui/actions/fileAction.ts'
 
 describe('Exports checks', () => {
 	test('formatFileSize', () => {

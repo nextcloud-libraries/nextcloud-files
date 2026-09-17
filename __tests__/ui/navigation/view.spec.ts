@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import type { IView } from '~/ui/navigation/view.ts'
+import type { IView } from '@/ui/navigation/view.ts'
 
 import { describe, expect, test } from 'vitest'
 import { mockView } from '../../fixtures/view.ts'
-import { View } from '~/ui/navigation/index.ts'
+import { View } from '@/ui/navigation/index.ts'
 
 describe('Invalid View creation', () => {
 	test('Invalid id', () => {
