@@ -5,7 +5,7 @@
 
 import type { FileStat, WebDAVClient } from 'webdav'
 
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import {
 	defaultRemoteURL,
 	defaultRootPath,
@@ -17,14 +17,14 @@ import { File, Folder, NodeStatus } from '../../lib/index.ts'
 import FAVORITES_INNER_RESPONSE from '../fixtures/favorites-inner-response.json' with { type: 'json' }
 import FAVORITES_RESPONSE from '../fixtures/favorites-response.json' with { type: 'json' }
 
-const auth = vi.hoisted(() => ({
-	getCurrentUser: vi.fn(() => ({ uid: 'test', displayName: 'Test User', isAdmin: false })),
-	getRequestToken: vi.fn(() => 'test-token'),
-	onRequestTokenUpdate: vi.fn(),
-}))
+// The DAV root path and remote URL are computed on import from the current user and the webroot
+vi.hoisted(() => {
+	document.head.dataset.user = 'test'
+	window._oc_webroot = ''
+})
 
-vi.mock('@nextcloud/auth', () => auth)
-vi.mock('@nextcloud/router')
+/** The remote URL of the server the tests run on */
+const remoteURL = `${window.location.origin}/remote.php/dav`
 
 describe('DAV functions', () => {
 	test('root path is correct', () => {
@@ -32,15 +32,11 @@ describe('DAV functions', () => {
 	})
 
 	test('remote url is correct', () => {
-		expect(defaultRemoteURL).toBe('https://localhost/dav')
+		expect(defaultRemoteURL).toBe(remoteURL)
 	})
 })
 
 describe('resultToNode', () => {
-	afterEach(() => {
-		vi.resetAllMocks()
-	})
-
 	/* Result of:
 	getClient().getDirectoryContents(`${defaultRootPath}${path}`, { details: true })
 	 */
@@ -67,7 +63,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(result.basename)
 		expect(node.displayname).toBe(result.props!.displayname)
 		expect(node.extension).toBe('.md')
-		expect(node.source).toBe('https://localhost/dav/files/test/New folder/Neue Textdatei.md')
+		expect(node.source).toBe(`${remoteURL}/files/test/New folder/Neue Textdatei.md`)
 		expect(node.root).toBe(defaultRootPath)
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
@@ -82,7 +78,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(remoteResult.basename)
 		expect(node.extension).toBe('.md')
 		expect(node.root).toBe('/root')
-		expect(node.source).toBe('https://localhost/dav/root/New folder/Neue Textdatei.md')
+		expect(node.source).toBe(`${remoteURL}/root/New folder/Neue Textdatei.md`)
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
 	})
@@ -104,10 +100,8 @@ describe('resultToNode', () => {
 		expect(node.displayname).toBe(remoteResult.props!.displayname)
 	})
 
-	// If owner-id is set, it will be used as owner
+	// If owner-id is set, it will be used as owner instead of the current user
 	test('has correct owner set', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 'user1' } } as FileStat['props']
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
@@ -117,8 +111,6 @@ describe('resultToNode', () => {
 	})
 
 	test('has correct owner set if number', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'admin', displayName: 'admin', isAdmin: true })
-
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		remoteResult.props = { ...remoteResult.props, ...{ 'owner-id': 123456789 } } as FileStat['props']
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
@@ -128,18 +120,15 @@ describe('resultToNode', () => {
 	})
 
 	test('has correct owner set if not set on node', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-
 		const remoteResult = { ...result, filename: '/root/New folder/Neue Textdatei.md' }
 		const node = resultToNode(remoteResult, '/root', 'http://example.com/remote.php/dav')
 
 		expect(node.isDavResource).toBe(true)
-		expect(node.owner).toBe('user1')
+		// falls back to the current user
+		expect(node.owner).toBe('test')
 	})
 
 	test('by default no status is set', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = 1
 		const node = resultToNode(remoteResult)
@@ -147,8 +136,6 @@ describe('resultToNode', () => {
 	})
 
 	test('sets node status on invalid fileid', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-
 		const remoteResult = { ...result }
 		remoteResult.props!.fileid = -1
 		const node = resultToNode(remoteResult)
@@ -156,8 +143,6 @@ describe('resultToNode', () => {
 	})
 
 	test('Ignore invalid times', () => {
-		vi.mocked(auth).getCurrentUser.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-
 		// Invalid dates
 		const remoteResult = { ...result }
 		remoteResult.lastmod = 'invalid'
@@ -176,14 +161,6 @@ describe('resultToNode', () => {
 })
 
 describe('DAV requests', () => {
-	beforeEach(() => {
-		vi.mocked(auth).getCurrentUser!.mockReturnValue({ uid: 'user1', displayName: 'User 1', isAdmin: false })
-	})
-
-	afterEach(() => {
-		vi.resetAllMocks()
-	})
-
 	test('request all favorite files', async () => {
 		// Mock the WebDAV client
 		const client = {

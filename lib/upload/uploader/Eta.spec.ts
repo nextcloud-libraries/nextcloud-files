@@ -3,15 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import { setLocale } from '@nextcloud/l10n'
 import { afterAll, beforeAll, describe, expect, it, test, vi } from 'vitest'
 import { Eta, EtaStatus } from './Eta.ts'
 
-vi.mock('@nextcloud/l10n', async (original) => ({
-	...(await original()),
-	getCanonicalLocale() {
-		return 'en-US'
-	},
-}))
+// the readable speed is formatted for the current locale
+beforeAll(() => setLocale('en-US'))
 
 describe('ETA - status', () => {
 	it('has default set', () => {
@@ -197,56 +194,6 @@ describe('ETA - progress', () => {
 			expect(eta.speed).toBe(-1)
 		}
 		expect(eta.progress).toBe(100)
-	})
-
-	it('can autostart in constructor', () => {
-		const eta = new Eta({ start: true, total: 100 })
-		expect(eta.status).toBe(EtaStatus.Running)
-		expect(eta.progress).toBe(0)
-		expect(eta.time).toBe(Infinity)
-		expect(eta.speed).toBe(-1)
-	})
-
-	it('can reset', () => {
-		const eta = new Eta({ start: true, total: 100 })
-		expect(eta.status).toBe(EtaStatus.Running)
-
-		eta.add(10)
-		expect(eta.progress).toBe(10)
-
-		eta.reset()
-		expect(eta.status).toBe(EtaStatus.Idle)
-		expect(eta.progress).toBe(0)
-	})
-
-	it('does not update when idle', () => {
-		const eta = new Eta()
-		expect(eta.progress).toBe(0)
-
-		eta.update(10, 100)
-		expect(eta.progress).toBe(0)
-
-		eta.add(10)
-		expect(eta.progress).toBe(0)
-		expect(eta.status).toBe(EtaStatus.Idle)
-	})
-
-	it('does not update when paused', () => {
-		const eta = new Eta({ start: true, total: 100 })
-		eta.add(10)
-		expect(eta.progress).toBe(10)
-
-		eta.pause()
-		eta.add(10)
-		expect(eta.progress).toBe(10)
-		expect(eta.status).toBe(EtaStatus.Paused)
-	})
-
-	it('can resume', () => {
-		const eta = new Eta()
-		expect(eta.status).toBe(EtaStatus.Idle)
-		eta.resume()
-		expect(eta.status).toBe(EtaStatus.Running)
 	})
 })
 

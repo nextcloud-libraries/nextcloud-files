@@ -1,440 +1,300 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /*!
  * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+import type { AxiosProgressEvent, AxiosRequestConfig, AxiosResponse } from 'axios'
+
 import axios from '@nextcloud/axios'
-import { CanceledError } from 'axios'
+import { AxiosError, CanceledError } from 'axios'
+import PQueue from 'p-queue'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { UploadStatus } from './Upload.ts'
 import { UploadFile } from './UploadFile.ts'
+import { createFile, mockRequests, requestedUrls, requests, setCapabilities, setPublicShare } from '~/__tests__/helpers.ts'
 
-const isPublicShareMock = vi.hoisted(() => vi.fn())
-vi.mock('@nextcloud/sharing/public', async (original) => ({ ...await original(), isPublicShare: isPublicShareMock }))
+// The current user is read on import (by the logger), so it has to be set before
+vi.hoisted(() => {
+	document.head.dataset.user = 'tester'
+})
 
-const initChunkWorkspaceMock = vi.hoisted(() => vi.fn())
-const uploadDataMock = vi.hoisted(() => vi.fn())
-vi.mock('../utils/upload.ts', async () => ({
-	...(await vi.importActual('../utils/upload.ts')),
-	initChunkWorkspace: initChunkWorkspaceMock,
-	uploadData: uploadDataMock,
-}))
+/** The maximum chunk size used by the tests - the server does not allow smaller chunks */
+const CHUNK_SIZE = 5 * 1024 * 1024
 
-const getMaxChunksSizeMock = vi.hoisted(() => vi.fn())
-const supportsPublicChunkingMock = vi.hoisted(() => vi.fn())
-vi.mock('../utils/config.ts', () => ({
-	getMaxChunksSize: getMaxChunksSizeMock,
-	supportsPublicChunking: supportsPublicChunkingMock,
-}))
+/** The temporary chunk workspace created for the current user */
+const WORKSPACE = /\/remote\.php\/dav\/uploads\/tester\/web-file-upload-[0-9a-f]{16}/
+
+beforeEach(() => {
+	vi.restoreAllMocks()
+	// by default this is not a public share, chunking uses the minimum chunk size and all requests succeed
+	setPublicShare()
+	setCapabilities({})
+	setMaxChunkSize(CHUNK_SIZE)
+	mockRequests()
+})
 
 describe('chunking', () => {
 	it('enables chunking for non-public shares', () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: false })
+		const uploadFile = new UploadFile('/destination', createFile(2 * CHUNK_SIZE))
 		expect(uploadFile.isChunked).toBe(true)
 	})
 
 	it('enables chunking for public shares', () => {
-		isPublicShareMock.mockReturnValue(true)
-		supportsPublicChunkingMock.mockReturnValue(true)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: false })
+		setPublicShare('token-1234')
+		setCapabilities({ dav: { public_shares_chunking: true } })
+
+		const uploadFile = new UploadFile('/destination', createFile(2 * CHUNK_SIZE))
 		expect(uploadFile.isChunked).toBe(true)
 	})
 
 	it('disables chunking if too small', () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1000)], 'filename'), { noChunking: false })
+		const uploadFile = new UploadFile('/destination', createFile(CHUNK_SIZE - 1))
 		expect(uploadFile.isChunked).toBe(false)
 	})
 
 	it('disables chunking if explicitly disabled', () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: true })
+		const uploadFile = new UploadFile('/destination', createFile(2 * CHUNK_SIZE), { noChunking: true })
 		expect(uploadFile.isChunked).toBe(false)
 	})
 
 	it('disables chunking if disabled by admin', () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(0)
-		const uploadFile = new UploadFile('/destination', new File([], 'filename'), { noChunking: true })
+		setMaxChunkSize(0)
+
+		const uploadFile = new UploadFile('/destination', createFile(2 * CHUNK_SIZE))
 		expect(uploadFile.isChunked).toBe(false)
 	})
 
 	it('disables chunking if not supported by public shares', () => {
-		isPublicShareMock.mockReturnValue(true)
-		supportsPublicChunkingMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: false })
+		setPublicShare('token-1234')
+
+		const uploadFile = new UploadFile('/destination', createFile(2 * CHUNK_SIZE))
 		expect(uploadFile.isChunked).toBe(false)
 	})
 
 	it.each([
 		[0, 1],
-		[1024, 1],
-		[1025, 2],
-		[2048, 2],
-		[2049, 3],
+		[CHUNK_SIZE, 1],
+		[CHUNK_SIZE + 1, 2],
+		[2 * CHUNK_SIZE, 2],
+		[2 * CHUNK_SIZE + 1, 3],
 	])('calculates number of chunks correctly for file size %i', async (fileSize, expectedChunks) => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(fileSize)], 'filename'), { noChunking: false })
+		const uploadFile = new UploadFile('/destination', createFile(fileSize))
 		expect(uploadFile.isChunked).toBe(expectedChunks > 1)
 
-		const { resolve, promise } = Promise.withResolvers<void>()
-		const queue = { add: vi.fn(() => resolve()) }
-		uploadFile.start(queue as never)
-
-		// wait for queue to be called
-		await promise
+		// the chunks are calculated when the upload is started, the jobs do not need to run for this
+		await uploadFile.start(createQueue({ autoStart: false }))
 		expect(uploadFile.numberOfChunks).toBe(expectedChunks)
 	})
 })
 
 describe('retries', () => {
-	it('defaults to 5 retries for a plain upload', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
-		uploadDataMock.mockResolvedValue(undefined)
+	it.each([
+		['the default of 5', {}, 5],
+		['the configured', { retries: 2 }, 2],
+	])('forwards %s retries to the upload request', async (_label, options, retries) => {
+		const uploadFile = new UploadFile('/destination', createFile(100), options)
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), {})
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]()
-
-		expect(uploadDataMock).toHaveBeenLastCalledWith('/destination', expect.anything(), expect.objectContaining({ retries: 5 }))
-	})
-
-	it('forwards the configured retries to the upload request', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
-		uploadDataMock.mockResolvedValue(undefined)
-
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { retries: 2 })
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]()
-
-		expect(uploadDataMock).toHaveBeenLastCalledWith('/destination', expect.anything(), expect.objectContaining({ retries: 2 }))
+		expect(requests('PUT')).toHaveLength(1)
+		expect(requests('PUT')[0]['axios-retry']).toMatchObject({ retries })
 	})
 
 	it('forwards the configured retries to chunked uploads and the workspace creation', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
-		uploadDataMock.mockResolvedValue(undefined)
-		vi.spyOn(axios, 'request').mockResolvedValueOnce({})
+		const uploadFile = new UploadFile('/destination', createFile(4 * CHUNK_SIZE), { retries: 2 })
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(4096)], 'bigfile'), { retries: 2 })
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-		await uploadFile.start(queue as never)
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
-
-		expect(initChunkWorkspaceMock).toHaveBeenLastCalledWith('/destination', 2, false, {})
-		expect(uploadDataMock).toHaveBeenLastCalledWith(expect.any(String), expect.anything(), expect.objectContaining({ retries: 2 }))
+		expect(requests('MKCOL')).toHaveLength(1)
+		expect(requests('MKCOL')[0]).toMatchObject({
+			url: expect.stringMatching(WORKSPACE),
+			headers: { Destination: '/destination' },
+			'axios-retry': expect.objectContaining({ retries: 2 }),
+		})
+		expect(requests('PUT')).toHaveLength(4)
+		for (const upload of requests('PUT')) {
+			expect(upload['axios-retry']).toMatchObject({ retries: 2 })
+		}
 	})
 })
 
 describe('upload status and events', () => {
-	it('initialized', () => {
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(2048)], 'filename'), { noChunking: false })
+	it('is initialized', () => {
+		const uploadFile = new UploadFile('/destination', createFile(100))
 		expect(uploadFile.status).toBe(UploadStatus.INITIALIZED)
 	})
 
-	it('converts FileSystemFileEntry to File when starting', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
+	it('is scheduled once started', async () => {
+		const uploadFile = new UploadFile('/destination', createFile(100))
+		// the queue is not started, so the upload job does not run yet
+		await uploadFile.start(createQueue({ autoStart: false }))
+		expect(uploadFile.status).toBe(UploadStatus.SCHEDULED)
+	})
 
-		const fileEntry = {
-			file: vi.fn((resolve: (f: File) => void) => resolve(new File(['x'.repeat(1024)], 'entry.txt'))),
-		} as unknown as FileSystemFileEntry
+	it('is uploading while the request is running', async () => {
+		// the request never settles
+		mockUploads(() => new Promise(() => {}))
 
-		uploadDataMock.mockImplementationOnce(() => Promise.resolve())
+		const uploadFile = new UploadFile('/destination', createFile(100))
+		await uploadFile.start(createQueue())
+		expect(uploadFile.status).toBe(UploadStatus.UPLOADING)
+	})
 
+	it('is finished when the request succeeded', async () => {
+		const uploadFile = new UploadFile('/destination', createFile(100))
 		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', fileEntry, { noChunking: false })
 		uploadFile.addEventListener('finished', onFinish)
 
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		expect(fileEntry.file).toHaveBeenCalledOnce()
-		// run the scheduled upload
-		await queue.add.mock.calls[0][0]()
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 		expect(uploadFile.status).toBe(UploadStatus.FINISHED)
 		expect(onFinish).toHaveBeenCalledOnce()
 	})
 
-	it('throws if start called twice', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
+	it.each([
+		['cancelled if the request was aborted', new DOMException('Aborted', 'AbortError'), UploadStatus.CANCELLED],
+		['cancelled if the request was cancelled by axios', new CanceledError(), UploadStatus.CANCELLED],
+		['failed if the request failed', new Error('generic error'), UploadStatus.FAILED],
+	])('is %s', async (_label, error, expectedStatus) => {
+		mockUploads(() => Promise.reject(error))
 
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(100)], 'filename'), { noChunking: false })
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		await expect(uploadFile.start(queue as never)).rejects.toThrow('Upload already started')
+		const uploadFile = new UploadFile('/destination', createFile(100))
+		const onFinish = vi.fn()
+		uploadFile.addEventListener('finished', onFinish)
+
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
+		expect(uploadFile.status).toBe(expectedStatus)
+		expect(onFinish).toHaveBeenCalledOnce()
+	})
+
+	it('throws if start called twice', async () => {
+		const uploadFile = new UploadFile('/destination', createFile(100))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await expect(uploadFile.start(queue)).rejects.toThrow('Upload already started')
+	})
+
+	it('converts FileSystemFileEntry to File when starting', async () => {
+		const fileEntry = {
+			file: vi.fn((resolve: (file: File) => void) => resolve(createFile(100, 'entry.txt'))),
+		} as unknown as FileSystemFileEntry
+
+		const uploadFile = new UploadFile('/destination', fileEntry)
+		const onFinish = vi.fn()
+		uploadFile.addEventListener('finished', onFinish)
+
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		expect(fileEntry.file).toHaveBeenCalledOnce()
+
+		await queue.onIdle()
+		expect(uploadFile.status).toBe(UploadStatus.FINISHED)
+		expect(onFinish).toHaveBeenCalledOnce()
 	})
 
 	it('resets uploadedBytes on upload retry and emits progress', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024 * 1024)
-
-		// Mock uploadData to call onUploadProgress and onUploadRetry synchronously
-		uploadDataMock.mockImplementationOnce((_url: string, _chunk: Blob, options: any) => {
-			options.onUploadProgress?.({ bytes: 100 })
-			options.onUploadRetry?.()
-			return Promise.resolve()
+		// the first try is retried after some progress was reported
+		mockUploads(async (config) => {
+			reportProgress(config, 100)
+			reportRetry(config)
 		})
 
+		const uploadFile = new UploadFile('/destination', createFile(1024))
 		const onProgress = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
 		uploadFile.addEventListener('progress', onProgress)
 
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-		await uploadFile.start(queue as never)
-		// the queued function was executed immediately by our queue stub — wait for it to finish
-		await queue.add.mock.calls[0][0]()
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 		expect(uploadFile.uploadedBytes).toBe(1024)
 		expect(onProgress).toHaveBeenCalled()
 	})
 
 	it('chunked assemble finishes when MOVE succeeds', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		// make sure chunking is enabled
-		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
-		// each chunk upload succeeds
-		uploadDataMock.mockImplementation(() => Promise.resolve())
-		// axios MOVE succeeds
-		vi.spyOn(axios, 'request').mockResolvedValueOnce({})
-
+		const uploadFile = new UploadFile('/destination', createFile(4 * CHUNK_SIZE))
 		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(4096)], 'bigfile'), { noChunking: false })
 		uploadFile.addEventListener('finished', onFinish)
 
-		// simple queue that executes tasks immediately and returns their promise
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
-		await uploadFile.start(queue as never)
-		// wait for all queued tasks to finish
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
-
+		// the chunks are uploaded to the workspace and assembled to the destination
+		expect(requestedUrls('PUT')).toEqual([0, 1, 2, 3].map((chunk) => expect.stringMatching(new RegExp(`${WORKSPACE.source}/${chunk}$`))))
+		expect(requests('MOVE')).toHaveLength(1)
+		expect(requests('MOVE')[0]).toMatchObject({
+			url: expect.stringMatching(new RegExp(`${WORKSPACE.source}/.file$`)),
+			headers: expect.objectContaining({ Destination: '/destination', 'OC-Total-Length': 4 * CHUNK_SIZE }),
+		})
 		expect(uploadFile.status).toBe(UploadStatus.FINISHED)
 		expect(onFinish).toHaveBeenCalledOnce()
 	})
 
 	it('keeps the source unencoded but encodes the request URL', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(0)
-		uploadDataMock.mockImplementationOnce(() => Promise.resolve())
-
-		const uploadFile = new UploadFile('/destination/a b&c.txt', new File(['x'], 'a b&c.txt'), { noChunking: true })
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-
-		await uploadFile.start(queue as never)
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
+		const uploadFile = new UploadFile('/destination/a b&c.txt', createFile(1, 'a b&c.txt'))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
 		expect(uploadFile.source).toBe('/destination/a b&c.txt')
-		expect(uploadDataMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', expect.anything(), expect.anything())
+		expect(requestedUrls('PUT')).toEqual(['/destination/a%20b%26c.txt'])
 	})
 
 	it('encodes the destination header of chunked uploads', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
-		uploadDataMock.mockImplementation(() => Promise.resolve())
-		const requestSpy = vi.spyOn(axios, 'request').mockResolvedValueOnce({} as never)
-
-		const uploadFile = new UploadFile('/destination/a b&c.txt', new File(['x'.repeat(4096)], 'a b&c.txt'), { noChunking: false })
-		const queue = { add: vi.fn((fn: () => Promise<void>) => fn()) }
-
-		await uploadFile.start(queue as never)
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
+		const uploadFile = new UploadFile('/destination/a b&c.txt', createFile(4 * CHUNK_SIZE, 'a b&c.txt'))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
 		expect(uploadFile.source).toBe('/destination/a b&c.txt')
-		// the workspace is created with the encoded destination
-		expect(initChunkWorkspaceMock).toHaveBeenCalledWith('/destination/a%20b%26c.txt', 5, false, {})
+		// the workspace is created with the encoded destination …
+		expect(requests('MKCOL')[0].headers).toMatchObject({ Destination: '/destination/a%20b%26c.txt' })
 		// … and so is the assemble request
-		expect(requestSpy.mock.lastCall![0].headers!.Destination).toBe('/destination/a%20b%26c.txt')
+		expect(requests('MOVE')[0].headers).toMatchObject({ Destination: '/destination/a%20b%26c.txt' })
 	})
 
 	it('rebases the upload to a new destination', () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-
-		const uploadFile = new UploadFile('/destination/a.txt', new File(['x'], 'a.txt'), { noChunking: true })
+		const uploadFile = new UploadFile('/destination/a.txt', createFile(1, 'a.txt'))
 		uploadFile.rebase('/destination/folder (2)/a.txt')
 		expect(uploadFile.source).toBe('/destination/folder (2)/a.txt')
-	})
-
-	it('scheduled', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		const { resolve, promise } = Promise.withResolvers<void>()
-		const queue = { add: vi.fn(() => resolve()) }
-
-		uploadFile.start(queue as never)
-		// wait for queue to be called
-		await promise
-		expect(uploadFile.status).toBe(UploadStatus.SCHEDULED)
-	})
-
-	it('uploading', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-
-		const { promise: uploadDataPromise } = Promise.withResolvers<void>()
-		uploadDataMock.mockImplementationOnce(() => uploadDataPromise)
-
-		const { promise: queuePromise, resolve: queueResolve } = Promise.withResolvers<void>()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		const queue = { add: vi.fn((fn: () => Promise<void>) => (queueResolve(), fn())) }
-		// start upload and wait for queue to be called
-		uploadFile.start(queue as never)
-		await queuePromise
-
-		expect(uploadFile.status).toBe(UploadStatus.UPLOADING)
-	})
-
-	it('finished', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		uploadDataMock.mockImplementationOnce(() => Promise.resolve())
-
-		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		uploadFile.addEventListener('finished', onFinish)
-
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]()
-		expect(uploadFile.status).toBe(UploadStatus.FINISHED)
-		expect(onFinish).toHaveBeenCalledOnce()
-	})
-
-	it('cancelled by DOM', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		uploadDataMock.mockImplementationOnce(() => Promise.reject(new DOMException('Aborted', 'AbortError')))
-
-		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		uploadFile.addEventListener('finished', onFinish)
-
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]().catch(() => {})
-		expect(uploadFile.status).toBe(UploadStatus.CANCELLED)
-		expect(onFinish).toHaveBeenCalledOnce()
-	})
-
-	it('cancelled by axios', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		uploadDataMock.mockImplementationOnce(() => Promise.reject(new CanceledError()))
-
-		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		uploadFile.addEventListener('finished', onFinish)
-
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]().catch(() => {})
-		expect(uploadFile.status).toBe(UploadStatus.CANCELLED)
-		expect(onFinish).toHaveBeenCalledOnce()
-	})
-
-	it('failed', async () => {
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		uploadDataMock.mockImplementationOnce(() => Promise.reject(new Error('generic error')))
-
-		const onFinish = vi.fn()
-		const uploadFile = new UploadFile('/destination', new File(['x'.repeat(1024)], 'filename'), { noChunking: false })
-		uploadFile.addEventListener('finished', onFinish)
-
-		const queue = { add: vi.fn((_fn: () => Promise<void>) => {}) }
-		await uploadFile.start(queue as never)
-		await queue.add.mock.calls[0][0]().catch(() => {})
-		expect(uploadFile.status).toBe(UploadStatus.FAILED)
-		expect(onFinish).toHaveBeenCalledOnce()
 	})
 })
 
 describe('chunked upload progress and status', () => {
-	// 4096 bytes with a maximum chunk size of 1024 bytes -> four chunks
-	const fileSize = 4096
-
-	/**
-	 * Create a queue stub that runs every task immediately and keeps the resulting promise.
-	 */
-	function immediateQueue() {
-		return { add: vi.fn((fn: () => Promise<void>) => fn()) }
-	}
-
-	/**
-	 * Create a chunked upload of `fileSize` bytes.
-	 */
-	function createUpload() {
-		return new UploadFile('/destination', new File(['x'.repeat(fileSize)], 'bigfile'), { noChunking: false })
-	}
-
-	beforeEach(() => {
-		vi.restoreAllMocks()
-		uploadDataMock.mockReset()
-		initChunkWorkspaceMock.mockReset()
-
-		isPublicShareMock.mockReturnValue(false)
-		getMaxChunksSizeMock.mockReturnValue(1024)
-		initChunkWorkspaceMock.mockResolvedValue('/tmp/temporary')
-	})
+	// four chunks
+	const fileSize = 4 * CHUNK_SIZE
 
 	it('is not finished while other chunks are still uploading', async () => {
 		// the last of the four chunks never settles, all others succeed
-		const { promise: pendingChunk } = Promise.withResolvers<void>()
-		const delayed = () => new Promise((resolve) => setTimeout(resolve, 10))
-		uploadDataMock
-			.mockImplementationOnce(delayed)
-			.mockImplementationOnce(delayed)
-			.mockImplementationOnce(delayed)
-			.mockReturnValueOnce(pendingChunk)
-		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+		let uploads = 0
+		mockUploads(() => (++uploads < 4 ? Promise.resolve() : new Promise(() => {})))
 
-		const uploadFile = createUpload()
-		const queue = immediateQueue()
-		await uploadFile.start(queue as never)
+		const uploadFile = new UploadFile('/destination', createFile(fileSize))
+		await uploadFile.start(createQueue())
 
-		await vi.waitFor(() => expect(uploadDataMock).toHaveBeenCalledTimes(4))
 		// wait for the three succeeding chunks to settle
-		await new Promise((resolve) => setTimeout(resolve, 30))
-
+		await vi.waitFor(() => expect(uploadFile.uploadedBytes).toBe(3 * CHUNK_SIZE))
 		expect(uploadFile.status).toBe(UploadStatus.UPLOADING)
-		expect(uploadFile.uploadedBytes).toBeLessThan(fileSize)
 	})
 
 	it('never reports more uploaded bytes than the file size', async () => {
-		uploadDataMock.mockImplementation((_url: string, chunk: Blob, options: any) => {
-			// the whole chunk was sent
-			options.onUploadProgress?.({ bytes: chunk.size })
-			return Promise.resolve()
-		})
-		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+		// the whole chunk is reported as sent before the request succeeds
+		mockUploads(async (config) => reportProgress(config, config.data.size))
 
-		const uploadFile = createUpload()
+		const uploadFile = new UploadFile('/destination', createFile(fileSize))
 		const reported: number[] = []
 		uploadFile.addEventListener('progress', () => {
 			reported.push(uploadFile.uploadedBytes)
 		})
 
-		const queue = immediateQueue()
-		await uploadFile.start(queue as never)
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
 		expect(Math.max(...reported)).toBeLessThanOrEqual(fileSize)
 		expect(uploadFile.uploadedBytes).toBe(fileSize)
@@ -442,33 +302,25 @@ describe('chunked upload progress and status', () => {
 	})
 
 	it('only discards the progress of the retried chunk', async () => {
-		uploadDataMock.mockImplementation((_url: string, chunk: Blob, options: any) => {
-			options.onUploadProgress?.({ bytes: chunk.size })
-			return Promise.resolve()
+		// the second chunk has to be retried after it was already fully sent, all other chunks are uploaded without retry
+		let uploads = 0
+		mockUploads(async (config) => {
+			reportProgress(config, config.data.size)
+			if (++uploads === 2) {
+				reportRetry(config)
+				reportProgress(config, config.data.size)
+			}
 		})
-		// the first chunk is uploaded without any retry …
-		uploadDataMock.mockImplementationOnce((_url: string, chunk: Blob, options: any) => {
-			options.onUploadProgress?.({ bytes: chunk.size })
-			return Promise.resolve()
-		})
-		// … while the second one has to be retried after it was already fully sent
-		uploadDataMock.mockImplementationOnce((_url: string, chunk: Blob, options: any) => {
-			options.onUploadProgress?.({ bytes: chunk.size })
-			options.onUploadRetry?.()
-			options.onUploadProgress?.({ bytes: chunk.size })
-			return Promise.resolve()
-		})
-		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
 
-		const uploadFile = createUpload()
+		const uploadFile = new UploadFile('/destination', createFile(fileSize))
 		const reported: number[] = []
 		uploadFile.addEventListener('progress', () => {
 			reported.push(uploadFile.uploadedBytes)
 		})
 
-		const queue = immediateQueue()
-		await uploadFile.start(queue as never)
-		await Promise.all(queue.add.mock.results.map((r) => r.value))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
 		// a retry of one chunk must not drop the progress of the other chunks
 		expect(Math.max(...reported)).toBeLessThanOrEqual(fileSize)
@@ -477,17 +329,77 @@ describe('chunked upload progress and status', () => {
 
 	it('does not overwrite a failed status with a later successful chunk', async () => {
 		// the first chunk fails, all other chunks succeed but only after the failure was handled
-		uploadDataMock.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 20)))
-		uploadDataMock.mockRejectedValueOnce(new Error('chunk failed'))
-		vi.spyOn(axios, 'request').mockResolvedValue({} as never)
+		let uploads = 0
+		mockUploads(() => (++uploads === 1
+			? Promise.reject(new Error('chunk failed'))
+			: new Promise((resolve) => setTimeout(resolve, 20))))
 
-		const uploadFile = createUpload()
-		const queue = immediateQueue()
-		await uploadFile.start(queue as never)
-		await Promise.allSettled(queue.add.mock.results.map((r) => r.value))
-		// wait for the remaining chunks to settle
-		await new Promise((resolve) => setTimeout(resolve, 50))
+		const uploadFile = new UploadFile('/destination', createFile(fileSize))
+		const queue = createQueue()
+		await uploadFile.start(queue)
+		await queue.onIdle()
 
 		expect(uploadFile.status).toBe(UploadStatus.FAILED)
 	})
 })
+
+/**
+ * Set the maximum chunk size configured by the admin.
+ *
+ * @param size - The chunk size in bytes, `0` disables chunking
+ */
+function setMaxChunkSize(size: number): void {
+	window.OC = { ...window.OC, appConfig: { files: { max_chunk_size: size } } } as typeof window.OC
+}
+
+/**
+ * Create the job queue for an upload.
+ *
+ * The upload does not await the jobs it adds to the queue, so a failed upload job
+ * would be reported as unhandled rejection - thus the rejections are handled here.
+ *
+ * @param options - The queue options
+ */
+function createQueue(options?: ConstructorParameters<typeof PQueue>[0]): PQueue {
+	const queue = new PQueue(options)
+	const add = queue.add.bind(queue)
+	queue.add = ((...args: Parameters<typeof add>) => {
+		const job = add(...args)
+		job.catch(() => {})
+		return job
+	}) as typeof queue.add
+	return queue
+}
+
+/**
+ * Mock the upload requests (PUT) with the given handler, all other requests succeed.
+ *
+ * @param handler - Handles the upload request, its result is the result of the request
+ */
+function mockUploads(handler: (config: AxiosRequestConfig) => Promise<unknown>): void {
+	vi.mocked(axios.request).mockImplementation(async (config) => {
+		if (config.method === 'PUT') {
+			await handler(config)
+		}
+		return {} as AxiosResponse
+	})
+}
+
+/**
+ * Report the given number of bytes of an upload request as sent.
+ *
+ * @param config - The request
+ * @param bytes - The number of bytes sent
+ */
+function reportProgress(config: AxiosRequestConfig, bytes: number): void {
+	config.onUploadProgress!({ bytes } as AxiosProgressEvent)
+}
+
+/**
+ * Report an upload request as retried.
+ *
+ * @param config - The request
+ */
+function reportRetry(config: AxiosRequestConfig): void {
+	config['axios-retry']!.onRetry!(1, new AxiosError('Network Error'), config)
+}

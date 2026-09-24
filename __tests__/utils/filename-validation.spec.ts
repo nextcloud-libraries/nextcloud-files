@@ -3,18 +3,17 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later or LGPL-3.0-or-later
  */
 
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { InvalidFilenameError, InvalidFilenameErrorReason, isFilenameValid, validateFilename } from '../../lib/index.ts'
+import { setCapabilities } from '../helpers.ts'
 
-const nextcloudCapabilities = vi.hoisted(() => ({ getCapabilities: vi.fn(() => ({ files: {} })) }))
-vi.mock('@nextcloud/capabilities', () => nextcloudCapabilities)
+beforeEach(() => {
+	// by default the server does not provide any restrictions
+	setCapabilities({ files: {} })
+	delete window._oc_config
+})
 
 describe('isFilenameValid', () => {
-	beforeEach(() => {
-		vi.restoreAllMocks()
-		delete window._oc_config
-	})
-
 	it('works for valid filenames', async () => {
 		expect(isFilenameValid('foo.bar')).toBe(true)
 	})
@@ -25,17 +24,12 @@ describe('isFilenameValid', () => {
 
 	it('does not catch any interal exceptions', async () => {
 		// invalid capability just to get an exception here
-		nextcloudCapabilities.getCapabilities.mockImplementationOnce(() => ({ files: { forbidden_filename_extensions: 3 } }))
+		setCapabilities({ files: { forbidden_filename_extensions: 3 } })
 		expect(() => isFilenameValid('hello')).toThrowError(TypeError)
 	})
 })
 
 describe('validateFilename', () => {
-	beforeEach(() => {
-		vi.resetAllMocks()
-		delete window._oc_config
-	})
-
 	it('works for valid filenames', async () => {
 		expect(() => validateFilename('foo.bar')).not.toThrow()
 	})
@@ -51,7 +45,7 @@ describe('validateFilename', () => {
 
 	// Nextcloud 30+
 	it('fetches forbidden characters from capabilities', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_characters: ['=', '?'] } }))
+		setCapabilities({ files: { forbidden_filename_characters: ['=', '?'] } })
 		expect(() => validateFilename('foo')).not.toThrow()
 		expect(() => validateFilename('foo?')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('foo=bar')).toThrowError(InvalidFilenameError)
@@ -59,7 +53,7 @@ describe('validateFilename', () => {
 	})
 
 	it('fetches forbidden extensions from capabilities', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_extensions: ['.txt', '.tar.gz'] } }))
+		setCapabilities({ files: { forbidden_filename_extensions: ['.txt', '.tar.gz'] } })
 		expect(() => validateFilename('foo.md')).not.toThrow()
 		expect(() => validateFilename('foo.txt')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('foo.tar.gz')).toThrowError(InvalidFilenameError)
@@ -67,39 +61,39 @@ describe('validateFilename', () => {
 	})
 
 	it('fetches forbidden filenames from capabilities', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filenames: ['thumbs.db'] } }))
+		setCapabilities({ files: { forbidden_filenames: ['thumbs.db'] } })
 		expect(() => validateFilename('thumbs.png')).not.toThrow()
 		expect(() => validateFilename('thumbs.db')).toThrowError(InvalidFilenameError)
 	})
 
 	it('fetches forbidden filename basenames from capabilities', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_basenames: ['com0'] } }))
+		setCapabilities({ files: { forbidden_filename_basenames: ['com0'] } })
 		expect(() => validateFilename('com1.txt')).not.toThrow()
 		expect(() => validateFilename('com0.txt')).toThrowError(InvalidFilenameError)
 	})
 
 	it('handles forbidden filenames case-insensitive', () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filenames: ['thumbs.db'] } }))
+		setCapabilities({ files: { forbidden_filenames: ['thumbs.db'] } })
 		expect(() => validateFilename('thumbS.db')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('thumbs.DB')).toThrowError(InvalidFilenameError)
 	})
 
 	it('handles forbidden filename basenames case-insensitive', () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_basenames: ['com0'] } }))
+		setCapabilities({ files: { forbidden_filename_basenames: ['com0'] } })
 		expect(() => validateFilename('COM0')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('com0')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('com0.namespace')).toThrowError(InvalidFilenameError)
 	})
 
 	it('handles forbidden filename extensions case-insensitive', () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_extensions: ['.txt'] } }))
+		setCapabilities({ files: { forbidden_filename_extensions: ['.txt'] } })
 		expect(() => validateFilename('file.TXT')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('FILE.txt')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('FiLe.TxT')).toThrowError(InvalidFilenameError)
 	})
 
 	it('handles hidden files correctly', () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_basenames: ['.hidden'], forbidden_filename_extensions: ['.txt'] } }))
+		setCapabilities({ files: { forbidden_filename_basenames: ['.hidden'], forbidden_filename_extensions: ['.txt'] } })
 		// forbidden basename '.hidden'
 		expect(() => validateFilename('.hidden')).toThrowError(InvalidFilenameError)
 		expect(() => validateFilename('.hidden.png')).toThrowError(InvalidFilenameError)
@@ -123,7 +117,7 @@ describe('validateFilename', () => {
 	})
 
 	it('sets error properties correctly on invalid extension', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_extensions: ['.txt'] } }))
+		setCapabilities({ files: { forbidden_filename_extensions: ['.txt'] } })
 
 		try {
 			validateFilename('file.txt')
@@ -149,7 +143,7 @@ describe('validateFilename', () => {
 	})
 
 	it('sets error properties correctly on invalid basename', async () => {
-		nextcloudCapabilities.getCapabilities.mockImplementation(() => ({ files: { forbidden_filename_basenames: ['com0'] } }))
+		setCapabilities({ files: { forbidden_filename_basenames: ['com0'] } })
 		try {
 			validateFilename('com0.namespace')
 			expect(true, 'should not be reached').toBeFalsy()

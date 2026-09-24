@@ -5,7 +5,7 @@
 
 import type { IFileListHeader, IFolder, IView } from '@/index.ts'
 
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { scopedGlobals } from '@/globalScope.ts'
 import { getFileListHeaders, getFilesRegistry, registerFileListHeader } from '@/ui/index.ts'
 import logger from '@/utils/logger.ts'
@@ -13,6 +13,10 @@ import logger from '@/utils/logger.ts'
 describe('FileListHeader init', () => {
 	beforeEach(() => {
 		delete scopedGlobals.fileListHeaders
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
 	})
 
 	test('Getting empty uninitialized FileListHeader', () => {
@@ -37,7 +41,6 @@ describe('FileListHeader init', () => {
 	})
 
 	test('register FileListHeader emits registry event', () => {
-		logger.debug = vi.fn()
 		const callback = vi.fn()
 		const header: IFileListHeader = {
 			id: 'test',
@@ -75,7 +78,7 @@ describe('FileListHeader init', () => {
 	})
 
 	test('Duplicate Header gets rejected', () => {
-		logger.error = vi.fn()
+		const error = vi.spyOn(logger, 'error').mockImplementation(() => {})
 		const header: IFileListHeader = {
 			id: 'test',
 			order: 1,
@@ -97,7 +100,7 @@ describe('FileListHeader init', () => {
 		registerFileListHeader(header2)
 		expect(getFileListHeaders()).toHaveLength(1)
 		expect(getFileListHeaders()[0]).toStrictEqual(header)
-		expect(logger.error).toHaveBeenCalledWith('Header test already registered', { header: header2 })
+		expect(error).toHaveBeenCalledWith('Header test already registered', { header: header2 })
 	})
 })
 

@@ -7,7 +7,7 @@ import type { IFolder, INode } from '@/node/index.ts'
 import type { IFileAction } from '@/ui/index.ts'
 import type { View } from '@/ui/navigation/index.ts'
 
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { scopedGlobals } from '@/globalScope.ts'
 import { DefaultType, getFileActions, getFilesRegistry, registerFileAction } from '@/ui/index.ts'
 import logger from '@/utils/logger.ts'
@@ -17,6 +17,10 @@ const view = {} as View
 describe('FileActions init', () => {
 	beforeEach(() => {
 		delete scopedGlobals.fileActions
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
 	})
 
 	test('Getting empty uninitialized FileActions', () => {
@@ -63,8 +67,6 @@ describe('FileActions init', () => {
 	})
 
 	test('getFileActions() returned array is reactive', () => {
-		logger.debug = vi.fn()
-
 		// is empty for now
 		expect(getFileActions()).toHaveLength(0)
 
@@ -83,7 +85,7 @@ describe('FileActions init', () => {
 	})
 
 	test('Duplicate FileAction gets rejected', () => {
-		logger.error = vi.fn()
+		const error = vi.spyOn(logger, 'error').mockImplementation(() => {})
 		const action: IFileAction = {
 			id: 'test',
 			displayName: () => 'Test',
@@ -105,7 +107,7 @@ describe('FileActions init', () => {
 		registerFileAction(action2)
 		expect(getFileActions()).toHaveLength(1)
 		expect(getFileActions()[0]).toStrictEqual(action)
-		expect(logger.error).toHaveBeenCalledWith('FileAction test already registered', { action: action2 })
+		expect(error).toHaveBeenCalledWith('FileAction test already registered', { action: action2 })
 	})
 })
 
@@ -226,7 +228,6 @@ describe('Invalid FileAction registration', () => {
 
 describe('FileActions creation', () => {
 	test('create valid FileAction', async () => {
-		logger.debug = vi.fn()
 		const action: IFileAction = {
 			id: 'test',
 			displayName: () => 'Test',
