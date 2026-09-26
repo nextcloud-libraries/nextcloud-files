@@ -65,7 +65,7 @@
     "is-svg": "^6.1.0",
     "p-queue": "^9.3.3",
     "typescript-event-target": "^1.1.2",
-    "webdav": "^5.10.0"
+    "webdav": "^5.11.0"
   },
   "devDependencies": {
     "@codecov/vite-plugin": "^2.0.1",
