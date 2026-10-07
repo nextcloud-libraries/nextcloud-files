@@ -175,9 +175,16 @@ export const resultToNode = function(node: FileStat, filesRoot = defaultRootPath
 	const mtime = new Date(Date.parse(node.lastmod))
 	const crtime = new Date(Date.parse(props.creationdate))
 
+	// Some DAV endpoints return a full path in the filename including root (base) path and remote URL path
+	// For example, SEARCH request returns "/root-base/remote.php/dav/files/user/test.txt" instead of "/files/user/test.txt"
+	// Strip the remote URL path to normalize the source
+	const remotePath = new URL(remoteURL).pathname.replace(/\/$/, '')
+	const filenameWithoutRemotePath = node.filename.startsWith(remotePath) ? node.filename.slice(remotePath.length) : node.filename
+	const source = remoteURL + filenameWithoutRemotePath
+
 	const nodeData: NodeData = {
 		id,
-		source: `${remoteURL}${node.filename}`,
+		source,
 		mtime: !isNaN(mtime.getTime()) && mtime.getTime() !== 0 ? mtime : undefined,
 		crtime: !isNaN(crtime.getTime()) && crtime.getTime() !== 0 ? crtime : undefined,
 		mime: node.mime || 'application/octet-stream',

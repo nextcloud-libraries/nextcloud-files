@@ -169,6 +169,37 @@ describe('resultToNode', () => {
 		expect(node2.mtime).toBeUndefined()
 		expect(node2.crtime).toBeUndefined()
 	})
+
+	test('source strips remote URL path from filename (search result)', () => {
+		const searchResult: FileStat = {
+			...result,
+			filename: '/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult)
+		expect(node.source).toBe(`${remoteURL}/files/test/New folder/Neue Textdatei.md`)
+	})
+
+	test('source strips remote URL path from filename (search result) with custom remote URL and non-empty root path', () => {
+		const searchResult: FileStat = {
+			...result,
+			filename: '/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult, '/files/test', 'http://example.com/root-base/remote.php/dav')
+		expect(node.source).toBe('http://example.com/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md')
+	})
+
+	test('source strips remote URL path from filename (search result) with getRootURL used as remote URL', () => {
+		/*
+		 * This is not a valid resultToNode usage because getRootURL is not a valid remote URL.
+		 * However, it was used in several places with SEARCH result as a workaround for the SEARCH request filename format.
+		 */
+		const searchResult: FileStat = {
+			...result,
+			filename: '/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult, '/files/test', 'http://example.com/root-base')
+		expect(node.source).toBe('http://example.com/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md')
+	})
 })
 
 describe('DAV requests', () => {
