@@ -28,7 +28,7 @@ describe('DAV functions', () => {
 	})
 
 	test('remote url is correct', () => {
-		expect(defaultRemoteURL).toBe('https://localhost/dav')
+		expect(defaultRemoteURL).toBe('https://localhost/remote.php/dav')
 	})
 })
 
@@ -63,7 +63,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(result.basename)
 		expect(node.displayname).toBe(result.props!.displayname)
 		expect(node.extension).toBe('.md')
-		expect(node.source).toBe('https://localhost/dav/files/test/New folder/Neue Textdatei.md')
+		expect(node.source).toBe('https://localhost/remote.php/dav/files/test/New folder/Neue Textdatei.md')
 		expect(node.root).toBe(defaultRootPath)
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
@@ -78,7 +78,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(remoteResult.basename)
 		expect(node.extension).toBe('.md')
 		expect(node.root).toBe('/root')
-		expect(node.source).toBe('https://localhost/dav/root/New folder/Neue Textdatei.md')
+		expect(node.source).toBe('https://localhost/remote.php/dav/root/New folder/Neue Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
 	})
