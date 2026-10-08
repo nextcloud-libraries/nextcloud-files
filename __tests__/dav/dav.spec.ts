@@ -176,7 +176,7 @@ describe('resultToNode', () => {
 			filename: '/remote.php/dav/files/test/New folder/Neue Textdatei.md',
 		}
 		const node = resultToNode(searchResult)
-		expect(node.source).toBe(`${remoteURL}/files/test/New folder/Neue Textdatei.md`)
+		expect(node.source).toBe(`${defaultRemoteURL}/files/test/New folder/Neue Textdatei.md`)
 	})
 
 	test('source strips remote URL path from filename (search result) with custom remote URL and non-empty root path', () => {
