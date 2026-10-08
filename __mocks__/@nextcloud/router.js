@@ -6,4 +6,4 @@
 /**
  * @param {string} path The path
  */
-export const generateRemoteUrl = (path) => `https://localhost/${path}`
+export const generateRemoteUrl = (path) => `https://localhost/remote.php/${path}`
