@@ -12,6 +12,10 @@ export default createLibConfig({
 }, {
 	config: {
 		plugins: [
+			{
+				name: 'preserve-modules',
+				outputOptions: (output) => ({ ...output, preserveModules: true, preserveModulesRoot: 'lib' }),
+			},
 			// Put the Codecov vite plugin after all other plugins
 			codecovVitePlugin({
 				enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
