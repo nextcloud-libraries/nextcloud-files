@@ -16,10 +16,10 @@
 <div class="tsd-comment tsd-typography"><p>The <strong><code>RTCRtpReceiver</code></strong> interface of the WebRTC API manages the reception and decoding of data for a MediaStreamTrack on an RTCPeerConnection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver">MDN Reference</a></p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RTCRtpReceiver</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#jitterbuffertarget">jitterBufferTarget</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#track">track</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.MediaStreamTrack.html" class="tsd-signature-type tsd-kind-interface">MediaStreamTrack</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#transform">transform</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpScriptTransform.html" class="tsd-signature-type tsd-kind-interface">RTCRtpScriptTransform</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#transport">transport</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCDtlsTransport.html" class="tsd-signature-type tsd-kind-interface">RTCDtlsTransport</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getcontributingsources-1">getContributingSources</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpContributingSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpContributingSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getparameters-1">getParameters</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpReceiveParameters.html" class="tsd-signature-type tsd-kind-interface">RTCRtpReceiveParameters</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getstats-1">getStats</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RTCStatsReport</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getsynchronizationsources-1">getSynchronizationSources</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpSynchronizationSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpSynchronizationSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RTCRtpReceiver</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#jitterbuffertarget">jitterBufferTarget</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#track">track</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.MediaStreamTrack.html" class="tsd-signature-type tsd-kind-interface">MediaStreamTrack</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#transform">transform</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpScriptTransform.html" class="tsd-signature-type tsd-kind-interface">RTCRtpScriptTransform</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#transport">transport</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCDtlsTransport.html" class="tsd-signature-type tsd-kind-interface">RTCDtlsTransport</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getcontributingsources-1">getContributingSources</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpContributingSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpContributingSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getparameters-1">getParameters</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpReceiveParameters.html" class="tsd-signature-type tsd-kind-interface">RTCRtpReceiveParameters</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getstats-1">getStats</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index._internal_.RTCStatsReport.html" class="tsd-signature-type tsd-kind-interface">RTCStatsReport</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getsynchronizationsources-1">getSynchronizationSources</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpSynchronizationSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpSynchronizationSource</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25242</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25293</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29676</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29727</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -49,31 +49,31 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/jitterBufferTarget">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25248</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29682</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="track"><code class="tsd-tag">Readonly</code><span>track</span><a href="#track" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">track</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.MediaStreamTrack.html" class="tsd-signature-type tsd-kind-interface">MediaStreamTrack</a></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>track</code></strong> read-only property of the associated with the current RTCRtpReceiver instance.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>track</code></strong> read-only property of the RTCRtpReceiver interface returns the MediaStreamTrack associated with the current RTCRtpReceiver instance.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/track">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25254</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29688</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="transform"><span>transform</span><a href="#transform" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">transform</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpScriptTransform.html" class="tsd-signature-type tsd-kind-interface">RTCRtpScriptTransform</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>transform</code></strong> property of the RTCRtpReceiver object is used to insert a transform stream (TransformStream) running in a worker thread into the receiver pipeline.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>transform</code></strong> property of the RTCRtpReceiver object is used to insert a transform stream (TransformStream) running in a worker thread into the receiver pipeline. This allows stream transforms to be applied to encoded video and audio frames as they arrive from the packetizer (before they are played/rendered).</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/transform">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25260</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29694</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="transport"><code class="tsd-tag">Readonly</code><span>transport</span><a href="#transport" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">transport</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCDtlsTransport.html" class="tsd-signature-type tsd-kind-interface">RTCDtlsTransport</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>transport</code></strong> property of an used to interact with the underlying transport over which the receiver is exchanging Real-time Transport Control Protocol (RTCP) packets.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>transport</code></strong> property of an RTCRtpReceiver object provides the RTCDtlsTransport object used to interact with the underlying transport over which the receiver is exchanging Real-time Transport Control Protocol (RTCP) packets.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/transport">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25266</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29700</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -83,48 +83,48 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="getcontributingsources-1"><span class="tsd-kind-call-signature">getContributingSources</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpContributingSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpContributingSource</a><span class="tsd-signature-symbol">[]</span><a href="#getcontributingsources-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>getContributingSources()</code></strong> method of the RTCRtpReceiver interface returns an array of objects, each corresponding to one CSRC (contributing source) identifier received by the current <code>RTCRtpReceiver</code> in the last ten seconds.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>getContributingSources()</code></strong> method of the RTCRtpReceiver interface returns an array of objects, each corresponding to one CSRC (contributing source) identifier received by the current RTCRtpReceiver in the last ten seconds.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getContributingSources">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.RTCRtpContributingSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpContributingSource</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25272</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29706</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getparameters"><span>get<wbr/>Parameters</span><a href="#getparameters" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="getparameters-1"><span class="tsd-kind-call-signature">getParameters</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpReceiveParameters.html" class="tsd-signature-type tsd-kind-interface">RTCRtpReceiveParameters</a><a href="#getparameters-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>getParameters()</code></strong> method of the RTCRtpReceiver interface returns an object describing the current configuration for how the receiver's RTCRtpReceiver.track is decoded.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>getParameters()</code></strong> method of the RTCRtpReceiver interface returns an object describing the current configuration for how the receiver's track is decoded.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getParameters">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.RTCRtpReceiveParameters.html" class="tsd-signature-type tsd-kind-interface">RTCRtpReceiveParameters</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25278</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29712</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getstats"><span>get<wbr/>Stats</span><a href="#getstats" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="getstats-1"><span class="tsd-kind-call-signature">getStats</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RTCStatsReport</span><span class="tsd-signature-symbol">&gt;</span><a href="#getstats-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="getstats-1"><span class="tsd-kind-call-signature">getStats</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index._internal_.RTCStatsReport.html" class="tsd-signature-type tsd-kind-interface">RTCStatsReport</a><span class="tsd-signature-symbol">&gt;</span><a href="#getstats-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The RTCRtpReceiver method <strong><code>getStats()</code></strong> asynchronously requests an RTCStatsReport object which provides statistics about incoming traffic on the owning RTCPeerConnection, returning a Promise whose fulfillment handler will be called once the results are available.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getStats">MDN Reference</a></p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RTCStatsReport</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index._internal_.RTCStatsReport.html" class="tsd-signature-type tsd-kind-interface">RTCStatsReport</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25284</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29718</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getsynchronizationsources"><span>get<wbr/>Synchronization<wbr/>Sources</span><a href="#getsynchronizationsources" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="getsynchronizationsources-1"><span class="tsd-kind-call-signature">getSynchronizationSources</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.RTCRtpSynchronizationSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpSynchronizationSource</a><span class="tsd-signature-symbol">[]</span><a href="#getsynchronizationsources-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>getSynchronizationSources()</code></strong> method of the RTCRtpReceiver interface returns an array of objects, each corresponding to one SSRC (synchronization source) identifier received by the current <code>RTCRtpReceiver</code> in the last ten seconds.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>getSynchronizationSources()</code></strong> method of the RTCRtpReceiver interface returns an array of objects, each corresponding to one SSRC (synchronization source) identifier received by the current RTCRtpReceiver in the last ten seconds.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCRtpReceiver/getSynchronizationSources">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.RTCRtpSynchronizationSource.html" class="tsd-signature-type tsd-kind-interface">RTCRtpSynchronizationSource</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25290</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29724</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

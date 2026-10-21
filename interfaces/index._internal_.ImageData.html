@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">ImageData</a></li></ul>
 <h1>Interface ImageData</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageData</code></strong> interface represents the underlying pixel data of an area of a canvas element.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageData</code></strong> interface represents the underlying pixel data of an area of a <canvas> element.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageData">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ImageData</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#colorspace">colorSpace</a><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.PredefinedColorSpace.html" class="tsd-signature-type tsd-kind-type-alias">PredefinedColorSpace</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#data">data</a><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.ImageDataArray.html" class="tsd-signature-type tsd-kind-type-alias">ImageDataArray</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#height">height</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#width">width</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18714</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18741</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22784</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22811</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,15 +42,15 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageData/colorSpace">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18720</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22790</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="data"><code class="tsd-tag">Readonly</code><span>data</span><a href="#data" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">data</span><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.ImageDataArray.html" class="tsd-signature-type tsd-kind-type-alias">ImageDataArray</a></div>
-<div class="tsd-comment tsd-typography"><p>The readonly <strong><code>ImageData.data</code></strong> property returns a pixel data.</p>
+<div class="tsd-comment tsd-typography"><p>The readonly <strong><code>ImageData.data</code></strong> property returns a Uint8ClampedArray or Float16Array that contains the ImageData object's pixel data. Data is stored as a one-dimensional array in the RGBA order.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageData/data">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18726</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22796</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="height"><code class="tsd-tag">Readonly</code><span>height</span><a href="#height" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">height</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -58,7 +58,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageData/height">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18732</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22802</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="width"><code class="tsd-tag">Readonly</code><span>width</span><a href="#width" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">width</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -66,7 +66,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageData/width">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18738</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22808</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

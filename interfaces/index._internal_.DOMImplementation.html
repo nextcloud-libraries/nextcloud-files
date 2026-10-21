@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">DOMImplementation</a></li></ul>
 <h1>Interface DOMImplementation</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation</code></strong> interface represents an object providing methods which are not dependent on any particular document.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation</code></strong> interface represents an object providing methods which are not dependent on any particular document. Such an object is returned by the Document.implementation property.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/DOMImplementation">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">DOMImplementation</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-call-signature" href="#createdocument-1">createDocument</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">namespace</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">qualifiedName</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">doctype</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.DocumentType.html" class="tsd-signature-type tsd-kind-interface">DocumentType</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.XMLDocument.html" class="tsd-signature-type tsd-kind-interface">XMLDocument</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#createdocumenttype-1">createDocumentType</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">publicId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">systemId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentType.html" class="tsd-signature-type tsd-kind-interface">DocumentType</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#createhtmldocument-1">createHTMLDocument</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">title</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Document.html" class="tsd-signature-type tsd-kind-interface">Document</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#hasfeature-1">hasFeature</a><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span><span class="tsd-kind-parameter">args</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8665</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8693</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11397</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11425</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -52,14 +52,14 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">doctype</span>: <a href="index._internal_.DocumentType.html" class="tsd-signature-type tsd-kind-interface">DocumentType</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.XMLDocument.html" class="tsd-signature-type tsd-kind-interface">XMLDocument</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8671</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11403</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="createdocumenttype"><span>create<wbr/>Document<wbr/>Type</span><a href="#createdocumenttype" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="createdocumenttype-1"><span class="tsd-kind-call-signature">createDocumentType</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">publicId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">systemId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentType.html" class="tsd-signature-type tsd-kind-interface">DocumentType</a><a href="#createdocumenttype-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation.createDocumentType()</code></strong> method returns a DocumentType object which can either be used with into the document via methods like Node.insertBefore() or <code>js-nolint createDocumentType(qualifiedNameStr, publicId, systemId) </code> - <code>qualifiedNameStr</code> - : A string containing the qualified name, like <code>svg:svg</code>.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation.createDocumentType()</code></strong> method returns a DocumentType object which can either be used with DOMImplementation.createDocument upon document creation or can be put into the document via methods like Node.insertBefore() or Node.replaceChild().</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/DOMImplementation/createDocumentType">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -70,7 +70,7 @@
 <li><span><span class="tsd-kind-parameter">systemId</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.DocumentType.html" class="tsd-signature-type tsd-kind-interface">DocumentType</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8677</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11409</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="createhtmldocument"><span>create<wbr/>HTML<wbr/>Document</span><a href="#createhtmldocument" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -86,14 +86,14 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">title</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.Document.html" class="tsd-signature-type tsd-kind-interface">Document</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8683</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11415</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="hasfeature"><span class="deprecated">has<wbr/>Feature</span><a href="#hasfeature" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="hasfeature-1"><span class="tsd-kind-call-signature">hasFeature</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span><span class="tsd-kind-parameter">args</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><a href="#hasfeature-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation.hasFeature()</code></strong> method returns a boolean flag indicating if a given feature is supported.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>DOMImplementation.hasFeature()</code></strong> method returns a boolean flag indicating if a given feature is supported. It is deprecated and modern browsers return true in all cases.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -105,7 +105,7 @@
 <h4 class="tsd-anchor-link" id="deprecated">Deprecated<a href="#deprecated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><a href="https://developer.mozilla.org/docs/Web/API/DOMImplementation/hasFeature">MDN Reference</a></p>
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8690</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11422</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

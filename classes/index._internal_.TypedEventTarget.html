@@ -12,20 +12,25 @@
 <li><a href="../modules/index._internal_.html">&lt;internal&gt;</a></li>
 <li><a href="" aria-current="page">TypedEventTarget</a></li></ul>
 <h1>Class TypedEventTarget&lt;M&gt;</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The <strong><code>EventTarget</code></strong> interface is implemented by objects that can receive events and may have listeners for them. In other words, any target of events implements the three methods associated with this interface.</p>
+<p><a href="https://developer.mozilla.org/docs/Web/API/EventTarget">MDN Reference</a></p>
+</div></section>
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li><span id="m"><span class="tsd-kind-type-parameter">M</span> <span class="tsd-signature-keyword">extends</span> <a href="../types/index._internal_.ValueIsEvent.html" class="tsd-signature-type tsd-kind-type-alias">ValueIsEvent</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></section>
-<section class="tsd-panel tsd-hierarchy" data-refl="7333">
+<section class="tsd-panel tsd-hierarchy" data-refl="1617">
 <h4>Hierarchy (<a href="../hierarchy.html#index.<internal>.TypedEventTarget">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-signature-type">EventTarget</span>
+<li class="tsd-hierarchy-item"><a href="../interfaces/dav._internal_.EventTarget.html" class="tsd-signature-type tsd-kind-interface">EventTarget</a>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">TypedEventTarget</span>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><a href="../interfaces/index.IFileListFilter.html" class="tsd-signature-type tsd-kind-interface">IFileListFilter</a></li>
+<li class="tsd-hierarchy-item"><a href="../interfaces/index.IFileListFilterBase.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterBase</a></li>
+<li class="tsd-hierarchy-item"><a href="index.Navigation.html" class="tsd-signature-type tsd-kind-class">Navigation</a></li>
 <li class="tsd-hierarchy-item"><a href="index.FileListFilter.html" class="tsd-signature-type tsd-kind-class">FileListFilter</a></li>
-<li class="tsd-hierarchy-item"><a href="index.Navigation.html" class="tsd-signature-type tsd-kind-class">Navigation</a></li></ul></li></ul></li></ul></section><aside class="tsd-sources">
+<li class="tsd-hierarchy-item"><a href="index._internal_.FilesRegistry.html" class="tsd-signature-type tsd-kind-class">FilesRegistry</a></li></ul></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:50</li>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:86</li></ul></aside>
@@ -63,7 +68,7 @@
 <li><span id="constructortypedeventtargetm"><span class="tsd-kind-type-parameter">M</span> <span class="tsd-signature-keyword">extends</span> <a href="../types/index._internal_.ValueIsEvent.html" class="tsd-signature-type tsd-kind-type-alias">ValueIsEvent</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">&gt;</span></span></li></ul></section>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">TypedEventTarget</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11586</li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14397</li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -89,11 +94,12 @@ invoked once after which the event listener will be removed.</p>
 <p>The event listener is appended to target's event listener list and is not
 appended if it has the same type, callback, and capture.</p>
 </div><aside class="tsd-sources">
+<p>Inherited from <a href="../interfaces/dav._internal_.EventTarget.html">EventTarget</a>.<a href="../interfaces/dav._internal_.EventTarget.html#addeventlistener">addEventListener</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:74</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="dispatchevent"><span class="deprecated">dispatch<wbr/>Event</span><a href="#dispatchevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/dav._internal_.Event.html" class="tsd-signature-type tsd-kind-interface">Event</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
 was not invoked, and false otherwise.</p>
@@ -102,14 +108,16 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-tag-deprecated">
 <h4 class="tsd-anchor-link" id="deprecated">Deprecated<a href="#deprecated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>To ensure type safety use <code>dispatchTypedEvent</code> instead.</p>
 </div></div><aside class="tsd-sources">
+<p>Inherited from <a href="../interfaces/dav._internal_.EventTarget.html">EventTarget</a>.<a href="../interfaces/dav._internal_.EventTarget.html#dispatchevent">dispatchEvent</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:84</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="removeeventlistener"><span>remove<wbr/>Event<wbr/>Listener</span><a href="#removeeventlistener" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">EventListenerOptions</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <a href="../interfaces/dav._internal_.EventListenerOptions.html" class="tsd-signature-type tsd-kind-interface">EventListenerOptions</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-comment tsd-typography"><p>Removes the event listener in target's event listener list with the same
 type, callback, and options.</p>
 </div><aside class="tsd-sources">
+<p>Inherited from <a href="../interfaces/dav._internal_.EventTarget.html">EventTarget</a>.<a href="../interfaces/dav._internal_.EventTarget.html#removeeventlistener">removeEventListener</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:77</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -119,7 +127,7 @@ type, callback, and options.</p>
 <h3 class="tsd-anchor-link" id="dispatchtypedevent"><span>dispatch<wbr/>Typed<wbr/>Event</span><a href="#dispatchtypedevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
@@ -132,8 +140,8 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a></span></li>
-<li><span><span class="tsd-kind-parameter">event</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
+<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a></span></li>
+<li><span><span class="tsd-kind-parameter">event</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#m">M</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:92</li></ul></aside></div></li></ul></section></section></details></div>

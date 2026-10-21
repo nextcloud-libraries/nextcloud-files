@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">ImageBitmapRenderingContext</a></li></ul>
 <h1>Interface ImageBitmapRenderingContext</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext</code></strong> interface is a canvas rendering context that provides the functionality to replace the canvas's contents with the given ImageBitmap.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext</code></strong> interface is a canvas rendering context that provides the functionality to replace the canvas's contents with the given ImageBitmap. Its context id (the first argument to HTMLCanvasElement.getContext() or OffscreenCanvas.getContext()) is &quot;bitmaprenderer&quot;.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageBitmapRenderingContext">MDN Reference</a></p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ImageBitmapRenderingContext</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#canvas">canvas</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.OffscreenCanvas.html" class="tsd-signature-type tsd-kind-interface">OffscreenCanvas</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.HTMLCanvasElement.html" class="tsd-signature-type tsd-kind-interface">HTMLCanvasElement</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#transferfromimagebitmap-1">transferFromImageBitmap</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">bitmap</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ImageBitmap.html" class="tsd-signature-type tsd-kind-interface">ImageBitmap</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ImageBitmapRenderingContext</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#canvas">canvas</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.HTMLCanvasElement.html" class="tsd-signature-type tsd-kind-interface">HTMLCanvasElement</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.OffscreenCanvas.html" class="tsd-signature-type tsd-kind-interface">OffscreenCanvas</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#transferfromimagebitmap-1">transferFromImageBitmap</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">bitmap</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ImageBitmap.html" class="tsd-signature-type tsd-kind-interface">ImageBitmap</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18651</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18666</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22715</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22730</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -38,12 +38,12 @@
 <section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="canvas"><code class="tsd-tag">Readonly</code><span>canvas</span><a href="#canvas" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">canvas</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.OffscreenCanvas.html" class="tsd-signature-type tsd-kind-interface">OffscreenCanvas</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.HTMLCanvasElement.html" class="tsd-signature-type tsd-kind-interface">HTMLCanvasElement</a></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext.canvas</code></strong> property, part of the Canvas API, is a read-only reference to the A HTMLCanvasElement or OffscreenCanvas object.</p>
+<div class="tsd-signature"><span class="tsd-kind-property">canvas</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.HTMLCanvasElement.html" class="tsd-signature-type tsd-kind-interface">HTMLCanvasElement</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.OffscreenCanvas.html" class="tsd-signature-type tsd-kind-interface">OffscreenCanvas</a></div>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext.canvas</code></strong> property, part of the Canvas API, is a read-only reference to the HTMLCanvasElement or OffscreenCanvas object that is associated with the given context.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageBitmapRenderingContext/canvas">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18657</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22721</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -53,7 +53,7 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="transferfromimagebitmap-1"><span class="tsd-kind-call-signature">transferFromImageBitmap</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">bitmap</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ImageBitmap.html" class="tsd-signature-type tsd-kind-interface">ImageBitmap</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#transferfromimagebitmap-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext.transferFromImageBitmap()</code></strong> method displays the given ImageBitmap in the canvas associated with this rendering context.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ImageBitmapRenderingContext.transferFromImageBitmap()</code></strong> method displays the given ImageBitmap in the canvas associated with this rendering context. The ownership of the ImageBitmap is transferred to the canvas as well.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ImageBitmapRenderingContext/transferFromImageBitmap">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -62,7 +62,7 @@
 <li><span><span class="tsd-kind-parameter">bitmap</span>: <a href="index._internal_.ImageBitmap.html" class="tsd-signature-type tsd-kind-interface">ImageBitmap</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:18663</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22727</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

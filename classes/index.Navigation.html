@@ -22,14 +22,14 @@ It is also possible to listen on changes of the registered views or when the cur
 </code><button type="button">Copy</button></pre>
 
 </div></div></section>
-<section class="tsd-panel tsd-hierarchy" data-refl="270">
+<section class="tsd-panel tsd-hierarchy" data-refl="250">
 <h4>Hierarchy (<a href="../hierarchy.html#index.Navigation">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="index._internal_.TypedEventTarget.html" class="tsd-signature-type tsd-kind-class">TypedEventTarget</a><span class="tsd-signature-symbol">&lt;</span><br/>    <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">&gt;</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">Navigation</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L45">navigation/navigation.ts:45</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L49">ui/navigation/navigation.ts:49</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -69,7 +69,7 @@ It is also possible to listen on changes of the registered views or when the cur
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">Navigation</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11586</li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14397</li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -100,7 +100,7 @@ appended if it has the same type, callback, and capture.</p>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:74</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="dispatchevent"><span class="deprecated">dispatch<wbr/>Event</span><a href="#dispatchevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/dav._internal_.Event.html" class="tsd-signature-type tsd-kind-interface">Event</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
 was not invoked, and false otherwise.</p>
@@ -114,7 +114,7 @@ was not invoked, and false otherwise.</p>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:84</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="removeeventlistener"><span>remove<wbr/>Event<wbr/>Listener</span><a href="#removeeventlistener" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">&quot;update&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;updateActive&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span><br/>        <span class="tsd-signature-symbol">|</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><br/>            <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">,</span><br/>            <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-signature-symbol">&gt;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">EventListenerOptions</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">&quot;update&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;updateActive&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span><br/>        <span class="tsd-signature-symbol">|</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><br/>            <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">,</span><br/>            <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-signature-symbol">&gt;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <a href="../interfaces/dav._internal_.EventListenerOptions.html" class="tsd-signature-type tsd-kind-interface">EventListenerOptions</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-comment tsd-typography"><p>Removes the event listener in target's event listener list with the same
 type, callback, and options.</p>
 </div><aside class="tsd-sources">
@@ -128,24 +128,24 @@ type, callback, and options.</p>
 <h3 class="tsd-anchor-link" id="active"><span>active</span><a href="#active" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li>
-<div class="tsd-signature" id="activeactive"><span class="tsd-signature-keyword">get</span> <span class="tsd-kind-get-signature">active</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
+<div class="tsd-signature" id="activeactive"><span class="tsd-signature-keyword">get</span> <span class="tsd-kind-get-signature">active</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The currently active files view</p>
 </div>
-<h4 class="tsd-returns-title">Returns <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L90">navigation/navigation.ts:90</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L110">ui/navigation/navigation.ts:110</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="views"><span>views</span><a href="#views" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li>
-<div class="tsd-signature" id="viewsviews"><span class="tsd-signature-keyword">get</span> <span class="tsd-kind-get-signature">views</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-signature" id="viewsviews"><span class="tsd-signature-keyword">get</span> <span class="tsd-kind-get-signature">views</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>All registered views</p>
 </div>
-<h4 class="tsd-returns-title">Returns <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L97">navigation/navigation.ts:97</a></li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L117">ui/navigation/navigation.ts:117</a></li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -153,7 +153,7 @@ type, callback, and options.</p>
 <h3 class="tsd-anchor-link" id="dispatchtypedevent"><span>dispatch<wbr/>Typed<wbr/>Event</span><a href="#dispatchtypedevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
 <li class="tsd-is-inherited tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">&quot;update&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;updateActive&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">&quot;update&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;updateActive&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
@@ -166,8 +166,8 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a></span></li>
-<li><span><span class="tsd-kind-parameter">event</span>: <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
+<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a></span></li>
+<li><span><span class="tsd-kind-parameter">event</span>: <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">update</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateViewsEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateViewsEvent</a><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">updateActive</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.UpdateActiveViewEvent.html" class="tsd-signature-type tsd-kind-interface">UpdateActiveViewEvent</a> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#dispatchtypedevent">dispatchTypedEvent</a></p>
 <ul>
@@ -176,23 +176,26 @@ was not invoked, and false otherwise.</p>
 <h3 class="tsd-anchor-link" id="register"><span>register</span><a href="#register" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="register-1"><span class="tsd-kind-call-signature">register</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">view</span><span class="tsd-signature-symbol">:</span> <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#register-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="register-1"><span class="tsd-kind-call-signature">register</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span><span class="tsd-kind-parameter">views</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#register-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Register a new view on the navigation</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">view</span>: <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a></span>
-<div class="tsd-comment tsd-typography"><p>The view to register</p>
+<li><span><span class="tsd-signature-symbol">...</span><span class="tsd-kind-parameter">views</span>: <a href="../interfaces/index.IView.html" class="tsd-signature-type tsd-kind-interface">IView</a><span class="tsd-signature-symbol">[]</span></span>
+<div class="tsd-comment tsd-typography"><p>The views to register</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography">
 <div class="tsd-tag-throws">
-<h4 class="tsd-anchor-link" id="throws">Throws<a href="#throws" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><code>Error</code> is thrown if a view with the same id is already registered</p>
+<h4 class="tsd-anchor-link" id="throws">Throws<a href="#throws" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if a view with the same id is already registered</p>
+</div>
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-1">Throws<a href="#throws-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>if the registered view is invalid</p>
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L55">navigation/navigation.ts:55</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L60">ui/navigation/navigation.ts:60</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="remove"><span>remove</span><a href="#remove" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -209,28 +212,31 @@ was not invoked, and false otherwise.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L68">navigation/navigation.ts:68</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L77">ui/navigation/navigation.ts:77</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="setactive"><span>set<wbr/>Active</span><a href="#setactive" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="">
-<div class="tsd-signature tsd-anchor-link" id="setactive-1"><span class="tsd-kind-call-signature">setActive</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">view</span><span class="tsd-signature-symbol">:</span> <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setactive-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="setactive-1"><span class="tsd-kind-call-signature">setActive</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setactive-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Set the currently active view</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">view</span>: <a href="index.View.html" class="tsd-signature-type tsd-kind-class">View</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span>
-<div class="tsd-comment tsd-typography"><p>New active view</p>
+<li><span><span class="tsd-kind-parameter">id</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span>
+<div class="tsd-comment tsd-typography"><p>The id of the view to set as active</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography">
+<div class="tsd-tag-throws">
+<h4 class="tsd-anchor-link" id="throws-2">Throws<a href="#throws-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>If no view with the given id was registered</p>
+</div>
 <div class="tsd-tag-fires">
 <h4 class="tsd-anchor-link" id="fires">Fires<a href="#fires" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>UpdateActiveViewEvent</p>
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/navigation/navigation.ts#L81">navigation/navigation.ts:81</a></li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/navigation/navigation.ts#L92">ui/navigation/navigation.ts:92</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

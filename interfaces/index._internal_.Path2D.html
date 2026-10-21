@@ -13,19 +13,19 @@
 <li><a href="" aria-current="page">Path2D</a></li></ul>
 <h1>Interface Path2D</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Path2D</code></strong> interface of the Canvas 2D API is used to declare a path that can then be used on a CanvasRenderingContext2D object.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Path2D</code></strong> interface of the Canvas 2D API is used to declare a path that can then be used on a CanvasRenderingContext2D object. The path methods of the CanvasRenderingContext2D interface are also present on this interface, which gives you the convenience of being able to retain and replay your path whenever desired.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Path2D">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">Path2D</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-call-signature" href="#addpath-1">addPath</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">path</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Path2D</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">transform</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.DOMMatrix2DInit.html" class="tsd-signature-type tsd-kind-interface">DOMMatrix2DInit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#arc-1">arc</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">radius</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">startAngle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">endAngle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">counterclockwise</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#arcto-1">arcTo</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">x1</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y1</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">x2</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y2</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">radius</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#beziercurveto-1">bezierCurveTo</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">cp1x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">cp1y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">cp2x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">cp2y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#closepath-1">closePath</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#ellipse-1">ellipse</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">radiusX</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">radiusY</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">rotation</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">startAngle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">endAngle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">counterclockwise</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#lineto-1">lineTo</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#moveto-1">moveTo</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#quadraticcurveto-1">quadraticCurveTo</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">cpx</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">cpy</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#rect-1">rect</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">w</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">h</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#roundrect-1">roundRect</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">w</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">h</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">radii</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a> <span class="tsd-signature-symbol">|</span> (<span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a>)<span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#roundrect-2">roundRect</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">w</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">h</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">radii</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="164879">
-<h4>Hierarchy</h4>
+<section class="tsd-panel tsd-hierarchy" data-refl="168044">
+<h4>Hierarchy (<a href="../hierarchy.html#index.<internal>.Path2D">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-signature-type">CanvasPath</span>
+<li class="tsd-hierarchy-item"><a href="index._internal_.CanvasPath.html" class="tsd-signature-type tsd-kind-interface">CanvasPath</a>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">Path2D</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22740</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22749</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:27118</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:27127</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -54,7 +54,7 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="addpath-1"><span class="tsd-kind-call-signature">addPath</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">path</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Path2D</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">transform</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.DOMMatrix2DInit.html" class="tsd-signature-type tsd-kind-interface">DOMMatrix2DInit</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#addpath-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Path2D.addPath()</code></strong> method of the Canvas 2D API adds one Path2D object to another <code>Path2D</code> object.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Path2D.addPath()</code></strong> method of the Canvas 2D API adds one Path2D object to another Path2D object.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Path2D/addPath">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -64,7 +64,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">transform</span>: <a href="index._internal_.DOMMatrix2DInit.html" class="tsd-signature-type tsd-kind-interface">DOMMatrix2DInit</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:22746</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:27124</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arc"><span>arc</span><a href="#arc" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -83,9 +83,9 @@
 <li><span><span class="tsd-kind-parameter">endAngle</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">counterclockwise</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.arc</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#arc">arc</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7676</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10365</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arcto"><span>arc<wbr/>To</span><a href="#arcto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -103,9 +103,9 @@
 <li><span><span class="tsd-kind-parameter">y2</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">radius</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.arcTo</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#arcto">arcTo</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7678</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10367</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="beziercurveto"><span>bezier<wbr/>Curve<wbr/>To</span><a href="#beziercurveto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -124,9 +124,9 @@
 <li><span><span class="tsd-kind-parameter">x</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">y</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.bezierCurveTo</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#beziercurveto">bezierCurveTo</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7680</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10369</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="closepath"><span>close<wbr/>Path</span><a href="#closepath" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -136,9 +136,9 @@
 <div class="tsd-comment tsd-typography"><p><a href="https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/closePath">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.closePath</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#closepath">closePath</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7682</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10371</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ellipse"><span>ellipse</span><a href="#ellipse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -159,9 +159,9 @@
 <li><span><span class="tsd-kind-parameter">endAngle</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">counterclockwise</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.ellipse</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#ellipse">ellipse</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7684</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10373</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="lineto"><span>line<wbr/>To</span><a href="#lineto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -176,9 +176,9 @@
 <li><span><span class="tsd-kind-parameter">x</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">y</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.lineTo</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#lineto">lineTo</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7686</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10375</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="moveto"><span>move<wbr/>To</span><a href="#moveto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -193,9 +193,9 @@
 <li><span><span class="tsd-kind-parameter">x</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">y</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.moveTo</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#moveto">moveTo</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7688</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10377</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="quadraticcurveto"><span>quadratic<wbr/>Curve<wbr/>To</span><a href="#quadraticcurveto" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -212,9 +212,9 @@
 <li><span><span class="tsd-kind-parameter">x</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">y</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.quadraticCurveTo</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#quadraticcurveto">quadraticCurveTo</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7690</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10379</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="rect"><span>rect</span><a href="#rect" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -231,9 +231,9 @@
 <li><span><span class="tsd-kind-parameter">w</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><span class="tsd-kind-parameter">h</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.rect</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#rect">rect</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7692</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10381</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="roundrect"><span>round<wbr/>Rect</span><a href="#roundrect" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
@@ -251,9 +251,9 @@
 <li><span><span class="tsd-kind-parameter">h</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">radii</span>: <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a> <span class="tsd-signature-symbol">|</span> (<span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a>)<span class="tsd-signature-symbol">[]</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.roundRect</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#roundrect">roundRect</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:7694</li></ul></aside></div></li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:10383</li></ul></aside></div></li>
 <li class="tsd-is-inherited tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="roundrect-2"><span class="tsd-kind-call-signature">roundRect</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">x</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">y</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">w</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">h</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">radii</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#roundrect-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
@@ -268,9 +268,9 @@
 <li><span><span class="tsd-kind-parameter">h</span>: <span class="tsd-signature-type">number</span></span></li>
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">radii</span>: <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.DOMPointInit.html" class="tsd-signature-type tsd-kind-interface">DOMPointInit</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<p>Inherited from CanvasPath.roundRect</p>
+<p>Inherited from <a href="index._internal_.CanvasPath.html">CanvasPath</a>.<a href="index._internal_.CanvasPath.html#roundrect">roundRect</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.iterable.d.ts:94</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:44554</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

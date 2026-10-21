@@ -13,19 +13,19 @@
 <li><a href="" aria-current="page">ElementInternals</a></li></ul>
 <h1>Interface ElementInternals</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ElementInternals</code></strong> interface of the Document Object Model gives web developers a way to allow custom elements to fully participate in HTML forms.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ElementInternals</code></strong> interface of the Document Object Model gives web developers a way to allow custom elements to fully participate in HTML forms. It provides utilities for working with these elements in the same way you would work with any standard HTML form element, and also exposes the Accessibility Object Model to the element.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals">MDN Reference</a></p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ElementInternals</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#ariaactivedescendantelement">ariaActiveDescendantElement</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaatomic">ariaAtomic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaautocomplete">ariaAutoComplete</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabraillelabel">ariaBrailleLabel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabrailleroledescription">ariaBrailleRoleDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabusy">ariaBusy</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariachecked">ariaChecked</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolcount">ariaColCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolindex">ariaColIndex</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolindextext">ariaColIndexText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolspan">ariaColSpan</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacontrolselements">ariaControlsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacurrent">ariaCurrent</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadescribedbyelements">ariaDescribedByElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadescription">ariaDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadetailselements">ariaDetailsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadisabled">ariaDisabled</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaerrormessageelements">ariaErrorMessageElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaexpanded">ariaExpanded</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaflowtoelements">ariaFlowToElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariahaspopup">ariaHasPopup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariahidden">ariaHidden</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariainvalid">ariaInvalid</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariakeyshortcuts">ariaKeyShortcuts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialabel">ariaLabel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialabelledbyelements">ariaLabelledByElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialevel">ariaLevel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialive">ariaLive</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamodal">ariaModal</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamultiline">ariaMultiLine</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamultiselectable">ariaMultiSelectable</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaorientation">ariaOrientation</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaownselements">ariaOwnsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaplaceholder">ariaPlaceholder</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaposinset">ariaPosInSet</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariapressed">ariaPressed</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariareadonly">ariaReadOnly</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarelevant">ariaRelevant</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarequired">ariaRequired</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaroledescription">ariaRoleDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowcount">ariaRowCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowindex">ariaRowIndex</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowindextext">ariaRowIndexText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowspan">ariaRowSpan</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaselected">ariaSelected</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariasetsize">ariaSetSize</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariasort">ariaSort</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluemax">ariaValueMax</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluemin">ariaValueMin</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluenow">ariaValueNow</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluetext">ariaValueText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#form">form</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLFormElement</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#labels">labels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodeList</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#role">role</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#shadowroot">shadowRoot</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ShadowRoot.html" class="tsd-signature-type tsd-kind-interface">ShadowRoot</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#states">states</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CustomStateSet</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#validationmessage">validationMessage</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#validity">validity</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ValidityState.html" class="tsd-signature-type tsd-kind-interface">ValidityState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#willvalidate">willValidate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#checkvalidity-1">checkValidity</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#reportvalidity-1">reportValidity</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setformvalue-1">setFormValue</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">state</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setvalidity-1">setValidity</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">flags</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.ValidityStateFlags.html" class="tsd-signature-type tsd-kind-interface">ValidityStateFlags</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">message</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">anchor</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.HTMLElement.html" class="tsd-signature-type tsd-kind-interface">HTMLElement</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="10625">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ElementInternals</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#ariaactivedescendantelement">ariaActiveDescendantElement</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaatomic">ariaAtomic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaautocomplete">ariaAutoComplete</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabraillelabel">ariaBrailleLabel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabrailleroledescription">ariaBrailleRoleDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariabusy">ariaBusy</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariachecked">ariaChecked</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolcount">ariaColCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolindex">ariaColIndex</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolindextext">ariaColIndexText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacolspan">ariaColSpan</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacontrolselements">ariaControlsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariacurrent">ariaCurrent</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadescribedbyelements">ariaDescribedByElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadescription">ariaDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadetailselements">ariaDetailsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariadisabled">ariaDisabled</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaerrormessageelements">ariaErrorMessageElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaexpanded">ariaExpanded</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaflowtoelements">ariaFlowToElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariahaspopup">ariaHasPopup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariahidden">ariaHidden</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariainvalid">ariaInvalid</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariakeyshortcuts">ariaKeyShortcuts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialabel">ariaLabel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialabelledbyelements">ariaLabelledByElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialevel">ariaLevel</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#arialive">ariaLive</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamodal">ariaModal</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamultiline">ariaMultiLine</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariamultiselectable">ariaMultiSelectable</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaorientation">ariaOrientation</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaownselements">ariaOwnsElements</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaplaceholder">ariaPlaceholder</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaposinset">ariaPosInSet</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariapressed">ariaPressed</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariareadonly">ariaReadOnly</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarelevant">ariaRelevant</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarequired">ariaRequired</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaroledescription">ariaRoleDescription</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowcount">ariaRowCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowindex">ariaRowIndex</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowindextext">ariaRowIndexText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariarowspan">ariaRowSpan</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariaselected">ariaSelected</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariasetsize">ariaSetSize</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariasort">ariaSort</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluemax">ariaValueMax</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluemin">ariaValueMin</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluenow">ariaValueNow</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ariavaluetext">ariaValueText</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#form">form</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.HTMLFormElement.html" class="tsd-signature-type tsd-kind-interface">HTMLFormElement</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#labels">labels</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NodeList.html" class="tsd-signature-type tsd-kind-interface">NodeList</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#role">role</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#shadowroot">shadowRoot</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ShadowRoot.html" class="tsd-signature-type tsd-kind-interface">ShadowRoot</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#states">states</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.CustomStateSet.html" class="tsd-signature-type tsd-kind-interface">CustomStateSet</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#validationmessage">validationMessage</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#validity">validity</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ValidityState.html" class="tsd-signature-type tsd-kind-interface">ValidityState</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#willvalidate">willValidate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#checkvalidity-1">checkValidity</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#reportvalidity-1">reportValidity</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setformvalue-1">setFormValue</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">state</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setvalidity-1">setValidity</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">flags</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.ValidityStateFlags.html" class="tsd-signature-type tsd-kind-interface">ValidityStateFlags</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">message</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">anchor</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.HTMLElement.html" class="tsd-signature-type tsd-kind-interface">HTMLElement</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel tsd-hierarchy" data-refl="4883">
 <h4>Hierarchy (<a href="../hierarchy.html#index.<internal>.ElementInternals">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="index._internal_.ARIAMixin.html" class="tsd-signature-type tsd-kind-interface">ARIAMixin</a>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">ElementInternals</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11139</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11208</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13950</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14019</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -110,7 +110,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaactivedescendantelement">ariaActiveDescendantElement</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2607</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3242</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaatomic"><span>aria<wbr/>Atomic</span><a href="#ariaatomic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaAtomic</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -118,7 +118,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaatomic">ariaAtomic</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2609</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3244</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaautocomplete"><span>aria<wbr/>Auto<wbr/>Complete</span><a href="#ariaautocomplete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaAutoComplete</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -126,7 +126,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaautocomplete">ariaAutoComplete</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2611</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3246</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariabraillelabel"><span>aria<wbr/>Braille<wbr/>Label</span><a href="#ariabraillelabel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaBrailleLabel</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -134,7 +134,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariabraillelabel">ariaBrailleLabel</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2613</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3248</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariabrailleroledescription"><span>aria<wbr/>Braille<wbr/>Role<wbr/>Description</span><a href="#ariabrailleroledescription" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaBrailleRoleDescription</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -142,7 +142,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariabrailleroledescription">ariaBrailleRoleDescription</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2615</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3250</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariabusy"><span>aria<wbr/>Busy</span><a href="#ariabusy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaBusy</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -150,7 +150,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariabusy">ariaBusy</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2617</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3252</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariachecked"><span>aria<wbr/>Checked</span><a href="#ariachecked" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaChecked</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -158,7 +158,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariachecked">ariaChecked</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2619</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3254</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacolcount"><span>aria<wbr/>Col<wbr/>Count</span><a href="#ariacolcount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaColCount</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -166,7 +166,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacolcount">ariaColCount</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2621</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3256</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacolindex"><span>aria<wbr/>Col<wbr/>Index</span><a href="#ariacolindex" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaColIndex</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -174,7 +174,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacolindex">ariaColIndex</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2623</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3258</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacolindextext"><span>aria<wbr/>Col<wbr/>Index<wbr/>Text</span><a href="#ariacolindextext" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaColIndexText</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -182,7 +182,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacolindextext">ariaColIndexText</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2625</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3260</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacolspan"><span>aria<wbr/>Col<wbr/>Span</span><a href="#ariacolspan" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaColSpan</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -190,7 +190,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacolspan">ariaColSpan</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2627</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3262</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacontrolselements"><span>aria<wbr/>Controls<wbr/>Elements</span><a href="#ariacontrolselements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaControlsElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -198,7 +198,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacontrolselements">ariaControlsElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2629</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3264</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariacurrent"><span>aria<wbr/>Current</span><a href="#ariacurrent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaCurrent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -206,7 +206,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariacurrent">ariaCurrent</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2631</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3266</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariadescribedbyelements"><span>aria<wbr/>Described<wbr/>By<wbr/>Elements</span><a href="#ariadescribedbyelements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaDescribedByElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -214,7 +214,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariadescribedbyelements">ariaDescribedByElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2633</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3268</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariadescription"><span>aria<wbr/>Description</span><a href="#ariadescription" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaDescription</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -222,7 +222,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariadescription">ariaDescription</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2635</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3270</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariadetailselements"><span>aria<wbr/>Details<wbr/>Elements</span><a href="#ariadetailselements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaDetailsElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -230,7 +230,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariadetailselements">ariaDetailsElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2637</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3272</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariadisabled"><span>aria<wbr/>Disabled</span><a href="#ariadisabled" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaDisabled</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -238,7 +238,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariadisabled">ariaDisabled</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2639</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3274</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaerrormessageelements"><span>aria<wbr/>Error<wbr/>Message<wbr/>Elements</span><a href="#ariaerrormessageelements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaErrorMessageElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -246,7 +246,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaerrormessageelements">ariaErrorMessageElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2641</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3276</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaexpanded"><span>aria<wbr/>Expanded</span><a href="#ariaexpanded" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaExpanded</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -254,7 +254,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaexpanded">ariaExpanded</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2643</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3278</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaflowtoelements"><span>aria<wbr/>Flow<wbr/>To<wbr/>Elements</span><a href="#ariaflowtoelements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaFlowToElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -262,7 +262,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaflowtoelements">ariaFlowToElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2645</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3280</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariahaspopup"><span>aria<wbr/>Has<wbr/>Popup</span><a href="#ariahaspopup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaHasPopup</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -270,7 +270,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariahaspopup">ariaHasPopup</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2647</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3282</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariahidden"><span>aria<wbr/>Hidden</span><a href="#ariahidden" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaHidden</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -278,7 +278,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariahidden">ariaHidden</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2649</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3284</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariainvalid"><span>aria<wbr/>Invalid</span><a href="#ariainvalid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaInvalid</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -286,7 +286,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariainvalid">ariaInvalid</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2651</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3286</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariakeyshortcuts"><span>aria<wbr/>Key<wbr/>Shortcuts</span><a href="#ariakeyshortcuts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaKeyShortcuts</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -294,7 +294,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariakeyshortcuts">ariaKeyShortcuts</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2653</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3288</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arialabel"><span>aria<wbr/>Label</span><a href="#arialabel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaLabel</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -302,7 +302,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#arialabel">ariaLabel</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2655</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3290</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arialabelledbyelements"><span>aria<wbr/>Labelled<wbr/>By<wbr/>Elements</span><a href="#arialabelledbyelements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaLabelledByElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -310,7 +310,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#arialabelledbyelements">ariaLabelledByElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2657</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3292</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arialevel"><span>aria<wbr/>Level</span><a href="#arialevel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaLevel</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -318,7 +318,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#arialevel">ariaLevel</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2659</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3294</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="arialive"><span>aria<wbr/>Live</span><a href="#arialive" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaLive</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -326,7 +326,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#arialive">ariaLive</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2661</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3296</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariamodal"><span>aria<wbr/>Modal</span><a href="#ariamodal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaModal</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -334,7 +334,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariamodal">ariaModal</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2663</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3298</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariamultiline"><span>aria<wbr/>Multi<wbr/>Line</span><a href="#ariamultiline" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaMultiLine</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -342,7 +342,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariamultiline">ariaMultiLine</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2665</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3300</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariamultiselectable"><span>aria<wbr/>Multi<wbr/>Selectable</span><a href="#ariamultiselectable" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaMultiSelectable</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -350,7 +350,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariamultiselectable">ariaMultiSelectable</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2667</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3302</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaorientation"><span>aria<wbr/>Orientation</span><a href="#ariaorientation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaOrientation</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -358,7 +358,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaorientation">ariaOrientation</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2669</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3304</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaownselements"><span>aria<wbr/>Owns<wbr/>Elements</span><a href="#ariaownselements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaOwnsElements</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="index._internal_.Element.html" class="tsd-signature-type tsd-kind-interface">Element</a><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -366,7 +366,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaownselements">ariaOwnsElements</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2671</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3306</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaplaceholder"><span>aria<wbr/>Placeholder</span><a href="#ariaplaceholder" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaPlaceholder</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -374,7 +374,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaplaceholder">ariaPlaceholder</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2673</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3308</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaposinset"><span>aria<wbr/>Pos<wbr/>In<wbr/>Set</span><a href="#ariaposinset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaPosInSet</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -382,7 +382,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaposinset">ariaPosInSet</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2675</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3310</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariapressed"><span>aria<wbr/>Pressed</span><a href="#ariapressed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaPressed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -390,7 +390,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariapressed">ariaPressed</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2677</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3312</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariareadonly"><span>aria<wbr/>Read<wbr/>Only</span><a href="#ariareadonly" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaReadOnly</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -398,7 +398,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariareadonly">ariaReadOnly</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2679</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3314</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarelevant"><span>aria<wbr/>Relevant</span><a href="#ariarelevant" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRelevant</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -406,7 +406,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarelevant">ariaRelevant</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2681</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3316</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarequired"><span>aria<wbr/>Required</span><a href="#ariarequired" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRequired</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -414,7 +414,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarequired">ariaRequired</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2683</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3318</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaroledescription"><span>aria<wbr/>Role<wbr/>Description</span><a href="#ariaroledescription" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRoleDescription</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -422,7 +422,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaroledescription">ariaRoleDescription</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2685</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3320</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarowcount"><span>aria<wbr/>Row<wbr/>Count</span><a href="#ariarowcount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRowCount</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -430,7 +430,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarowcount">ariaRowCount</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2687</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3322</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarowindex"><span>aria<wbr/>Row<wbr/>Index</span><a href="#ariarowindex" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRowIndex</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -438,7 +438,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarowindex">ariaRowIndex</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2689</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3324</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarowindextext"><span>aria<wbr/>Row<wbr/>Index<wbr/>Text</span><a href="#ariarowindextext" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRowIndexText</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -446,7 +446,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarowindextext">ariaRowIndexText</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2691</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3326</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariarowspan"><span>aria<wbr/>Row<wbr/>Span</span><a href="#ariarowspan" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaRowSpan</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -454,7 +454,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariarowspan">ariaRowSpan</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2693</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3328</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariaselected"><span>aria<wbr/>Selected</span><a href="#ariaselected" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaSelected</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -462,7 +462,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariaselected">ariaSelected</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2695</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3330</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariasetsize"><span>aria<wbr/>Set<wbr/>Size</span><a href="#ariasetsize" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaSetSize</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -470,7 +470,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariasetsize">ariaSetSize</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2697</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3332</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariasort"><span>aria<wbr/>Sort</span><a href="#ariasort" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaSort</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -478,7 +478,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariasort">ariaSort</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2699</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3334</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariavaluemax"><span>aria<wbr/>Value<wbr/>Max</span><a href="#ariavaluemax" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaValueMax</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -486,7 +486,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariavaluemax">ariaValueMax</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2701</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3336</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariavaluemin"><span>aria<wbr/>Value<wbr/>Min</span><a href="#ariavaluemin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaValueMin</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -494,7 +494,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariavaluemin">ariaValueMin</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2703</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3338</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariavaluenow"><span>aria<wbr/>Value<wbr/>Now</span><a href="#ariavaluenow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaValueNow</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -502,7 +502,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariavaluenow">ariaValueNow</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2705</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3340</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="ariavaluetext"><span>aria<wbr/>Value<wbr/>Text</span><a href="#ariavaluetext" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ariaValueText</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -510,23 +510,23 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#ariavaluetext">ariaValueText</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2707</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3342</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="form"><code class="tsd-tag">Readonly</code><span>form</span><a href="#form" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">form</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLFormElement</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">form</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.HTMLFormElement.html" class="tsd-signature-type tsd-kind-interface">HTMLFormElement</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
 <div class="tsd-comment tsd-typography"><p>The <strong><code>form</code></strong> read-only property of the ElementInternals interface returns the HTMLFormElement associated with this element.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/form">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11145</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13956</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="labels"><code class="tsd-tag">Readonly</code><span>labels</span><a href="#labels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">labels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodeList</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">labels</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NodeList.html" class="tsd-signature-type tsd-kind-interface">NodeList</a></div>
 <div class="tsd-comment tsd-typography"><p>The <strong><code>labels</code></strong> read-only property of the ElementInternals interface returns the labels associated with the element.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/labels">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11151</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13962</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="role"><span>role</span><a href="#role" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">role</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -534,7 +534,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.ARIAMixin.html">ARIAMixin</a>.<a href="index._internal_.ARIAMixin.html#role">role</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2709</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3344</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="shadowroot"><code class="tsd-tag">Readonly</code><span>shadow<wbr/>Root</span><a href="#shadowroot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">shadowRoot</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ShadowRoot.html" class="tsd-signature-type tsd-kind-interface">ShadowRoot</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -542,15 +542,15 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/shadowRoot">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11157</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13968</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="states"><code class="tsd-tag">Readonly</code><span>states</span><a href="#states" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">states</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CustomStateSet</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">states</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.CustomStateSet.html" class="tsd-signature-type tsd-kind-interface">CustomStateSet</a></div>
 <div class="tsd-comment tsd-typography"><p>The <strong><code>states</code></strong> read-only property of the ElementInternals interface returns a CustomStateSet representing the possible states of the custom element.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/states">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11163</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13974</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="validationmessage"><code class="tsd-tag">Readonly</code><span>validation<wbr/>Message</span><a href="#validationmessage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">validationMessage</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -558,7 +558,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/validationMessage">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11169</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13980</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="validity"><code class="tsd-tag">Readonly</code><span>validity</span><a href="#validity" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">validity</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.ValidityState.html" class="tsd-signature-type tsd-kind-interface">ValidityState</a></div>
@@ -566,15 +566,15 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/validity">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11175</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13986</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="willvalidate"><code class="tsd-tag">Readonly</code><span>will<wbr/>Validate</span><a href="#willvalidate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">willValidate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>willValidate</code></strong> read-only property of the ElementInternals interface returns <code>true</code> if the element is a submittable element that is a candidate for constraint validation.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>willValidate</code></strong> read-only property of the ElementInternals interface returns true if the element is a submittable element that is a candidate for constraint validation.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/willValidate">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11181</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13992</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -589,7 +589,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11187</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:13998</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="reportvalidity"><span>report<wbr/>Validity</span><a href="#reportvalidity" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -601,12 +601,12 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11193</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14004</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setformvalue"><span>set<wbr/>Form<wbr/>Value</span><a href="#setformvalue" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="setformvalue-1"><span class="tsd-kind-call-signature">setFormValue</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">state</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setformvalue-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="setformvalue-1"><span class="tsd-kind-call-signature">setFormValue</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">state</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setformvalue-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>The <strong><code>setFormValue()</code></strong> method of the ElementInternals interface sets the element's submission value and state, communicating these to the user agent.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ElementInternals/setFormValue">MDN Reference</a></p>
@@ -614,11 +614,11 @@
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li>
-<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">state</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">FormData</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">File</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li></ul></div>
+<li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">state</span>: <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.FormData.html" class="tsd-signature-type tsd-kind-interface">FormData</a> <span class="tsd-signature-symbol">|</span> <a href="index._internal_.File.html" class="tsd-signature-type tsd-kind-interface">File</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11199</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14010</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setvalidity"><span>set<wbr/>Validity</span><a href="#setvalidity" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -636,7 +636,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">anchor</span>: <a href="index._internal_.HTMLElement.html" class="tsd-signature-type tsd-kind-interface">HTMLElement</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11205</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14016</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

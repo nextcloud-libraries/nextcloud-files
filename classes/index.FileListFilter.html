@@ -11,7 +11,11 @@
 <li><a href="../modules/index.html">index</a></li>
 <li><a href="" aria-current="page">FileListFilter</a></li></ul>
 <h1>Class FileListFilter</h1></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="178">
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The <strong><code>EventTarget</code></strong> interface is implemented by objects that can receive events and may have listeners for them. In other words, any target of events implements the three methods associated with this interface.</p>
+<p><a href="https://developer.mozilla.org/docs/Web/API/EventTarget">MDN Reference</a></p>
+</div></section>
+<section class="tsd-panel tsd-hierarchy" data-refl="905">
 <h4>Hierarchy (<a href="../hierarchy.html#index.FileListFilter">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="index._internal_.TypedEventTarget.html" class="tsd-signature-type tsd-kind-class">TypedEventTarget</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">&gt;</span>
@@ -20,9 +24,9 @@
 <section class="tsd-panel">
 <h4>Implements</h4>
 <ul class="tsd-hierarchy">
-<li><a href="../interfaces/index.IFileListFilter.html" class="tsd-signature-type tsd-kind-interface">IFileListFilter</a></li></ul></section><aside class="tsd-sources">
+<li><a href="../interfaces/index.IFileListFilterBase.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterBase</a></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L95">fileListFilters.ts:95</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L124">ui/filters/listFilters.ts:124</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -64,7 +68,7 @@
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">FileListFilter</a></h4><aside class="tsd-sources">
 <p>Overrides <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L101">fileListFilters.ts:101</a></li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L128">ui/filters/listFilters.ts:128</a></li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -90,13 +94,13 @@ invoked once after which the event listener will be removed.</p>
 <p>The event listener is appended to target's event listener list and is not
 appended if it has the same type, callback, and capture.</p>
 </div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#addeventlistener">addEventListener</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#addeventlistener">addEventListener</a></p>
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#addeventlistener">addEventListener</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:74</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="dispatchevent"><span class="deprecated">dispatch<wbr/>Event</span><a href="#dispatchevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">dispatchEvent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/dav._internal_.Event.html" class="tsd-signature-type tsd-kind-interface">Event</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
 was not invoked, and false otherwise.</p>
@@ -105,7 +109,7 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-tag-deprecated">
 <h4 class="tsd-anchor-link" id="deprecated">Deprecated<a href="#deprecated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>To ensure type safety use <code>dispatchTypedEvent</code> instead.</p>
 </div></div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#dispatchevent">dispatchEvent</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#dispatchevent">dispatchEvent</a></p>
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#dispatchevent">dispatchEvent</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:84</li></ul></aside></section>
@@ -114,25 +118,25 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Unique ID of this filter</p>
 </div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#id">id</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#id">id</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L97">fileListFilters.ts:97</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L125">ui/filters/listFilters.ts:125</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="order"><span>order</span><a href="#order" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">order</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Order of the filter</p>
 <p>Use a low number to make this filter ordered in front.</p>
 </div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#order">order</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#order">order</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L99">fileListFilters.ts:99</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L126">ui/filters/listFilters.ts:126</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="removeeventlistener"><span>remove<wbr/>Event<wbr/>Listener</span><a href="#removeeventlistener" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span><br/>        <span class="tsd-signature-symbol">|</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">EventListenerOptions</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">removeEventListener</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span><br/>        <span class="tsd-signature-symbol">|</span> <a href="../types/index._internal_.TypedEventListenerOrEventListenerObject.html" class="tsd-signature-type tsd-kind-type-alias">TypedEventListenerOrEventListenerObject</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type tsd-kind-type-parameter">T</span><span class="tsd-signature-symbol">&gt;</span><br/>        <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span> <span class="tsd-signature-symbol">|</span> <a href="../interfaces/dav._internal_.EventListenerOptions.html" class="tsd-signature-type tsd-kind-interface">EventListenerOptions</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-comment tsd-typography"><p>Removes the event listener in target's event listener list with the same
 type, callback, and options.</p>
 </div><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#removeeventlistener">removeEventListener</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#removeeventlistener">removeEventListener</a></p>
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#removeeventlistener">removeEventListener</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:77</li></ul></aside></section></section></details>
@@ -143,7 +147,7 @@ type, callback, and options.</p>
 <h3 class="tsd-anchor-link" id="dispatchtypedevent"><span>dispatch<wbr/>Typed<wbr/>Event</span><a href="#dispatchtypedevent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited tsd-is-external">
 <li class="tsd-is-inherited tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-keyword">keyof</span> <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="dispatchtypedevent-1"><span class="tsd-kind-call-signature">dispatchTypedEvent</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#dispatchtypedeventt">T</a> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-keyword">keyof</span> <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">_type</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">event</span><span class="tsd-signature-symbol">:</span> <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#dispatchtypedevent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Dispatches a synthetic event event to target and returns true if either
 event's cancelable attribute value is false or its preventDefault() method
@@ -156,10 +160,10 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
-<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a></span></li>
-<li><span><span class="tsd-kind-parameter">event</span>: <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilter.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
+<li><span><span class="tsd-kind-parameter">_type</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a></span></li>
+<li><span><span class="tsd-kind-parameter">event</span>: <a href="../interfaces/index._internal_.IFileListFilterEvents.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterEvents</a><span class="tsd-signature-symbol">[</span><a class="tsd-signature-type tsd-kind-type-parameter" href="../interfaces/index.IFileListFilterBase.html#dispatchtypedeventt">T</a><span class="tsd-signature-symbol">]</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#dispatchtypedevent">dispatchTypedEvent</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#dispatchtypedevent">dispatchTypedEvent</a></p>
 <p>Inherited from <a href="index._internal_.TypedEventTarget.html">TypedEventTarget</a>.<a href="index._internal_.TypedEventTarget.html#dispatchtypedevent">dispatchTypedEvent</a></p>
 <ul>
 <li>Defined in ../node_modules/typescript-event-target/dist/index.d.ts:92</li></ul></aside></div></li></ul></section>
@@ -179,9 +183,9 @@ was not invoked, and false otherwise.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="../types/index.INode.html" class="tsd-signature-type tsd-kind-type-alias">INode</a><span class="tsd-signature-symbol">[]</span></h4><p>Subset of the <code>nodes</code> parameter to show</p>
 <aside class="tsd-sources">
-<p>Implementation of <a href="../interfaces/index.IFileListFilter.html">IFileListFilter</a>.<a href="../interfaces/index.IFileListFilter.html#filter">filter</a></p>
+<p>Implementation of <a href="../interfaces/index.IFileListFilterBase.html">IFileListFilterBase</a>.<a href="../interfaces/index.IFileListFilterBase.html#filter">filter</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L107">fileListFilters.ts:107</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L134">ui/filters/listFilters.ts:134</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-protected">
 <h3 class="tsd-anchor-link" id="filterupdated"><code class="tsd-tag">Protected</code><span>filter<wbr/>Updated</span><a href="#filterupdated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-protected">
@@ -190,7 +194,7 @@ was not invoked, and false otherwise.</p>
 <div class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L116">fileListFilters.ts:116</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L143">ui/filters/listFilters.ts:143</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-protected">
 <h3 class="tsd-anchor-link" id="updatechips"><code class="tsd-tag">Protected</code><span>update<wbr/>Chips</span><a href="#updatechips" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-protected">
@@ -203,7 +207,7 @@ was not invoked, and false otherwise.</p>
 <li><span><span class="tsd-kind-parameter">chips</span>: <a href="../interfaces/index.IFileListFilterChip.html" class="tsd-signature-type tsd-kind-interface">IFileListFilterChip</a><span class="tsd-signature-symbol">[]</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/6ad0dd6a997ac4669482142d9fea51ba18cc8fff/lib/fileListFilters.ts#L112">fileListFilters.ts:112</a></li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/nextcloud-libraries/nextcloud-files/blob/d3ad84c9d8dafe3de49bb71138e72d8acb8123b9/lib/ui/filters/listFilters.ts#L139">ui/filters/listFilters.ts:139</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

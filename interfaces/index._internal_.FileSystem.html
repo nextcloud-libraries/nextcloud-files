@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">FileSystem</a></li></ul>
 <h1>Interface FileSystem</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The File and Directory Entries API interface <strong><code>FileSystem</code></strong> is used to represent a file system.</p>
+<div class="tsd-comment tsd-typography"><p>The File and Directory Entries API interface <strong><code>FileSystem</code></strong> is used to represent a file system. These objects can be obtained from the filesystem property on any file system entry. Some browsers offer additional APIs to create and manage file systems, such as Chrome's requestFileSystem() method.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystem">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">FileSystem</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#root">root</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.FileSystemDirectoryEntry.html" class="tsd-signature-type tsd-kind-interface">FileSystemDirectoryEntry</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11758</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11773</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14569</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14584</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -36,19 +36,19 @@
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>name</code></strong> property of the string is unique among all file systems currently exposed by the File and Directory Entries API.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>name</code></strong> property of the FileSystem interface indicates the file system's name. This string is unique among all file systems currently exposed by the File and Directory Entries API.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystem/name">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11764</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14575</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="root"><code class="tsd-tag">Readonly</code><span>root</span><a href="#root" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">root</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.FileSystemDirectoryEntry.html" class="tsd-signature-type tsd-kind-interface">FileSystemDirectoryEntry</a></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>root</code></strong> property of the object representing the root directory of the file system, for use with the File and Directory Entries API.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>root</code></strong> property of the FileSystem interface specifies a FileSystemDirectoryEntry object representing the root directory of the file system, for use with the File and Directory Entries API.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystem/root">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11770</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14581</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

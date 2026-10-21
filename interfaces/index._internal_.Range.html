@@ -16,16 +16,16 @@
 <div class="tsd-comment tsd-typography"><p>The <strong><code>Range</code></strong> interface represents a fragment of a document that can contain nodes and parts of text nodes.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range">MDN Reference</a></p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">Range</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#collapsed">collapsed</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#commonancestorcontainer">commonAncestorContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#end_to_end">END_TO_END</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#end_to_start">END_TO_START</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#endcontainer">endContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#endoffset">endOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start_to_end">START_TO_END</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start_to_start">START_TO_START</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#startcontainer">startContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#startoffset">startOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#clonecontents-1">cloneContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#clonerange-1">cloneRange</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#collapse-1">collapse</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">toStart</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#compareboundarypoints-1">compareBoundaryPoints</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">how</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">sourceRange</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#comparepoint-1">comparePoint</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#createcontextualfragment-1">createContextualFragment</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">string</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#deletecontents-1">deleteContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#detach-1">detach</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#extractcontents-1">extractContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getboundingclientrect-1">getBoundingClientRect</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DOMRect.html" class="tsd-signature-type tsd-kind-interface">DOMRect</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getclientrects-1">getClientRects</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DOMRectList</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#insertnode-1">insertNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#intersectsnode-1">intersectsNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#ispointinrange-1">isPointInRange</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#selectnode-1">selectNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#selectnodecontents-1">selectNodeContents</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setend-1">setEnd</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setendafter-1">setEndAfter</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setendbefore-1">setEndBefore</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstart-1">setStart</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstartafter-1">setStartAfter</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstartbefore-1">setStartBefore</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#surroundcontents-1">surroundContents</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">newParent</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#tostring-1">toString</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="24709">
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">Range</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#collapsed">collapsed</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#commonancestorcontainer">commonAncestorContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#end_to_end">END_TO_END</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#end_to_start">END_TO_START</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#endcontainer">endContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#endoffset">endOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start_to_end">START_TO_END</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start_to_start">START_TO_START</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#startcontainer">startContainer</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#startoffset">startOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#clonecontents-1">cloneContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#clonerange-1">cloneRange</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#collapse-1">collapse</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">toStart</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#compareboundarypoints-1">compareBoundaryPoints</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">how</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">sourceRange</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#comparepoint-1">comparePoint</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#createcontextualfragment-1">createContextualFragment</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">string</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#deletecontents-1">deleteContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#detach-1">detach</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#extractcontents-1">extractContents</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getboundingclientrect-1">getBoundingClientRect</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DOMRect.html" class="tsd-signature-type tsd-kind-interface">DOMRect</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getclientrects-1">getClientRects</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DOMRectList.html" class="tsd-signature-type tsd-kind-interface">DOMRectList</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#insertnode-1">insertNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#intersectsnode-1">intersectsNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#ispointinrange-1">isPointInRange</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#selectnode-1">selectNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#selectnodecontents-1">selectNodeContents</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setend-1">setEnd</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setendafter-1">setEndAfter</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setendbefore-1">setEndBefore</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstart-1">setStart</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstartafter-1">setStartAfter</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setstartbefore-1">setStartBefore</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#surroundcontents-1">surroundContents</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">newParent</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#tostring-1">toString</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<section class="tsd-panel tsd-hierarchy" data-refl="21350">
 <h4>Hierarchy (<a href="../hierarchy.html#index.<internal>.Range">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="index._internal_.AbstractRange.html" class="tsd-signature-type tsd-kind-interface">AbstractRange</a>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">Range</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25598</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25750</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30032</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30185</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -53,7 +53,7 @@
 <a href="#comparepoint" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>compare<wbr/>Point</span></a>
 <a href="#createcontextualfragment" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>create<wbr/>Contextual<wbr/>Fragment</span></a>
 <a href="#deletecontents" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>delete<wbr/>Contents</span></a>
-<a href="#detach" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>detach</span></a>
+<a href="#detach" class="tsd-index-link deprecated tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>detach</span></a>
 <a href="#extractcontents" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>extract<wbr/>Contents</span></a>
 <a href="#getboundingclientrect" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Bounding<wbr/>Client<wbr/>Rect</span></a>
 <a href="#getclientrects" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Client<wbr/>Rects</span></a>
@@ -77,30 +77,30 @@
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="collapsed"><code class="tsd-tag">Readonly</code><span>collapsed</span><a href="#collapsed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">collapsed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>collapsed</code></strong> property of the AbstractRange interface returns <code>true</code> if the range's start position and end position are the same.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>collapsed</code></strong> property of the AbstractRange interface returns true if the range's start position and end position are the same.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AbstractRange/collapsed">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.AbstractRange.html">AbstractRange</a>.<a href="index._internal_.AbstractRange.html#collapsed">collapsed</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2807</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3442</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="commonancestorcontainer"><code class="tsd-tag">Readonly</code><span>common<wbr/>Ancestor<wbr/>Container</span><a href="#commonancestorcontainer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">commonAncestorContainer</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.commonAncestorContainer</code></strong> read-only property returns the deepest — or furthest down the document tree — Node that contains both boundary points of the Range.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.commonAncestorContainer</code></strong> read-only property returns the deepest — or furthest down the document tree — Node that contains both boundary points of the Range. This means that if startContainer and endContainer both refer to the same node, this node is the common ancestor container.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/commonAncestorContainer">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25604</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30038</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="end_to_end"><code class="tsd-tag">Readonly</code><span>END_<wbr/>TO_<wbr/>END</span><a href="#end_to_end" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">END_TO_END</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25746</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30181</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="end_to_start"><code class="tsd-tag">Readonly</code><span>END_<wbr/>TO_<wbr/>START</span><a href="#end_to_start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">END_TO_START</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25747</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30182</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="endcontainer"><code class="tsd-tag">Readonly</code><span>end<wbr/>Container</span><a href="#endcontainer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">endContainer</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></div>
@@ -109,7 +109,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.AbstractRange.html">AbstractRange</a>.<a href="index._internal_.AbstractRange.html#endcontainer">endContainer</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2813</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3448</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="endoffset"><code class="tsd-tag">Readonly</code><span>end<wbr/>Offset</span><a href="#endoffset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">endOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -118,26 +118,26 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.AbstractRange.html">AbstractRange</a>.<a href="index._internal_.AbstractRange.html#endoffset">endOffset</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2819</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3454</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="start_to_end"><code class="tsd-tag">Readonly</code><span>START_<wbr/>TO_<wbr/>END</span><a href="#start_to_end" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">START_TO_END</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25745</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30180</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="start_to_start"><code class="tsd-tag">Readonly</code><span>START_<wbr/>TO_<wbr/>START</span><a href="#start_to_start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">START_TO_START</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25744</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30179</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="startcontainer"><code class="tsd-tag">Readonly</code><span>start<wbr/>Container</span><a href="#startcontainer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">startContainer</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>startContainer</code></strong> property of the AbstractRange interface returns the start Node for the range.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>startContainer</code></strong> property of the AbstractRange interface returns the Node in which the start of the range is located.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AbstractRange/startContainer">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.AbstractRange.html">AbstractRange</a>.<a href="index._internal_.AbstractRange.html#startcontainer">startContainer</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2825</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3460</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="startoffset"><code class="tsd-tag">Readonly</code><span>start<wbr/>Offset</span><a href="#startoffset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">startOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -146,7 +146,7 @@
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="index._internal_.AbstractRange.html">AbstractRange</a>.<a href="index._internal_.AbstractRange.html#startoffset">startOffset</a></p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:2831</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3466</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -156,31 +156,31 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="clonecontents-1"><span class="tsd-kind-call-signature">cloneContents</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><a href="#clonecontents-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>cloneContents()</code></strong> method of the Range interface copies the selected Node children of the range's Range/commonAncestorContainer and puts them in a new DocumentFragment object.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>cloneContents()</code></strong> method of the Range interface copies the selected Node children of the range's commonAncestorContainer and puts them in a new DocumentFragment object.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/cloneContents">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25610</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30044</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="clonerange"><span>clone<wbr/>Range</span><a href="#clonerange" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="clonerange-1"><span class="tsd-kind-call-signature">cloneRange</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="" class="tsd-signature-type tsd-kind-interface">Range</a><a href="#clonerange-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.cloneRange()</code></strong> method returns a The returned clone is copied by value, not reference, so a change in either <code>js-nolint cloneRange() </code> None.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.cloneRange()</code></strong> method returns a Range object with boundary points identical to the cloned Range.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/cloneRange">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-interface">Range</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25616</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30050</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="collapse"><span>collapse</span><a href="#collapse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="collapse-1"><span class="tsd-kind-call-signature">collapse</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">toStart</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#collapse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>collapse()</code></strong> method of the Range interface collapses the A collapsed Range is empty, containing no content, specifying a single-point in a DOM tree.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>collapse()</code></strong> method of the Range interface collapses the Range to one of its boundary points.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/collapse">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -189,7 +189,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">toStart</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25622</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30056</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="compareboundarypoints"><span>compare<wbr/>Boundary<wbr/>Points</span><a href="#compareboundarypoints" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -206,14 +206,14 @@
 <li><span><span class="tsd-kind-parameter">sourceRange</span>: <a href="" class="tsd-signature-type tsd-kind-interface">Range</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25628</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30062</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="comparepoint"><span>compare<wbr/>Point</span><a href="#comparepoint" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="comparepoint-1"><span class="tsd-kind-call-signature">comparePoint</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#comparepoint-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>comparePoint()</code></strong> method of the Range interface determines whether a specified point is before, within, or after the Range.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>comparePoint()</code></strong> method of the Range interface determines whether a specified point is before, within, or after the Range. The point is specified by a reference node and an offset within that node.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/comparePoint">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -223,14 +223,14 @@
 <li><span><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25634</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30068</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="createcontextualfragment"><span>create<wbr/>Contextual<wbr/>Fragment</span><a href="#createcontextualfragment" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="createcontextualfragment-1"><span class="tsd-kind-call-signature">createContextualFragment</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">string</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><a href="#createcontextualfragment-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.createContextualFragment()</code></strong> method returns a XML fragment parsing algorithm with the start of the range (the <em>parent</em> of the selected node) as the context node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.createContextualFragment()</code></strong> method of the Range interface returns a DocumentFragment representing the parsed input HTML or XML.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/createContextualFragment">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -239,43 +239,46 @@
 <li><span><span class="tsd-kind-parameter">string</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25640</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30074</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="deletecontents"><span>delete<wbr/>Contents</span><a href="#deletecontents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="deletecontents-1"><span class="tsd-kind-call-signature">deleteContents</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#deletecontents-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.deleteContents()</code></strong> method removes all completely-selected Node within this range from the document.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.deleteContents()</code></strong> method removes all completely-selected nodes within this range from the document. For the partially selected nodes at the start or end of the range, only the selected portion of the text is deleted, while the node itself remains intact. Afterwards, the range is collapsed to the end of the last selected node.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/deleteContents">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25646</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30080</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
-<h3 class="tsd-anchor-link" id="detach"><span>detach</span><a href="#detach" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 class="tsd-anchor-link" id="detach"><span class="deprecated">detach</span><a href="#detach" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="detach-1"><span class="tsd-kind-call-signature">detach</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#detach-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.detach()</code></strong> method does nothing.</p>
-<p><a href="https://developer.mozilla.org/docs/Web/API/Range/detach">MDN Reference</a></p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.detach()</code></strong> method does nothing. It used to disable the Range object and enable the browser to release associated resources. The method has been kept for compatibility.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography">
+<div class="tsd-tag-deprecated">
+<h4 class="tsd-anchor-link" id="deprecated">Deprecated<a href="#deprecated" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p><a href="https://developer.mozilla.org/docs/Web/API/Range/detach">MDN Reference</a></p>
+</div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25652</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30087</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="extractcontents"><span>extract<wbr/>Contents</span><a href="#extractcontents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="extractcontents-1"><span class="tsd-kind-call-signature">extractContents</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a><a href="#extractcontents-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>extractContents()</code></strong> method of the Range interface is similar to a combination of Range.cloneContents() and Range.deleteContents().</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>extractContents()</code></strong> method of the Range interface is similar to a combination of Range.cloneContents() and Range.deleteContents(). It removes the child Nodes of the range from the document, clones them, and returns them as a new DocumentFragment object. For partially selected nodes, only the selected text is deleted, but all containing parent nodes up to the common ancestor are cloned as well, resulting in two copies of these nodes, one in the original document and one in the extracted fragment.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/extractContents">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.DocumentFragment.html" class="tsd-signature-type tsd-kind-interface">DocumentFragment</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25658</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30093</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getboundingclientrect"><span>get<wbr/>Bounding<wbr/>Client<wbr/>Rect</span><a href="#getboundingclientrect" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -287,19 +290,19 @@
 </div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.DOMRect.html" class="tsd-signature-type tsd-kind-interface">DOMRect</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25664</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30099</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getclientrects"><span>get<wbr/>Client<wbr/>Rects</span><a href="#getclientrects" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
-<div class="tsd-signature tsd-anchor-link" id="getclientrects-1"><span class="tsd-kind-call-signature">getClientRects</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DOMRectList</span><a href="#getclientrects-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-signature tsd-anchor-link" id="getclientrects-1"><span class="tsd-kind-call-signature">getClientRects</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.DOMRectList.html" class="tsd-signature-type tsd-kind-interface">DOMRectList</a><a href="#getclientrects-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.getClientRects()</code></strong> method returns a list of DOMRect objects representing the area of the screen occupied by the range.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.getClientRects()</code></strong> method returns a list of DOMRect objects representing the area of the screen occupied by the range. This is created by aggregating the results of calls to Element.getClientRects() for all the elements in the range.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/getClientRects">MDN Reference</a></p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DOMRectList</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <a href="index._internal_.DOMRectList.html" class="tsd-signature-type tsd-kind-interface">DOMRectList</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25670</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30105</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="insertnode"><span>insert<wbr/>Node</span><a href="#insertnode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -315,7 +318,7 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25676</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30111</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="intersectsnode"><span>intersects<wbr/>Node</span><a href="#intersectsnode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -331,14 +334,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25682</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30117</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="ispointinrange"><span>is<wbr/>Point<wbr/>In<wbr/>Range</span><a href="#ispointinrange" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="ispointinrange-1"><span class="tsd-kind-call-signature">isPointInRange</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#ispointinrange-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>isPointInRange()</code></strong> method of the Range interface determines whether a specified point is within the Range.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>isPointInRange()</code></strong> method of the Range interface determines whether a specified point is within the Range. The point is specified by a reference node and an offset within that node. It is equivalent to calling Range.comparePoint() and checking if the result is 0.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/isPointInRange">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -348,14 +351,14 @@
 <li><span><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25688</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30123</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="selectnode"><span>select<wbr/>Node</span><a href="#selectnode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="selectnode-1"><span class="tsd-kind-call-signature">selectNode</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#selectnode-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.selectNode()</code></strong> method sets the the parent of the <em>referenceNode</em>.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.selectNode()</code></strong> method sets the Range to contain the Node and its contents. The parent Node of the start and end of the Range will be the same as the parent of the referenceNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/selectNode">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -364,7 +367,7 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25694</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30129</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="selectnodecontents"><span>select<wbr/>Node<wbr/>Contents</span><a href="#selectnodecontents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -380,14 +383,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25700</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30135</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setend"><span>set<wbr/>End</span><a href="#setend" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setend-1"><span class="tsd-kind-call-signature">setEnd</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setend-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEnd()</code></strong> method sets the end position of a Range to be located at the given offset into the specified node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEnd()</code></strong> method sets the end position of a Range to be located at the given offset into the specified node. Setting the end point above (higher in the document) than the start point will result in a collapsed range with the start and end points both set to the specified end position.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setEnd">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -397,14 +400,14 @@
 <li><span><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25706</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30141</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setendafter"><span>set<wbr/>End<wbr/>After</span><a href="#setendafter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setendafter-1"><span class="tsd-kind-call-signature">setEndAfter</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setendafter-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEndAfter()</code></strong> method sets the end position of a <code>Node</code> of end of the <code>Range</code> will be the same as that for the <code>referenceNode</code>.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEndAfter()</code></strong> method sets the end position of a Range relative to another Node. The parent Node of end of the Range will be the same as that for the referenceNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setEndAfter">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -413,14 +416,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25712</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30147</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setendbefore"><span>set<wbr/>End<wbr/>Before</span><a href="#setendbefore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setendbefore-1"><span class="tsd-kind-call-signature">setEndBefore</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setendbefore-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEndBefore()</code></strong> method sets the end position of a <code>Range</code> relative to another Node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setEndBefore()</code></strong> method sets the end position of a Range relative to another Node. The parent Node of end of the Range will be the same as that for the referenceNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setEndBefore">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -429,14 +432,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25718</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30153</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setstart"><span>set<wbr/>Start</span><a href="#setstart" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setstart-1"><span class="tsd-kind-call-signature">setStart</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setstart-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStart()</code></strong> method sets the start position of a If the <code>startNode</code> is a Node of type Text, the number of characters from the start of <code>startNode</code>.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStart()</code></strong> method sets the start position of a Range.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setStart">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -446,14 +449,14 @@
 <li><span><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25724</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30159</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setstartafter"><span>set<wbr/>Start<wbr/>After</span><a href="#setstartafter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setstartafter-1"><span class="tsd-kind-call-signature">setStartAfter</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setstartafter-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStartAfter()</code></strong> method sets the start position of a Range relative to a Node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStartAfter()</code></strong> method sets the start position of a Range relative to a Node. The parent Node of the start of the Range will be the same as that for the referenceNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setStartAfter">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -462,14 +465,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25730</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30165</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setstartbefore"><span>set<wbr/>Start<wbr/>Before</span><a href="#setstartbefore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setstartbefore-1"><span class="tsd-kind-call-signature">setStartBefore</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setstartbefore-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStartBefore()</code></strong> method sets the start position of a Range relative to another Node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Range.setStartBefore()</code></strong> method sets the start position of a Range relative to another Node. The parent Node of the start of the Range will be the same as that for the referenceNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/setStartBefore">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -478,14 +481,14 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25736</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30171</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="surroundcontents"><span>surround<wbr/>Contents</span><a href="#surroundcontents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="surroundcontents-1"><span class="tsd-kind-call-signature">surroundContents</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">newParent</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#surroundcontents-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>surroundContents()</code></strong> method of the Range interface surrounds the selected content by a provided node.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>surroundContents()</code></strong> method of the Range interface surrounds the selected content by a provided node. It extracts the contents of the range, replaces the children of newParent with the extracted contents, inserts newParent at the location of the extracted contents, and makes the range select newParent.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Range/surroundContents">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -494,7 +497,7 @@
 <li><span><span class="tsd-kind-parameter">newParent</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25742</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30177</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="tostring"><span>to<wbr/>String</span><a href="#tostring" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -505,7 +508,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25743</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30178</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

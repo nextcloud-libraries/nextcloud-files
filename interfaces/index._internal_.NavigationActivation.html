@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">NavigationActivation</a></li></ul>
 <h1>Interface NavigationActivation</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>NavigationActivation</code></strong> interface of the Navigation API represents a recent cross-document navigation.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>NavigationActivation</code></strong> interface of the Navigation API represents a recent cross-document navigation. It contains the navigation type and outgoing and inbound document history entries.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/NavigationActivation">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">NavigationActivation</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#entry">entry</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NavigationHistoryEntry.html" class="tsd-signature-type tsd-kind-interface">NavigationHistoryEntry</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#from">from</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NavigationHistoryEntry.html" class="tsd-signature-type tsd-kind-interface">NavigationHistoryEntry</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#navigationtype">navigationType</a><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.NavigationType.html" class="tsd-signature-type tsd-kind-type-alias">NavigationType</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:21241</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:21262</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25521</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25542</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,19 +37,19 @@
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="entry"><code class="tsd-tag">Readonly</code><span>entry</span><a href="#entry" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">entry</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NavigationHistoryEntry.html" class="tsd-signature-type tsd-kind-interface">NavigationHistoryEntry</a></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>entry</code></strong> read-only property of the NavigationActivation interface contains a NavigationHistoryEntry object representing the history entry for the inbound ('to') document in the navigation.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>entry</code></strong> read-only property of the NavigationActivation interface contains a NavigationHistoryEntry object representing the history entry for the inbound (&quot;to&quot;) document in the navigation. This is equivalent to the Navigation.currentEntry property at the moment the inbound document was activated.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/NavigationActivation/entry">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:21247</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25527</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="from"><code class="tsd-tag">Readonly</code><span>from</span><a href="#from" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">from</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.NavigationHistoryEntry.html" class="tsd-signature-type tsd-kind-interface">NavigationHistoryEntry</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>from</code></strong> read-only property of the NavigationActivation interface contains a NavigationHistoryEntry object representing the history entry for the outgoing ('from') document in the navigation.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>from</code></strong> read-only property of the NavigationActivation interface contains a NavigationHistoryEntry object representing the history entry for the outgoing (&quot;from&quot;) document in the navigation.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/NavigationActivation/from">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:21253</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25533</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="navigationtype"><code class="tsd-tag">Readonly</code><span>navigation<wbr/>Type</span><a href="#navigationtype" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">navigationType</span><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.NavigationType.html" class="tsd-signature-type tsd-kind-type-alias">NavigationType</a></div>
@@ -57,7 +57,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/NavigationActivation/navigationType">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:21259</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:25539</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
