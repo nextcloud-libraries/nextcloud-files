@@ -6,6 +6,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.1.1 - 2026-10-21
+### 🐛 Fixed bugs
+* fix(dav): support SEARCH request result in `resultToNode` \([\#1778](https://github.com/nextcloud-libraries/nextcloud-files/pull/1778)\)
+* fix(build): keep the DAV properties apart from the webdav client \([\#1792](https://github.com/nextcloud-libraries/nextcloud-files/pull/1792)\)
+
+### Other changes
+* test: consolidate testing logic \([\#1750](https://github.com/nextcloud-libraries/nextcloud-files/pull/1750)\)
+* Updated dependencies:
+  * Bump `@nextcloud/router` to 3.2.0 \([\#1761](https://github.com/nextcloud-libraries/nextcloud-files/pull/1761)\)
+  * Bump `axios` to 1.20.0 \([\#1766](https://github.com/nextcloud-libraries/nextcloud-files/pull/1766)\)
+  * Bump `dompurify` to 3.4.16 \([\#1767](https://github.com/nextcloud-libraries/nextcloud-files/pull/1767)\)
+  * Bump `markdown-it` to 14.3.2 \([\#1769](https://github.com/nextcloud-libraries/nextcloud-files/pull/1769)\)
+  * Bump `webdav` to 5.11.0 \([\#1760](https://github.com/nextcloud-libraries/nextcloud-files/pull/1760)\)
+
 ## 4.1.0 - 2026-09-16
 ### 🚀 Enhancements
 * feat(recent-search): include recently uploaded files in addition to modified files \([\#1498](https://github.com/nextcloud-libraries/nextcloud-files/pull/1498)\)
