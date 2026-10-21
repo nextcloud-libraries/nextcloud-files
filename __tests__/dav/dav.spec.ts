@@ -28,7 +28,7 @@ describe('DAV functions', () => {
 	})
 
 	test('remote url is correct', () => {
-		expect(defaultRemoteURL).toBe('https://localhost/dav')
+		expect(defaultRemoteURL).toBe('https://localhost/remote.php/dav')
 	})
 })
 
@@ -63,7 +63,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(result.basename)
 		expect(node.displayname).toBe(result.props!.displayname)
 		expect(node.extension).toBe('.md')
-		expect(node.source).toBe('https://localhost/dav/files/test/New folder/Neue Textdatei.md')
+		expect(node.source).toBe('https://localhost/remote.php/dav/files/test/New folder/Neue Textdatei.md')
 		expect(node.root).toBe(defaultRootPath)
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
@@ -78,7 +78,7 @@ describe('resultToNode', () => {
 		expect(node.basename).toBe(remoteResult.basename)
 		expect(node.extension).toBe('.md')
 		expect(node.root).toBe('/root')
-		expect(node.source).toBe('https://localhost/dav/root/New folder/Neue Textdatei.md')
+		expect(node.source).toBe('https://localhost/remote.php/dav/root/New folder/Neue Textdatei.md')
 		expect(node.path).toBe('/New folder/Neue Textdatei.md')
 		expect(node.dirname).toBe('/New folder')
 	})
@@ -168,6 +168,37 @@ describe('resultToNode', () => {
 		const node2 = resultToNode(remoteResult)
 		expect(node2.mtime).toBeUndefined()
 		expect(node2.crtime).toBeUndefined()
+	})
+
+	test('source strips remote URL path from filename (search result)', () => {
+		const searchResult: FileStat = {
+			...result,
+			filename: '/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult)
+		expect(node.source).toBe(`${defaultRemoteURL}/files/test/New folder/Neue Textdatei.md`)
+	})
+
+	test('source strips remote URL path from filename (search result) with custom remote URL and non-empty root path', () => {
+		const searchResult: FileStat = {
+			...result,
+			filename: '/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult, '/files/test', 'http://example.com/root-base/remote.php/dav')
+		expect(node.source).toBe('http://example.com/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md')
+	})
+
+	test('source strips remote URL path from filename (search result) with getRootURL used as remote URL', () => {
+		/*
+		 * This is not a valid resultToNode usage because getRootURL is not a valid remote URL.
+		 * However, it was used in several places with SEARCH result as a workaround for the SEARCH request filename format.
+		 */
+		const searchResult: FileStat = {
+			...result,
+			filename: '/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md',
+		}
+		const node = resultToNode(searchResult, '/files/test', 'http://example.com/root-base')
+		expect(node.source).toBe('http://example.com/root-base/remote.php/dav/files/test/New folder/Neue Textdatei.md')
 	})
 })
 
