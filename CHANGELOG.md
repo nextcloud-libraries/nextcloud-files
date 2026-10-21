@@ -6,6 +6,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.13.0 - 2026-10-21
+### 🚀 Enhancements
+* feat(recent-search): add parameter to allow dynamic limit of returned items \([\#1553](https://github.com/nextcloud-libraries/nextcloud-files/pull/1553)\)
+* feat(recent-search): add creation_time property and use capatabilities to identify wheter creation_time and upload_time are supported \([\#1546](https://github.com/nextcloud-libraries/nextcloud-files/pull/1546)\)
+* feat(recent-search): allow ordering by nc:last_activity when capability is true \([\#1554](https://github.com/nextcloud-libraries/nextcloud-files/pull/1554)\)
+* feat(recent-search): add nc:upload_time as a select prop \([\#1612](https://github.com/nextcloud-libraries/nextcloud-files/pull/1612)\)
+
+### 🐛 Fixed bugs
+* fix(dav): support SEARCH request result in `resultToNode` \([\#1779](https://github.com/nextcloud-libraries/nextcloud-files/pull/1779)\)
+
+### Other changes
+* Updated dependencies:
+  * Bump `@nextcloud/auth` to 2.6.0
+  * Bump `@nextcloud/paths` to 3.1.0
+  * Bump `@nextcloud/sharing` to 0.4.0
+  * Bump `typescript-event-target` to 1.1.2
+  * Bump `webdav` to 5.10.0
+
 ## 3.12.2 - 2025-12-16
 ### Other changes
 * refactor: drop dependency on NodeJS modules [\#1427](https://github.com/nextcloud-libraries/nextcloud-files/pull/1427)
