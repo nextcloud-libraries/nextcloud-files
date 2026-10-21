@@ -15,7 +15,13 @@ export default defineConfig({
 		browser: {
 			enabled: true,
 			headless: true,
-			provider: playwright(),
+			provider: playwright({
+				launchOptions: {
+					channel: process.env.CI
+						? 'chrome' // on CI use the chrome browser provided by the GitHub Actions runner
+						: 'chromium', // locally use the default playwright chromium browser
+				},
+			}),
 			instances: [
 				{
 					name: 'unit',
