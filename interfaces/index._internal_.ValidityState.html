@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">ValidityState</a></li></ul>
 <h1>Interface ValidityState</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>ValidityState</code></strong> interface represents the validity states that an element can be in, with respect to constraint validation. Together, they help explain why an element's value fails to validate, if it's not valid.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>ValidityState</code></strong> interface represents the <em>validity states</em> that an element can be in, with respect to constraint validation.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ValidityState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#badinput">badInput</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#customerror">customError</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#patternmismatch">patternMismatch</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rangeoverflow">rangeOverflow</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rangeunderflow">rangeUnderflow</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stepmismatch">stepMismatch</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#toolong">tooLong</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#tooshort">tooShort</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#typemismatch">typeMismatch</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#valid">valid</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#valuemissing">valueMissing</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37705</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37774</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32951</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:33020</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -45,91 +45,91 @@
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="badinput"><code class="tsd-tag">Readonly</code><span>bad<wbr/>Input</span><a href="#badinput" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">badInput</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>badInput</code></strong> property of the ValidityState interface indicates if the user has provided input that the browser is unable to convert. For example, if you have a number input element whose content is a string.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>badInput</code></strong> property of the ValidityState interface indicates if the user has provided input that the browser is unable to convert.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/badInput">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37711</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32957</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="customerror"><code class="tsd-tag">Readonly</code><span>custom<wbr/>Error</span><a href="#customerror" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">customError</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>customError</code></strong> property of the ValidityState interface returns true if an element doesn't meet the validation required in the custom validity set by the element's setCustomValidity() method.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>customError</code></strong> property of the <code>ValidityState</code> interface returns <code>true</code> if an element doesn't meet the validation required in the custom validity set by the element's HTMLInputElement.setCustomValidity method.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/customError">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37717</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32963</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="patternmismatch"><code class="tsd-tag">Readonly</code><span>pattern<wbr/>Mismatch</span><a href="#patternmismatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">patternMismatch</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>patternMismatch</code></strong> property of the ValidityState interface indicates if the value of an <input>, after having been edited by the user, does not conform to the constraints set by the element's pattern attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>patternMismatch</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, after having been edited by the user, does not conform to the constraints set by the element's <code>pattern</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/patternMismatch">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37723</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32969</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="rangeoverflow"><code class="tsd-tag">Readonly</code><span>range<wbr/>Overflow</span><a href="#rangeoverflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">rangeOverflow</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>rangeOverflow</code></strong> property of the ValidityState interface indicates if the value of an <input>, after having been edited by the user, does not conform to the constraints set by the element's max attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>rangeOverflow</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, after having been edited by the user, does not conform to the constraints set by the element's <code>max</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/rangeOverflow">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37729</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32975</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="rangeunderflow"><code class="tsd-tag">Readonly</code><span>range<wbr/>Underflow</span><a href="#rangeunderflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">rangeUnderflow</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>rangeUnderflow</code></strong> property of the ValidityState interface indicates if the value of an <input>, after having been edited by the user, does not conform to the constraints set by the element's min attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>rangeUnderflow</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, after having been edited by the user, does not conform to the constraints set by the element's <code>min</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/rangeUnderflow">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37735</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32981</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="stepmismatch"><code class="tsd-tag">Readonly</code><span>step<wbr/>Mismatch</span><a href="#stepmismatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stepMismatch</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>stepMismatch</code></strong> property of the ValidityState interface indicates if the value of an <input>, after having been edited by the user, does not conform to the constraints set by the element's step attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>stepMismatch</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, after having been edited by the user, does not conform to the constraints set by the element's <code>step</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/stepMismatch">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37741</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32987</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="toolong"><code class="tsd-tag">Readonly</code><span>too<wbr/>Long</span><a href="#toolong" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">tooLong</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>tooLong</code></strong> property of the ValidityState interface indicates if the value of an <input> or <textarea>, after having been edited by the user, exceeds the maximum code-unit length established by the element's maxlength attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>tooLong</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input or textarea, after having been edited by the user, exceeds the maximum code-unit length established by the element's <code>maxlength</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/tooLong">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37747</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32993</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="tooshort"><code class="tsd-tag">Readonly</code><span>too<wbr/>Short</span><a href="#tooshort" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">tooShort</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>tooShort</code></strong> property of the ValidityState interface indicates if the value of an <input>, <button>, <select>, <output>, <fieldset> or <textarea>, after having been edited by the user, is less than the minimum code-unit length established by the element's minlength attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>tooShort</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, button, select, output, fieldset or textarea, after having been edited by the user, is less than the minimum code-unit length established by the element's <code>minlength</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/tooShort">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37753</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:32999</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="typemismatch"><code class="tsd-tag">Readonly</code><span>type<wbr/>Mismatch</span><a href="#typemismatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">typeMismatch</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>typeMismatch</code></strong> property of the ValidityState interface indicates if the value of an <input>, after having been edited by the user, does not conform to the constraints set by the element's type attribute.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>typeMismatch</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input, after having been edited by the user, does not conform to the constraints set by the element's <code>type</code> attribute.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/typeMismatch">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37759</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:33005</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="valid"><code class="tsd-tag">Readonly</code><span>valid</span><a href="#valid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">valid</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>valid</code></strong> property of the ValidityState interface indicates if the value of an <input> element meets all its validation constraints, and is therefore considered to be valid.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>valid</code></strong> property of the <code>ValidityState</code> interface indicates if the value of an input element meets all its validation constraints, and is therefore considered to be valid.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/valid">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37765</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:33011</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="valuemissing"><code class="tsd-tag">Readonly</code><span>value<wbr/>Missing</span><a href="#valuemissing" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">valueMissing</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>valueMissing</code></strong> property of the ValidityState interface indicates if a required control, such as an <input>, <select>, or <textarea>, has an empty value.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>valueMissing</code></strong> property of the <code>ValidityState</code> interface indicates if a <code>required</code> control, such as an input, select, or textarea, has an empty value.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/ValidityState/valueMissing">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:37771</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:33017</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

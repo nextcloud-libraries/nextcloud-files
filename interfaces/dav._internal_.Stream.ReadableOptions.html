@@ -18,7 +18,7 @@
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li><span id="t"><span class="tsd-kind-type-parameter">T</span> <span class="tsd-signature-keyword">extends</span> <a href="../classes/dav._internal_.Readable.html" class="tsd-signature-type tsd-kind-class">Readable</a> = <a href="../classes/dav._internal_.Readable.html" class="tsd-signature-type tsd-kind-class">Readable</a></span></li></ul></section>
-<section class="tsd-panel tsd-hierarchy" data-refl="2310">
+<section class="tsd-panel tsd-hierarchy" data-refl="2862">
 <h4>Hierarchy (<a href="../hierarchy.html#dav.<internal>.Stream.ReadableOptions">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="dav._internal_.Stream.StreamOptions.html" class="tsd-signature-type tsd-kind-interface">StreamOptions</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">&gt;</span>
@@ -27,7 +27,7 @@
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="dav._internal_.Stream.DuplexOptions.html" class="tsd-signature-type tsd-kind-interface">DuplexOptions</a></li></ul></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:35</li></ul></aside>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:52</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -53,53 +53,55 @@
 <div class="tsd-signature"><span class="tsd-kind-property">autoDestroy</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#autodestroy">autoDestroy</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:33</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:50</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="construct"><code class="tsd-tag">Optional</code><span>construct</span><a href="#construct" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">construct</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">error</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Error</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#construct">construct</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:31</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:48</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="destroy"><code class="tsd-tag">Optional</code><span>destroy</span><a href="#destroy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">destroy</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">error</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">callback</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">error</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Error</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#destroy">destroy</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:32</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:49</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="emitclose"><code class="tsd-tag">Optional</code><span>emit<wbr/>Close</span><a href="#emitclose" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">emitClose</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#emitclose">emitClose</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:28</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:45</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="encoding"><code class="tsd-tag">Optional</code><span>encoding</span><a href="#encoding" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">encoding</span><span class="tsd-signature-symbol">?:</span> <a href="../types/dav._internal_.BufferEncoding.html" class="tsd-signature-type tsd-kind-type-alias">BufferEncoding</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:36</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:53</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="highwatermark"><code class="tsd-tag">Optional</code><span>high<wbr/>Water<wbr/>Mark</span><a href="#highwatermark" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">highWaterMark</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#highwatermark">highWaterMark</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:29</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:46</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="objectmode"><code class="tsd-tag">Optional</code><span>object<wbr/>Mode</span><a href="#objectmode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">objectMode</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#objectmode">objectMode</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:30</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:47</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="read"><code class="tsd-tag">Optional</code><span>read</span><a href="#read" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">read</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">this</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#t">T</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">size</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream.d.ts:37</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream.d.ts:54</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="signal"><code class="tsd-tag">Optional</code><span>signal</span><a href="#signal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">signal</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AbortSignal</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">signal</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AbortSignal</span></div>
+<div class="tsd-comment tsd-typography"><p>When provided the corresponding <code>AbortController</code> can be used to cancel an asynchronous action.</p>
+</div><aside class="tsd-sources">
 <p>Inherited from <a href="dav._internal_.Stream.StreamOptions.html">StreamOptions</a>.<a href="dav._internal_.Stream.StreamOptions.html#signal">signal</a></p>
 <ul>
-<li>Defined in ../node_modules/@types/node/events.d.ts:445</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/@types/node/events.d.ts:465</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -13,19 +13,19 @@
 <li><a href="" aria-current="page">FileSystemEntry</a></li></ul>
 <h1>Interface FileSystemEntry</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>FileSystemEntry</code></strong> interface of the File and Directory Entries API represents a single entry in a file system. The entry can be a file or a directory (directories are represented by the FileSystemDirectoryEntry interface). It includes methods for working with files—including copying, moving, removing, and reading files—as well as information about a file it points to—including the file name and its path from the root to the entry.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>FileSystemEntry</code></strong> interface of the File and Directory Entries API represents a single entry in a file system.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">FileSystemEntry</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#filesystem">filesystem</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.FileSystem.html" class="tsd-signature-type tsd-kind-interface">FileSystem</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fullpath">fullPath</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#isdirectory">isDirectory</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#isfile">isFile</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getparent-1">getParent</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">successCallback</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.FileSystemEntryCallback.html" class="tsd-signature-type tsd-kind-interface">FileSystemEntryCallback</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">errorCallback</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.ErrorCallback.html" class="tsd-signature-type tsd-kind-interface">ErrorCallback</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="163362">
+<section class="tsd-panel tsd-hierarchy" data-refl="157516">
 <h4>Hierarchy (<a href="../hierarchy.html#index.<internal>.FileSystemEntry">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">FileSystemEntry</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="index._internal_.FileSystemDirectoryEntry.html" class="tsd-signature-type tsd-kind-interface">FileSystemDirectoryEntry</a></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14683</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14722</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11872</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11911</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -49,11 +49,11 @@
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="filesystem"><code class="tsd-tag">Readonly</code><span>filesystem</span><a href="#filesystem" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">filesystem</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.FileSystem.html" class="tsd-signature-type tsd-kind-interface">FileSystem</a></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>filesystem</code></strong> property of the FileSystemEntry interface contains a FileSystem object that represents the file system on which the entry resides.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>filesystem</code></strong> property of the FileSystemEntry interface contains a resides.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/filesystem">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14689</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11878</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="fullpath"><code class="tsd-tag">Readonly</code><span>full<wbr/>Path</span><a href="#fullpath" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">fullPath</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -61,31 +61,31 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/fullPath">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14695</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11884</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="isdirectory"><code class="tsd-tag">Readonly</code><span>is<wbr/>Directory</span><a href="#isdirectory" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">isDirectory</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>isDirectory</code></strong> property of the FileSystemEntry interface is true if the entry represents a directory (meaning it's a FileSystemDirectoryEntry) and false if it's not.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>isDirectory</code></strong> property of the FileSystemEntry interface is <code>true</code> if the entry represents a directory (meaning it's a FileSystemDirectoryEntry) and <code>false</code> if it's not.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/isDirectory">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14701</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11890</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="isfile"><code class="tsd-tag">Readonly</code><span>is<wbr/>File</span><a href="#isfile" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">isFile</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>isFile</code></strong> property of the FileSystemEntry interface is true if the entry represents a file (meaning it's a FileSystemFileEntry) and false if it's not.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>isFile</code></strong> property of the FileSystemEntry interface is <code>true</code> if the entry represents a file (meaning it's a FileSystemFileEntry) and <code>false</code> if it's not.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/isFile">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14707</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11896</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>name</code></strong> property of the FileSystemEntry interface returns a string specifying the entry's name; this is the entry within its parent directory (the last component of the path as indicated by the fullPath property).</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>name</code></strong> property of the FileSystemEntry interface returns a string specifying the entry's name; this is the entry within its parent directory (the last component of the path as indicated by the FileSystemEntry.fullPath property).</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/name">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14713</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11902</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -95,7 +95,7 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="getparent-1"><span class="tsd-kind-call-signature">getParent</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">successCallback</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.FileSystemEntryCallback.html" class="tsd-signature-type tsd-kind-interface">FileSystemEntryCallback</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">errorCallback</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.ErrorCallback.html" class="tsd-signature-type tsd-kind-interface">ErrorCallback</a><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#getparent-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The FileSystemEntry interface's method <strong><code>getParent()</code></strong> obtains a FileSystemDirectoryEntry.</p>
+<div class="tsd-comment tsd-typography"><p>The FileSystemEntry interface's method <strong><code>getParent()</code></strong> obtains a <code>js-nolint getParent(successCallback, errorCallback) getParent(successCallback) </code> - <code>successCallback</code> - : A function which is called when the parent directory entry has been retrieved.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/FileSystemEntry/getParent">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -105,7 +105,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">errorCallback</span>: <a href="index._internal_.ErrorCallback.html" class="tsd-signature-type tsd-kind-interface">ErrorCallback</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:14719</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11908</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

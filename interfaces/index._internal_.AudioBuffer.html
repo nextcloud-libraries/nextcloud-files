@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">AudioBuffer</a></li></ul>
 <h1>Interface AudioBuffer</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>AudioBuffer</code></strong> interface represents a short audio asset residing in memory, created from an audio file using the AudioContext.decodeAudioData() method, or from raw data using AudioContext.createBuffer(). Once put into an AudioBuffer, the audio can then be played by being passed into an AudioBufferSourceNode.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>AudioBuffer</code></strong> interface represents a short audio asset residing in memory, created from an audio file using the BaseAudioContext/decodeAudioData method, or from raw data using BaseAudioContext/createBuffer.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">AudioBuffer</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#duration">duration</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#length">length</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#numberofchannels">numberOfChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#samplerate">sampleRate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#copyfromchannel-1">copyFromChannel</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">destination</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">channelNumber</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">bufferOffset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#copytochannel-1">copyToChannel</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">source</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">channelNumber</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">bufferOffset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getchanneldata-1">getChannelData</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">channel</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3894</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3939</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3247</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3292</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -48,7 +48,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/duration">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3900</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3253</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="length"><code class="tsd-tag">Readonly</code><span>length</span><a href="#length" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">length</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -56,15 +56,15 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/length">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3906</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3259</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="numberofchannels"><code class="tsd-tag">Readonly</code><span>number<wbr/>Of<wbr/>Channels</span><a href="#numberofchannels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">numberOfChannels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>numberOfChannels</code></strong> property of the AudioBuffer interface returns an integer representing the number of discrete audio channels described by the PCM data stored in the buffer.</p>
+<div class="tsd-comment tsd-typography"><p>The <code>numberOfChannels</code> property of the AudioBuffer interface returns an integer representing the number of discrete audio channels described by the PCM data stored in the buffer.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/numberOfChannels">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3912</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3265</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="samplerate"><code class="tsd-tag">Readonly</code><span>sample<wbr/>Rate</span><a href="#samplerate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sampleRate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -72,7 +72,7 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/sampleRate">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3918</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3271</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -82,7 +82,7 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="copyfromchannel-1"><span class="tsd-kind-call-signature">copyFromChannel</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">destination</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">channelNumber</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">bufferOffset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#copyfromchannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>copyFromChannel()</code></strong> method of the AudioBuffer interface copies the audio sample data from the specified channel of the AudioBuffer to a specified Float32Array.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>copyFromChannel()</code></strong> method of the channel of the <code>AudioBuffer</code> to a specified <code>js-nolint copyFromChannel(destination, channelNumber, startInChannel) </code> - <code>destination</code> - : A Float32Array to copy the channel's samples to.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/copyFromChannel">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -93,14 +93,14 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">bufferOffset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3924</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3277</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="copytochannel"><span>copy<wbr/>To<wbr/>Channel</span><a href="#copytochannel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="copytochannel-1"><span class="tsd-kind-call-signature">copyToChannel</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">source</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">channelNumber</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">bufferOffset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#copytochannel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>copyToChannel()</code></strong> method of the AudioBuffer interface copies the samples to the specified channel of the AudioBuffer, from the source array.</p>
+<div class="tsd-comment tsd-typography"><p>The <code>copyToChannel()</code> method of the AudioBuffer interface copies the samples to the specified channel of the <code>AudioBuffer</code>, from the source array.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/AudioBuffer/copyToChannel">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -111,7 +111,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">bufferOffset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3930</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3283</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getchanneldata"><span>get<wbr/>Channel<wbr/>Data</span><a href="#getchanneldata" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -127,7 +127,7 @@
 <li><span><span class="tsd-kind-parameter">channel</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3936</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:3289</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

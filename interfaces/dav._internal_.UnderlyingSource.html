@@ -12,13 +12,13 @@
 <li><a href="../modules/dav._internal_.html">&lt;internal&gt;</a></li>
 <li><a href="" aria-current="page">UnderlyingSource</a></li></ul>
 <h1>Interface UnderlyingSource&lt;R&gt;</h1></div>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">UnderlyingSource</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a> <span class="tsd-signature-symbol">=</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#autoallocatechunksize">autoAllocateChunkSize</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#cancel">cancel</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceCancelCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceCancelCallback</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pull">pull</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourcePullCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourcePullCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start">start</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceStartCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceStartCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;bytes&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">UnderlyingSource</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a> <span class="tsd-signature-symbol">=</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#cancel">cancel</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceCancelCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceCancelCallback</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pull">pull</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourcePullCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourcePullCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#start">start</a><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceStartCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceStartCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li><span id="r"><span class="tsd-kind-type-parameter">R</span> = <span class="tsd-signature-type">any</span></span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:106</li></ul></aside>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:156</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -26,8 +26,7 @@
 <div class="tsd-accordion-details">
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading tsd-anchor-link" id="properties">Properties<a href="#properties" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-index-list"><a href="#autoallocatechunksize" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Allocate<wbr/>Chunk<wbr/>Size?</span></a>
-<a href="#cancel" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cancel?</span></a>
+<div class="tsd-index-list"><a href="#cancel" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cancel?</span></a>
 <a href="#pull" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pull?</span></a>
 <a href="#start" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>start?</span></a>
 <a href="#type" class="tsd-index-link tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type?</span></a>
@@ -36,30 +35,25 @@
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
 <section class="tsd-panel tsd-member tsd-is-external">
-<h3 class="tsd-anchor-link" id="autoallocatechunksize"><code class="tsd-tag">Optional</code><span>auto<wbr/>Allocate<wbr/>Chunk<wbr/>Size</span><a href="#autoallocatechunksize" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">autoAllocateChunkSize</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:107</li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="cancel"><code class="tsd-tag">Optional</code><span>cancel</span><a href="#cancel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">cancel</span><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceCancelCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceCancelCallback</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:108</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:157</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="pull"><code class="tsd-tag">Optional</code><span>pull</span><a href="#pull" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">pull</span><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourcePullCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourcePullCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:109</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:158</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="start"><code class="tsd-tag">Optional</code><span>start</span><a href="#start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">start</span><span class="tsd-signature-symbol">?:</span> <a href="dav._internal_.UnderlyingSourceStartCallback.html" class="tsd-signature-type tsd-kind-interface">UnderlyingSourceStartCallback</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:110</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:159</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="type"><code class="tsd-tag">Optional</code><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;bytes&quot;</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">undefined</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:111</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:160</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -76,7 +70,7 @@
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#autoallocatechunksize" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>auto<wbr/>Allocate<wbr/>Chunk<wbr/>Size</span></a><a href="#cancel" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cancel</span></a><a href="#pull" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pull</span></a><a href="#start" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>start</span></a><a href="#type" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type</span></a></div></details></div></details></div>
+<div><a href="#cancel" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>cancel</span></a><a href="#pull" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>pull</span></a><a href="#start" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>start</span></a><a href="#type" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>type</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../modules.html">@nextcloud/files</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">

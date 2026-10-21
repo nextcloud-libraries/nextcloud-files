@@ -13,13 +13,13 @@
 <li><a href="" aria-current="page">Selection</a></li></ul>
 <h1>Interface Selection</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>A <strong><code>Selection</code></strong> object represents the range of text selected by the user or the current position of the caret. Each document is associated with a unique selection object, which can be retrieved by document.getSelection() or window.getSelection() and then be examined and modified.</p>
+<div class="tsd-comment tsd-typography"><p>A <strong><code>Selection</code></strong> object represents the range of text selected by the user or the current position of the caret.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">Selection</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#anchornode">anchorNode</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#anchoroffset">anchorOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#direction">direction</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#focusnode">focusNode</a><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#focusoffset">focusOffset</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#iscollapsed">isCollapsed</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rangecount">rangeCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#addrange-1">addRange</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">range</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#collapse-1">collapse</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#collapsetoend-1">collapseToEnd</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#collapsetostart-1">collapseToStart</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#containsnode-1">containsNode</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">allowPartialContainment</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#deletefromdocument-1">deleteFromDocument</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#empty-1">empty</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#extend-1">extend</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getcomposedranges-1">getComposedRanges</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">options</span><span class="tsd-signature-symbol">?:</span> <a href="index._internal_.GetComposedRangesOptions.html" class="tsd-signature-type tsd-kind-interface">GetComposedRangesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.StaticRange.html" class="tsd-signature-type tsd-kind-interface">StaticRange</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#getrangeat-1">getRangeAt</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">index</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#modify-1">modify</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">alter</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">direction</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">granularity</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#removeallranges-1">removeAllRanges</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#removerange-1">removeRange</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">range</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#selectallchildren-1">selectAllChildren</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setbaseandextent-1">setBaseAndExtent</a><span class="tsd-signature-symbol">(</span><br/>        <span class="tsd-kind-parameter">anchorNode</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">anchorOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">focusNode</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span><br/>        <span class="tsd-kind-parameter">focusOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#setposition-1">setPosition</a><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-call-signature" href="#tostring-1">toString</a><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34912</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35060</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30367</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30515</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -62,19 +62,19 @@
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="anchornode"><code class="tsd-tag">Readonly</code><span>anchor<wbr/>Node</span><a href="#anchornode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">anchorNode</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.anchorNode</code></strong> read-only property returns the Node in which the selection begins. It can return null if selection never existed in the document (e.g., an iframe that was never clicked on, or the node belongs to another document tree).</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.anchorNode</code></strong> read-only property returns the Node in which the selection begins.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/anchorNode">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34918</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30373</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="anchoroffset"><code class="tsd-tag">Readonly</code><span>anchor<wbr/>Offset</span><a href="#anchoroffset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">anchorOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.anchorOffset</code></strong> read-only property returns the number of characters that the selection's anchor is offset within the Selection.anchorNode if said node is of type Text, CDATASection or Comment.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.anchorOffset</code></strong> read-only property returns the number of characters that the selection's anchor is offset within the In the case of Selection.anchorNode being another type of node, <strong><code>Selection.anchorOffset</code></strong> returns the number of Node.childNodes the selection's anchor is offset within the Selection.anchorNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/anchorOffset">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34924</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30379</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="direction"><code class="tsd-tag">Readonly</code><span>direction</span><a href="#direction" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">direction</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -82,31 +82,31 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/direction">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34930</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30385</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="focusnode"><code class="tsd-tag">Readonly</code><span>focus<wbr/>Node</span><a href="#focusnode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">focusNode</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.focusNode</code></strong> read-only property returns the Node in which the selection ends. It can return null if selection never existed in the document (e.g., an iframe that was never clicked on, or the node belongs to another document tree).</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.focusNode</code></strong> read-only property returns the Node in which the selection ends.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/focusNode">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34936</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30391</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="focusoffset"><code class="tsd-tag">Readonly</code><span>focus<wbr/>Offset</span><a href="#focusoffset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">focusOffset</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.focusOffset</code></strong> read-only property returns the number of characters that the selection's focus is offset within the Selection.focusNode if said node is of type Text, CDATASection or Comment.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.focusOffset</code></strong> read-only property returns the number of characters that the selection's focus is offset within the In the case of Selection.focusNode being another type of node, <strong><code>Selection.focusOffset</code></strong> returns the number of Node.childNodes the selection's focus is offset within the Selection.focusNode.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/focusOffset">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34942</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30397</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="iscollapsed"><code class="tsd-tag">Readonly</code><span>is<wbr/>Collapsed</span><a href="#iscollapsed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">isCollapsed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.isCollapsed</code></strong> read-only property returns a boolean value which indicates whether or not there is currently any text selected. No text is selected when the selection's start and end points are at the same position in the content.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.isCollapsed</code></strong> read-only property returns a boolean value which indicates whether or not there is currently any text selected.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/isCollapsed">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34948</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30403</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="rangecount"><code class="tsd-tag">Readonly</code><span>range<wbr/>Count</span><a href="#rangecount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">rangeCount</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -114,15 +114,15 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/rangeCount">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34954</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30409</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="type"><code class="tsd-tag">Readonly</code><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>type</code></strong> read-only property of the Selection interface returns a string describing the type of the current selection.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>type</code></strong> read-only property of the type of the current selection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/type">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34960</li></ul></aside></section></section></details>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30415</li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -132,7 +132,7 @@
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="addrange-1"><span class="tsd-kind-call-signature">addRange</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">range</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#addrange-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.addRange()</code></strong> method adds a Range to a Selection.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.addRange()</code></strong> method adds a <code>js-nolint addRange(range) </code> - <code>range</code> - : A Range object that will be added to the Selection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/addRange">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -141,14 +141,14 @@
 <li><span><span class="tsd-kind-parameter">range</span>: <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34966</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30421</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="collapse"><span>collapse</span><a href="#collapse" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="collapse-1"><span class="tsd-kind-call-signature">collapse</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#collapse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapse()</code></strong> method collapses the current selection to a single point. The document is not modified. If the content is focused and editable, the caret will blink there.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapse()</code></strong> method collapses the current selection to a single point.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/collapse">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -158,31 +158,31 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34972</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30427</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="collapsetoend"><span>collapse<wbr/>To<wbr/>End</span><a href="#collapsetoend" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="collapsetoend-1"><span class="tsd-kind-call-signature">collapseToEnd</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#collapsetoend-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapseToEnd()</code></strong> method collapses the selection to the end of the last range in the selection. If the content of the selection is focused and editable, the caret will blink there.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapseToEnd()</code></strong> method collapses the selection to the end of the last range in the selection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/collapseToEnd">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34978</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30433</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="collapsetostart"><span>collapse<wbr/>To<wbr/>Start</span><a href="#collapsetostart" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="collapsetostart-1"><span class="tsd-kind-call-signature">collapseToStart</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#collapsetostart-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapseToStart()</code></strong> method collapses the selection to the start of the first range in the selection. If the content of the selection is focused and editable, the caret will blink there.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.collapseToStart()</code></strong> method collapses the selection to the start of the first range in the selection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/collapseToStart">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34984</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30439</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="containsnode"><span>contains<wbr/>Node</span><a href="#containsnode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -199,38 +199,38 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">allowPartialContainment</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34990</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30445</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="deletefromdocument"><span>delete<wbr/>From<wbr/>Document</span><a href="#deletefromdocument" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="deletefromdocument-1"><span class="tsd-kind-call-signature">deleteFromDocument</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#deletefromdocument-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>deleteFromDocument()</code></strong> method of the Selection interface invokes the Range.deleteContents() method on the selected Range.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>deleteFromDocument()</code></strong> method of the <code>js-nolint deleteFromDocument() </code> None.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/deleteFromDocument">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:34996</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30451</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="empty"><span>empty</span><a href="#empty" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="empty-1"><span class="tsd-kind-call-signature">empty</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#empty-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.empty()</code></strong> method removes all ranges from the selection, leaving the anchorNode and focusNode properties equal to null and nothing selected. When this method is called, a selectionchange event is fired at the document.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.empty()</code></strong> method removes all ranges from the selection, leaving the Selection.anchorNode and Selection.focusNode properties equal to <code>null</code> and nothing selected.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/empty">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35002</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30457</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="extend"><span>extend</span><a href="#extend" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="extend-1"><span class="tsd-kind-call-signature">extend</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#extend-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.extend()</code></strong> method moves the focus of the selection to a specified point. The anchor of the selection does not move. The selection will be from the anchor to the new focus, regardless of direction.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.extend()</code></strong> method moves the focus of the selection to a specified point.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/extend">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -240,7 +240,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35008</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30463</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getcomposedranges"><span>get<wbr/>Composed<wbr/>Ranges</span><a href="#getcomposedranges" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -256,7 +256,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">options</span>: <a href="index._internal_.GetComposedRangesOptions.html" class="tsd-signature-type tsd-kind-interface">GetComposedRangesOptions</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.StaticRange.html" class="tsd-signature-type tsd-kind-interface">StaticRange</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35014</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30469</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="getrangeat"><span>get<wbr/>Range<wbr/>At</span><a href="#getrangeat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -272,7 +272,7 @@
 <li><span><span class="tsd-kind-parameter">index</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35020</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30475</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="modify"><span>modify</span><a href="#modify" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -290,19 +290,19 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">granularity</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35026</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30481</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="removeallranges"><span>remove<wbr/>All<wbr/>Ranges</span><a href="#removeallranges" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="removeallranges-1"><span class="tsd-kind-call-signature">removeAllRanges</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#removeallranges-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.removeAllRanges()</code></strong> method removes all ranges from the selection, leaving the anchorNode and focusNode properties equal to null and nothing selected. When this method is called, a selectionchange event is fired at the document.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.removeAllRanges()</code></strong> method removes all ranges from the selection, leaving the Selection.anchorNode and Selection.focusNode properties equal to <code>null</code> and nothing selected.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/removeAllRanges">MDN Reference</a></p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35032</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30487</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="removerange"><span>remove<wbr/>Range</span><a href="#removerange" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -318,14 +318,14 @@
 <li><span><span class="tsd-kind-parameter">range</span>: <a href="index._internal_.Range.html" class="tsd-signature-type tsd-kind-interface">Range</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35038</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30493</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="selectallchildren"><span>select<wbr/>All<wbr/>Children</span><a href="#selectallchildren" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="selectallchildren-1"><span class="tsd-kind-call-signature">selectAllChildren</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#selectallchildren-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.selectAllChildren()</code></strong> method adds all the children of the specified node to the selection. Previous selection is lost.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.selectAllChildren()</code></strong> method adds all the children of the specified node to the selection.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/selectAllChildren">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -334,7 +334,7 @@
 <li><span><span class="tsd-kind-parameter">node</span>: <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35044</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30499</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setbaseandextent"><span>set<wbr/>Base<wbr/>And<wbr/>Extent</span><a href="#setbaseandextent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -353,14 +353,14 @@
 <li><span><span class="tsd-kind-parameter">focusOffset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35050</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30505</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="setposition"><span>set<wbr/>Position</span><a href="#setposition" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
 <li class="tsd-is-external">
 <div class="tsd-signature tsd-anchor-link" id="setposition-1"><span class="tsd-kind-call-signature">setPosition</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">node</span><span class="tsd-signature-symbol">:</span> <a href="index._internal_.Node.html" class="tsd-signature-type tsd-kind-interface">Node</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">offset</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#setposition-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.setPosition()</code></strong> method collapses the current selection to a single point. The document is not modified. If the content is focused and editable, the caret will blink there.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>Selection.setPosition()</code></strong> method collapses the current selection to a single point.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/Selection/setPosition">MDN Reference</a></p>
 </div>
 <div class="tsd-parameters">
@@ -370,7 +370,7 @@
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">offset</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35056</li></ul></aside></div></li></ul></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30511</li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="tostring"><span>to<wbr/>String</span><a href="#tostring" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-external">
@@ -379,7 +379,7 @@
 <div class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:35057</li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:30512</li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

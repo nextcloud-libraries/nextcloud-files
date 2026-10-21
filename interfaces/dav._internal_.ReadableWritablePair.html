@@ -19,7 +19,7 @@
 <li><span id="r"><span class="tsd-kind-type-parameter">R</span> = <span class="tsd-signature-type">any</span></span></li>
 <li><span id="w"><span class="tsd-kind-type-parameter">W</span> = <span class="tsd-signature-type">any</span></span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:44</li></ul></aside>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:39</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,12 +37,19 @@
 <h3 class="tsd-anchor-link" id="readable"><span>readable</span><a href="#readable" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">readable</span><span class="tsd-signature-symbol">:</span> <a href="dav._internal_.ReadableStream-1.html" class="tsd-signature-type tsd-kind-interface">ReadableStream</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:45</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:40</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="writable"><span>writable</span><a href="#writable" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">writable</span><span class="tsd-signature-symbol">:</span> <a href="dav._internal_.WritableStream-1.html" class="tsd-signature-type tsd-kind-interface">WritableStream</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#w">W</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">writable</span><span class="tsd-signature-symbol">:</span> <a href="dav._internal_.WritableStream-1.html" class="tsd-signature-type tsd-kind-interface">WritableStream</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#w">W</a><span class="tsd-signature-symbol">&gt;</span></div>
+<div class="tsd-comment tsd-typography"><p>Provides a convenient, chainable way of piping this readable stream
+through a transform stream (or any other { writable, readable }
+pair). It simply pipes the stream into the writable side of the
+supplied pair, and returns the readable side for further use.</p>
+<p>Piping a stream will lock it for the duration of the pipe, preventing
+any other consumer from acquiring a reader.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:46</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:50</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

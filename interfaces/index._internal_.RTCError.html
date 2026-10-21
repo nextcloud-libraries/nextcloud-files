@@ -13,19 +13,19 @@
 <li><a href="" aria-current="page">RTCError</a></li></ul>
 <h1>Interface RTCError</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>The <strong><code>RTCError</code></strong> interface describes an error which has occurred while handling WebRTC operations. It's based upon the standard DOMException interface that describes general DOM errors.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>RTCError</code></strong> interface describes an error which has occurred while handling WebRTC operations.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError">MDN Reference</a></p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RTCError</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#abort_err">ABORT_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#cause">cause</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#code">code</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#data_clone_err">DATA_CLONE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">25</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#domstring_size_err">DOMSTRING_SIZE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#errordetail">errorDetail</a><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.RTCErrorDetailType.html" class="tsd-signature-type tsd-kind-type-alias">RTCErrorDetailType</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#hierarchy_request_err">HIERARCHY_REQUEST_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#index_size_err">INDEX_SIZE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inuse_attribute_err">INUSE_ATTRIBUTE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">10</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#invalid_access_err">INVALID_ACCESS_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">15</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#invalid_character_err">INVALID_CHARACTER_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">5</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#invalid_modification_err">INVALID_MODIFICATION_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">13</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#invalid_node_type_err">INVALID_NODE_TYPE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">24</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#invalid_state_err">INVALID_STATE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">11</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#message">message</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#namespace_err">NAMESPACE_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">14</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#network_err">NETWORK_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">19</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#no_data_allowed_err">NO_DATA_ALLOWED_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">6</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#no_modification_allowed_err">NO_MODIFICATION_ALLOWED_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">7</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#not_found_err">NOT_FOUND_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">8</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#not_supported_err">NOT_SUPPORTED_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">9</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#quota_exceeded_err">QUOTA_EXCEEDED_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">22</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#receivedalert">receivedAlert</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sctpcausecode">sctpCauseCode</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sdplinenumber">sdpLineNumber</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#security_err">SECURITY_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">18</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sentalert">sentAlert</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stack">stack</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#syntax_err">SYNTAX_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">12</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#timeout_err">TIMEOUT_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">23</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type_mismatch_err">TYPE_MISMATCH_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">17</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#url_mismatch_err">URL_MISMATCH_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">21</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#validation_err">VALIDATION_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">16</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#wrong_document_err">WRONG_DOCUMENT_ERR</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">4</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="157020">
+<section class="tsd-panel tsd-hierarchy" data-refl="151320">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-signature-type">DOMException</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">RTCError</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29177</li>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29210</li></ul></aside>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24743</li>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24776</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -77,17 +77,17 @@
 <div class="tsd-signature"><span class="tsd-kind-property">ABORT_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">20</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.ABORT_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11354</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8622</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="cause"><code class="tsd-tag">Optional</code><span>cause</span><a href="#cause" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">cause</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">unknown</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.cause</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.es2022.error.d.ts:24</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.es2022.error.d.ts:26</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="code"><code class="tsd-tag">Readonly</code><span class="deprecated">code</span><a href="#code" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">code</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>code</code></strong> read-only property of the DOMException interface returns one of the legacy error code constants, or 0 if none match.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>code</code></strong> read-only property of the DOMException interface returns one of the legacy error code constants, or <code>0</code> if none match.</p>
 </div>
 <div class="tsd-comment tsd-typography">
 <div class="tsd-tag-deprecated">
@@ -95,19 +95,19 @@
 </div></div><aside class="tsd-sources">
 <p>Inherited from DOMException.code</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11322</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8590</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="data_clone_err"><code class="tsd-tag">Readonly</code><span>DATA_<wbr/>CLONE_<wbr/>ERR</span><a href="#data_clone_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">DATA_CLONE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">25</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.DATA_CLONE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11359</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8627</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="domstring_size_err"><code class="tsd-tag">Readonly</code><span>DOMSTRING_<wbr/>SIZE_<wbr/>ERR</span><a href="#domstring_size_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">DOMSTRING_SIZE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">2</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.DOMSTRING_SIZE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11336</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8604</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="errordetail"><code class="tsd-tag">Readonly</code><span>error<wbr/>Detail</span><a href="#errordetail" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">errorDetail</span><span class="tsd-signature-symbol">:</span> <a href="../types/index._internal_.RTCErrorDetailType.html" class="tsd-signature-type tsd-kind-type-alias">RTCErrorDetailType</a></div>
@@ -115,115 +115,115 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError/errorDetail">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29183</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24749</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="hierarchy_request_err"><code class="tsd-tag">Readonly</code><span>HIERARCHY_<wbr/>REQUEST_<wbr/>ERR</span><a href="#hierarchy_request_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">HIERARCHY_REQUEST_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">3</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.HIERARCHY_REQUEST_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11337</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8605</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="index_size_err"><code class="tsd-tag">Readonly</code><span>INDEX_<wbr/>SIZE_<wbr/>ERR</span><a href="#index_size_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INDEX_SIZE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INDEX_SIZE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11335</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8603</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="inuse_attribute_err"><code class="tsd-tag">Readonly</code><span>INUSE_<wbr/>ATTRIBUTE_<wbr/>ERR</span><a href="#inuse_attribute_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INUSE_ATTRIBUTE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">10</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INUSE_ATTRIBUTE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11344</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8612</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="invalid_access_err"><code class="tsd-tag">Readonly</code><span>INVALID_<wbr/>ACCESS_<wbr/>ERR</span><a href="#invalid_access_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INVALID_ACCESS_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">15</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INVALID_ACCESS_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11349</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8617</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="invalid_character_err"><code class="tsd-tag">Readonly</code><span>INVALID_<wbr/>CHARACTER_<wbr/>ERR</span><a href="#invalid_character_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INVALID_CHARACTER_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">5</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INVALID_CHARACTER_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11339</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8607</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="invalid_modification_err"><code class="tsd-tag">Readonly</code><span>INVALID_<wbr/>MODIFICATION_<wbr/>ERR</span><a href="#invalid_modification_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INVALID_MODIFICATION_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">13</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INVALID_MODIFICATION_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11347</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8615</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="invalid_node_type_err"><code class="tsd-tag">Readonly</code><span>INVALID_<wbr/>NODE_<wbr/>TYPE_<wbr/>ERR</span><a href="#invalid_node_type_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INVALID_NODE_TYPE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">24</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INVALID_NODE_TYPE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11358</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8626</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="invalid_state_err"><code class="tsd-tag">Readonly</code><span>INVALID_<wbr/>STATE_<wbr/>ERR</span><a href="#invalid_state_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">INVALID_STATE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">11</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.INVALID_STATE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11345</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8613</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="message"><code class="tsd-tag">Readonly</code><span>message</span><a href="#message" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">message</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>message</code></strong> read-only property of the DOMException interface returns a string representing a message or description associated with the given error name.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>message</code></strong> read-only property of the a message or description associated with the given error name.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/DOMException/message">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <p>Inherited from DOMException.message</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11328</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8596</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The <strong><code>name</code></strong> read-only property of the DOMException interface returns a string that contains one of the strings associated with an error name.</p>
+<div class="tsd-comment tsd-typography"><p>The <strong><code>name</code></strong> read-only property of the one of the strings associated with an error name.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/DOMException/name">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <p>Inherited from DOMException.name</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11334</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8602</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="namespace_err"><code class="tsd-tag">Readonly</code><span>NAMESPACE_<wbr/>ERR</span><a href="#namespace_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NAMESPACE_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">14</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NAMESPACE_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11348</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8616</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="network_err"><code class="tsd-tag">Readonly</code><span>NETWORK_<wbr/>ERR</span><a href="#network_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NETWORK_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">19</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NETWORK_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11353</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8621</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="no_data_allowed_err"><code class="tsd-tag">Readonly</code><span>NO_<wbr/>DATA_<wbr/>ALLOWED_<wbr/>ERR</span><a href="#no_data_allowed_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NO_DATA_ALLOWED_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">6</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NO_DATA_ALLOWED_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11340</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8608</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="no_modification_allowed_err"><code class="tsd-tag">Readonly</code><span>NO_<wbr/>MODIFICATION_<wbr/>ALLOWED_<wbr/>ERR</span><a href="#no_modification_allowed_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NO_MODIFICATION_ALLOWED_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">7</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NO_MODIFICATION_ALLOWED_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11341</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8609</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="not_found_err"><code class="tsd-tag">Readonly</code><span>NOT_<wbr/>FOUND_<wbr/>ERR</span><a href="#not_found_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NOT_FOUND_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">8</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NOT_FOUND_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11342</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8610</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="not_supported_err"><code class="tsd-tag">Readonly</code><span>NOT_<wbr/>SUPPORTED_<wbr/>ERR</span><a href="#not_supported_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">NOT_SUPPORTED_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">9</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.NOT_SUPPORTED_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11343</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8611</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="quota_exceeded_err"><code class="tsd-tag">Readonly</code><span>QUOTA_<wbr/>EXCEEDED_<wbr/>ERR</span><a href="#quota_exceeded_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">QUOTA_EXCEEDED_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">22</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.QUOTA_EXCEEDED_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11356</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8624</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="receivedalert"><code class="tsd-tag">Readonly</code><span>received<wbr/>Alert</span><a href="#receivedalert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">receivedAlert</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
@@ -231,79 +231,79 @@
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError/receivedAlert">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29189</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24755</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sctpcausecode"><code class="tsd-tag">Readonly</code><span>sctp<wbr/>Cause<wbr/>Code</span><a href="#sctpcausecode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sctpCauseCode</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>sctpCauseCode</code></strong> property in an RTCError object provides the SCTP cause code explaining why the SCTP negotiation failed, if the RTCError represents an SCTP error.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>sctpCauseCode</code></strong> property in an why the SCTP negotiation failed, if the <code>RTCError</code> represents an SCTP error.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError/sctpCauseCode">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29195</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24761</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sdplinenumber"><code class="tsd-tag">Readonly</code><span>sdp<wbr/>Line<wbr/>Number</span><a href="#sdplinenumber" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sdpLineNumber</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The RTCError interface's read-only property <strong><code>sdpLineNumber</code></strong> specifies the line number within the SDP at which a syntax error occurred while parsing it.</p>
+<div class="tsd-comment tsd-typography"><p>The RTCError interface's read-only property <strong><code>sdpLineNumber</code></strong> specifies the line number within the An unsigned integer value indicating the line within the SDP at which the syntax error described by the <code>RTCError</code> object occurred.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError/sdpLineNumber">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29201</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24767</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="security_err"><code class="tsd-tag">Readonly</code><span>SECURITY_<wbr/>ERR</span><a href="#security_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">SECURITY_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">18</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.SECURITY_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11352</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8620</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="sentalert"><code class="tsd-tag">Readonly</code><span>sent<wbr/>Alert</span><a href="#sentalert" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sentAlert</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
-<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>sentAlert</code></strong> property in an RTCError object specifies the DTLS alert number occurred while sending data to the remote peer, if the error represents an outbound DTLS error.</p>
+<div class="tsd-comment tsd-typography"><p>The read-only <strong><code>sentAlert</code></strong> property in an while sending data to the remote peer, if the error represents an outbound DTLS error.</p>
 <p><a href="https://developer.mozilla.org/docs/Web/API/RTCError/sentAlert">MDN Reference</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:29207</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:24773</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="stack"><code class="tsd-tag">Optional</code><span>stack</span><a href="#stack" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stack</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.stack</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.es5.d.ts:1076</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.es5.d.ts:1078</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="syntax_err"><code class="tsd-tag">Readonly</code><span>SYNTAX_<wbr/>ERR</span><a href="#syntax_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">SYNTAX_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">12</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.SYNTAX_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11346</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8614</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="timeout_err"><code class="tsd-tag">Readonly</code><span>TIMEOUT_<wbr/>ERR</span><a href="#timeout_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">TIMEOUT_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">23</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.TIMEOUT_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11357</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8625</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="type_mismatch_err"><code class="tsd-tag">Readonly</code><span>TYPE_<wbr/>MISMATCH_<wbr/>ERR</span><a href="#type_mismatch_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">TYPE_MISMATCH_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">17</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.TYPE_MISMATCH_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11351</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8619</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="url_mismatch_err"><code class="tsd-tag">Readonly</code><span>URL_<wbr/>MISMATCH_<wbr/>ERR</span><a href="#url_mismatch_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">URL_MISMATCH_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">21</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.URL_MISMATCH_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11355</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8623</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="validation_err"><code class="tsd-tag">Readonly</code><span>VALIDATION_<wbr/>ERR</span><a href="#validation_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">VALIDATION_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">16</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.VALIDATION_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11350</li></ul></aside></section>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8618</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited tsd-is-external">
 <h3 class="tsd-anchor-link" id="wrong_document_err"><code class="tsd-tag">Readonly</code><span>WRONG_<wbr/>DOCUMENT_<wbr/>ERR</span><a href="#wrong_document_err" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">WRONG_DOCUMENT_ERR</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">4</span></div><aside class="tsd-sources">
 <p>Inherited from DOMException.WRONG_DOCUMENT_ERR</p>
 <ul>
-<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:11338</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/typescript/lib/lib.dom.d.ts:8606</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -14,7 +14,7 @@
 <h1>Interface StreamPipeOptions</h1></div>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">StreamPipeOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#preventabort">preventAbort</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#preventcancel">preventCancel</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#preventclose">preventClose</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#signal">signal</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AbortSignal</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:48</li></ul></aside>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:52</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -34,22 +34,55 @@
 <h3 class="tsd-anchor-link" id="preventabort"><code class="tsd-tag">Optional</code><span>prevent<wbr/>Abort</span><a href="#preventabort" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">preventAbort</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:49</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:53</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="preventcancel"><code class="tsd-tag">Optional</code><span>prevent<wbr/>Cancel</span><a href="#preventcancel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">preventCancel</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:50</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:54</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="preventclose"><code class="tsd-tag">Optional</code><span>prevent<wbr/>Close</span><a href="#preventclose" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">preventClose</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
+<div class="tsd-signature"><span class="tsd-kind-property">preventClose</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Pipes this readable stream to a given writable stream destination.
+The way in which the piping process behaves under various error
+conditions can be customized with a number of passed options. It
+returns a promise that fulfills when the piping process completes
+successfully, or rejects if any errors were encountered.</p>
+<p>Piping a stream will lock it for the duration of the pipe, preventing
+any other consumer from acquiring a reader.</p>
+<p>Errors and closures of the source and destination streams propagate
+as follows:</p>
+<p>An error in this source readable stream will abort destination,
+unless preventAbort is truthy. The returned promise will be rejected
+with the source's error, or with any error that occurs during
+aborting the destination.</p>
+<p>An error in destination will cancel this source readable stream,
+unless preventCancel is truthy. The returned promise will be rejected
+with the destination's error, or with any error that occurs during
+canceling the source.</p>
+<p>When this source readable stream closes, destination will be closed,
+unless preventClose is truthy. The returned promise will be fulfilled
+once this process completes, unless an error is encountered while
+closing the destination, in which case it will be rejected with that
+error.</p>
+<p>If destination starts out closed or closing, this source readable
+stream will be canceled, unless preventCancel is true. The returned
+promise will be rejected with an error indicating piping to a closed
+stream failed, or with any error that occurs during canceling the
+source.</p>
+<p>The signal option can be set to an AbortSignal to allow aborting an
+ongoing pipe operation via the corresponding AbortController. In this
+case, this source readable stream will be canceled, and destination
+aborted, unless the respective options preventCancel or preventAbort
+are set.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:51</li></ul></aside></section>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:96</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-external">
 <h3 class="tsd-anchor-link" id="signal"><code class="tsd-tag">Optional</code><span>signal</span><a href="#signal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">signal</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">AbortSignal</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in ../node_modules/@types/node/stream/web.d.ts:52</li></ul></aside></section></section></details></div>
+<li>Defined in ../node_modules/@types/node/stream/web.d.ts:97</li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
