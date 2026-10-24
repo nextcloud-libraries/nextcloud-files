@@ -83,7 +83,7 @@
     "typedoc": "^0.28.20",
     "typedoc-plugin-missing-exports": "^4.1.4",
     "typescript": "^6.0.3",
-    "vite": "^7.3.7",
+    "vite": "^8.3.4",
     "vitest": "^5.0.5"
   },
   "engines": {
